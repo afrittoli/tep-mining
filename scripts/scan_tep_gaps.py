@@ -39,7 +39,7 @@ import os
 import re
 import sys
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import requests
@@ -56,11 +56,11 @@ GITHUB_API = "https://api.github.com"
 RE_TEP_IN_TITLE = re.compile(r"TEP[:\s-]*0*(\d+)\b", re.IGNORECASE)
 
 # Gap record: fate values
-FATE_NEVER_ASSIGNED = "never_assigned"     # no PR found at all
+FATE_NEVER_ASSIGNED = "never_assigned"  # no PR found at all
 FATE_CLOSED_NO_MERGE = "closed_no_merge"  # PR(s) closed without merging
-FATE_OPEN_PR = "open_pr"                  # open PR(s) exist
-FATE_CONFLICT = "conflict"                # multiple open PRs claiming same number
-FATE_RENUMBERED = "renumbered"            # canonical number changed (--rename)
+FATE_OPEN_PR = "open_pr"  # open PR(s) exist
+FATE_CONFLICT = "conflict"  # multiple open PRs claiming same number
+FATE_RENUMBERED = "renumbered"  # canonical number changed (--rename)
 
 # Stub record status for open-PR TEPs
 STATUS_PROPOSED = "proposed"
@@ -69,6 +69,7 @@ STATUS_PROPOSED = "proposed"
 # ---------------------------------------------------------------------------
 # GitHub helpers
 # ---------------------------------------------------------------------------
+
 
 def _session(token: str | None) -> requests.Session:
     s = requests.Session()
@@ -83,7 +84,7 @@ def _check_rate(resp: requests.Response, threshold: int = 5) -> None:
     remaining = int(resp.headers.get("X-RateLimit-Remaining", 999))
     if remaining <= threshold:
         reset_ts = int(resp.headers.get("X-RateLimit-Reset", 0))
-        wait = max(0, reset_ts - int(datetime.now(timezone.utc).timestamp())) + 2
+        wait = max(0, reset_ts - int(datetime.now(UTC).timestamp())) + 2
         print(f"  [rate-limit] remaining={remaining}, sleeping {wait}s …", flush=True)
         time.sleep(wait)
 
@@ -92,11 +93,11 @@ def search_prs_for_tep(session: requests.Session, tep_number: int) -> list[dict]
     """Search for PRs in tektoncd/community whose title contains TEP-NNNN."""
     # Use the search API; it supports both open and closed in one call
     query = f'repo:{COMMUNITY_REPO} type:pr "TEP-{tep_number:04d}" in:title'
-    url = f"{GITHUB_API}/search/issues"
-    params = {"q": query, "per_page": 20}
+    url: str | None = f"{GITHUB_API}/search/issues"
+    params: dict[str, str | int] = {"q": query, "per_page": 20}
     results = []
     while url:
-        resp = session.get(url, params=params)
+        resp = session.get(url, params=params)  # type: ignore[arg-type]
         _check_rate(resp)
         if resp.status_code == 422:
             # Search API validation error (e.g. empty query); skip
@@ -107,26 +108,28 @@ def search_prs_for_tep(session: requests.Session, tep_number: int) -> list[dict]
             # Double-check the title actually mentions this number
             m = RE_TEP_IN_TITLE.search(item["title"])
             if m and int(m.group(1)) == tep_number:
-                results.append({
-                    "pr_number": item["number"],
-                    "title": item["title"],
-                    "state": item["state"],
-                    "merged": item.get("pull_request", {}).get("merged_at") is not None,
-                    "merged_at": item.get("pull_request", {}).get("merged_at"),
-                    "closed_at": item.get("closed_at"),
-                    "created_at": item.get("created_at"),
-                    "html_url": item["html_url"],
-                    "user": item.get("user", {}).get("login"),
-                    "body_snippet": (item.get("body") or "")[:400],
-                })
+                results.append(
+                    {
+                        "pr_number": item["number"],
+                        "title": item["title"],
+                        "state": item["state"],
+                        "merged": item.get("pull_request", {}).get("merged_at") is not None,
+                        "merged_at": item.get("pull_request", {}).get("merged_at"),
+                        "closed_at": item.get("closed_at"),
+                        "created_at": item.get("created_at"),
+                        "html_url": item["html_url"],
+                        "user": item.get("user", {}).get("login"),
+                        "body_snippet": (item.get("body") or "")[:400],
+                    }
+                )
         # Pagination
         link = resp.headers.get("Link", "")
-        next_url = None
+        next_url: str | None = None
         for part in link.split(","):
             if 'rel="next"' in part:
                 next_url = part.split(";")[0].strip().strip("<>")
         url = next_url
-        params = {}
+        params = {}  # type: ignore[assignment]
         if next_url:
             time.sleep(0.5)  # search rate limit: 30 req/min
     return results
@@ -135,6 +138,7 @@ def search_prs_for_tep(session: requests.Session, tep_number: int) -> list[dict]
 # ---------------------------------------------------------------------------
 # Gap record builder
 # ---------------------------------------------------------------------------
+
 
 def _fate(prs: list[dict]) -> str:
     if not prs:
@@ -147,21 +151,21 @@ def _fate(prs: list[dict]) -> str:
     return FATE_CLOSED_NO_MERGE
 
 
-def build_gap_record(tep_number: int, prs: list[dict],
-                     renamed_from: int | None = None) -> dict:
+def build_gap_record(tep_number: int, prs: list[dict], renamed_from: int | None = None) -> dict:
     fate = FATE_RENUMBERED if renamed_from else _fate(prs)
     return {
         "tep_number": tep_number,
         "fate": fate,
         "renamed_from": renamed_from,
         "prs": prs,
-        "scanned_at": datetime.now(timezone.utc).isoformat(),
+        "scanned_at": datetime.now(UTC).isoformat(),
     }
 
 
 # ---------------------------------------------------------------------------
 # Stub teps.jsonl record for open-PR TEPs
 # ---------------------------------------------------------------------------
+
 
 def _extract_authors_from_body(body: str) -> list[str]:
     """Best-effort: look for @handle mentions in the first 500 chars."""
@@ -175,14 +179,17 @@ def build_stub_tep_record(tep_number: int, prs: list[dict]) -> dict | None:
         return None
     # Use the most-recently-created open PR as canonical
     pr = sorted(open_prs, key=lambda p: p.get("created_at") or "", reverse=True)[0]
-    # Extract a clean title: strip "TEP-NNNN: " prefix
-    title = re.sub(
-        rf"^(?:tep[:\s-]*)?0*{tep_number}[:\s-]*", "", pr["title"], flags=re.IGNORECASE
-    ).strip(": ").strip()
+    # Extract a clean title: strip any leading "TEP-NNNN: " prefix
+    # (the PR title may carry the old number when --rename was used)
+    title = (
+        re.sub(r"^(?:tep[:\s-]*)?0*\d+[:\s-]+", "", pr["title"], flags=re.IGNORECASE)
+        .strip(": ")
+        .strip()
+    )
     authors = _extract_authors_from_body(pr["body_snippet"])
     return {
         "tep_number": tep_number,
-        "source_file": None,           # no .md file yet
+        "source_file": None,  # no .md file yet
         "title": title or pr["title"],
         "status": STATUS_PROPOSED,
         "authors": authors,
@@ -205,6 +212,7 @@ def build_stub_tep_record(tep_number: int, prs: list[dict]) -> dict | None:
 # ---------------------------------------------------------------------------
 # JSONL helpers
 # ---------------------------------------------------------------------------
+
 
 def _load_jsonl(path: Path) -> dict[int, dict]:
     existing: dict[int, dict] = {}
@@ -234,29 +242,38 @@ def _append_jsonl(path: Path, records: list[dict]) -> None:
 # Main
 # ---------------------------------------------------------------------------
 
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description="Scan GitHub for missing TEP numbers and emit gap records"
     )
     parser.add_argument(
-        "--teps-jsonl", default="raw/teps.jsonl",
+        "--teps-jsonl",
+        default="raw/teps.jsonl",
         help="Path to the existing teps.jsonl (default: raw/teps.jsonl)",
     )
     parser.add_argument(
-        "--gaps-out", default="raw/tep_gaps.jsonl",
+        "--gaps-out",
+        default="raw/tep_gaps.jsonl",
         help="Output path for gap records (default: raw/tep_gaps.jsonl)",
     )
     parser.add_argument(
-        "--max-tep", type=int, default=None,
+        "--max-tep",
+        type=int,
+        default=None,
         help="Highest TEP number to consider (default: max in teps.jsonl)",
     )
     parser.add_argument(
-        "--rename", action="append", metavar="OLD:NEW", default=[],
+        "--rename",
+        action="append",
+        metavar="OLD:NEW",
+        default=[],
         help="Apply a renumber override OLD->NEW before processing, e.g. --rename 190:171. "
-             "Adds a renumbered gap record for OLD and treats NEW as the canonical number.",
+        "Adds a renumbered gap record for OLD and treats NEW as the canonical number.",
     )
     parser.add_argument(
-        "--token", default=os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN"),
+        "--token",
+        default=os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN"),
         help="GitHub personal access token (default: $GITHUB_TOKEN or $GH_TOKEN)",
     )
     args = parser.parse_args(argv)
@@ -357,8 +374,11 @@ def main(argv: list[str] | None = None) -> int:
             print(f"  TEP-{new_num:04d} (renamed from {old_num:04d}) — gap record already present")
             continue
 
-        print(f"  TEP-{new_num:04d} (renamed from TEP-{old_num:04d}) — searching GitHub …",
-              end=" ", flush=True)
+        print(
+            f"  TEP-{new_num:04d} (renamed from TEP-{old_num:04d}) — searching GitHub …",
+            end=" ",
+            flush=True,
+        )
         # Search under BOTH the old and new number since the PR title likely still has the old one
         prs_new = search_prs_for_tep(session, new_num)
         time.sleep(2.2)
