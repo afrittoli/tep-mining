@@ -23,28 +23,33 @@ import argparse
 import json
 import sys
 from collections import Counter
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 # ---------------------------------------------------------------------------
 # Fate constants (must match scan_tep_gaps.py)
 # ---------------------------------------------------------------------------
 
-FATE_NEVER_ASSIGNED  = "never_assigned"
+FATE_NEVER_ASSIGNED = "never_assigned"
 FATE_CLOSED_NO_MERGE = "closed_no_merge"
-FATE_OPEN_PR         = "open_pr"
-FATE_CONFLICT        = "conflict"
-FATE_RENUMBERED      = "renumbered"
+FATE_OPEN_PR = "open_pr"
+FATE_CONFLICT = "conflict"
+FATE_RENUMBERED = "renumbered"
 
-FATE_ORDER = [FATE_CONFLICT, FATE_OPEN_PR, FATE_CLOSED_NO_MERGE,
-              FATE_NEVER_ASSIGNED, FATE_RENUMBERED]
+FATE_ORDER = [
+    FATE_CONFLICT,
+    FATE_OPEN_PR,
+    FATE_CLOSED_NO_MERGE,
+    FATE_NEVER_ASSIGNED,
+    FATE_RENUMBERED,
+]
 
 FATE_BADGE = {
-    FATE_NEVER_ASSIGNED:  ("never assigned",   "badge-skipped"),
+    FATE_NEVER_ASSIGNED: ("never assigned", "badge-skipped"),
     FATE_CLOSED_NO_MERGE: ("closed, no merge", "badge-closed"),
-    FATE_OPEN_PR:         ("open PR",          "badge-open"),
-    FATE_CONFLICT:        ("conflict",         "badge-conflict"),
-    FATE_RENUMBERED:      ("renumbered",       "badge-renamed"),
+    FATE_OPEN_PR: ("open PR", "badge-open"),
+    FATE_CONFLICT: ("conflict", "badge-conflict"),
+    FATE_RENUMBERED: ("renumbered", "badge-renamed"),
 }
 
 
@@ -52,16 +57,18 @@ FATE_BADGE = {
 # Data loading
 # ---------------------------------------------------------------------------
 
+
 def _load_jsonl(path: Path) -> list[dict]:
     if not path.exists():
         return []
     with path.open(encoding="utf-8") as fh:
-        return [json.loads(l) for l in fh if l.strip()]
+        return [json.loads(line) for line in fh if line.strip()]
 
 
 # ---------------------------------------------------------------------------
 # HTML helpers
 # ---------------------------------------------------------------------------
+
 
 def _badge(fate: str) -> str:
     label, css = FATE_BADGE.get(fate, (fate, "badge-skipped"))
@@ -86,11 +93,11 @@ def _section(gaps: list[dict], fate: str) -> str:
         return ""
 
     titles = {
-        FATE_CONFLICT:        "Number Conflicts — two open PRs claim the same number",
-        FATE_OPEN_PR:         "Open PRs — proposed but not yet merged",
+        FATE_CONFLICT: "Number Conflicts — two open PRs claim the same number",
+        FATE_OPEN_PR: "Open PRs — proposed but not yet merged",
         FATE_CLOSED_NO_MERGE: "Closed without merging — abandoned or superseded",
-        FATE_NEVER_ASSIGNED:  "Never assigned — no PR found",
-        FATE_RENUMBERED:      "Renumbered — old number retired, see new canonical number",
+        FATE_NEVER_ASSIGNED: "Never assigned — no PR found",
+        FATE_RENUMBERED: "Renumbered — old number retired, see new canonical number",
     }
     section_title = titles.get(fate, fate)
 
@@ -119,9 +126,9 @@ def _section(gaps: list[dict], fate: str) -> str:
 
         rows.append(
             f"<tr>"
-            f'<td>TEP-{n:04d}</td>'
-            f'<td>{_badge(fate)}</td>'
-            f'<td>{_pr_links(prs)}{suffix}{extra}</td>'
+            f"<td>TEP-{n:04d}</td>"
+            f"<td>{_badge(fate)}</td>"
+            f"<td>{_pr_links(prs)}{suffix}{extra}</td>"
             f"</tr>"
         )
 
@@ -129,7 +136,7 @@ def _section(gaps: list[dict], fate: str) -> str:
   <h2>{section_title}</h2>
   <table>
     <thead><tr><th>TEP #</th><th>Status</th><th>PR(s) / Notes</th></tr></thead>
-    <tbody>{''.join(rows)}</tbody>
+    <tbody>{"".join(rows)}</tbody>
   </table>
 """
 
@@ -203,10 +210,10 @@ CSS = """
 def build_report(gaps: list[dict], teps: list[dict]) -> str:
     total_range = max((g["tep_number"] for g in gaps), default=0)
     filled = sum(1 for t in teps if not t.get("stub"))
-    stubs  = sum(1 for t in teps if t.get("stub"))
+    stubs = sum(1 for t in teps if t.get("stub"))
     fate_counts = Counter(g["fate"] for g in gaps)
 
-    generated = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    generated = datetime.now(UTC).strftime("%Y-%m-%d %H:%M UTC")
 
     summary_cards = f"""
   <div class="summary-grid">
@@ -252,13 +259,12 @@ def build_report(gaps: list[dict], teps: list[dict]) -> str:
 # CLI
 # ---------------------------------------------------------------------------
 
+
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(
-        description="Generate HTML gap report from raw/tep_gaps.jsonl"
-    )
+    parser = argparse.ArgumentParser(description="Generate HTML gap report from raw/tep_gaps.jsonl")
     parser.add_argument("--gaps", default="raw/tep_gaps.jsonl")
     parser.add_argument("--teps", default="raw/teps.jsonl")
-    parser.add_argument("--out",  default="reports/gap_report.html")
+    parser.add_argument("--out", default="reports/gap_report.html")
     args = parser.parse_args(argv)
 
     gaps = _load_jsonl(Path(args.gaps))

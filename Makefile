@@ -1,4 +1,4 @@
-.PHONY: help parse scan-gaps gap-report map-prs fetch-tep-prs fetch-impl-prs search synthesize query
+.PHONY: help lint type-check test check parse scan-gaps gap-report map-prs fetch-tep-prs fetch-impl-prs search synthesize query
 
 # Load .env if it exists
 -include .env
@@ -7,6 +7,19 @@ export
 help: ## Show this help message
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
 		awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
+
+lint: ## Lint Python with ruff and Markdown with markdownlint
+	uv run ruff check scripts/ tests/
+	uv run ruff format --check scripts/ tests/
+	npx --yes markdownlint-cli "**/*.md" --ignore node_modules --ignore .venv
+
+type-check: ## Run mypy type checks over scripts/
+	uv run mypy scripts/
+
+test: ## Run pytest unit tests
+	uv run pytest --tb=short -q
+
+check: lint type-check test ## Run all static checks and tests
 
 parse: ## Sub-Task 2: Parse TEP .md files → raw/teps.jsonl
 	uv run scripts/parse_teps.py \

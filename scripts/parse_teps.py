@@ -44,14 +44,10 @@ EXCLUDED = {"README.md", "README.md.mustache", "OWNERS"}
 RE_TEP_FILENAME = re.compile(r"^(\d{4})-.*\.md$")
 
 # Regex: GitHub PR full URL (tektoncd org only, pull requests only)
-RE_PR_URL = re.compile(
-    r"https://github\.com/tektoncd/([^/\s)\"']+)/pull/(\d+)"
-)
+RE_PR_URL = re.compile(r"https://github\.com/tektoncd/([^/\s)\"']+)/pull/(\d+)")
 
 # Regex: markdown link with a PR URL  e.g. [some text](https://github.com/...)
-RE_MD_LINK = re.compile(
-    r"\[([^\]]*)\]\(https://github\.com/tektoncd/[^/\s)\"']+/pull/\d+\)"
-)
+RE_MD_LINK = re.compile(r"\[([^\]]*)\]\(https://github\.com/tektoncd/[^/\s)\"']+/pull/\d+\)")
 
 # Regex: shorthand  e.g. tektoncd/pipeline#123
 RE_SHORTHAND = re.compile(r"tektoncd/([a-z0-9_-]+)#(\d+)")
@@ -74,6 +70,7 @@ def _normalise_status(raw: str) -> str:
 # YAML frontmatter parsing
 # ---------------------------------------------------------------------------
 
+
 def _split_frontmatter(text: str) -> tuple[str, str]:
     """Split a markdown file into (frontmatter_yaml, body).
 
@@ -86,7 +83,7 @@ def _split_frontmatter(text: str) -> tuple[str, str]:
     for i, line in enumerate(lines[1:], start=1):
         if line.strip() == YAML_SEP:
             fm = "".join(lines[1:i])
-            body = "".join(lines[i + 1:])
+            body = "".join(lines[i + 1 :])
             return fm, body
     return "", text
 
@@ -131,6 +128,7 @@ def _date_str(value) -> str:
 # Link extraction helpers
 # ---------------------------------------------------------------------------
 
+
 def _classify_link(raw_url: str, surrounding_text: str) -> str:
     """Classify a PR link as full-url, markdown-link, or shorthand.
 
@@ -138,9 +136,7 @@ def _classify_link(raw_url: str, surrounding_text: str) -> str:
     can detect whether it was embedded in a markdown link syntax.
     """
     # Check if this URL appears inside markdown link syntax [text](URL)
-    if re.search(
-        r"\[[^\]]*\]\(" + re.escape(raw_url) + r"\)", surrounding_text
-    ):
+    if re.search(r"\[[^\]]*\]\(" + re.escape(raw_url) + r"\)", surrounding_text):
         return "markdown-link"
     return "full-url"
 
@@ -169,14 +165,16 @@ def _extract_pr_links(body: str) -> list[dict]:
         # Determine format: find the line containing this URL
         start = body.rfind("\n", 0, match.start()) + 1
         end = body.find("\n", match.end())
-        line = body[start:end if end != -1 else len(body)]
+        line = body[start : end if end != -1 else len(body)]
         fmt = _classify_link(url, line)
-        results.append({
-            "url": url,
-            "repo": repo,
-            "pr_number": pr_number,
-            "format": fmt,
-        })
+        results.append(
+            {
+                "url": url,
+                "repo": repo,
+                "pr_number": pr_number,
+                "format": fmt,
+            }
+        )
 
     return results
 
@@ -184,6 +182,7 @@ def _extract_pr_links(body: str) -> list[dict]:
 # ---------------------------------------------------------------------------
 # Section / word-count helpers
 # ---------------------------------------------------------------------------
+
 
 def _extract_sections(body: str) -> tuple[list[str], dict[str, int]]:
     """Return (sections_present, word_count_per_section).
@@ -198,9 +197,7 @@ def _extract_sections(body: str) -> tuple[list[str], dict[str, int]]:
         text = m.group(2).strip()
         headings.append((level, text, m.end()))
 
-    sections_present: list[str] = [
-        ("#" * level) + " " + text for level, text, _ in headings
-    ]
+    sections_present: list[str] = [("#" * level) + " " + text for level, text, _ in headings]
 
     word_count: dict[str, int] = {}
     for i, (level, text, start) in enumerate(headings):
@@ -222,6 +219,7 @@ def _extract_sections(body: str) -> tuple[list[str], dict[str, int]]:
 # Age calculation
 # ---------------------------------------------------------------------------
 
+
 def _age_days(creation: str, last_updated: str) -> int | None:
     """Return (last_updated - creation) in days, or None if either is absent."""
     try:
@@ -235,6 +233,7 @@ def _age_days(creation: str, last_updated: str) -> int | None:
 # ---------------------------------------------------------------------------
 # Single-file parser
 # ---------------------------------------------------------------------------
+
 
 def parse_tep_file(md_path: Path, teps_dir: Path) -> dict | None:
     """Parse a single TEP .md file and return its record dict, or None on error."""
@@ -283,6 +282,7 @@ def parse_tep_file(md_path: Path, teps_dir: Path) -> dict | None:
 # JSONL helpers
 # ---------------------------------------------------------------------------
 
+
 def _load_existing(output_path: Path) -> dict[int, dict]:
     """Load existing JSONL records keyed by tep_number."""
     existing: dict[int, dict] = {}
@@ -305,10 +305,9 @@ def _load_existing(output_path: Path) -> dict[int, dict]:
 # Main
 # ---------------------------------------------------------------------------
 
+
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(
-        description="Parse TEP .md files and emit raw/teps.jsonl"
-    )
+    parser = argparse.ArgumentParser(description="Parse TEP .md files and emit raw/teps.jsonl")
     parser.add_argument(
         "--teps-dir",
         default=os.environ.get("COMMUNITY_REPO_PATH", "") + "/teps",
@@ -368,17 +367,17 @@ def main(argv: list[str] | None = None) -> int:
     with_links = sum(1 for r in all_records if r["impl_pr_links"])
     without_links = total - with_links
 
-    print(f"\n=== TEP Parse Summary ===")
+    print("\n=== TEP Parse Summary ===")
     print(f"Output file  : {output_path}")
     print(f"Pre-existing : {initial_count}")
     print(f"Newly added  : {len(new_records)}")
     print(f"Total records: {total}")
     if errors:
         print(f"Parse errors : {len(errors)} ({', '.join(errors)})")
-    print(f"\nStatus breakdown:")
+    print("\nStatus breakdown:")
     for status, count in sorted(status_counts.items(), key=lambda x: -x[1]):
         print(f"  {status:<20} {count}")
-    print(f"\nImpl PR links:")
+    print("\nImpl PR links:")
     print(f"  With links   : {with_links}")
     print(f"  Without links: {without_links}")
 
