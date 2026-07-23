@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>TEP Number Gap Report</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+    font-size: 14px; line-height: 1.6;
+    background: #ffffff; color: #1f2328;
+    padding: 32px 16px;
+  }
+  .container { max-width: 760px; margin: 0 auto; }
+  h1 { font-size: 20px; font-weight: 600; margin-bottom: 4px; }
+  .subtitle { color: #57606a; font-size: 13px; margin-bottom: 28px; }
+  .summary-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 12px; margin-bottom: 28px;
+  }
+  .card {
+    background: #f7f8fa; border: 1px solid #e5e7eb;
+    border-radius: 6px; padding: 14px 16px;
+  }
+  .card .num { font-size: 28px; font-weight: 700; color: #1f2328; }
+  .card .label { font-size: 12px; color: #57606a; margin-top: 2px; }
+  h2 {
+    font-size: 15px; font-weight: 600;
+    margin: 24px 0 10px;
+    border-bottom: 1px solid #e5e7eb; padding-bottom: 6px;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead th {
+    background: #f7f8fa; text-align: left;
+    padding: 7px 10px; font-weight: 600;
+    border-bottom: 2px solid #e5e7eb;
+    color: #57606a; font-size: 12px;
+    text-transform: uppercase; letter-spacing: .03em;
+  }
+  tbody tr:nth-child(even) { background: #f7f8fa; }
+  tbody td { padding: 6px 10px; border-bottom: 1px solid #e5e7eb; vertical-align: top; }
+  .badge {
+    display: inline-block; font-size: 11px;
+    padding: 1px 7px; border-radius: 10px;
+    font-weight: 500; white-space: nowrap;
+  }
+  .badge-closed   { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
+  .badge-open     { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+  .badge-skipped  { background: #f7f8fa; color: #57606a; border: 1px solid #e5e7eb; }
+  .badge-conflict { background: #fff7ed; color: #c2410c; border: 1px solid #fed7aa; }
+  .badge-renamed  { background: #f5f3ff; color: #6d28d9; border: 1px solid #ddd6fe; }
+  a { color: #3b82d4; text-decoration: none; }
+  .note { font-size: 12px; color: #57606a; }
+  .range-block {
+    background: #f7f8fa; border: 1px solid #e5e7eb;
+    border-radius: 6px; padding: 10px 14px;
+    font-size: 13px; color: #57606a; margin-bottom: 8px;
+  }
+  .range-block span { font-weight: 600; color: #1f2328; }
+  footer {
+    margin-top: 40px; padding-top: 12px;
+    border-top: 1px solid #e5e7eb;
+    text-align: center; font-size: 12px; color: #57606a;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>TEP Number Gap Report</h1>
+  <p class="subtitle">Generated 2026-07-23 14:46 UTC &mdash; source: <code>raw/tep_gaps.jsonl</code></p>
+  
+  <div class="summary-grid">
+    <div class="card"><div class="num">147</div><div class="label">Merged TEP files</div></div>
+    <div class="card"><div class="num">10</div><div class="label">Open PRs (stubs)</div></div>
+    <div class="card"><div class="num">27</div><div class="label">Gap records</div></div>
+    <div class="card"><div class="num">173</div><div class="label">Highest TEP number</div></div>
+  </div>
+  <div class="range-block">
+    <span>147</span> merged files &nbsp;+&nbsp;
+    <span>15</span> closed-no-merge &nbsp;+&nbsp;
+    <span>2</span> never assigned &nbsp;+&nbsp;
+    <span>7</span> open PRs
+    &nbsp;+&nbsp;
+    <span>3</span> renumbered
+    &nbsp;=&nbsp; <span>173</span> total range
+  </div>
+
+  
+  <h2>Number Conflicts — two open PRs claim the same number</h2>
+  <table>
+    <thead><tr><th>TEP #</th><th>Status</th><th>PR(s) / Notes</th></tr></thead>
+    <tbody><tr><td>TEP-0157</td><td><span class="badge badge-conflict">conflict</span></td><td><a href="https://github.com/tektoncd/community/pull/1281">#1281 [open]</a> &nbsp; <a href="https://github.com/tektoncd/community/pull/1158">#1158 [open]</a><br><span class="note">One PR must be renumbered before merge</span></td></tr><tr><td>TEP-0165</td><td><span class="badge badge-conflict">conflict</span></td><td><a href="https://github.com/tektoncd/community/pull/1278">#1278 [open]</a> &nbsp; <a href="https://github.com/tektoncd/community/pull/1251">#1251 [open]</a><br><span class="note">One PR must be renumbered before merge</span></td></tr></tbody>
+  </table>
+
+
+  <h2>Open PRs — proposed but not yet merged</h2>
+  <table>
+    <thead><tr><th>TEP #</th><th>Status</th><th>PR(s) / Notes</th></tr></thead>
+    <tbody><tr><td>TEP-0159</td><td><span class="badge badge-open">open PR</span></td><td><a href="https://github.com/tektoncd/community/pull/1164">#1164 [open]</a></td></tr><tr><td>TEP-0166</td><td><span class="badge badge-open">open PR</span></td><td><a href="https://github.com/tektoncd/community/pull/1262">#1262 [open]</a></td></tr><tr><td>TEP-0167</td><td><span class="badge badge-open">open PR</span></td><td><a href="https://github.com/tektoncd/community/pull/1266">#1266 [open]</a></td></tr><tr><td>TEP-0168</td><td><span class="badge badge-open">open PR</span></td><td><a href="https://github.com/tektoncd/community/pull/1283">#1283 [open]</a></td></tr><tr><td>TEP-0170</td><td><span class="badge badge-open">open PR</span></td><td><a href="https://github.com/tektoncd/community/pull/1263">#1263 [open]</a></td></tr></tbody>
+  </table>
+
+
+  <h2>Closed without merging — abandoned or superseded</h2>
+  <table>
+    <thead><tr><th>TEP #</th><th>Status</th><th>PR(s) / Notes</th></tr></thead>
+    <tbody><tr><td>TEP-0013</td><td><span class="badge badge-closed">closed, no merge</span></td><td><a href="https://github.com/tektoncd/community/pull/228">#228 [closed, 2021-03-01]</a><br><span class="note">TEP-0013 for adding a limit to pipeline concurrency</span></td></tr><tr><td>TEP-0017</td><td><span class="badge badge-closed">closed, no merge</span></td><td><a href="https://github.com/tektoncd/community/pull/208">#208 [closed, 2020-11-02]</a><br><span class="note">TEP-0017 Propose creating shell-escaped parameters</span></td></tr><tr><td>TEP-0018</td><td><span class="badge badge-closed">closed, no merge</span></td><td><a href="https://github.com/tektoncd/community/pull/210">#210 [closed, 2020-10-26]</a><br><span class="note">TEP-0018 Allow a Run to Specify a Default Bundle</span></td></tr><tr><td>TEP-0043</td><td><span class="badge badge-closed">closed, no merge</span></td><td><a href="https://github.com/tektoncd/community/pull/314">#314 [closed, 2021-10-14]</a><br><span class="note">TEP-0043: Common Expression Language Custom Task (CELRun)</span></td></tr><tr><td>TEP-0054</td><td><span class="badge badge-closed">closed, no merge</span></td><td><a href="https://github.com/tektoncd/community/pull/369">#369 [closed, 2021-05-03]</a><br><span class="note">TEP-0054 Add a step reuse proposal</span></td></tr><tr><td>TEP-0055</td><td><span class="badge badge-closed">closed, no merge</span></td><td><a href="https://github.com/tektoncd/community/pull/301">#301 [closed, 2021-08-02]</a><br><span class="note">TEP-0055: Migrate podLatency to taskPrelaunchLatency</span></td></tr><tr><td>TEP-0064</td><td><span class="badge badge-closed">closed, no merge</span></td><td><a href="https://github.com/tektoncd/community/pull/421">#421 [closed, 2021-06-21]</a><br><span class="note">TEP-0064 Tekton CLI workspace from local source</span></td></tr><tr><td>TEP-0065</td><td><span class="badge badge-closed">closed, no merge</span></td><td><a href="https://github.com/tektoncd/community/pull/422">#422 [closed, 2021-12-09]</a><br><span class="note">TEP-0065: Retry failed tasks on demand in a pipeline</span></td></tr><tr><td>TEP-0068</td><td><span class="badge badge-closed">closed, no merge</span></td><td><a href="https://github.com/tektoncd/community/pull/429">#429 [closed, 2022-02-03]</a><br><span class="note">TEP-0068 Runtime Task Bundle Selection</span></td></tr><tr><td>TEP-0077</td><td><span class="badge badge-closed">closed, no merge</span></td><td><a href="https://github.com/tektoncd/community/pull/484">#484 [closed, 2022-01-27]</a><br><span class="note">TEP-0077: Partial pipeline execute.</span></td></tr><tr><td>TEP-0078</td><td><span class="badge badge-closed">closed, no merge</span></td><td><a href="https://github.com/tektoncd/community/pull/494">#494 [closed, 2021-12-20]</a><br><span class="note">TEP-0078: Tekton Catalog Support Tiers - User Interface</span></td></tr><tr><td>TEP-0087</td><td><span class="badge badge-closed">closed, no merge</span></td><td><a href="https://github.com/tektoncd/community/pull/523">#523 [closed, 2022-05-02]</a><br><span class="note">TEP-0087: Custom Tasks Graduation</span></td></tr><tr><td>TEP-0099</td><td><span class="badge badge-closed">closed, no merge</span></td><td><a href="https://github.com/tektoncd/community/pull/596">#596 [closed, 2022-05-02]</a><br><span class="note">TEP-0099: `Parameters` in `Script`</span></td></tr><tr><td>TEP-0113</td><td><span class="badge badge-closed">closed, no merge</span></td><td><a href="https://github.com/tektoncd/community/pull/753">#753 [closed, 2022-10-03]</a><br><span class="note">TEP-0113: Produce Results from Matrixed PipelineTasks</span></td></tr><tr><td>TEP-0126</td><td><span class="badge badge-closed">closed, no merge</span></td><td><a href="https://github.com/tektoncd/community/pull/877">#877 [closed, 2023-08-03]</a><br><span class="note">TEP-0126: Allow Task sidecars to be specified in PipelineRun</span></td></tr></tbody>
+  </table>
+
+
+  <h2>Never assigned — no PR found</h2>
+  <table>
+    <thead><tr><th>TEP #</th><th>Status</th><th>PR(s) / Notes</th></tr></thead>
+    <tbody><tr><td>TEP-0034</td><td><span class="badge badge-skipped">never assigned</span></td><td>—</td></tr><tr><td>TEP-0169</td><td><span class="badge badge-skipped">never assigned</span></td><td>—</td></tr></tbody>
+  </table>
+
+
+  <h2>Renumbered — old number retired, see new canonical number</h2>
+  <table>
+    <thead><tr><th>TEP #</th><th>Status</th><th>PR(s) / Notes</th></tr></thead>
+    <tbody><tr><td>TEP-0171</td><td><span class="badge badge-renamed">renumbered</span></td><td><a href="https://github.com/tektoncd/community/pull/1254">#1254 [open]</a><br><span class="note">renumbered from TEP-0190</span></td></tr><tr><td>TEP-0172</td><td><span class="badge badge-renamed">renumbered</span></td><td><a href="https://github.com/tektoncd/community/pull/1287">#1287 [open]</a><br><span class="note">renumbered from TEP-0191</span></td></tr><tr><td>TEP-0173</td><td><span class="badge badge-renamed">renumbered</span></td><td><a href="https://github.com/tektoncd/community/pull/1288">#1288 [open]</a><br><span class="note">renumbered from TEP-0192</span></td></tr></tbody>
+  </table>
+
+  <footer>Made with IBM Bob</footer>
+</div>
+</body>
+</html>
