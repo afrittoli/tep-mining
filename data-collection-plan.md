@@ -1,9 +1,9 @@
-# TEP-0192 Phase 0a: Corpus Mining — Data Collection Plan
+# TEP-0173 Phase 0a: Corpus Mining — Data Collection Plan
 
 ## Overview
 
 This plan covers the data collection, storage, and synthesis work for **Phase 0a (Corpus Mining)**
-of [TEP-0192](0192-enhancement-proposal-authoring-skills.md). The goal is to derive TEP conventions
+of [TEP-0173](0173-enhancement-proposal-authoring-skills.md). The goal is to derive TEP conventions
 empirically from the `tektoncd/community/teps/` corpus and its associated GitHub PR history, then
 present a synthesized candidate set to TEP process maintainers for a keep/drop/modify interview
 (Phase 0b: Convention Freeze).
@@ -194,7 +194,7 @@ against.
   "Implementation PRs", "Implementation Plan" — the regex must be section-agnostic and scan
   the full document body
 - Withdrawn/deferred TEPs (6 total) should be included but tagged; they form the contrast set
-  mentioned in TEP-0192 Phase 0a
+  mentioned in TEP-0173 Phase 0a
 
 **Status**: [ ] pending
 
@@ -264,7 +264,7 @@ it reveals which sections drew repeated iteration and what reviewers rejected.
 4. Run the full mapped PR set and commit the resulting JSONL and report artifacts
 
 **Relevant Context**:
-- `GITHUB_TOKEN` / `GH_TOKEN` precedence already established in TEP-0192 Phase 0c for `teps.py`
+- `GITHUB_TOKEN` / `GH_TOKEN` precedence already established in TEP-0173 Phase 0c for `teps.py`
 - Unauthenticated rate limit: 60 req/hr; authenticated: 5000 req/hr — always use a token
 - Review comments API returns inline comments; PR review API returns top-level review summaries
   with approve/request-changes decisions — fetch both
@@ -313,7 +313,7 @@ syntax, PR count and size per TEP, feature-flag usage.
 
 **Intent**: Augment `raw/impl_prs.jsonl` by discovering implementation PRs that reference a
 TEP but were *not* linked in the TEP file itself and therefore not fetched by Sub-Task 5.
-This quantifies the under-linking problem documented in TEP-0192 and surfaces PRs that the
+This quantifies the under-linking problem documented in TEP-0173 and surfaces PRs that the
 offline-link extraction misses. Sub-Task 5 must complete first; this sub-task extends its
 output, it does not replace it.
 
@@ -340,7 +340,7 @@ output, it does not replace it.
 3. Run for the Pass 1 sample; record coverage stats in `processed/YYYY-MM-DD/coverage.json`
 
 **Relevant Context**:
-- TEP-0192 Phase 0a explicitly notes: "Linking discipline is known to be inconsistent, so
+- TEP-0173 Phase 0a explicitly notes: "Linking discipline is known to be inconsistent, so
   recall will be partial; record coverage stats rather than assuming completeness"
 - The search API returns at most 1000 results per query; for strings like "TEP-0075" this is
   unlikely to be an issue, but page through results if `total_count > 30`
@@ -426,7 +426,7 @@ step. The AI groups; the human decides.
    at the root holds the version taken forward to the interview
 
 **Relevant Context**:
-- TEP-0192 Phase 0a step 4: "produce candidate conventions with observed-frequency evidence,
+- TEP-0173 Phase 0a step 4: "produce candidate conventions with observed-frequency evidence,
   and a list of divergences between documented process and observed practice"
 - The AI grouping step is deliberately separated from the human interview so that the
   interviewer sees evidence-backed proposals, not raw data
@@ -459,10 +459,10 @@ the input to Phase 0b (Convention Freeze).
    handoff to Phase 0b
 
 **Relevant Context**:
-- TEP-0192 Phase 0a step 5: "present the synthesis as keep/drop/modify questions to the TEP
+- TEP-0173 Phase 0a step 5: "present the synthesis as keep/drop/modify questions to the TEP
   process maintainers so skills encode deliberate choices, not corpus averages. Values freeze
   into the skills only after this step."
-- TEP-0192 Drawbacks: "Corpus-mining conventions from historical TEPs risks calcifying past
+- TEP-0173 Drawbacks: "Corpus-mining conventions from historical TEPs risks calcifying past
   practice into the skills … unless the interview step is actually used to make deliberate
   choices rather than rubber-stamping mined averages."
 - This sub-task's completion is the gate for Phase 0b (Convention Freeze) to begin
@@ -511,15 +511,15 @@ conventions/*.yaml  (decision: fields filled)
 conventions/SUMMARY.md
         |
         v
-Phase 0b: Convention Freeze  (input to TEP-0192 Phase 1: Author the Skills)
+Phase 0b: Convention Freeze  (input to TEP-0173 Phase 1: Author the Skills)
 ```
 
 ---
 
 ## References
 
-- [TEP-0192: Enhancement Proposal Authoring Skills](https://github.com/tektoncd/community/blob/main/teps/0192-enhancement-proposal-authoring-skills.md)
-- [TEP-0192 Phase 0a description](https://github.com/tektoncd/community/blob/main/teps/0192-enhancement-proposal-authoring-skills.md#phase-0a-corpus-mining)
+- [TEP-0173: Enhancement Proposal Authoring Skills](https://github.com/tektoncd/community/blob/main/teps/0173-enhancement-proposal-authoring-skills.md)
+- [TEP-0173 Phase 0a description](https://github.com/tektoncd/community/blob/main/teps/0173-enhancement-proposal-authoring-skills.md#phase-0a-corpus-mining)
 - [`teps/tools/teps.py`](https://github.com/tektoncd/community/blob/main/teps/tools/teps.py) — ground truth for numbering and scaffolding
 - [GitHub REST API: Pull Request Reviews](https://docs.github.com/en/rest/pulls/reviews)
 - [GitHub Search API](https://docs.github.com/en/rest/search)

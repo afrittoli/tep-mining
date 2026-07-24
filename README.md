@@ -1,7 +1,7 @@
 # tep-mining
 
 Corpus mining scripts and data for **Phase 0a** of
-[TEP-0192: Enhancement Proposal Authoring Skills](https://github.com/tektoncd/community/blob/main/teps/0192-enhancement-proposal-authoring-skills.md).
+[TEP-0173: Enhancement Proposal Authoring Skills](https://github.com/tektoncd/community/blob/main/teps/0173-enhancement-proposal-authoring-skills.md).
 
 The goal is to derive TEP conventions empirically from the `tektoncd/community/teps/` corpus and
 its associated GitHub PR history, then present a synthesised candidate set to TEP process
@@ -81,6 +81,6 @@ storage design, and expected outputs for each stage.
 
 ## References
 
-- [TEP-0192: Enhancement Proposal Authoring Skills](https://github.com/tektoncd/community/blob/main/teps/0192-enhancement-proposal-authoring-skills.md)
+- [TEP-0173: Enhancement Proposal Authoring Skills](https://github.com/tektoncd/community/blob/main/teps/0173-enhancement-proposal-authoring-skills.md)
 - [GitHub REST API: Pull Request Reviews](https://docs.github.com/en/rest/pulls/reviews)
 - [GitHub Search API](https://docs.github.com/en/rest/search)
