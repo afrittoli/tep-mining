@@ -1,4 +1,4 @@
-.PHONY: help lint type-check test check parse scan-gaps gap-report mine-pr-cache map-prs pr-map-report fetch-tep-prs fetch-impl-prs search synthesize query
+.PHONY: help lint type-check test check parse scan-gaps gap-report mine-pr-cache map-prs pr-map-report fetch-tep-prs fetch-impl-prs report-index search synthesize query
 
 # Load .env if it exists
 -include .env
@@ -69,7 +69,13 @@ fetch-impl-prs: ## Sub-Task 5: Fetch implementation PR metadata → raw/impl_prs
 	uv run scripts/fetch_impl_prs.py \
 		--teps-jsonl raw/teps.jsonl \
 		--output-prs raw/impl_prs.jsonl \
-		--output-reviews raw/impl_pr_reviews.jsonl
+		--output-reviews raw/impl_pr_reviews.jsonl \
+		--report reports/impl_prs_report.html
+
+report-index: ## Build a tabbed index over every reports/*.html → reports/index.html
+	uv run scripts/build_report_index.py \
+		--reports-dir reports \
+		--out reports/index.html
 
 search: ## Sub-Task 6: Cross-repo TEP reference search (run after fetch-impl-prs)
 	uv run scripts/cross_repo_search.py \

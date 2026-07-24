@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "tep-mining"
 version = "0.1.0"
-description = "Corpus mining scripts for TEP-0192 Phase 0a"
+description = "Corpus mining scripts for TEP-0173 Phase 0a"
 requires-python = ">=3.11"
 dependencies = [
     "requests>=2.32.3",
