@@ -1,4 +1,4 @@
-.PHONY: help lint type-check test check parse scan-gaps gap-report map-prs fetch-tep-prs fetch-impl-prs search synthesize query
+.PHONY: help lint type-check test check parse scan-gaps gap-report mine-pr-cache map-prs pr-map-report fetch-tep-prs fetch-impl-prs search synthesize query
 
 # Load .env if it exists
 -include .env
@@ -41,11 +41,22 @@ gap-report: ## Sub-Task 2c: Render HTML gap report → reports/gap_report.html
 		--teps raw/teps.jsonl \
 		--out reports/gap_report.html
 
-map-prs: ## Sub-Task 3: Discover TEP proposal PR numbers via git log → raw/tep_pr_map.json
+mine-pr-cache: ## Mine merged PR metadata into raw/community_pr_cache.jsonl
+	uv run scripts/mine_pr_cache.py \
+		--repo tektoncd/community \
+		--cache raw/community_pr_cache.jsonl
+
+map-prs: ## Sub-Task 3: Discover TEP proposal PR numbers from cached PR metadata → raw/tep_pr_map.json
 	uv run scripts/map_tep_prs.py \
-		--community-repo "$(COMMUNITY_REPO_PATH)" \
+		--cache raw/community_pr_cache.jsonl \
 		--teps-jsonl raw/teps.jsonl \
 		--output raw/tep_pr_map.json
+
+pr-map-report: ## Render HTML PR mapping report → reports/pr_map_report.html
+	uv run scripts/pr_map_report.py \
+		--map raw/tep_pr_map.json \
+		--teps raw/teps.jsonl \
+		--out reports/pr_map_report.html
 
 fetch-tep-prs: ## Sub-Task 4: Fetch TEP proposal PR review threads → raw/community_prs.jsonl
 	uv run scripts/fetch_tep_prs.py \
