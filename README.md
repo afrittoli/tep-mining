@@ -70,6 +70,10 @@ make synthesize      # Sub-Task 7: join raw data -> processed/
 make query           # Ad-hoc: launch DuckDB session over JSONL files
 ```
 
+## Sub-Task 4 note
+
+For now, Sub-Task 4 is implemented to run against all mapped TEP PRs by default rather than a curated Pass 1 sample. The `--sample` option remains available in [`scripts/fetch_tep_prs.py`](scripts/fetch_tep_prs.py) for a future curated subset once one is explicitly chosen.
+
 ## Detailed Plan
 
 See [data-collection-plan.md](data-collection-plan.md) for the full sub-task breakdown,
