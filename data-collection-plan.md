@@ -245,8 +245,9 @@ it reveals which sections drew repeated iteration and what reviewers rejected.
 - `raw/community_pr_reviews.jsonl`: one record per review comment with `pr_number`, `comment_id`,
   `body`, `path` (file), `line`, `author`, `created_at`
 - Incremental: re-running skips PR numbers already present in the JSONL
-- Rate-limit aware: honours `GITHUB_TOKEN`; prints remaining rate-limit after each page
-- Pass 1 targets the curated sample (~20–30 TEPs); Pass 2 can extend to the full set
+- Rate-limit aware: honours `GITHUB_TOKEN`; logs rate-limit state on first observation, when crossing 100-request buckets, and near exhaustion, sleeping until reset below the threshold
+- Generates `reports/tep_pr_reviews.html` summarising fetched PR records and review comments
+- Current project decision: run against all mapped TEP PRs for now; `--sample` remains available for a future curated subset
 
 **Todo List**:
 1. Write `scripts/fetch_tep_prs.py`:
@@ -257,12 +258,10 @@ it reveals which sections drew repeated iteration and what reviewers rejected.
    - Load existing JSONL files; skip records with matching `pr_number` + `comment_id`
    - Handle pagination (`Link: <...>; rel="next"` header)
    - Respect `X-RateLimit-Remaining`; sleep until `X-RateLimit-Reset` if below a threshold (10)
-2. The Pass 1 curated sample (~20–30 TEPs) is determined by the implementer after Sub-Task 2
-   produces `raw/teps.jsonl` — the parsed data (age, impl PR link count, status) provides
-   the evidence needed to make the selection. Document the chosen sample list in `README.md`
-   before running this sub-task.
-3. Add `fetch-tep-prs` target to `Makefile`
-4. Run Pass 1 and commit resulting JSONL
+2. Document the current execution decision in `README.md`: run all mapped TEP PRs for now,
+   while keeping `--sample` available for a future curated subset.
+3. Add `fetch-tep-prs` target to `Makefile`, including HTML report output
+4. Run the full mapped PR set and commit the resulting JSONL and report artifacts
 
 **Relevant Context**:
 - `GITHUB_TOKEN` / `GH_TOKEN` precedence already established in TEP-0192 Phase 0c for `teps.py`
@@ -270,7 +269,7 @@ it reveals which sections drew repeated iteration and what reviewers rejected.
 - Review comments API returns inline comments; PR review API returns top-level review summaries
   with approve/request-changes decisions — fetch both
 
-**Status**: [ ] pending
+**Status**: [x] done
 
 ---
 

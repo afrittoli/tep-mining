@@ -62,7 +62,8 @@ fetch-tep-prs: ## Sub-Task 4: Fetch TEP proposal PR review threads → raw/commu
 	uv run scripts/fetch_tep_prs.py \
 		--pr-map raw/tep_pr_map.json \
 		--output-prs raw/community_prs.jsonl \
-		--output-reviews raw/community_pr_reviews.jsonl
+		--output-reviews raw/community_pr_reviews.jsonl \
+		--report reports/tep_pr_reviews.html
 
 fetch-impl-prs: ## Sub-Task 5: Fetch implementation PR metadata → raw/impl_prs.jsonl
 	uv run scripts/fetch_impl_prs.py \
