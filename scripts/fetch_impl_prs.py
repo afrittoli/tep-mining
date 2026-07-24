@@ -235,16 +235,76 @@ CSS = """
   tbody td { padding: 6px 10px; border-bottom: 1px solid #e5e7eb; vertical-align: top; }
   a { color: #3b82d4; text-decoration: none; }
   footer { margin-top: 40px; padding-top: 12px; border-top: 1px solid #e5e7eb; text-align: center; font-size: 12px; color: #57606a; }
+  .badge { display: inline-block; font-size: 11px; padding: 1px 7px; border-radius: 10px; font-weight: 500; white-space: nowrap; }
+  .badge-approved  { background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
+  .badge-changes   { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
+  .badge-commented { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+  .badge-404       { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
+  .badge-skipped   { background: #f7f8fa; color: #57606a; border: 1px solid #e5e7eb; }
+  .pr-chip { display: block; margin-bottom: 3px; }
+  .pr-chip:last-child { margin-bottom: 0; }
 """
 
 
+def _review_badge(decision: str) -> str:
+    css = {
+        "APPROVED": "badge-approved",
+        "CHANGES_REQUESTED": "badge-changes",
+    }.get(decision, "badge-commented")
+    return f'<span class="badge {css}">{decision}</span>'
+
+
+def _tep_mapping_rows(teps: list[dict], pr_records: list[dict], not_found: list[dict]) -> str:
+    """Build one row per TEP that links implementation PRs, mapping TEP -> PR chips."""
+    pr_by_key = {(r["repo"], r["pr_number"]): r for r in pr_records}
+    not_found_keys = {(r["repo"], r["pr_number"]) for r in not_found}
+
+    rows = []
+    for tep in sorted(teps, key=lambda t: t.get("tep_number", 0)):
+        links = tep.get("impl_pr_links_detail") or []
+        if not links:
+            continue
+
+        chips = []
+        seen: set[tuple[str, int]] = set()
+        for link in links:
+            key = (str(link["repo"]), int(link["pr_number"]))
+            if key in seen:
+                continue
+            seen.add(key)
+            repo, pr_number = key
+            url = f"https://github.com/{ORG}/{repo}/pull/{pr_number}"
+            anchor = f'<a href="{url}">{repo}#{pr_number}</a>'
+            if key in pr_by_key:
+                badge = _review_badge(pr_by_key[key]["review_decision"])
+            elif key in not_found_keys:
+                badge = '<span class="badge badge-404">404</span>'
+            else:
+                badge = '<span class="badge badge-skipped">not fetched</span>'
+            chips.append(f'<span class="pr-chip">{anchor} {badge}</span>')
+
+        tep_number = int(tep.get("tep_number", 0))
+        title = tep.get("title") or ""
+        source_file = tep.get("source_file")
+        tep_label = (
+            f'<a href="https://github.com/{ORG}/community/blob/main/teps/{source_file}">TEP-{tep_number:04d}</a>'
+            if source_file
+            else f"TEP-{tep_number:04d}"
+        )
+        rows.append(f"<tr><td>{tep_label}</td><td>{title}</td><td>{''.join(chips)}</td></tr>")
+    return "".join(rows)
+
+
 def _build_report(
+    teps: list[dict],
     pr_records: list[dict],
     review_records: list[dict],
     not_found: list[dict],
     selected_count: int,
 ) -> str:
     generated = datetime.now(UTC).strftime("%Y-%m-%d %H:%M UTC")
+
+    tep_mapping_rows = _tep_mapping_rows(teps, pr_records, not_found)
 
     review_counts: dict[tuple[str, int], int] = {}
     for review in review_records:
@@ -297,6 +357,15 @@ def _build_report(
     <div class="card"><div class="num">{len(review_records)}</div><div class="label">Review comments</div></div>
   </div>
   <details open>
+    <summary>Implementation PRs by TEP</summary>
+    <div class="details-body">
+      <table>
+        <thead><tr><th>TEP</th><th>Title</th><th>Implementation PR(s)</th></tr></thead>
+        <tbody>{tep_mapping_rows or '<tr><td colspan="3">None</td></tr>'}</tbody>
+      </table>
+    </div>
+  </details>
+  <details open>
     <summary>PRs by repo</summary>
     <div class="details-body">
       <table>
@@ -332,6 +401,7 @@ def _build_report(
 
 def _write_report(
     path: Path,
+    teps: list[dict],
     pr_records: list[dict],
     review_records: list[dict],
     not_found: list[dict],
@@ -339,7 +409,7 @@ def _write_report(
 ) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(
-        _build_report(pr_records, review_records, not_found, selected_count),
+        _build_report(teps, pr_records, review_records, not_found, selected_count),
         encoding="utf-8",
     )
 
@@ -440,7 +510,12 @@ def main(argv: list[str] | None = None) -> int:
     all_review_records = _load_jsonl(output_reviews_path)
 
     _write_report(
-        Path(args.report), all_pr_records, all_review_records, not_found_records, len(selected)
+        Path(args.report),
+        teps,
+        all_pr_records,
+        all_review_records,
+        not_found_records,
+        len(selected),
     )
 
     print("\n=== Coverage ===")
