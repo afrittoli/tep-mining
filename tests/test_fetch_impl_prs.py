@@ -86,6 +86,7 @@ def test_pr_record_collects_reviewers_decision_and_size() -> None:
         "merged_at": "2021-02-01T00:00:00Z",
         "reviewer_logins": ["reviewer-1", "reviewer-2"],
         "review_decision": "APPROVED",
+        "discovered_via": "tep_file_link",
     }
 
 

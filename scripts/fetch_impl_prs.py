@@ -43,6 +43,11 @@ GITHUB_API = "https://api.github.com"
 RATE_LIMIT_THRESHOLD = 10
 RATE_LIMIT_LOG_STEP = 100
 
+# Every (repo, pr_number) this script fetches came from a link the TEP author wrote into
+# their own document. Sub-Task 6 (cross_repo_search.py) will append records discovered by
+# searching instead, tagged "search" — this constant marks records added here.
+DISCOVERED_VIA_LINK = "tep_file_link"
+
 RE_CLOSES = re.compile(r"\b(?:close[sd]?|fixe[sd]?|resolve[sd]?)\s*:?\s*#(\d+)", re.IGNORECASE)
 
 
@@ -164,6 +169,7 @@ def _pr_record(repo: str, pr: dict, reviews: list[dict]) -> dict:
         "merged_at": pr.get("merged_at"),
         "reviewer_logins": reviewer_logins,
         "review_decision": review_decision,
+        "discovered_via": DISCOVERED_VIA_LINK,
     }
 
 
@@ -473,7 +479,17 @@ def main(argv: list[str] | None = None) -> int:
 
         if response.status_code == 404:
             fetched_404 += 1
-            _append_jsonl(output_prs_path, [{"repo": repo, "pr_number": pr_number, "status": 404}])
+            _append_jsonl(
+                output_prs_path,
+                [
+                    {
+                        "repo": repo,
+                        "pr_number": pr_number,
+                        "status": 404,
+                        "discovered_via": DISCOVERED_VIA_LINK,
+                    }
+                ],
+            )
             existing_prs.add((repo, pr_number))
             print(f"[progress] {repo}#{pr_number}: 404 not found", flush=True)
             continue
