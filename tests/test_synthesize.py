@@ -130,6 +130,52 @@ def test_proposal_pr_summary_override_wins_over_heuristic() -> None:
     summary = _proposal_pr_summary([82], prs_by_number, reviews, positions, overrides)
 
     assert summary["comments_by_section"] == {"## Motivation": 1}
+    comment = summary["comments"][0]
+    assert comment["is_override"] is True
+    assert comment["section"] == "## Motivation"
+    assert comment["heuristic_section"] == "### Goals"  # what the heuristic alone would say
+
+
+def test_proposal_pr_summary_comments_list_carries_identity_for_override_ui() -> None:
+    prs_by_number = {
+        82: {
+            "pr_number": 82,
+            "title": "t",
+            "created_at": "2020-01-01T00:00:00Z",
+            "merged_at": None,
+            "reviewer_logins": [],
+            "review_decision": "COMMENTED",
+        }
+    }
+    reviews = [
+        {
+            "pr_number": 82,
+            "comment_id": 1,
+            "author": "bob",
+            "body": "nit",
+            "path": "teps/0001-x.md",
+            "line": 6,
+            "created_at": "2020-01-05T00:00:00Z",
+        },
+    ]
+    positions = [(2, "## Summary"), (5, "### Goals")]
+
+    summary = _proposal_pr_summary([82], prs_by_number, reviews, positions, overrides={})
+
+    assert summary["comments"] == [
+        {
+            "pr_number": 82,
+            "comment_id": 1,
+            "author": "bob",
+            "body": "nit",
+            "path": "teps/0001-x.md",
+            "line": 6,
+            "created_at": "2020-01-05T00:00:00Z",
+            "section": "### Goals",
+            "heuristic_section": "### Goals",
+            "is_override": False,
+        }
+    ]
 
 
 def test_proposal_pr_summary_handles_no_pr_numbers() -> None:

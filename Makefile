@@ -1,4 +1,4 @@
-.PHONY: help lint type-check test check parse scan-gaps gap-report mine-pr-cache map-prs pr-map-report fetch-tep-prs fetch-impl-prs report-index search synthesize query
+.PHONY: help lint type-check test check parse scan-gaps gap-report mine-pr-cache map-prs pr-map-report fetch-tep-prs fetch-impl-prs report-index search synthesize query explorer
 
 # Load .env if it exists
 -include .env
@@ -100,6 +100,11 @@ synthesize: ## Sub-Task 7: Join raw data into per-TEP records → processed/
 		--coverage processed/latest/coverage.json \
 		--overrides overrides/section_overrides.jsonl \
 		--processed-dir processed
+
+explorer: ## Build the interactive TEP data explorer (run after synthesize) → reports/explorer.html
+	uv run scripts/build_explorer.py \
+		--records processed/latest/per_tep_records.json \
+		--out reports/explorer.html
 
 query: ## Launch an interactive DuckDB session over every raw/processed JSONL file
 	uv run scripts/query_console.py
