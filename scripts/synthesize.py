@@ -123,6 +123,7 @@ def _proposal_pr_summary(
     prs = [community_prs_by_number[n] for n in pr_numbers if n in community_prs_by_number]
 
     comments_by_section: dict[str, int] = {}
+    comments: list[dict] = []
     unmapped = 0
     dates: set[str] = set()
     for comment in review_comments:
@@ -130,13 +131,27 @@ def _proposal_pr_summary(
             continue
         dates.add(str(comment["created_at"])[:10])
         override_key = ("community", int(comment["pr_number"]), int(comment["comment_id"]))
-        section = overrides.get(override_key) or _nearest_heading(
-            comment.get("line"), heading_positions
-        )
+        is_override = override_key in overrides
+        heuristic_section = _nearest_heading(comment.get("line"), heading_positions)
+        section = overrides.get(override_key) or heuristic_section
         if section is None:
             unmapped += 1
         else:
             comments_by_section[section] = comments_by_section.get(section, 0) + 1
+        comments.append(
+            {
+                "pr_number": comment["pr_number"],
+                "comment_id": comment["comment_id"],
+                "author": comment.get("author"),
+                "body": comment.get("body"),
+                "path": comment.get("path"),
+                "line": comment.get("line"),
+                "created_at": comment.get("created_at"),
+                "section": section,
+                "heuristic_section": heuristic_section,
+                "is_override": is_override,
+            }
+        )
 
     reviewer_logins = sorted({login for pr in prs for login in pr.get("reviewer_logins", [])})
 
@@ -158,6 +173,7 @@ def _proposal_pr_summary(
         "review_rounds_approx": len(dates),
         "comments_by_section": comments_by_section,
         "comments_unmapped": unmapped,
+        "comments": comments,
     }
 
 

@@ -383,9 +383,25 @@ generation step.
     what types of changes were requested (inferred from comment text clustering)
   - `divergences_from_template`: sections present in the template but absent in this TEP, and
     vice versa
-- `processed/YYYY-MM-DD/coverage.json`: per-TEP counts of linked vs. discovered PRs,
-  review comment counts, gaps in the PR map
 - `latest` symlink updated to the new date directory
+- Current project decision: run against all TEPs (matches Sub-Tasks 4-6). No separate
+  `processed/YYYY-MM-DD/coverage.json` from this sub-task — Sub-Task 6 already produces one at
+  the same path; per-TEP coverage numbers are folded directly into each TEP's own record instead
+  (`record.coverage`), so nothing gets silently overwritten by two sub-tasks writing the same
+  filename into the same dated directory.
+- `review_signals` is comment counts per section (`comments_by_section`, `comments_unmapped`,
+  `review_rounds_approx`), not the keyword-based intent classification (structural feedback /
+  missing-section / wording / scope / approval) originally sketched below — that requires a real
+  keyword taxonomy this project doesn't have yet; counts are honest about what's actually known.
+- Section attribution maps a review comment's line number to the nearest preceding heading in
+  the TEP's *current* merged file (approximate — the file's structure when the comment was made
+  may have differed). `overrides/section_overrides.jsonl` (git-tracked, so auditable via git
+  history) lets a human correct specific `(repo, pr_number, comment_id)` mappings;
+  `synthesize.py` applies them on top of the heuristic on every run.
+- Added `reports/explorer.html` (`scripts/build_explorer.py`, `make explorer`): a self-contained,
+  filterable/sortable interactive browser over `per_tep_records.json` — the actual consumption
+  layer for this join, requested directly rather than left implicit. Section corrections are made
+  and exported from here; nothing is written back to disk automatically (static HTML, no server).
 
 **Todo List**:
 1. Write `scripts/synthesize.py`:
@@ -404,9 +420,11 @@ generation step.
 - The join key between `community_pr_reviews.jsonl` and `teps.jsonl` is via
   `raw/tep_pr_map.json` (TEP number → community PR number)
 - "Review rounds" can be approximated as the number of distinct review submission events
-  (`submitted_at` timestamps) per reviewer before a PR was merged
+  (`submitted_at` timestamps) per reviewer before a PR was merged — in practice, Sub-Task 4 never
+  persisted individual review-submission timestamps (only the collapsed `reviewer_logins` +
+  `review_decision`), so `review_rounds_approx` instead counts distinct review-comment dates
 
-**Status**: [ ] pending
+**Status**: [x] done
 
 ---
 
@@ -513,10 +531,14 @@ raw/impl_prs.jsonl
 raw/impl_pr_reviews.jsonl
         |
         v (Sub-Task 6: cross_repo_search.py - augments impl_prs.jsonl)
+processed/YYYY-MM-DD/coverage.json
+raw/impl_pr_discoveries.json
         |
         v (Sub-Task 7: synthesize.py)
 processed/YYYY-MM-DD/per_tep_records.json
-processed/YYYY-MM-DD/coverage.json
+        |
+        v (Sub-Task 7: build_explorer.py)
+reports/explorer.html  (interactive, corrections -> overrides/section_overrides.jsonl)
         |
         v (Sub-Task 8: AI grouping via group_conventions.md prompt)
 conventions/*.yaml  (decision: ~ fields blank)
