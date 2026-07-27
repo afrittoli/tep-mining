@@ -111,12 +111,19 @@ CSS = """
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   @media (max-width: 720px) { .two-col { grid-template-columns: 1fr; } }
 
-  .pr-row { display: flex; align-items: center; gap: 8px; padding: 5px 0; border-bottom: 1px dashed var(--rule); }
+  .pr-row { display: flex; align-items: center; gap: 8px; padding: 5px 0; border-bottom: 1px dashed var(--rule);
+    flex-wrap: wrap; }
   .pr-row:last-child { border-bottom: none; }
   .pr-row .repo { font-family: ui-monospace, monospace; font-size: 11.5px; color: var(--ink-dim);
     background: var(--bg-alt); border: 1px solid var(--rule); border-radius: 4px; padding: 0 5px; }
   .pr-row .title { flex: 1; }
   .pr-row .size { color: var(--ink-dim); font-size: 11.5px; white-space: nowrap; }
+  .pr-row .why { color: var(--ink-dim); font-size: 11.5px; }
+  .pr-row.pending-exclude { opacity: 0.55; }
+  .pr-row.excluded { opacity: 0.7; }
+  .mini-btn { font-size: 11px; padding: 2px 8px; border: 1px solid var(--rule); border-radius: 10px;
+    background: var(--bg-alt); color: var(--ink-dim); cursor: pointer; white-space: nowrap; }
+  .mini-btn:hover { background: var(--rule); color: var(--ink); }
 
   .comment { border: 1px solid var(--rule); border-radius: 6px; padding: 8px 10px; margin-bottom: 8px; }
   .comment .meta { display: flex; gap: 8px; align-items: center; margin-bottom: 4px; font-size: 11.5px;
@@ -126,12 +133,13 @@ CSS = """
   .comment.unmapped { opacity: 0.7; }
 
   .corrections-bar { position: sticky; bottom: 0; background: var(--bg); border-top: 1px solid var(--rule);
-    padding: 10px 24px; display: flex; align-items: center; gap: 12px; font-size: 12.5px; }
+    padding: 10px 24px; display: flex; align-items: center; gap: 12px; font-size: 12.5px; flex-wrap: wrap; }
   .corrections-bar button { font-size: 12.5px; padding: 5px 12px; border: 1px solid var(--rule);
     border-radius: 6px; background: var(--bg-alt); cursor: pointer; }
   .corrections-bar button:hover { background: var(--rule); }
-  #export-box { width: 100%; max-width: 900px; font-family: ui-monospace, monospace; font-size: 11.5px;
-    padding: 8px; border: 1px solid var(--rule); border-radius: 6px; }
+  .corrections-bar .sep { border-left: 1px solid var(--rule); align-self: stretch; }
+  #export-box, #pr-export-box { width: 100%; max-width: 900px; font-family: ui-monospace, monospace;
+    font-size: 11.5px; padding: 8px; border: 1px solid var(--rule); border-radius: 6px; }
 
   footer { padding: 16px 24px; text-align: center; font-size: 12px; color: var(--ink-dim);
     border-top: 1px solid var(--rule); }
@@ -186,9 +194,11 @@ function setCorrection(prNumber, commentId, section) {
 
 function renderCorrectionsBar() {
   const n = Object.keys(corrections).length;
+  const m = Object.keys(prCorrections).length;
   const bar = document.getElementById('corrections-bar');
   document.getElementById('corrections-count').textContent = n;
-  bar.classList.toggle('hidden', n === 0);
+  document.getElementById('pr-corrections-count').textContent = m;
+  bar.classList.toggle('hidden', n === 0 && m === 0);
 }
 
 function exportCorrections() {
@@ -200,11 +210,74 @@ function exportCorrections() {
 }
 
 function clearCorrections() {
-  if (!confirm('Clear all ' + Object.keys(corrections).length + ' pending corrections? This does not affect anything already exported.')) return;
+  if (!confirm('Clear all ' + Object.keys(corrections).length + ' pending section corrections? This does not affect anything already exported.')) return;
   corrections = {};
   saveCorrections(corrections);
   renderCorrectionsBar();
   document.getElementById('export-box').classList.add('hidden');
+  if (location.hash) render();
+}
+
+// ---------------------------------------------------------------------------
+// PR attribution corrections (in-browser, exportable — see
+// overrides/pr_attribution_overrides.jsonl). Answers "why was this PR picked"
+// via evidence display in renderImplPrList, and lets a human exclude a
+// wrongly-attributed PR or include a missing one.
+// ---------------------------------------------------------------------------
+
+const PR_STORAGE_KEY = 'tep-explorer-pr-corrections-v1';
+function loadPrCorrections() {
+  try { return JSON.parse(localStorage.getItem(PR_STORAGE_KEY)) || {}; } catch { return {}; }
+}
+function savePrCorrections(c) {
+  localStorage.setItem(PR_STORAGE_KEY, JSON.stringify(c));
+}
+let prCorrections = loadPrCorrections();
+
+function prCorrectionKey(tepNumber, repo, prNumber) { return `${tepNumber}:${repo}:${prNumber}`; }
+
+function recordPrCorrection(tepNumber, repo, prNumber, action, reason) {
+  prCorrections[prCorrectionKey(tepNumber, repo, prNumber)] = {
+    tep_number: tepNumber, repo, pr_number: prNumber, action, reason: reason || '',
+    created_at: new Date().toISOString(),
+  };
+  savePrCorrections(prCorrections);
+  renderCorrectionsBar();
+}
+
+function promptExclude(tepNumber, repo, prNumber) {
+  const reason = prompt(`Why is ${repo}#${prNumber} not relevant to TEP-${tepNumber}?`, '');
+  if (reason === null) return;
+  recordPrCorrection(tepNumber, repo, prNumber, 'exclude', reason);
+  render();
+}
+
+function promptInclude(tepNumber) {
+  const repo = (prompt('Repo (e.g. pipeline, triggers, results)?', '') || '').trim();
+  if (!repo) return;
+  const prNumberStr = (prompt(`PR number in tektoncd/${repo}?`, '') || '').trim();
+  const prNumber = parseInt(prNumberStr, 10);
+  if (!Number.isFinite(prNumber)) { alert('Not a valid PR number.'); return; }
+  const reason = prompt(`Why is ${repo}#${prNumber} relevant to TEP-${tepNumber}?`, '');
+  if (reason === null) return;
+  recordPrCorrection(tepNumber, repo, prNumber, 'include', reason);
+  render();
+}
+
+function exportPrCorrections() {
+  const lines = Object.values(prCorrections).map(c => JSON.stringify(c));
+  const box = document.getElementById('pr-export-box');
+  box.value = lines.join('\\n') + (lines.length ? '\\n' : '');
+  box.classList.remove('hidden');
+  box.select();
+}
+
+function clearPrCorrections() {
+  if (!confirm('Clear all ' + Object.keys(prCorrections).length + ' pending PR attribution corrections? This does not affect anything already exported.')) return;
+  prCorrections = {};
+  savePrCorrections(prCorrections);
+  renderCorrectionsBar();
+  document.getElementById('pr-export-box').classList.add('hidden');
   if (location.hash) render();
 }
 
@@ -324,22 +397,64 @@ function renderProposalPrList(prs) {
     </div>`).join('');
 }
 
-function renderImplPrList(items) {
+function evidenceHtml(it) {
+  if (it.attribution_source === 'tep_file_link') {
+    const url = it.evidence && it.evidence.url;
+    const format = it.evidence && it.evidence.format;
+    return url ? `linked (${esc(format || '?')}): <a href="${esc(url)}" target="_blank" rel="noopener">${esc(url)}</a>` : 'linked (no URL recorded)';
+  }
+  if (it.attribution_source === 'search') {
+    return it.evidence ? `matched: &ldquo;${esc(it.evidence)}&rdquo;` : 'discovered by search (no snippet captured)';
+  }
+  if (it.attribution_source === 'manual_include') {
+    return it.evidence ? `manually included: ${esc(it.evidence)}` : 'manually included (no reason given)';
+  }
+  return '';
+}
+
+function renderImplPrList(tepNumber, items) {
   if (!items.length) return `<p style="color:var(--ink-dim)">None.</p>`;
   return items.map(it => {
-    if (it.status === 404) {
-      return `<div class="pr-row"><span class="repo">${esc(it.repo)}</span>
-        <span class="title">#${it.pr_number} <span class="badge badge-skipped">404 not found</span></span></div>`;
+    const key = prCorrectionKey(tepNumber, it.repo, it.pr_number);
+    const excludePending = prCorrections[key];
+    const rowClass = excludePending ? 'pr-row pending-exclude' : 'pr-row';
+    if (it.status === 'not_found' || it.status === 'pending_fetch') {
+      const label = it.status === 'not_found' ? '404 not found' : 'not yet fetched — run make apply-pr-overrides';
+      return `<div class="${rowClass}">
+        <span class="repo">${esc(it.repo)}</span>
+        <span class="title">#${it.pr_number} <span class="badge badge-skipped">${label}</span>
+          <div class="why">${evidenceHtml(it)}</div>
+        </span>
+        ${excludeControl(tepNumber, it, excludePending)}
+      </div>`;
     }
-    return `<div class="pr-row">
+    return `<div class="${rowClass}">
       <span class="repo">${esc(it.repo)}</span>
       <a class="title" href="https://github.com/tektoncd/${esc(it.repo)}/pull/${it.pr_number}" target="_blank" rel="noopener">
         #${it.pr_number} ${esc(it.title)}
       </a>
       ${reviewBadge(it.review_decision)}
       <span class="size">+${it.additions ?? 0}/-${it.deletions ?? 0} (${it.files_changed ?? 0} files, ${it.review_comment_count} comments)</span>
+      ${excludeControl(tepNumber, it, excludePending)}
+      <div class="why" style="flex-basis:100%">${evidenceHtml(it)}</div>
     </div>`;
   }).join('');
+}
+
+function excludeControl(tepNumber, it, pending) {
+  if (pending) return `<span class="badge badge-override">pending exclude</span>`;
+  return `<button class="mini-btn" onclick="promptExclude(${tepNumber}, '${esc(it.repo)}', ${it.pr_number})">not relevant?</button>`;
+}
+
+function renderExcludedList(tepNumber, excluded) {
+  if (!excluded.length) return '';
+  const rows = excluded.map(e => `<div class="pr-row excluded">
+    <span class="repo">${esc(e.repo)}</span>
+    <span class="title">#${e.pr_number} <span class="badge badge-skipped">excluded</span>
+      <div class="why">was: ${esc(e.was_attribution_source)}${e.reason ? ' &mdash; ' + esc(e.reason) : ''}</div>
+    </span>
+  </div>`).join('');
+  return `<section class="block"><h3>Excluded by manual override (${excluded.length})</h3>${rows}</section>`;
 }
 
 function renderDetail(tepNumber) {
@@ -347,8 +462,9 @@ function renderDetail(tepNumber) {
   const container = document.getElementById('view-detail');
   if (!r) { container.innerHTML = '<p>TEP not found.</p>'; return; }
 
-  const linked = r.impl_prs.items.filter(i => i.discovered_via === 'tep_file_link');
-  const discovered = r.impl_prs.items.filter(i => i.discovered_via === 'search');
+  const linked = r.impl_prs.items.filter(i => i.attribution_source === 'tep_file_link');
+  const discovered = r.impl_prs.items.filter(i => i.attribution_source === 'search');
+  const manual = r.impl_prs.items.filter(i => i.attribution_source === 'manual_include');
   const rate = underLinkingRate(r);
 
   const divergences = r.divergences_from_template;
@@ -413,13 +529,21 @@ function renderDetail(tepNumber) {
 
     <section class="block">
       <h3>Implementation PRs &mdash; linked by the TEP author (${linked.length})</h3>
-      ${renderImplPrList(linked)}
+      ${renderImplPrList(r.tep_number, linked)}
     </section>
 
     <section class="block">
       <h3>Implementation PRs &mdash; discovered by cross-repo search (${discovered.length})</h3>
-      ${renderImplPrList(discovered)}
+      ${renderImplPrList(r.tep_number, discovered)}
     </section>
+
+    <section class="block">
+      <h3>Implementation PRs &mdash; manually included (${manual.length})</h3>
+      ${renderImplPrList(r.tep_number, manual)}
+      <button class="mini-btn" onclick="promptInclude(${r.tep_number})" style="margin-top:8px">+ tag a missing PR as relevant</button>
+    </section>
+
+    ${renderExcludedList(r.tep_number, r.impl_prs.excluded || [])}
   `;
 }
 
@@ -457,6 +581,8 @@ window.addEventListener('DOMContentLoaded', () => {
   });
   document.getElementById('export-btn').addEventListener('click', exportCorrections);
   document.getElementById('clear-btn').addEventListener('click', clearCorrections);
+  document.getElementById('export-pr-btn').addEventListener('click', exportPrCorrections);
+  document.getElementById('clear-pr-btn').addEventListener('click', clearPrCorrections);
   renderCorrectionsBar();
   render();
 });
@@ -528,15 +654,22 @@ def build_html(records: list[dict]) -> str:
 
 <div class="corrections-bar hidden" id="corrections-bar">
   <span><b id="corrections-count">0</b> pending section correction(s)</span>
-  <button id="export-btn">Export as JSONL</button>
+  <button id="export-btn">Export sections as JSONL</button>
   <button id="clear-btn">Clear</button>
+  <span class="sep"></span>
+  <span><b id="pr-corrections-count">0</b> pending PR attribution correction(s)</span>
+  <button id="export-pr-btn">Export PR overrides as JSONL</button>
+  <button id="clear-pr-btn">Clear</button>
   <textarea id="export-box" class="hidden" rows="4" readonly
     placeholder="Copy this into overrides/section_overrides.jsonl and commit."></textarea>
+  <textarea id="pr-export-box" class="hidden" rows="4" readonly
+    placeholder="Copy this into overrides/pr_attribution_overrides.jsonl and commit."></textarea>
 </div>
 
 <footer>
   Corrections are stored locally in your browser only. Export and commit them to
-  <code>overrides/section_overrides.jsonl</code> for synthesize.py to pick up on the next run &mdash; that's the audit trail.
+  <code>overrides/section_overrides.jsonl</code> or <code>overrides/pr_attribution_overrides.jsonl</code>
+  for synthesize.py to pick up on the next run &mdash; that's the audit trail.
   &middot; Made with IBM Bob
 </footer>
 

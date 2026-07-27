@@ -5,7 +5,8 @@ from scripts.synthesize import (
     _extract_headings,
     _heading_positions,
     _impl_prs_summary,
-    _load_overrides,
+    _load_pr_attribution_overrides,
+    _load_section_overrides,
     _nearest_heading,
     _proposal_pr_summary,
     _write_snapshot,
@@ -61,20 +62,41 @@ def test_divergences_reports_both_directions() -> None:
 # ---------------------------------------------------------------------------
 
 
-def test_load_overrides_keys_by_repo_pr_comment(tmp_path: Path) -> None:
+def test_load_section_overrides_keys_by_repo_pr_comment(tmp_path: Path) -> None:
     path = tmp_path / "overrides.jsonl"
     path.write_text(
         '{"repo": "community", "pr_number": 82, "comment_id": 123, '
         '"override_section": "## Motivation"}\n'
     )
 
-    overrides = _load_overrides(path)
+    overrides = _load_section_overrides(path)
 
     assert overrides == {("community", 82, 123): "## Motivation"}
 
 
-def test_load_overrides_missing_file_returns_empty(tmp_path: Path) -> None:
-    assert _load_overrides(tmp_path / "missing.jsonl") == {}
+def test_load_section_overrides_missing_file_returns_empty(tmp_path: Path) -> None:
+    assert _load_section_overrides(tmp_path / "missing.jsonl") == {}
+
+
+def test_load_pr_attribution_overrides_groups_by_tep(tmp_path: Path) -> None:
+    path = tmp_path / "pr_overrides.jsonl"
+    path.write_text(
+        '{"tep_number": 52, "repo": "results", "pr_number": 103, "action": "exclude", '
+        '"reason": "unrelated"}\n'
+        '{"tep_number": 52, "repo": "pipeline", "pr_number": 999, "action": "include", '
+        '"reason": "missed by search"}\n'
+        '{"tep_number": 84, "repo": "chains", "pr_number": 1, "action": "exclude"}\n'
+    )
+
+    overrides = _load_pr_attribution_overrides(path)
+
+    assert len(overrides[52]) == 2
+    assert len(overrides[84]) == 1
+    assert overrides[52][0]["action"] == "exclude"
+
+
+def test_load_pr_attribution_overrides_missing_file_returns_empty(tmp_path: Path) -> None:
+    assert _load_pr_attribution_overrides(tmp_path / "missing.jsonl") == {}
 
 
 # ---------------------------------------------------------------------------
@@ -211,32 +233,63 @@ def test_impl_prs_summary_splits_linked_and_discovered() -> None:
     }
 
     summary = _impl_prs_summary(
-        {("pipeline", 1)},
-        {("results", 2)},
-        impl_prs_by_key,
+        {
+            ("pipeline", 1): {
+                "url": "https://github.com/tektoncd/pipeline/pull/1",
+                "format": "full-url",
+            }
+        },
+        {("results", 2): "…mentions TEP-0052…"},
+        pr_overrides=[],
+        impl_prs_by_key=impl_prs_by_key,
         impl_review_counts={("pipeline", 1): 3, ("results", 2): 4},
     )
 
     assert summary["linked_count"] == 1
     assert summary["discovered_count"] == 1
+    assert summary["manual_count"] == 0
     assert summary["total_count"] == 2
     assert summary["by_repo"] == {"pipeline": 1, "results": 1}
     assert summary["review_comment_count"] == 7
-    by_pr = {(i["repo"], i["pr_number"]): i["review_comment_count"] for i in summary["items"]}
-    assert by_pr == {("pipeline", 1): 3, ("results", 2): 4}
+    by_pr = {(i["repo"], i["pr_number"]): i for i in summary["items"]}
+    assert by_pr[("pipeline", 1)]["attribution_source"] == "tep_file_link"
+    assert by_pr[("pipeline", 1)]["evidence"]["format"] == "full-url"
+    assert by_pr[("results", 2)]["attribution_source"] == "search"
+    assert by_pr[("results", 2)]["evidence"] == "…mentions TEP-0052…"
 
 
-def test_impl_prs_summary_handles_missing_or_404_record() -> None:
+def test_impl_prs_summary_marks_genuine_404_as_not_found() -> None:
     impl_prs_by_key = {("pipeline", 1): {"repo": "pipeline", "pr_number": 1, "status": 404}}
 
-    summary = _impl_prs_summary({("pipeline", 1)}, set(), impl_prs_by_key, impl_review_counts={})
+    summary = _impl_prs_summary(
+        {("pipeline", 1): {"url": "u", "format": "full-url"}},
+        {},
+        pr_overrides=[],
+        impl_prs_by_key=impl_prs_by_key,
+        impl_review_counts={},
+    )
 
-    assert summary["items"][0]["status"] == 404
+    assert summary["items"][0]["status"] == "not_found"
     assert summary["items"][0]["title"] is None
     assert summary["items"][0]["review_comment_count"] == 0
 
 
-def test_impl_prs_summary_dedupes_pair_in_both_linked_and_discovered() -> None:
+def test_impl_prs_summary_marks_never_fetched_manual_include_as_pending() -> None:
+    summary = _impl_prs_summary(
+        {},
+        {},
+        pr_overrides=[
+            {"repo": "pipeline", "pr_number": 999, "action": "include", "reason": "missed"}
+        ],
+        impl_prs_by_key={},  # never fetched by anything
+        impl_review_counts={},
+    )
+
+    assert summary["items"][0]["status"] == "pending_fetch"
+    assert summary["items"][0]["attribution_source"] == "manual_include"
+
+
+def test_impl_prs_summary_prefers_linked_attribution_when_both() -> None:
     impl_prs_by_key = {
         ("pipeline", 1): {
             "title": "t",
@@ -249,10 +302,82 @@ def test_impl_prs_summary_dedupes_pair_in_both_linked_and_discovered() -> None:
     }
 
     summary = _impl_prs_summary(
-        {("pipeline", 1)}, {("pipeline", 1)}, impl_prs_by_key, impl_review_counts={}
+        {("pipeline", 1): {"url": "u", "format": "full-url"}},
+        {("pipeline", 1): "snippet"},
+        pr_overrides=[],
+        impl_prs_by_key=impl_prs_by_key,
+        impl_review_counts={},
     )
 
     assert summary["total_count"] == 1
+    assert summary["items"][0]["attribution_source"] == "tep_file_link"
+
+
+def test_impl_prs_summary_exclude_override_removes_pr_and_records_it() -> None:
+    impl_prs_by_key = {
+        ("results", 2): {
+            "title": "discovered one",
+            "review_decision": "COMMENTED",
+            "discovered_via": "search",
+            "additions": 5,
+            "deletions": 0,
+            "files_changed": 1,
+        }
+    }
+
+    summary = _impl_prs_summary(
+        {},
+        {("results", 2): "snippet"},
+        pr_overrides=[
+            {"repo": "results", "pr_number": 2, "action": "exclude", "reason": "unrelated"}
+        ],
+        impl_prs_by_key=impl_prs_by_key,
+        impl_review_counts={},
+    )
+
+    assert summary["total_count"] == 0
+    assert summary["discovered_count"] == 0
+    assert summary["excluded"] == [
+        {
+            "repo": "results",
+            "pr_number": 2,
+            "was_attribution_source": "search",
+            "reason": "unrelated",
+        }
+    ]
+
+
+def test_impl_prs_summary_include_override_adds_a_new_pr() -> None:
+    impl_prs_by_key = {
+        ("pipeline", 999): {
+            "title": "manually added",
+            "review_decision": "APPROVED",
+            "discovered_via": "search",  # discovered for a different TEP originally
+            "additions": 1,
+            "deletions": 1,
+            "files_changed": 1,
+        }
+    }
+
+    summary = _impl_prs_summary(
+        {},
+        {},
+        pr_overrides=[
+            {
+                "repo": "pipeline",
+                "pr_number": 999,
+                "action": "include",
+                "reason": "missed by search",
+            }
+        ],
+        impl_prs_by_key=impl_prs_by_key,
+        impl_review_counts={},
+    )
+
+    assert summary["manual_count"] == 1
+    assert summary["total_count"] == 1
+    assert summary["items"][0]["attribution_source"] == "manual_include"
+    assert summary["items"][0]["evidence"] == "missed by search"
 
 
 # ---------------------------------------------------------------------------
@@ -292,10 +417,11 @@ def test_build_tep_record_assembles_full_record() -> None:
         community_pr_reviews=[],
         impl_prs_by_key={},
         impl_review_counts={},
-        discoveries={"52": [["results", 103]]},
+        discoveries={"52": [{"repo": "results", "pr_number": 103, "evidence": "…TEP-0052…"}]},
         gaps_by_number={},
         coverage_by_number={52: {"linked": 1, "discovered": 1, "search_hits_confirmed": 2}},
-        overrides={},
+        section_overrides={},
+        pr_overrides_by_tep={},
         heading_positions=[],
     )
 
@@ -336,7 +462,8 @@ def test_build_tep_record_stub_has_no_divergences() -> None:
         discoveries={},
         gaps_by_number={},
         coverage_by_number={},
-        overrides={},
+        section_overrides={},
+        pr_overrides_by_tep={},
         heading_positions=[],
     )
 

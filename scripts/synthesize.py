@@ -57,12 +57,20 @@ def _load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def _load_overrides(path: Path) -> dict[tuple[str, int, int], str]:
+def _load_section_overrides(path: Path) -> dict[tuple[str, int, int], str]:
     """(repo, pr_number, comment_id) -> human-corrected section heading."""
     overrides: dict[tuple[str, int, int], str] = {}
     for rec in _load_jsonl(path):
         key = (str(rec["repo"]), int(rec["pr_number"]), int(rec["comment_id"]))
         overrides[key] = rec["override_section"]
+    return overrides
+
+
+def _load_pr_attribution_overrides(path: Path) -> dict[int, list[dict]]:
+    """tep_number -> [{repo, pr_number, action: 'exclude'|'include', reason}, ...]."""
+    overrides: dict[int, list[dict]] = {}
+    for rec in _load_jsonl(path):
+        overrides.setdefault(int(rec["tep_number"]), []).append(rec)
     return overrides
 
 
@@ -183,26 +191,60 @@ def _proposal_pr_summary(
 
 
 def _impl_prs_summary(
-    linked_pairs: set[tuple[str, int]],
-    discovered_pairs: set[tuple[str, int]],
+    linked_evidence: dict[tuple[str, int], dict],
+    discovered_evidence: dict[tuple[str, int], str | None],
+    pr_overrides: list[dict],
     impl_prs_by_key: dict[tuple[str, int], dict],
     impl_review_counts: dict[tuple[str, int], int],
 ) -> dict:
-    all_pairs = linked_pairs | discovered_pairs
+    """Build the TEP's implementation-PR list, applying manual exclude/include overrides
+    on top of the algorithmic link/discovery attribution. `evidence` on each item answers
+    "why do we think this PR belongs to this TEP" — the linked URL+format, the search
+    snippet that matched, or the human's stated reason for a manual inclusion.
+    """
+    excluded_pairs = {(o["repo"], o["pr_number"]) for o in pr_overrides if o["action"] == "exclude"}
+    include_reasons = {
+        (o["repo"], o["pr_number"]): o.get("reason")
+        for o in pr_overrides
+        if o["action"] == "include"
+    }
+
+    linked_pairs = set(linked_evidence) - excluded_pairs
+    discovered_pairs = set(discovered_evidence) - excluded_pairs
+    manual_pairs = set(include_reasons) - linked_pairs - discovered_pairs - excluded_pairs
+    all_pairs = linked_pairs | discovered_pairs | manual_pairs
+
+    def _attribution(pair: tuple[str, int]) -> tuple[str, object]:
+        if pair in linked_pairs:
+            return "tep_file_link", linked_evidence.get(pair)
+        if pair in discovered_pairs:
+            return "search", discovered_evidence.get(pair)
+        return "manual_include", include_reasons.get(pair)
+
     items = []
     by_repo: dict[str, int] = {}
     for repo, pr_number in sorted(all_pairs):
+        attribution_source, evidence = _attribution((repo, pr_number))
         record = impl_prs_by_key.get((repo, pr_number))
         by_repo[repo] = by_repo.get(repo, 0) + 1
+        base = {
+            "repo": repo,
+            "pr_number": pr_number,
+            "attribution_source": attribution_source,
+            "evidence": evidence,
+            "review_comment_count": impl_review_counts.get((repo, pr_number), 0),
+        }
         if record is None or record.get("status") == 404:
+            # Genuine 404 (fetched, GitHub says gone) vs. pending_fetch (a manual "include"
+            # naming a PR nothing has fetched yet — run apply_pr_overrides.py) look the same
+            # to a human unless distinguished explicitly.
             items.append(
                 {
-                    "repo": repo,
-                    "pr_number": pr_number,
+                    **base,
                     "title": None,
                     "review_decision": None,
                     "discovered_via": (record or {}).get("discovered_via"),
-                    "status": 404,
+                    "status": "not_found" if record is not None else "pending_fetch",
                     "additions": None,
                     "deletions": None,
                     "files_changed": None,
@@ -212,8 +254,7 @@ def _impl_prs_summary(
             continue
         items.append(
             {
-                "repo": repo,
-                "pr_number": pr_number,
+                **base,
                 "title": record["title"],
                 "review_decision": record["review_decision"],
                 "discovered_via": record["discovered_via"],
@@ -221,17 +262,41 @@ def _impl_prs_summary(
                 "additions": record["additions"],
                 "deletions": record["deletions"],
                 "files_changed": record["files_changed"],
-                "review_comment_count": impl_review_counts.get((repo, pr_number), 0),
+            }
+        )
+
+    excluded_items = []
+    for repo, pr_number in sorted(
+        excluded_pairs & (set(linked_evidence) | set(discovered_evidence))
+    ):
+        reason = next(
+            (
+                o.get("reason")
+                for o in pr_overrides
+                if o["action"] == "exclude" and (o["repo"], o["pr_number"]) == (repo, pr_number)
+            ),
+            None,
+        )
+        excluded_items.append(
+            {
+                "repo": repo,
+                "pr_number": pr_number,
+                "was_attribution_source": "tep_file_link"
+                if (repo, pr_number) in linked_evidence
+                else "search",
+                "reason": reason,
             }
         )
 
     return {
         "linked_count": len(linked_pairs),
         "discovered_count": len(discovered_pairs),
+        "manual_count": len(manual_pairs),
         "total_count": len(all_pairs),
         "review_comment_count": sum(item["review_comment_count"] for item in items),
         "by_repo": by_repo,
         "items": items,
+        "excluded": excluded_items,
     }
 
 
@@ -251,17 +316,22 @@ def build_tep_record(
     discoveries: dict,
     gaps_by_number: dict[int, dict],
     coverage_by_number: dict[int, dict],
-    overrides: dict[tuple[str, int, int], str],
+    section_overrides: dict[tuple[str, int, int], str],
+    pr_overrides_by_tep: dict[int, list[dict]],
     heading_positions: list[tuple[int, str]],
 ) -> dict:
     tep_number = int(tep["tep_number"])
     sections_present = tep.get("sections_present") or []
 
     pr_numbers = sorted(int(n) for n in tep_pr_map.get(str(tep_number), []))
-    linked_pairs = {
-        (link["repo"], link["pr_number"]) for link in tep.get("impl_pr_links_detail", [])
+    linked_evidence = {
+        (link["repo"], link["pr_number"]): {"url": link.get("url"), "format": link.get("format")}
+        for link in tep.get("impl_pr_links_detail", [])
     }
-    discovered_pairs = {(repo, pr) for repo, pr in discoveries.get(str(tep_number), [])}
+    discovered_evidence = {
+        (entry["repo"], entry["pr_number"]): entry.get("evidence")
+        for entry in discoveries.get(str(tep_number), [])
+    }
 
     return {
         "tep_number": tep_number,
@@ -285,10 +355,14 @@ def build_tep_record(
             community_prs_by_number,
             community_pr_reviews,
             heading_positions,
-            overrides,
+            section_overrides,
         ),
         "impl_prs": _impl_prs_summary(
-            linked_pairs, discovered_pairs, impl_prs_by_key, impl_review_counts
+            linked_evidence,
+            discovered_evidence,
+            pr_overrides_by_tep.get(tep_number, []),
+            impl_prs_by_key,
+            impl_review_counts,
         ),
     }
 
@@ -331,6 +405,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--gaps", default="raw/tep_gaps.jsonl")
     parser.add_argument("--coverage", default="processed/latest/coverage.json")
     parser.add_argument("--overrides", default="overrides/section_overrides.jsonl")
+    parser.add_argument("--pr-overrides", default="overrides/pr_attribution_overrides.jsonl")
     parser.add_argument(
         "--teps-dir",
         default=(os.environ.get("COMMUNITY_REPO_PATH", "") + "/teps") or None,
@@ -371,7 +446,8 @@ def main(argv: list[str] | None = None) -> int:
     coverage_path = Path(args.coverage)
     coverage_records = json.loads(coverage_path.read_text()) if coverage_path.exists() else []
     coverage_by_number = {int(r["tep_number"]): r for r in coverage_records}
-    overrides = _load_overrides(Path(args.overrides))
+    section_overrides = _load_section_overrides(Path(args.overrides))
+    pr_overrides_by_tep = _load_pr_attribution_overrides(Path(args.pr_overrides))
 
     records = []
     for tep in teps:
@@ -396,7 +472,8 @@ def main(argv: list[str] | None = None) -> int:
                 discoveries,
                 gaps_by_number,
                 coverage_by_number,
-                overrides,
+                section_overrides,
+                pr_overrides_by_tep,
                 heading_positions,
             )
         )
@@ -411,7 +488,9 @@ def main(argv: list[str] | None = None) -> int:
     print(f"Template sections    : {len(template_sections)}")
     print(f"With implementation PRs: {with_impl_prs}")
     print(f"With review comments  : {with_review_comments}")
-    print(f"Overrides applied     : {len(overrides)}")
+    print(f"Section overrides applied: {len(section_overrides)}")
+    pr_override_count = sum(len(v) for v in pr_overrides_by_tep.values())
+    print(f"PR attribution overrides : {pr_override_count}")
     print(f"Written: {out_path}")
     return 0
 

@@ -72,6 +72,7 @@ make fetch-impl-prs  # Sub-Task 5: fetch implementation PR metadata
 make search          # Sub-Task 6: cross-repo TEP reference search
 make synthesize      # Sub-Task 7: join raw data -> processed/
 make explorer        # Sub-Task 7: build the interactive data explorer -> reports/explorer.html
+make apply-pr-overrides  # Optional: fetch metadata for a manually-"included" PR, then re-run synthesize
 make query           # Ad-hoc: launch DuckDB session over every raw/processed JSONL file
 ```
 
@@ -90,6 +91,8 @@ Sub-Task 6 must run **after** `make fetch-impl-prs` — it reads and augments `r
 ## Sub-Task 7 note
 
 `make synthesize` must run **after** `make search` (it reads `processed/latest/coverage.json` and `raw/impl_pr_discoveries.json`, both Sub-Task 6 outputs) and needs `COMMUNITY_REPO_PATH` set (it parses `teps/tools/tep-template.md.template` for the canonical section list, and each TEP's own file for section-attribution of review comments). `review_signals` is comment counts per section, not the keyword-based intent classification the original plan sketched — see the docstring on `_proposal_pr_summary()` in [`scripts/synthesize.py`](scripts/synthesize.py). Section attribution is a best-effort approximation (a comment's line number mapped to the nearest heading in the *current* merged file, not the file as it stood when the comment was made); `make explorer` builds [`reports/explorer.html`](reports/explorer.html), an interactive, filterable/sortable browser over the joined data, where corrections to a specific comment's section can be made and exported as `overrides/section_overrides.jsonl` — commit that file and re-run `make synthesize` to apply them (git history is the audit trail).
+
+Implementation-PR attribution (linked vs. discovered vs. manual) is correctable the same way. Every impl PR shown for a TEP carries an `attribution_source` (`tep_file_link`, `search`, or `manual_include`) and `evidence` explaining why the algorithm picked it — the linked URL for a link, the matched search snippet for a discovery, the human's stated reason for a manual inclusion — so a reviewer can see *why* without re-deriving it. Two corrections are possible in the explorer, both exported as `overrides/pr_attribution_overrides.jsonl`: flag a wrongly-attributed PR as **not relevant** (`action: "exclude"`), or tag a **missing** PR as relevant (`action: "include"`). An `include` naming a PR nothing has fetched yet shows as `pending_fetch` until you run `make apply-pr-overrides`, which fetches just those PRs into `raw/impl_prs.jsonl`/`raw/impl_pr_reviews.jsonl` (tagged `discovered_via: "manual_override"`) so the next `make synthesize` can show its title and stats instead of a placeholder. `not_found` (as opposed to `pending_fetch`) means the PR *was* fetched and GitHub genuinely returned 404 — see the `status` field built in `_impl_prs_summary()` in [`scripts/synthesize.py`](scripts/synthesize.py).
 
 ## Detailed Plan
 

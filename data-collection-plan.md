@@ -402,6 +402,14 @@ generation step.
   filterable/sortable interactive browser over `per_tep_records.json` — the actual consumption
   layer for this join, requested directly rather than left implicit. Section corrections are made
   and exported from here; nothing is written back to disk automatically (static HTML, no server).
+- Implementation-PR attribution is correctable the same way, via `overrides/pr_attribution_overrides.jsonl`.
+  Each impl PR item carries `attribution_source` (`tep_file_link` / `search` / `manual_include`)
+  and `evidence` (the linked URL, the matching search snippet, or the human's reason) so the
+  explorer can answer "why was this PR picked" without re-deriving it — a manual check that finds
+  a wrong attribution can flag it `exclude`, or add a missed PR as `include`, right there. An
+  `include` naming a PR nothing has fetched yet needs `scripts/apply_pr_overrides.py`
+  (`make apply-pr-overrides`) to run before the next `synthesize.py`, so its title/stats can be
+  shown instead of a `pending_fetch` placeholder — `synthesize.py` itself does no network I/O.
 
 **Todo List**:
 1. Write `scripts/synthesize.py`:
@@ -538,7 +546,12 @@ raw/impl_pr_discoveries.json
 processed/YYYY-MM-DD/per_tep_records.json
         |
         v (Sub-Task 7: build_explorer.py)
-reports/explorer.html  (interactive, corrections -> overrides/section_overrides.jsonl)
+reports/explorer.html  (interactive, corrections exported as JSONL, committed, then applied by
+                         re-running synthesize.py — the audit trail is git history:
+                           - overrides/section_overrides.jsonl
+                           - overrides/pr_attribution_overrides.jsonl (an "include" naming an
+                             unfetched PR needs apply_pr_overrides.py first, to populate
+                             impl_prs.jsonl before the next synthesize.py run))
         |
         v (Sub-Task 8: AI grouping via group_conventions.md prompt)
 conventions/*.yaml  (decision: ~ fields blank)
