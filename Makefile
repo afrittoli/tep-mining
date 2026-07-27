@@ -90,31 +90,16 @@ search: ## Sub-Task 6: Cross-repo TEP reference search (run after fetch-impl-prs
 synthesize: ## Sub-Task 7: Join raw data into per-TEP records → processed/
 	uv run scripts/synthesize.py \
 		--teps-jsonl raw/teps.jsonl \
-		--pr-map raw/tep_pr_map.json \
+		--tep-pr-map raw/tep_pr_map.json \
 		--community-prs raw/community_prs.jsonl \
 		--community-reviews raw/community_pr_reviews.jsonl \
 		--impl-prs raw/impl_prs.jsonl \
-		--impl-reviews raw/impl_pr_reviews.jsonl
+		--impl-reviews raw/impl_pr_reviews.jsonl \
+		--discoveries raw/impl_pr_discoveries.json \
+		--gaps raw/tep_gaps.jsonl \
+		--coverage processed/latest/coverage.json \
+		--overrides overrides/section_overrides.jsonl \
+		--processed-dir processed
 
-query: ## Launch an interactive DuckDB session over the raw JSONL files
-	uv run python -c "\
-import duckdb; \
-con = duckdb.connect(); \
-con.execute(\"CREATE VIEW teps AS SELECT * FROM read_json_auto('raw/teps.jsonl', format='newline_delimited')\"); \
-print('Tables: teps'); \
-print('Type SQL queries, or .quit to exit.'); \
-con.sql('.mode column'); \
-import readline, atexit; \
-from pathlib import Path; \
-hist = Path.home() / '.duckdb_history'; \
-try: readline.read_history_file(hist); \
-except FileNotFoundError: pass; \
-atexit.register(readline.write_history_file, hist); \
-while True: \
-    try: q = input('duckdb> '); \
-    except (EOFError, KeyboardInterrupt): break; \
-    if q.strip() in ('.quit', '.exit', 'quit', 'exit'): break; \
-    if q.strip(): \
-        try: con.sql(q).show(); \
-        except Exception as e: print(f'Error: {e}') \
-"
+query: ## Launch an interactive DuckDB session over every raw/processed JSONL file
+	uv run scripts/query_console.py
