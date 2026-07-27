@@ -35,6 +35,8 @@ from pathlib import Path
 
 import requests
 from dotenv import load_dotenv
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 load_dotenv()
 
@@ -56,6 +58,17 @@ def _session(token: str) -> requests.Session:
     session.headers["Accept"] = "application/vnd.github+json"
     session.headers["X-GitHub-Api-Version"] = "2022-11-28"
     session.headers["Authorization"] = f"Bearer {token}"
+    # Long-running fetches (100s of requests) hit occasional transient connection drops and
+    # read timeouts; retry those at the connection-pool level rather than failing the whole run.
+    retry = Retry(
+        total=3,
+        backoff_factor=1.0,
+        status_forcelist=[500, 502, 503, 504],
+        allowed_methods=["GET"],
+    )
+    adapter = HTTPAdapter(max_retries=retry)
+    session.mount("https://", adapter)
+    session.mount("http://", adapter)
     return session
 
 
@@ -146,7 +159,9 @@ def _linked_issues(body: str) -> list[int]:
     return sorted({int(n) for n in RE_CLOSES.findall(body or "")})
 
 
-def _pr_record(repo: str, pr: dict, reviews: list[dict]) -> dict:
+def _pr_record(
+    repo: str, pr: dict, reviews: list[dict], discovered_via: str = DISCOVERED_VIA_LINK
+) -> dict:
     reviewer_logins = sorted({login for review in reviews if (login := _user_login(review))})
     review_decision = "COMMENTED"
     for decision in ["CHANGES_REQUESTED", "APPROVED", "DISMISSED", "COMMENTED"]:
@@ -169,7 +184,7 @@ def _pr_record(repo: str, pr: dict, reviews: list[dict]) -> dict:
         "merged_at": pr.get("merged_at"),
         "reviewer_logins": reviewer_logins,
         "review_decision": review_decision,
-        "discovered_via": DISCOVERED_VIA_LINK,
+        "discovered_via": discovered_via,
     }
 
 
@@ -421,6 +436,55 @@ def _write_report(
 
 
 # ---------------------------------------------------------------------------
+# Per-PR fetch (shared with scripts/cross_repo_search.py — same fetch, same schema,
+# regardless of how the (repo, pr_number) pair was discovered)
+# ---------------------------------------------------------------------------
+
+
+def fetch_one_impl_pr(
+    session: requests.Session,
+    repo: str,
+    pr_number: int,
+    discovered_via: str,
+    last_logged_remaining: int | None,
+) -> tuple[dict, list[dict], int | None]:
+    """Fetch one implementation PR's metadata, reviews, and comments.
+
+    Returns (pr_record, review_comment_records, last_logged_remaining). pr_record is
+    a 404 stub if the PR no longer exists.
+    """
+    pr_url = f"{GITHUB_API}/repos/{ORG}/{repo}/pulls/{pr_number}"
+    response = session.get(pr_url, timeout=30)
+    last_logged_remaining = _check_rate(response, last_logged_remaining)
+
+    if response.status_code == 404:
+        return (
+            {
+                "repo": repo,
+                "pr_number": pr_number,
+                "status": 404,
+                "discovered_via": discovered_via,
+            },
+            [],
+            last_logged_remaining,
+        )
+
+    response.raise_for_status()
+    pr = response.json()
+
+    reviews, last_logged_remaining = _get_paginated(
+        session, f"{pr_url}/reviews", last_logged_remaining
+    )
+    comments, last_logged_remaining = _get_paginated(
+        session, f"{pr_url}/comments", last_logged_remaining
+    )
+
+    pr_record = _pr_record(repo, pr, reviews, discovered_via=discovered_via)
+    review_records = _review_comment_records(repo, pr_number, comments)
+    return pr_record, review_records, last_logged_remaining
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -473,42 +537,19 @@ def main(argv: list[str] | None = None) -> int:
             f"[progress] fetching {repo}#{pr_number} ({index}/{len(selected)})",
             flush=True,
         )
-        pr_url = f"{GITHUB_API}/repos/{ORG}/{repo}/pulls/{pr_number}"
-        response = session.get(pr_url, timeout=30)
-        last_logged_remaining = _check_rate(response, last_logged_remaining)
+        pr_record, review_records, last_logged_remaining = fetch_one_impl_pr(
+            session, repo, pr_number, DISCOVERED_VIA_LINK, last_logged_remaining
+        )
+        existing_prs.add((repo, pr_number))
+        _append_jsonl(output_prs_path, [pr_record])
 
-        if response.status_code == 404:
+        if pr_record.get("status") == 404:
             fetched_404 += 1
-            _append_jsonl(
-                output_prs_path,
-                [
-                    {
-                        "repo": repo,
-                        "pr_number": pr_number,
-                        "status": 404,
-                        "discovered_via": DISCOVERED_VIA_LINK,
-                    }
-                ],
-            )
-            existing_prs.add((repo, pr_number))
             print(f"[progress] {repo}#{pr_number}: 404 not found", flush=True)
             continue
 
-        response.raise_for_status()
-        pr = response.json()
-
-        reviews, last_logged_remaining = _get_paginated(
-            session, f"{pr_url}/reviews", last_logged_remaining
-        )
-        comments, last_logged_remaining = _get_paginated(
-            session, f"{pr_url}/comments", last_logged_remaining
-        )
-
-        _append_jsonl(output_prs_path, [_pr_record(repo, pr, reviews)])
-        existing_prs.add((repo, pr_number))
-
         new_comments = []
-        for comment_record in _review_comment_records(repo, pr_number, comments):
+        for comment_record in review_records:
             key = (repo, pr_number, comment_record["comment_id"])
             if key not in existing_comments:
                 new_comments.append(comment_record)
@@ -516,7 +557,7 @@ def main(argv: list[str] | None = None) -> int:
         _append_jsonl(output_reviews_path, new_comments)
 
         print(
-            f"[progress] {repo}#{pr_number}: reviews={len(reviews)} comments={len(comments)} "
+            f"[progress] {repo}#{pr_number}: reviews_comments={len(review_records)} "
             f"new_comment_records={len(new_comments)}",
             flush=True,
         )

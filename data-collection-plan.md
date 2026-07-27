@@ -286,6 +286,11 @@ syntax, PR count and size per TEP, feature-flag usage.
   `community_pr_reviews.jsonl` plus `repo` field)
 - Coverage stats: how many PRs in `impl_pr_links` from `raw/teps.jsonl` were successfully
   fetched vs. 404 (deleted/transferred)
+- Current project decision: run against all TEPs with implementation PR links for now (matches
+  Sub-Task 4); `--sample` remains available for a future curated subset. Every record written
+  (including 404s) carries `discovered_via: "tep_file_link"`, since this script only ever
+  fetches PRs the TEP author already linked — see Sub-Task 6 for the complementary discovery
+  mechanism.
 
 **Todo List**:
 1. Write `scripts/fetch_impl_prs.py`:
@@ -305,7 +310,7 @@ syntax, PR count and size per TEP, feature-flag usage.
 - Some early TEPs link to PRs that may be closed/deleted; 404 responses should be recorded
   as `{"repo": ..., "pr_number": ..., "status": 404}` in the JSONL so the gap is visible
 
-**Status**: [ ] pending
+**Status**: [x] done
 
 ---
 
@@ -322,6 +327,16 @@ output, it does not replace it.
 - A summary report: for each TEP in the sample, how many PRs were found via search vs. already
   linked in the TEP file — the delta is the under-linking rate
 - Coverage stats recorded in `processed/YYYY-MM-DD/coverage.json`
+- Current project decision: run against all TEPs for now (matches Sub-Tasks 4 and 5); `--sample`
+  remains available. Search hits in `tektoncd/community` matching a TEP's own known PR numbers
+  (from `raw/tep_pr_map.json`) are excluded — they're the TEP's own proposal/doc history, not a
+  missed implementation PR. Hits are re-confirmed against the exact TEP number requested before
+  being counted, since GitHub's search tokenization on a quoted phrase isn't a guaranteed exact
+  match.
+- Result of the first full run (2026-07-27): 274 already-linked implementation PRs vs. 649
+  newly discovered via search, across 156 TEPs — an under-linking rate of **70.3%**. Confirms
+  the concern raised in TEP-0173 Phase 0a: the offline `impl_pr_links` extraction alone would
+  have missed the majority of actual implementation PRs.
 
 **Todo List**:
 1. Write `scripts/cross_repo_search.py`:
@@ -347,7 +362,7 @@ output, it does not replace it.
 - Sub-Task 5 already sets `discovered_via: "tep_file_link"` on every record it writes; this
   sub-task must not modify existing records, only append new ones
 
-**Status**: [ ] pending
+**Status**: [x] done
 
 ---
 

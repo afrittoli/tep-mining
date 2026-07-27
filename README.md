@@ -74,6 +74,14 @@ make query           # Ad-hoc: launch DuckDB session over JSONL files
 
 For now, Sub-Task 4 is implemented to run against all mapped TEP PRs by default rather than a curated Pass 1 sample. The `--sample` option remains available in [`scripts/fetch_tep_prs.py`](scripts/fetch_tep_prs.py) for a future curated subset once one is explicitly chosen.
 
+## Sub-Task 5 note
+
+Sub-Task 5 also runs against all TEPs with implementation PR links by default, same as Sub-Task 4. The `--sample` option remains available in [`scripts/fetch_impl_prs.py`](scripts/fetch_impl_prs.py). Every record it writes to `raw/impl_prs.jsonl` (including 404s) carries `discovered_via: "tep_file_link"`, since it only ever fetches PRs the TEP author already linked in their own document — see Sub-Task 6 below for the mechanism that finds the rest.
+
+## Sub-Task 6 note
+
+Sub-Task 6 must run **after** `make fetch-impl-prs` — it reads and augments `raw/impl_prs.jsonl`, and needs `raw/tep_pr_map.json` (Sub-Task 3) to tell a TEP's own community proposal/doc PRs apart from a genuine implementation PR discovered elsewhere. Like Sub-Tasks 4 and 5, it runs against all TEPs by default (`--sample` remains available). Newly discovered records carry `discovered_via: "search"`. Per-TEP coverage (linked vs. discovered) is written to `processed/YYYY-MM-DD/coverage.json`, with `processed/latest` symlinked to the most recent run, per the storage design below.
+
 ## Detailed Plan
 
 See [data-collection-plan.md](data-collection-plan.md) for the full sub-task breakdown,

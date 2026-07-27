@@ -90,6 +90,14 @@ def test_pr_record_collects_reviewers_decision_and_size() -> None:
     }
 
 
+def test_pr_record_accepts_explicit_discovered_via() -> None:
+    pr = {"number": 1, "title": "t", "body": "", "labels": []}
+
+    record = _pr_record("chains", pr, reviews=[], discovered_via="search")
+
+    assert record["discovered_via"] == "search"
+
+
 def test_review_comment_records_extract_fields_with_repo() -> None:
     comments = [
         {
