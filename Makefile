@@ -80,7 +80,11 @@ report-index: ## Build a tabbed index over every reports/*.html → reports/inde
 search: ## Sub-Task 6: Cross-repo TEP reference search (run after fetch-impl-prs)
 	uv run scripts/cross_repo_search.py \
 		--teps-jsonl raw/teps.jsonl \
-		--impl-prs-jsonl raw/impl_prs.jsonl
+		--tep-pr-map raw/tep_pr_map.json \
+		--impl-prs-jsonl raw/impl_prs.jsonl \
+		--output-reviews raw/impl_pr_reviews.jsonl \
+		--processed-dir processed \
+		--report reports/cross_repo_search_report.html
 
 synthesize: ## Sub-Task 7: Join raw data into per-TEP records → processed/
 	uv run scripts/synthesize.py \
