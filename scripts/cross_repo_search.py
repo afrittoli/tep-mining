@@ -119,6 +119,27 @@ def _confirmed_hits(hits: list[dict], tep_number: int) -> list[dict]:
     return confirmed
 
 
+def _match_evidence(item: dict, tep_number: int, window: int = 60) -> str | None:
+    """The text around wherever `item` actually mentions tep_number — the "why" for a human
+    checking whether this hit is genuinely relevant, not just a coincidental number match."""
+    title = str(item.get("title") or "")
+    body = str(item.get("body") or "")
+    text = f"{title}\n\n{body}" if body else title
+    for m in RE_TEP_CONFIRM.finditer(text):
+        try:
+            if int(m.group(1)) != tep_number:
+                continue
+        except ValueError:
+            continue
+        start = max(0, m.start() - window)
+        end = min(len(text), m.end() + window)
+        snippet = " ".join(text[start:end].split())
+        prefix = "…" if start > 0 else ""
+        suffix = "…" if end < len(text) else ""
+        return f"{prefix}{snippet}{suffix}"
+    return None
+
+
 def _repo_and_number(item: dict) -> tuple[str, int]:
     """Extract (repo, pr_number) from a GitHub search API issue/PR item."""
     repo = str(item["repository_url"]).rsplit("/", 1)[-1]
@@ -159,11 +180,11 @@ def _write_coverage(coverage: list[dict], processed_dir: Path) -> Path:
     return coverage_path
 
 
-def _discoveries_json(discoveries: dict[int, list[tuple[str, int]]]) -> str:
-    """Serialize the tep_number -> discovered [repo, pr_number] pairs mapping."""
+def _discoveries_json(discoveries: dict[int, list[dict]]) -> str:
+    """Serialize the tep_number -> discovered {repo, pr_number, evidence} mapping."""
     payload = {
-        str(tep): [[repo, pr] for repo, pr in sorted(prs)]
-        for tep, prs in sorted(discoveries.items())
+        str(tep): sorted(entries, key=lambda e: (e["repo"], e["pr_number"]))
+        for tep, entries in sorted(discoveries.items())
     }
     return json.dumps(payload, indent=2, sort_keys=True) + "\n"
 
@@ -306,7 +327,7 @@ def main(argv: list[str] | None = None) -> int:
     session = _session(args.token)
     last_logged_remaining: int | None = None
     coverage: list[dict] = []
-    discoveries: dict[int, list[tuple[str, int]]] = {}
+    discoveries: dict[int, list[dict]] = {}
     total_new_prs = 0
     total_new_comments = 0
 
@@ -332,15 +353,24 @@ def main(argv: list[str] | None = None) -> int:
         # process. Interrupted/resumed runs must not under-count TEPs whose PRs were already
         # fetched by an earlier attempt.
         candidate_prs = set()
+        item_by_pair: dict[tuple[str, int], dict] = {}
         for item in confirmed:
             repo, pr_number = _repo_and_number(item)
             if repo == "community" and pr_number in own_prs:
                 continue  # the TEP's own proposal/doc PR, not an implementation PR
             candidate_prs.add((repo, pr_number))
+            item_by_pair[(repo, pr_number)] = item
         discovered_prs = candidate_prs - linked_prs
         discovered_this_tep = len(discovered_prs)
         if discovered_prs:
-            discoveries[tep_number] = sorted(discovered_prs)
+            discoveries[tep_number] = [
+                {
+                    "repo": repo,
+                    "pr_number": pr_number,
+                    "evidence": _match_evidence(item_by_pair[(repo, pr_number)], tep_number),
+                }
+                for repo, pr_number in sorted(discovered_prs)
+            ]
 
         for repo, pr_number in discovered_prs:
             if (repo, pr_number) in existing_prs:

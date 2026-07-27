@@ -6,6 +6,7 @@ from scripts.cross_repo_search import (
     _confirmed_hits,
     _discoveries_json,
     _linked_count,
+    _match_evidence,
     _own_pr_numbers,
     _repo_and_number,
     _write_coverage,
@@ -43,6 +44,33 @@ def test_confirmed_hits_rejects_no_mention() -> None:
     hits = [_hit(title="Unrelated PR", body="nothing here")]
 
     assert _confirmed_hits(hits, 84) == []
+
+
+def test_match_evidence_returns_context_around_the_match() -> None:
+    item = _hit(title="Add retry support", body="This is part of the TEP-0084 provenance work.")
+
+    evidence = _match_evidence(item, 84)
+
+    assert evidence is not None
+    assert "TEP-0084" in evidence
+
+
+def test_match_evidence_returns_none_when_number_does_not_match() -> None:
+    item = _hit(title="Add retry support", body="Part of TEP-0184 work")
+
+    assert _match_evidence(item, 84) is None
+
+
+def test_match_evidence_truncates_with_ellipsis_when_windowed() -> None:
+    body = ("x" * 200) + " TEP-0084 " + ("y" * 200)
+    item = _hit(title="", body=body)
+
+    evidence = _match_evidence(item, 84, window=20)
+
+    assert evidence is not None
+    assert evidence.startswith("…")
+    assert evidence.endswith("…")
+    assert "TEP-0084" in evidence
 
 
 def test_repo_and_number_extracts_from_repository_url() -> None:
@@ -108,14 +136,23 @@ def test_build_report_handles_empty_coverage_without_crashing() -> None:
     assert html.startswith("<!DOCTYPE html>")
 
 
-def test_discoveries_json_serializes_repo_pr_pairs_by_tep() -> None:
-    discoveries = {52: [("results", 103), ("community", 355)], 1: [("community", 121)]}
+def test_discoveries_json_serializes_repo_pr_pairs_with_evidence_by_tep() -> None:
+    discoveries = {
+        52: [
+            {"repo": "results", "pr_number": 103, "evidence": "…TEP-0052…"},
+            {"repo": "community", "pr_number": 355, "evidence": None},
+        ],
+        1: [{"repo": "community", "pr_number": 121, "evidence": "…TEP-0001…"}],
+    }
 
     parsed = json.loads(_discoveries_json(discoveries))
 
     assert parsed == {
-        "1": [["community", 121]],
-        "52": [["community", 355], ["results", 103]],
+        "1": [{"repo": "community", "pr_number": 121, "evidence": "…TEP-0001…"}],
+        "52": [
+            {"repo": "community", "pr_number": 355, "evidence": None},
+            {"repo": "results", "pr_number": 103, "evidence": "…TEP-0052…"},
+        ],
     }
 
 
