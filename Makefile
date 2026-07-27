@@ -83,6 +83,7 @@ search: ## Sub-Task 6: Cross-repo TEP reference search (run after fetch-impl-prs
 		--tep-pr-map raw/tep_pr_map.json \
 		--impl-prs-jsonl raw/impl_prs.jsonl \
 		--output-reviews raw/impl_pr_reviews.jsonl \
+		--discoveries-out raw/impl_pr_discoveries.json \
 		--processed-dir processed \
 		--report reports/cross_repo_search_report.html
 
