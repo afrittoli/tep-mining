@@ -20,7 +20,11 @@ For each TEP number, searches org:tektoncd for PRs mentioning "TEP-NNNN" anywher
 (title or body, not just title), confirms each hit really names that TEP number,
 excludes the TEP's own known community proposal/doc PRs (from raw/tep_pr_map.json —
 those aren't implementation), and fetches anything genuinely new with the same
-fetch_one_impl_pr() Sub-Task 5 uses, tagged discovered_via: "search".
+fetch_one_impl_pr() Sub-Task 5 uses, tagged discovered_via: "search". Also writes
+raw/impl_pr_discoveries.json (TEP number -> [repo, pr_number] pairs it discovered) —
+impl_prs.jsonl records don't carry a tep_number themselves, so this mapping is the
+only record of which TEP a search-discovered PR belongs to; Sub-Task 7 needs it to
+build accurate per-TEP records.
 
 Usage:
     uv run scripts/cross_repo_search.py
@@ -155,6 +159,15 @@ def _write_coverage(coverage: list[dict], processed_dir: Path) -> Path:
     return coverage_path
 
 
+def _discoveries_json(discoveries: dict[int, list[tuple[str, int]]]) -> str:
+    """Serialize the tep_number -> discovered [repo, pr_number] pairs mapping."""
+    payload = {
+        str(tep): [[repo, pr] for repo, pr in sorted(prs)]
+        for tep, prs in sorted(discoveries.items())
+    }
+    return json.dumps(payload, indent=2, sort_keys=True) + "\n"
+
+
 # ---------------------------------------------------------------------------
 # HTML report
 # ---------------------------------------------------------------------------
@@ -252,6 +265,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--tep-pr-map", default="raw/tep_pr_map.json")
     parser.add_argument("--impl-prs-jsonl", default="raw/impl_prs.jsonl")
     parser.add_argument("--output-reviews", default="raw/impl_pr_reviews.jsonl")
+    parser.add_argument("--discoveries-out", default="raw/impl_pr_discoveries.json")
     parser.add_argument("--processed-dir", default="processed")
     parser.add_argument("--report", default="reports/cross_repo_search_report.html")
     parser.add_argument("--sample", default="", help="Comma-separated TEP numbers")
@@ -292,6 +306,7 @@ def main(argv: list[str] | None = None) -> int:
     session = _session(args.token)
     last_logged_remaining: int | None = None
     coverage: list[dict] = []
+    discoveries: dict[int, list[tuple[str, int]]] = {}
     total_new_prs = 0
     total_new_comments = 0
 
@@ -324,6 +339,8 @@ def main(argv: list[str] | None = None) -> int:
             candidate_prs.add((repo, pr_number))
         discovered_prs = candidate_prs - linked_prs
         discovered_this_tep = len(discovered_prs)
+        if discovered_prs:
+            discoveries[tep_number] = sorted(discovered_prs)
 
         for repo, pr_number in discovered_prs:
             if (repo, pr_number) in existing_prs:
@@ -361,6 +378,10 @@ def main(argv: list[str] | None = None) -> int:
     coverage_path = _write_coverage(coverage, Path(args.processed_dir))
     _write_report(Path(args.report), coverage)
 
+    discoveries_path = Path(args.discoveries_out)
+    discoveries_path.parent.mkdir(parents=True, exist_ok=True)
+    discoveries_path.write_text(_discoveries_json(discoveries), encoding="utf-8")
+
     total_linked = sum(c["linked"] for c in coverage)
     total_discovered = sum(c["discovered"] for c in coverage)
     print("\n=== Cross-Repo Search Summary ===")
@@ -376,6 +397,7 @@ def main(argv: list[str] | None = None) -> int:
     print(f"Written: {args.impl_prs_jsonl}")
     print(f"Written: {args.output_reviews}")
     print(f"Written: {coverage_path}")
+    print(f"Written: {discoveries_path}")
     print(f"Written: {args.report}")
     return 0
 

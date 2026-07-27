@@ -1,8 +1,10 @@
+import json
 from pathlib import Path
 
 from scripts.cross_repo_search import (
     _build_report,
     _confirmed_hits,
+    _discoveries_json,
     _linked_count,
     _own_pr_numbers,
     _repo_and_number,
@@ -104,3 +106,18 @@ def test_build_report_handles_empty_coverage_without_crashing() -> None:
     html = _build_report([])
 
     assert html.startswith("<!DOCTYPE html>")
+
+
+def test_discoveries_json_serializes_repo_pr_pairs_by_tep() -> None:
+    discoveries = {52: [("results", 103), ("community", 355)], 1: [("community", 121)]}
+
+    parsed = json.loads(_discoveries_json(discoveries))
+
+    assert parsed == {
+        "1": [["community", 121]],
+        "52": [["community", 355], ["results", 103]],
+    }
+
+
+def test_discoveries_json_handles_empty_mapping() -> None:
+    assert json.loads(_discoveries_json({})) == {}
