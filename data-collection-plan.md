@@ -191,12 +191,33 @@ against.
 - TEP frontmatter required fields: `title`, `authors`, `creation-date`, `status` (from `teps.py`
   line 58: `REQUIRED_FIELDS`)
 - Implementation PR link section heading varies: "Implementation Pull request(s)",
-  "Implementation PRs", "Implementation Plan" — the regex must be section-agnostic and scan
-  the full document body
+  "Implementation PRs", "Implementation Pull Requests" — matched by `RE_IMPL_PR_HEADING`, but
+  **scoped to that section specifically, not the whole document body** (see note below; this
+  supersedes the original "section-agnostic, scan the full body" design — that turned out to
+  cause real, corpus-wide mis-attribution)
 - Withdrawn/deferred TEPs (6 total) should be included but tagged; they form the contrast set
   mentioned in TEP-0173 Phase 0a
 
-**Status**: [ ] pending
+**Note (correction, discovered via manual review of TEP-0075's data)**: the original design
+scanned the *entire* TEP body for PR links, on the theory that heading text was too
+inconsistent to rely on. In practice this meant any PR a TEP cross-referenced as related work
+(e.g. "see also TEP-0076" in Motivation, Requirements, or Design Details) got counted as this
+TEP's own implementation — confirmed on TEP-0075, where 3 of 19 "linked" PRs were actually
+TEP-0048/0074/0076's own proposal PRs. `_extract_pr_links()` is now called on
+`_implementation_section_text(body)` — the text under any heading matching
+`RE_IMPL_PR_HEADING` (`implementation.*\b(pull requests?|prs?)\b`, case-insensitive; handles
+"Pull Requests", "Pull request(s)", and "PRs" at any `##`/`###` level, including the template's
+nested `### Implementation Pull Requests` under `## Implementation Plan`). A TEP with no
+matching heading gets zero linked PRs, rather than falling back to a whole-body scan — a
+deliberate choice to keep precision over recall, made explicitly after measuring the cost: only
+62 of 147 real TEPs have a heading a matcher can find at all, so the other 85 lose up to 160
+previously-"linked" PRs corpus-wide (many legitimate, filed under a bare "References" section or
+scattered inline prose with no dedicated PR-list heading). Cross-repo search (Sub-Task 6) and
+manual `include` overrides (see Sub-Task 7) are the intended recovery path for those, one
+verified PR at a time, rather than accepting the false-positive rate a whole-body fallback would
+reintroduce.
+
+**Status**: [x] done
 
 ---
 
@@ -433,6 +454,31 @@ generation step.
     not the reviewer feedback the per-section view exists to surface.
   - See `_is_bot`, `_search_confidence`, `_title_confirms_tep`, and the rewritten
     `_impl_prs_summary()` / `_proposal_pr_summary()` in `scripts/synthesize.py`.
+- Follow-up correction, found while verifying the TEP-0137 fix against TEP-0075's data: the
+  candidate tier's "author is a listed TEP author" trust signal is withheld for `community`-repo
+  search hits specifically. A `community` PR is almost always *some* TEP's own proposal/doc PR,
+  and closely related TEPs frequently share an author (TEP-0075 and TEP-0076 both list
+  `bobcatfish`) — so "this PR's author is a TEP-0075 author" says nothing about whether the PR
+  is *about* TEP-0075 rather than TEP-0076's own proposal. Measured impact: 75 community-repo
+  items were search-confirmed corpus-wide; 34 of those were confirmed *only* via author-match
+  (the rest via a genuine title match, which still confirms). Only a title match confirms a
+  `community` hit now; code repos (pipeline, triggers, ...) keep both signals, since a TEP
+  author opening an implementation PR without a `[TEP-XXXX]`-prefixed title is normal.
+- Implementation-PR review comments (`raw/impl_pr_reviews.jsonl`) were being collapsed to a bare
+  `review_comment_count` — the actual comment bodies (already fully collected, ~10K records)
+  were never surfaced. Each confirmed impl PR item now carries a `comments` list (bot-filtered
+  and `is_self_comment`-flagged the same way as proposal-PR comments), rendered in the explorer
+  as a per-PR expandable toggle, collapsed by default given the volume. The proposal-PR "Review
+  comments by section" panel is now collapsed by default for the same reason (previously always
+  expanded).
+- `flags` on each TEP record surface inconsistencies worth a second look, computed in
+  `_consistency_flags()`: a TEP marked `status: implemented` with zero confirmed impl PRs is
+  either a real algorithmic miss or a stale/wrong status — either way worth a human glance.
+  Split into `implemented_no_prs` (nothing found at all) vs. `implemented_only_candidates`
+  (something was found but nothing's confirmed) since they suggest different next actions. The
+  explorer shows a warning badge next to the title in the master table plus a dedicated
+  "Flagged for review" entry in the status filter, so these are discoverable by scanning rather
+  than requiring every TEP to be opened individually.
 
 **Todo List**:
 1. Write `scripts/synthesize.py`:

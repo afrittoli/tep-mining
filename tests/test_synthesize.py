@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from scripts.synthesize import (
+    _consistency_flags,
     _divergences,
     _extract_headings,
     _heading_positions,
@@ -113,6 +114,68 @@ def test_search_confidence_is_candidate_without_either_signal() -> None:
 def test_search_confidence_is_candidate_when_unfetched_or_404() -> None:
     assert _search_confidence(None, 52, tep_authors=set()) == "candidate"
     assert _search_confidence({"status": 404}, 52, tep_authors=set()) == "candidate"
+
+
+def test_search_confidence_community_repo_ignores_author_match() -> None:
+    """Regression test: community#477 is TEP-0076's own proposal PR, opened by bobcatfish, who
+    is also a listed author of TEP-0075 — that shared authorship must not confirm it for
+    TEP-0075. Author-match alone is only trusted for actual code repos."""
+    record = {
+        "repo": "community",
+        "title": "[TEP-0076] Propose array results",
+        "author": "bobcatfish",
+    }
+
+    assert _search_confidence(record, 75, tep_authors={"bobcatfish"}) == "candidate"
+
+
+def test_search_confidence_community_repo_still_confirms_via_title() -> None:
+    record = {
+        "repo": "community",
+        "title": "TEP-0052: Mark proposal as implementable",
+        "author": "x",
+    }
+
+    assert _search_confidence(record, 52, tep_authors=set()) == "confirmed"
+
+
+def test_search_confidence_non_community_repo_still_confirms_via_author() -> None:
+    record = {"repo": "pipeline", "title": "unrelated bump", "author": "wlynch"}
+
+    assert _search_confidence(record, 52, tep_authors={"wlynch"}) == "confirmed"
+
+
+# ---------------------------------------------------------------------------
+# _consistency_flags
+# ---------------------------------------------------------------------------
+
+
+def _impl_prs(total_count: int = 0, candidate_count: int = 0) -> dict:
+    return {"total_count": total_count, "candidate_count": candidate_count}
+
+
+def test_consistency_flags_implemented_with_zero_prs() -> None:
+    flags = _consistency_flags("implemented", _impl_prs(total_count=0, candidate_count=0))
+
+    assert len(flags) == 1
+    assert flags[0]["code"] == "implemented_no_prs"
+
+
+def test_consistency_flags_implemented_with_only_candidates() -> None:
+    flags = _consistency_flags("implemented", _impl_prs(total_count=0, candidate_count=2))
+
+    assert len(flags) == 1
+    assert flags[0]["code"] == "implemented_only_candidates"
+    assert "2" in flags[0]["message"]
+
+
+def test_consistency_flags_implemented_with_confirmed_prs_is_clean() -> None:
+    assert _consistency_flags("implemented", _impl_prs(total_count=3, candidate_count=0)) == []
+
+
+def test_consistency_flags_non_implemented_status_never_flagged() -> None:
+    assert _consistency_flags("proposed", _impl_prs(total_count=0, candidate_count=0)) == []
+    assert _consistency_flags(None, _impl_prs(total_count=0, candidate_count=0)) == []
 
 
 # ---------------------------------------------------------------------------
@@ -358,7 +421,16 @@ def test_impl_prs_summary_splits_linked_and_discovered() -> None:
         {("results", 2): "…mentions TEP-0052…"},
         pr_overrides=[],
         impl_prs_by_key=impl_prs_by_key,
-        impl_review_counts={("pipeline", 1): 3, ("results", 2): 4},
+        impl_reviews_by_key={
+            ("pipeline", 1): [
+                {"comment_id": i, "author": "reviewer", "created_at": f"2021-01-0{i}T00:00:00Z"}
+                for i in range(1, 4)
+            ],
+            ("results", 2): [
+                {"comment_id": i, "author": "reviewer", "created_at": f"2021-01-0{i}T00:00:00Z"}
+                for i in range(1, 5)
+            ],
+        },
         tep_number=52,
         tep_authors=set(),
     )
@@ -375,6 +447,54 @@ def test_impl_prs_summary_splits_linked_and_discovered() -> None:
     assert by_pr[("pipeline", 1)]["evidence"]["format"] == "full-url"
     assert by_pr[("results", 2)]["attribution_source"] == "search"
     assert by_pr[("results", 2)]["evidence"] == "…mentions TEP-0052…"
+    assert len(by_pr[("pipeline", 1)]["comments"]) == 3
+    assert [c["comment_id"] for c in by_pr[("pipeline", 1)]["comments"]] == [1, 2, 3]  # sorted
+
+
+def test_impl_prs_summary_comments_are_bot_filtered_upstream_and_flag_self_comments() -> None:
+    impl_prs_by_key = {
+        ("pipeline", 1): {
+            "title": "linked one",
+            "author": "author-of-pr",
+            "review_decision": "APPROVED",
+            "discovered_via": "tep_file_link",
+            "additions": 1,
+            "deletions": 1,
+            "files_changed": 1,
+        }
+    }
+    # Bot filtering happens in synthesize.py's main() before impl_reviews_by_key is built —
+    # a bot comment simply wouldn't be in this dict at all by the time _impl_prs_summary runs.
+    summary = _impl_prs_summary(
+        {("pipeline", 1): {"url": "u", "format": "full-url"}},
+        {},
+        pr_overrides=[],
+        impl_prs_by_key=impl_prs_by_key,
+        impl_reviews_by_key={
+            ("pipeline", 1): [
+                {
+                    "comment_id": 1,
+                    "author": "author-of-pr",
+                    "created_at": "d1",
+                    "body": "self note",
+                },
+                {
+                    "comment_id": 2,
+                    "author": "someone-else",
+                    "created_at": "d2",
+                    "body": "real review",
+                },
+            ]
+        },
+        tep_number=1,
+        tep_authors=set(),
+    )
+
+    comments = summary["items"][0]["comments"]
+    by_id = {c["comment_id"]: c for c in comments}
+    assert by_id[1]["is_self_comment"] is True
+    assert by_id[2]["is_self_comment"] is False
+    assert summary["items"][0]["review_comment_count"] == 2  # both still counted
 
 
 def test_impl_prs_summary_marks_genuine_404_as_not_found() -> None:
@@ -385,7 +505,7 @@ def test_impl_prs_summary_marks_genuine_404_as_not_found() -> None:
         {},
         pr_overrides=[],
         impl_prs_by_key=impl_prs_by_key,
-        impl_review_counts={},
+        impl_reviews_by_key={},
         tep_number=1,
         tep_authors=set(),
     )
@@ -403,7 +523,7 @@ def test_impl_prs_summary_marks_never_fetched_manual_include_as_pending() -> Non
             {"repo": "pipeline", "pr_number": 999, "action": "include", "reason": "missed"}
         ],
         impl_prs_by_key={},  # never fetched by anything
-        impl_review_counts={},
+        impl_reviews_by_key={},
         tep_number=1,
         tep_authors=set(),
     )
@@ -430,7 +550,7 @@ def test_impl_prs_summary_prefers_linked_attribution_when_both() -> None:
         {("pipeline", 1): "snippet"},
         pr_overrides=[],
         impl_prs_by_key=impl_prs_by_key,
-        impl_review_counts={},
+        impl_reviews_by_key={},
         tep_number=1,
         tep_authors=set(),
     )
@@ -459,7 +579,7 @@ def test_impl_prs_summary_linked_pr_skips_candidate_gate_even_if_author_unknown(
         {},
         pr_overrides=[],
         impl_prs_by_key=impl_prs_by_key,
-        impl_review_counts={},
+        impl_reviews_by_key={},
         tep_number=52,
         tep_authors={"someone-else"},
     )
@@ -488,7 +608,7 @@ def test_impl_prs_summary_exclude_override_removes_pr_and_records_it() -> None:
             {"repo": "results", "pr_number": 2, "action": "exclude", "reason": "unrelated"}
         ],
         impl_prs_by_key=impl_prs_by_key,
-        impl_review_counts={},
+        impl_reviews_by_key={},
         tep_number=52,
         tep_authors=set(),
     )
@@ -530,7 +650,7 @@ def test_impl_prs_summary_include_override_adds_a_new_pr() -> None:
             }
         ],
         impl_prs_by_key=impl_prs_by_key,
-        impl_review_counts={},
+        impl_reviews_by_key={},
         tep_number=1,
         tep_authors=set(),
     )
@@ -561,7 +681,7 @@ def test_impl_prs_summary_unconfirmed_search_hit_becomes_a_candidate() -> None:
         {("catalog", 42): "…vendored commit mentions TEP-0052…"},
         pr_overrides=[],
         impl_prs_by_key=impl_prs_by_key,
-        impl_review_counts={("catalog", 42): 5},
+        impl_reviews_by_key={("catalog", 42): [{"comment_id": i} for i in range(5)]},
         tep_number=52,
         tep_authors={"wlynch"},
     )
@@ -602,7 +722,7 @@ def test_impl_prs_summary_include_override_promotes_candidate_to_counted() -> No
             }
         ],
         impl_prs_by_key=impl_prs_by_key,
-        impl_review_counts={},
+        impl_reviews_by_key={},
         tep_number=52,
         tep_authors=set(),
     )
@@ -639,7 +759,7 @@ def test_impl_prs_summary_exclude_override_dismisses_candidate() -> None:
             }
         ],
         impl_prs_by_key=impl_prs_by_key,
-        impl_review_counts={},
+        impl_reviews_by_key={},
         tep_number=52,
         tep_authors=set(),
     )
@@ -683,7 +803,7 @@ def test_impl_prs_summary_bot_authored_pr_is_silently_filtered() -> None:
         {("pipeline", 2): "…mentions TEP-0052…"},
         pr_overrides=[],
         impl_prs_by_key=impl_prs_by_key,
-        impl_review_counts={},
+        impl_reviews_by_key={},
         tep_number=52,
         tep_authors=set(),
     )
@@ -741,7 +861,7 @@ def test_build_tep_record_assembles_full_record() -> None:
                 "files_changed": 1,
             }
         },
-        impl_review_counts={},
+        impl_reviews_by_key={},
         discoveries={"52": [{"repo": "results", "pr_number": 103, "evidence": "…TEP-0052…"}]},
         gaps_by_number={},
         coverage_by_number={52: {"linked": 1, "discovered": 1, "search_hits_confirmed": 2}},
@@ -783,7 +903,7 @@ def test_build_tep_record_stub_has_no_divergences() -> None:
         community_prs_by_number={},
         community_pr_reviews=[],
         impl_prs_by_key={},
-        impl_review_counts={},
+        impl_reviews_by_key={},
         discoveries={},
         gaps_by_number={},
         coverage_by_number={},

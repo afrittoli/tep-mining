@@ -126,14 +126,22 @@ CSS = """
     background: var(--bg-alt); color: var(--ink-dim); cursor: pointer; white-space: nowrap; }
   .mini-btn:hover { background: var(--rule); color: var(--ink); }
 
-  details.self-comments { margin-top: 10px; border: 1px solid var(--rule); border-radius: 6px; }
-  details.self-comments summary { cursor: pointer; padding: 8px 10px; font-size: 12.5px;
-    color: var(--ink-dim); list-style: none; }
-  details.self-comments summary::-webkit-details-marker { display: none; }
-  details.self-comments summary::before { content: "▸ "; }
-  details.self-comments[open] summary::before { content: "▾ "; }
-  details.self-comments .comment { margin: 0 10px 8px; }
-  details.self-comments .comment:first-of-type { margin-top: 0; }
+  details.self-comments, details.impl-comments, details.review-comments { margin-top: 10px;
+    border: 1px solid var(--rule); border-radius: 6px; width: 100%; }
+  details.self-comments summary, details.impl-comments summary, details.review-comments summary {
+    cursor: pointer; padding: 8px 10px; font-size: 12.5px; color: var(--ink-dim); list-style: none; }
+  details.self-comments summary::-webkit-details-marker, details.impl-comments summary::-webkit-details-marker,
+    details.review-comments summary::-webkit-details-marker { display: none; }
+  details.self-comments summary::before, details.impl-comments summary::before,
+    details.review-comments summary::before { content: "▸ "; }
+  details.self-comments[open] summary::before, details.impl-comments[open] summary::before,
+    details.review-comments[open] summary::before { content: "▾ "; }
+  details.self-comments .comment, details.impl-comments .comment, details.review-comments .comment {
+    margin: 0 10px 8px; }
+  details.self-comments .comment:first-of-type, details.impl-comments .comment:first-of-type,
+    details.review-comments .comment:first-of-type { margin-top: 0; }
+  details.review-comments details.self-comments { margin: 0 10px 8px; }
+  details.impl-comments details.self-comments { margin: 0 10px 8px; }
 
   .comment { border: 1px solid var(--rule); border-radius: 6px; padding: 8px 10px; margin-bottom: 8px; }
   .comment .meta { display: flex; gap: 8px; align-items: center; margin-bottom: 4px; font-size: 11.5px;
@@ -302,7 +310,11 @@ let filterStatus = '';
 
 function filteredSorted() {
   let rows = DATA.filter(r => {
-    if (filterStatus && r.status !== filterStatus) return false;
+    if (filterStatus === '__flagged__') {
+      if (!(r.flags || []).length) return false;
+    } else if (filterStatus && r.status !== filterStatus) {
+      return false;
+    }
     if (filterText) {
       const hay = (r.title + ' ' + (r.authors || []).join(' ') + ' TEP-' + r.tep_number).toLowerCase();
       if (!hay.includes(filterText.toLowerCase())) return false;
@@ -333,6 +345,12 @@ function gapBadge(r) {
   return `<span class="badge badge-warn">${esc(label)}</span>`;
 }
 
+function flagsBadge(r) {
+  if (!(r.flags || []).length) return '';
+  const title = r.flags.map(f => f.message).join(' \\u2014 ');
+  return `<span class="badge badge-warn" title="${esc(title)}">\\u26a0 review</span>`;
+}
+
 function renderTable() {
   const rows = filteredSorted();
   document.getElementById('row-count').textContent = `${rows.length} of ${DATA.length} TEPs`;
@@ -341,7 +359,7 @@ function renderTable() {
     const rateStr = rate == null ? '—' : rate.toFixed(0) + '%';
     return `<tr onclick="location.hash='tep-${r.tep_number}'">
       <td class="num">${r.tep_number}</td>
-      <td>${esc(r.title)} ${gapBadge(r)}</td>
+      <td>${esc(r.title)} ${gapBadge(r)} ${flagsBadge(r)}</td>
       <td>${esc(r.status || '')}</td>
       <td>${esc((r.authors || []).join(', '))}</td>
       <td class="num">${r.age_days ?? '—'}</td>
@@ -422,6 +440,34 @@ function evidenceHtml(it) {
   return '';
 }
 
+function renderImplComment(c) {
+  const where = c.path ? `<span class="badge badge-skipped">${esc(c.path)}${c.line != null ? ':' + c.line : ''}</span>` : '';
+  return `<div class="comment">
+    <div class="meta">
+      <b>${esc(c.author || 'unknown')}</b>
+      <span>${esc((c.created_at || '').slice(0, 10))}</span>
+      ${where}
+    </div>
+    <div class="body">${esc(c.body)}</div>
+  </div>`;
+}
+
+function implCommentsToggle(it) {
+  if (!it.comments || !it.comments.length) return '';
+  const other = it.comments.filter(c => !c.is_self_comment);
+  const self = it.comments.filter(c => c.is_self_comment);
+  const otherHtml = other.length ? other.map(renderImplComment).join('')
+    : '<p style="color:var(--ink-dim)">No review comments from others.</p>';
+  const selfHtml = self.length ? `<details class="self-comments">
+    <summary>${self.length} self-review comment${self.length === 1 ? '' : 's'} from the PR's own author</summary>
+    ${self.map(renderImplComment).join('')}
+  </details>` : '';
+  return `<details class="impl-comments" style="flex-basis:100%">
+    <summary>${it.review_comment_count} review comment${it.review_comment_count === 1 ? '' : 's'}</summary>
+    ${otherHtml}${selfHtml}
+  </details>`;
+}
+
 function renderImplPrList(tepNumber, items) {
   if (!items.length) return `<p style="color:var(--ink-dim)">None.</p>`;
   return items.map(it => {
@@ -444,9 +490,10 @@ function renderImplPrList(tepNumber, items) {
         #${it.pr_number} ${esc(it.title)}
       </a>
       ${reviewBadge(it.review_decision)}
-      <span class="size">+${it.additions ?? 0}/-${it.deletions ?? 0} (${it.files_changed ?? 0} files, ${it.review_comment_count} comments)</span>
+      <span class="size">+${it.additions ?? 0}/-${it.deletions ?? 0} (${it.files_changed ?? 0} files)</span>
       ${excludeControl(tepNumber, it, excludePending)}
       <div class="why" style="flex-basis:100%">${evidenceHtml(it)}</div>
+      ${implCommentsToggle(it)}
     </div>`;
   }).join('');
 }
@@ -525,6 +572,10 @@ function renderDetail(tepNumber) {
     <p><span class="badge badge-warn">${esc(r.gap.fate)}</span>
     ${r.gap.renamed_from ? ` renamed from TEP-${String(r.gap.renamed_from).padStart(4,'0')}` : ''}</p></section>` : '';
 
+  const flagsHtml = (r.flags || []).length ? `<section class="block"><h3>Flagged for review</h3>
+    ${r.flags.map(f => `<p><span class="badge badge-warn">\\u26a0 ${esc(f.code)}</span> ${esc(f.message)}</p>`).join('')}
+    </section>` : '';
+
   const sourceLink = r.source_file
     ? `<a href="https://github.com/tektoncd/community/blob/main/teps/${esc(r.source_file)}" target="_blank" rel="noopener">${esc(r.source_file)}</a>`
     : '(no merged file)';
@@ -554,6 +605,7 @@ function renderDetail(tepNumber) {
       <div class="stat"><div class="num">${r.impl_prs.candidate_count}</div><div class="label">Candidates pending review</div></div>
     </div>
 
+    ${flagsHtml}
     ${gapHtml}
 
     <section class="block">
@@ -567,12 +619,15 @@ function renderDetail(tepNumber) {
     </section>
 
     <section class="block">
-      <h3>Review comments by section (${r.proposal_pr.comments.length} total, ${r.proposal_pr.comments_unmapped} unmapped)</h3>
-      ${otherComments.length ? otherComments.map(c => renderComment(r, c)).join('') : '<p style="color:var(--ink-dim)">No review comments from others captured.</p>'}
-      ${selfComments.length ? `<details class="self-comments">
-        <summary>${selfComments.length} self-review comment${selfComments.length === 1 ? '' : 's'} from the PR's own author (usually just note-to-self, hidden by default)</summary>
-        ${selfComments.map(c => renderComment(r, c)).join('')}
-      </details>` : ''}
+      <h3>Review comments by section</h3>
+      <details class="review-comments">
+        <summary>${r.proposal_pr.comments.length} total, ${r.proposal_pr.comments_unmapped} unmapped</summary>
+        ${otherComments.length ? otherComments.map(c => renderComment(r, c)).join('') : '<p style="color:var(--ink-dim)">No review comments from others captured.</p>'}
+        ${selfComments.length ? `<details class="self-comments">
+          <summary>${selfComments.length} self-review comment${selfComments.length === 1 ? '' : 's'} from the PR's own author (usually just note-to-self, hidden by default)</summary>
+          ${selfComments.map(c => renderComment(r, c)).join('')}
+        </details>` : ''}
+      </details>
     </section>
 
     <section class="block">
@@ -682,6 +737,7 @@ def build_html(records: list[dict]) -> str:
     <input type="text" id="search" placeholder="Search title, author, or TEP number&hellip;">
     <select id="status-filter">
       <option value="">All statuses</option>
+      <option value="__flagged__">&#9888; Flagged for review</option>
       {_status_options(records)}
     </select>
     <span class="count" id="row-count"></span>

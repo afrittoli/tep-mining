@@ -22,6 +22,7 @@ from scripts.parse_teps import (
     _classify_link,
     _extract_pr_links,
     _extract_sections,
+    _implementation_section_text,
     _load_existing,
     _normalise_status,
     _split_frontmatter,
@@ -132,6 +133,78 @@ class TestExtractPrLinks:
         links = _extract_pr_links(body)
         repos = {lnk["repo"] for lnk in links}
         assert repos == {"pipeline", "triggers"}
+
+
+# ---------------------------------------------------------------------------
+# _implementation_section_text
+# ---------------------------------------------------------------------------
+
+
+class TestImplementationSectionText:
+    def test_canonical_heading(self):
+        body = "## Implementation Pull Requests\n\n- https://github.com/tektoncd/pipeline/pull/1\n"
+        text = _implementation_section_text(body)
+        assert "pipeline/pull/1" in text
+
+    def test_real_corpus_variants_all_match(self):
+        for heading in [
+            "## Implementation Pull Requests",
+            "## Implementation Pull request(s)",
+            "## Implementation PRs",
+            "### Implementation Pull Requests",
+        ]:
+            body = f"{heading}\n\nhttps://github.com/tektoncd/pipeline/pull/1\n"
+            assert "pipeline/pull/1" in _implementation_section_text(body)
+
+    def test_excludes_links_outside_the_section(self):
+        """The exact TEP-0075 bug: a related-TEP PR linked in Motivation must not leak in."""
+        body = (
+            "## Motivation\n\n"
+            "See also [TEP-0076](https://github.com/tektoncd/community/pull/477)\n\n"
+            "## Implementation Pull request(s)\n\n"
+            "- https://github.com/tektoncd/pipeline/pull/4786\n"
+        )
+        text = _implementation_section_text(body)
+        assert "community/pull/477" not in text
+        assert "pipeline/pull/4786" in text
+
+    def test_stops_at_next_heading_of_same_or_higher_level(self):
+        body = (
+            "## Implementation Pull Requests\n\n"
+            "https://github.com/tektoncd/pipeline/pull/1\n\n"
+            "## References\n\n"
+            "https://github.com/tektoncd/pipeline/pull/2\n"
+        )
+        text = _implementation_section_text(body)
+        assert "pull/1" in text
+        assert "pull/2" not in text
+
+    def test_nested_h3_under_implementation_plan(self):
+        """Template convention: '### Implementation Pull Requests' nested under '## Implementation Plan'."""
+        body = (
+            "## Implementation Plan\n\n"
+            "Some narrative.\n\n"
+            "### Implementation Pull Requests\n\n"
+            "https://github.com/tektoncd/pipeline/pull/9\n\n"
+            "## Test Plan\n\n"
+            "https://github.com/tektoncd/pipeline/pull/10\n"
+        )
+        text = _implementation_section_text(body)
+        assert "pull/9" in text
+        assert "pull/10" not in text
+
+    def test_ignores_unrelated_implementation_headings(self):
+        for heading in [
+            "## Implementation Plan",
+            "## Implementation Details",
+            "### Reference Implementation",
+        ]:
+            body = f"{heading}\n\nhttps://github.com/tektoncd/pipeline/pull/1\n"
+            assert _implementation_section_text(body) == ""
+
+    def test_no_matching_heading_returns_empty(self):
+        body = "## Summary\n\nhttps://github.com/tektoncd/pipeline/pull/1\n"
+        assert _implementation_section_text(body) == ""
 
 
 # ---------------------------------------------------------------------------
@@ -257,6 +330,25 @@ class TestParseTepFile:
         formats = {d["format"] for d in rec["impl_pr_links_detail"]}
         assert "full-url" in formats
         assert "markdown-link" in formats
+
+    def test_impl_pr_links_excludes_cross_references_outside_the_section(self, tmp_path):
+        """Regression test for the TEP-0075 bug: a sibling TEP's PR linked as related work
+        elsewhere in the doc must not be counted as this TEP's own implementation."""
+        teps_dir = tmp_path / "teps"
+        teps_dir.mkdir()
+        md = teps_dir / "0042-test-tep.md"
+        md.write_text(
+            _MINIMAL_TEP.replace(
+                "## Summary\n\nThis is a test.\n",
+                "## Summary\n\nThis is a test.\n\n"
+                "## Motivation\n\n"
+                "See also [TEP-0076](https://github.com/tektoncd/community/pull/477)\n",
+            )
+        )
+        rec = parse_tep_file(md, teps_dir)
+        repos = {d["repo"] for d in rec["impl_pr_links_detail"]}
+        assert repos == {"pipeline"}
+        assert len(rec["impl_pr_links"]) == 2  # only the two under Implementation Pull request(s)
 
     def test_sections_present(self, tmp_path):
         teps_dir = tmp_path / "teps"
