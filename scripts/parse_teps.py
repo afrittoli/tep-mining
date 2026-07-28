@@ -55,6 +55,12 @@ RE_SHORTHAND = re.compile(r"tektoncd/([a-z0-9_-]+)#(\d+)")
 # Regex: H2 / H3 headings (after frontmatter)
 RE_HEADING = re.compile(r"^(#{2,3})\s+(.+)$", re.MULTILINE)
 
+# Regex: a heading naming the TEP's own implementation-PR list. Canonical template text is
+# "Implementation Pull Requests"; real variants in the corpus include "Implementation Pull
+# request(s)" and "Implementation PRs" — this matches all three without matching unrelated
+# "Implementation ..." headings (Plan, Details, Decision, Notes, "Reference Implementation").
+RE_IMPL_PR_HEADING = re.compile(r"implementation.*\b(pull requests?|prs?)\b", re.IGNORECASE)
+
 # Status normalisation map  (strip trailing spaces, lower, unquote)
 _STATUS_ALIASES = {
     "implementing": "implementable",  # rare but present in corpus
@@ -139,6 +145,31 @@ def _classify_link(raw_url: str, surrounding_text: str) -> str:
     if re.search(r"\[[^\]]*\]\(" + re.escape(raw_url) + r"\)", surrounding_text):
         return "markdown-link"
     return "full-url"
+
+
+def _implementation_section_text(body: str) -> str:
+    """Text under any heading naming this TEP's own implementation-PR list.
+
+    PR links are only authoritative there — a TEP's Motivation, Requirements, or Design
+    Details commonly link to *other* TEPs' proposal PRs as related work (e.g. "see also
+    TEP-0076"), which must not be mistaken for this TEP's own implementation. A TEP with no
+    recognizable Implementation heading yields no links here — safer than falling back to a
+    whole-body scan, which is exactly the bug this exists to avoid.
+    """
+    headings = [
+        (m.start(), len(m.group(1)), m.group(2), m.end()) for m in RE_HEADING.finditer(body)
+    ]
+    sections = []
+    for i, (_start, level, text, heading_end) in enumerate(headings):
+        if not RE_IMPL_PR_HEADING.search(text):
+            continue
+        end = len(body)
+        for next_start, next_level, _next_text, _next_end in headings[i + 1 :]:
+            if next_level <= level:
+                end = next_start
+                break
+        sections.append(body[heading_end:end])
+    return "\n".join(sections)
 
 
 def _extract_pr_links(body: str) -> list[dict]:
@@ -255,7 +286,7 @@ def parse_tep_file(md_path: Path, teps_dir: Path) -> dict | None:
     creation_date = _date_str(fm.get("creation-date"))
     last_updated = _date_str(fm.get("last-updated", fm.get("creation-date")))
 
-    pr_links = _extract_pr_links(body)
+    pr_links = _extract_pr_links(_implementation_section_text(body))
     sections_present, word_count_per_section = _extract_sections(body)
 
     return {

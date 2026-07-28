@@ -21,6 +21,11 @@
       "repo": "pipeline"
     },
     {
+      "evidence": "[TEP-0100] Fields/flags/docs for embedded TaskRun and Run statuses in\u2026",
+      "pr_number": 4705,
+      "repo": "pipeline"
+    },
+    {
       "evidence": "[TEP-0100] Implementation for embedded TaskRun and Run statuses in Pi\u2026",
       "pr_number": 4706,
       "repo": "pipeline"
@@ -28,6 +33,26 @@
     {
       "evidence": "[TEP-0100] Prepare for testing of minimal status implementation # Ch\u2026",
       "pr_number": 4728,
+      "repo": "pipeline"
+    },
+    {
+      "evidence": "[TEP-0100] Prepare for testing of minimal status implementation # Ch\u2026",
+      "pr_number": 4734,
+      "repo": "pipeline"
+    },
+    {
+      "evidence": "[TEP-0100] Implementation for embedded TaskRun and Run statuses in Pi\u2026",
+      "pr_number": 4739,
+      "repo": "pipeline"
+    },
+    {
+      "evidence": "[TEP-0100] Add functionality to be used in supporting minimal embedde\u2026",
+      "pr_number": 4757,
+      "repo": "pipeline"
+    },
+    {
+      "evidence": "[TEP-0100] Add new `updatePipelineRunStatusFromChildRefs` function #\u2026",
+      "pr_number": 4760,
       "repo": "pipeline"
     },
     {
@@ -60,6 +85,11 @@
     {
       "evidence": "TEP-0103: Skipping Reason <!-- \ud83c\udf89\ud83c\udf89\ud83c\udf89 Thank you for the PR!!! \ud83c\udf89\ud83c\udf89\ud83c\udf89 -->\u2026",
       "pr_number": 4800,
+      "repo": "pipeline"
+    },
+    {
+      "evidence": "TEP-0103: Skipping Reason - Add SkippingReason to SkippedTasks field\u2026",
+      "pr_number": 4829,
       "repo": "pipeline"
     }
   ],
@@ -171,6 +201,16 @@
       "repo": "catalog"
     },
     {
+      "evidence": "TEP-0107: Implement Parameter Propagation Tekton Pipelines resource\u2026",
+      "pr_number": 4845,
+      "repo": "pipeline"
+    },
+    {
+      "evidence": "TEP-0107: Deprecated implicit parameters <!-- \ud83c\udf89\ud83c\udf89\ud83c\udf89 Thank you for the\u2026",
+      "pr_number": 4906,
+      "repo": "pipeline"
+    },
+    {
       "evidence": "\u2026t message(s)! --> Propagated Parameters was proposed in [TEP-0107][tep-0107] and supported in v0.36 as an alpha feature. It w\u2026",
       "pr_number": 6050,
       "repo": "pipeline"
@@ -186,9 +226,24 @@
       "evidence": "\u2026--> <h2>Changes</h2> <h1>Features</h1> <ul> <li>:sparkles: TEP-0108: Mapping Workspaces (<a href=\"https://github-redirect.depen\u2026",
       "pr_number": 1606,
       "repo": "cli"
+    },
+    {
+      "evidence": "TEP-0108: Mapping Workspaces <!-- \ud83c\udf89\ud83c\udf89\ud83c\udf89 Thank you for the PR!!! \ud83c\udf89\ud83c\udf89\ud83c\udf89 -\u2026",
+      "pr_number": 4887,
+      "repo": "pipeline"
     }
   ],
   "11": [
+    {
+      "evidence": "\u2026!!! \ud83c\udf89\ud83c\udf89\ud83c\udf89 --> # Changes This PR implements Option 1 of [TEP-0011](https://github.com/tektoncd/community/blob/master/teps/001\u2026",
+      "pr_number": 3103,
+      "repo": "pipeline"
+    },
+    {
+      "evidence": "TEP-0011: Add StdoutConfig and StderrConfig to steps. <!-- \ud83c\udf89\ud83c\udf89\ud83c\udf89 Than\u2026",
+      "pr_number": 4882,
+      "repo": "pipeline"
+    },
     {
       "evidence": "\u2026ad by other containers in the pod. One of the goals of [TEP-0011](https://github.com/tektoncd/community/blob/main/teps/0011-\u2026",
       "pr_number": 5838,
@@ -478,10 +533,22 @@
       "repo": "resolution"
     }
   ],
+  "116": [
+    {
+      "evidence": "TEP-0116: Referencing Finally Task Results in Pipeline Results <!--\u2026",
+      "pr_number": 5170,
+      "repo": "pipeline"
+    }
+  ],
   "117": [
     {
       "evidence": "\u2026iguration of API server through config file Prep work for [TEP-0117](https://github.com/tektoncd/community/pull/759/files) to a\u2026",
       "pr_number": 214,
+      "repo": "results"
+    },
+    {
+      "evidence": "[TEP-0117] Tekton Results Logs # Description [[TEP-0117] Tekton R\u2026",
+      "pr_number": 301,
       "repo": "results"
     }
   ],
@@ -604,6 +671,11 @@
       "evidence": "\u2026as part of CI. Example log: ``` WARNING:root:TEP number TEP-0012 from filename does not match TEP number TEP-0008 from title\u2026",
       "pr_number": 245,
       "repo": "community"
+    },
+    {
+      "evidence": "Add minimal initial API spec document First part of [TEP-0012](https://github.com/tektoncd/community/pull/172) [Render\u2026",
+      "pr_number": 3131,
+      "repo": "pipeline"
     }
   ],
   "120": [
@@ -1248,6 +1320,11 @@
       "repo": "operator"
     },
     {
+      "evidence": "Poc: StepAction CRD (TEP 0142 - Enable Step reusability) <!-- \ud83c\udf89\ud83c\udf89\ud83c\udf89 Thank you for the PR!!\u2026",
+      "pr_number": 7124,
+      "repo": "pipeline"
+    },
+    {
       "evidence": "TEP-0142: Introducing the StepAction CRD This PR introduces the Ste\u2026",
       "pr_number": 7260,
       "repo": "pipeline"
@@ -1611,6 +1688,11 @@
       "repo": "chains"
     },
     {
+      "evidence": "\u2026s it. This PR is wiring the Tekton native artifact API ([TEP-0147](https://github.com/tektoncd/community/blob/main/teps/0147-\u2026",
+      "pr_number": 1841,
+      "repo": "chains"
+    },
+    {
       "evidence": "\u2026--> <h2>Changes</h2> <h1>Features</h1> <ul> <li>:sparkles: TEP-0147: introduce feature flag to guard artifacts feature (<a href\u2026",
       "pr_number": 2276,
       "repo": "cli"
@@ -1829,6 +1911,11 @@
       "repo": "community"
     },
     {
+      "evidence": "\u2026!!! \ud83c\udf89\ud83c\udf89\ud83c\udf89 --> # Changes This is the implementation of [TEP-0023](https://github.com/tektoncd/community/blob/main/teps/0023-\u2026",
+      "pr_number": 4127,
+      "repo": "pipeline"
+    },
+    {
       "evidence": "\u2026embedded trigger templates # Changes This PR implements TEP-0023 by adding an optional `spec` field inside a Trigger's `tem\u2026",
       "pr_number": 783,
       "repo": "triggers"
@@ -1863,6 +1950,11 @@
       "evidence": "\u2026TEP number TEP-0028 from filename does not match TEP number TEP-0027 from title (# TEP-NNNN) in /System/Volumes/Data/go/src/gith\u2026",
       "pr_number": 259,
       "repo": "community"
+    },
+    {
+      "evidence": "\u2026eventlistener pod. For more info about the feature refer [TEP-0027](https://github.com/tektoncd/community/blob/master/teps/002\u2026",
+      "pr_number": 819,
+      "repo": "triggers"
     }
   ],
   "28": [
@@ -1987,6 +2079,11 @@
       "evidence": "TEP-0050 - ignore task failures [TEP-0040](https://github.com/tektoncd/community/pull/302) is proposi\u2026",
       "pr_number": 342,
       "repo": "community"
+    },
+    {
+      "evidence": "TEP-0040 implementation - specifying `onError` in a step <!-- \ud83c\udf89\ud83c\udf89\ud83c\udf89\u2026",
+      "pr_number": 4106,
+      "repo": "pipeline"
     }
   ],
   "41": [
@@ -2039,6 +2136,11 @@
     }
   ],
   "44": [
+    {
+      "evidence": "\u2026issues/3638 Some wording is stolen from @bobcatfish and [TEP-0044](https://github.com/tektoncd/community/pull/316) (these two\u2026",
+      "pr_number": 318,
+      "repo": "community"
+    },
     {
       "evidence": "Require TEP-0044 before removing PipelineResources \ud83d\ude4b\u200d\u2640\ufe0f The Google Tekton t\u2026",
       "pr_number": 554,
@@ -2138,6 +2240,13 @@
     {
       "evidence": "\u2026nt failure: correct gofmt alignment in FeatureFlags struct (TEP-0048 default results) The `lint` CI job was failing because PR\u2026",
       "pr_number": 10320,
+      "repo": "pipeline"
+    }
+  ],
+  "49": [
+    {
+      "evidence": "\u2026ank you for the PR!!! \ud83c\udf89\ud83c\udf89\ud83c\udf89 --> # Changes Implementing [TEP-0049](https://github.com/tektoncd/community/blob/main/teps/0049-\u2026",
+      "pr_number": 3817,
       "repo": "pipeline"
     }
   ],
@@ -2242,6 +2351,13 @@
       "repo": "pipeline"
     }
   ],
+  "57": [
+    {
+      "evidence": "\u2026[#1826](https://github.com/tektoncd/pipeline/issues/1826) [TEP-0057](https://github.com/tektoncd/community/blob/main/teps/0057-\u2026",
+      "pr_number": 4128,
+      "repo": "pipeline"
+    }
+  ],
   "58": [
     {
       "evidence": "\u2026ncel PipelineRuns using Cancelled status # Changes With TEP-0058, PipelineRunCancelled was deprecated and was replaced by C\u2026",
@@ -2262,6 +2378,11 @@
       "evidence": "\u2026pported by default since Pipelines v0.35 and is related to TEP-0058 graceful termination. An additional change will be made la\u2026",
       "pr_number": 2397,
       "repo": "dashboard"
+    },
+    {
+      "evidence": "Graceful Pipeline Run Termination The implementation of TEP-0058: Graceful Pipeline Run Termination. The new `spec.Status\u2026",
+      "pr_number": 3915,
+      "repo": "pipeline"
     },
     {
       "evidence": "\u2026//github.com/tektoncd/pipeline/issues/4125 Related: - [TEP-0058: Graceful Pipeline Run Termination](https://github.com/tekt\u2026",
@@ -2289,6 +2410,11 @@
       "evidence": "\u2026ad][slack] * [TEP-0007: Conditions Beta][tep-0007] * [TEP-0059: Skipping Strategies][tep-0059] [tep-0007]: https://gith\u2026",
       "pr_number": 671,
       "repo": "community"
+    },
+    {
+      "evidence": "TEP-0059: Skipping Strategies <!-- \ud83c\udf89\ud83c\udf89\ud83c\udf89 Thank you for the PR!!! \ud83c\udf89\ud83c\udf89\ud83c\udf89\u2026",
+      "pr_number": 4085,
+      "repo": "pipeline"
     },
     {
       "evidence": "TEP-0059: Scope `when` expressions to `Task` only <!-- \ud83c\udf89\ud83c\udf89\ud83c\udf89 Thank yo\u2026",
@@ -2371,6 +2497,11 @@
       "repo": "cli"
     },
     {
+      "evidence": "\u2026syntax for declaring keys in the object. This refers to TEP-0074 which will be added in a separate commit and proposes depr\u2026",
+      "pr_number": 479,
+      "repo": "community"
+    },
+    {
       "evidence": "[TEP-0096]: Remove TEP-0074 Features as blockers This commit proposes removing any new\u2026",
       "pr_number": 640,
       "repo": "community"
@@ -2397,6 +2528,11 @@
     }
   ],
   "75": [
+    {
+      "evidence": "\u2026s well as the ability to index into arrays. It refers to TEP-0075 which will be added in a separate commit, which proposes a\u2026",
+      "pr_number": 477,
+      "repo": "community"
+    },
     {
       "evidence": "\u2026P-0900: Update related TEPs references TEP-0090 references TEP-0075 and TEP-0076 quite a bit so wanted them to link to the mer\u2026",
       "pr_number": 635,
@@ -2667,9 +2803,19 @@
   ],
   "85": [
     {
+      "evidence": "TEP-0085: Per-Namespace Controller Configuration [Proposal] In [TEP\u2026",
+      "pr_number": 607,
+      "repo": "community"
+    },
+    {
       "evidence": "\u2026ions | Pipeline author default | | 3 | Namespace ConfigMap (TEP-0085) | Team/project isolation | | 4 | Cluster ConfigMap | Clust\u2026",
       "pr_number": 1248,
       "repo": "community"
+    },
+    {
+      "evidence": "\u2026\ud83c\udf89 Thank you for the PR!!! \ud83c\udf89\ud83c\udf89\ud83c\udf89 --> # Changes Related to [TEP-0085](https://github.com/tektoncd/community/blob/main/teps/0085-\u2026",
+      "pr_number": 4499,
+      "repo": "pipeline"
     },
     {
       "evidence": "feat: implement TEP-0085 per-namespace controller configuration # Changes Implemen\u2026",
@@ -3322,6 +3468,11 @@
   ],
   "92": [
     {
+      "evidence": "TEP-0092: TaskRun Timeouts - Updated Proposal [TEP-0092] Propose se\u2026",
+      "pr_number": 948,
+      "repo": "community"
+    },
+    {
       "evidence": "\u2026here are some open questions. We ran into this scenario in [TEP-0092]. [KEP]: https://github.com/kubernetes/enhancements/blob\u2026",
       "pr_number": 984,
       "repo": "community"
@@ -3344,6 +3495,16 @@
       "evidence": "[TEP-0094]: Rescope to Task resource UX This commit expands the scop\u2026",
       "pr_number": 588,
       "repo": "community"
+    },
+    {
+      "evidence": "\u2026hind the \"alpha\" API flag. This is part 1 of implementing [TEP-0094: Configuring Resource Requirements at Runtime](https://gith\u2026",
+      "pr_number": 4575,
+      "repo": "pipeline"
+    },
+    {
+      "evidence": "\u2026Sidecar Overrides for TaskRun # Changes This implements [TEP-0094: Configuring Resources at Runtime](https://github.com/tekto\u2026",
+      "pr_number": 4598,
+      "repo": "pipeline"
     },
     {
       "evidence": "[TEP-0094] Promote taskrun.spec's stepSpecs and sidecarSpecs to beta\u2026",

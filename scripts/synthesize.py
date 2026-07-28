@@ -229,22 +229,50 @@ def _bot_authored(pair: tuple[str, int], impl_prs_by_key: dict[tuple[str, int], 
 
 
 def _search_confidence(record: dict | None, tep_number: int, tep_authors: set[str]) -> str:
-    """'confirmed' if the title itself names this TEP, or the PR's own author is a listed TEP
-    author — either signal alone is enough. 'candidate' otherwise: the search text matched
-    somewhere (title/body), but nothing ties the PR specifically to this TEP's own work. The
-    concrete failure mode this exists for: a dependency-bump PR in a downstream repo that
-    happens to vendor in a commit mentioning the TEP, opened by neither a TEP author nor
-    naming the TEP in its own title. A PR nothing has fetched yet (or a genuine 404) can't be
-    evaluated either way, so it defaults to 'candidate' — the safe, conservative bucket.
+    """'confirmed' if the title itself names this TEP, or (code repos only) the PR's own
+    author is a listed TEP author — either signal alone is enough there. 'candidate'
+    otherwise: the search text matched somewhere (title/body), but nothing ties the PR
+    specifically to this TEP's own work. Two concrete failure modes this exists for: a
+    dependency-bump PR in a downstream repo that happens to vendor in a commit mentioning the
+    TEP, opened by neither a TEP author nor naming the TEP in its own title; and a `community`
+    PR that's actually a *different* TEP's own proposal/doc PR, opened by someone who also
+    happens to be a listed author of *this* TEP (common for closely related TEPs sharing an
+    author) — for `community`, only the title can confirm, since authorship there says
+    nothing about which TEP the PR is actually about. A PR nothing has fetched yet (or a
+    genuine 404) can't be evaluated either way, so it defaults to 'candidate' — the safe,
+    conservative bucket.
     """
     if record is None or record.get("status") == 404:
         return "candidate"
     if _title_confirms_tep(record.get("title"), tep_number):
         return "confirmed"
+    if record.get("repo") == "community":
+        return "candidate"
     author = record.get("author")
     if author and _normalize_login(author) in tep_authors:
         return "confirmed"
     return "candidate"
+
+
+def _impl_pr_comments(comments_raw: list[dict], pr_author: str | None) -> list[dict]:
+    """Sorted review comments for one impl PR, each flagged is_self_comment the same way
+    proposal-PR comments are (bot comments are filtered out before this ever sees them, same
+    as proposal-PR comments) — still collected and counted, just something the explorer can
+    group/collapse rather than showing as if it were outside reviewer feedback."""
+    comments = [
+        {
+            "comment_id": c["comment_id"],
+            "author": c.get("author"),
+            "body": c.get("body"),
+            "path": c.get("path"),
+            "line": c.get("line"),
+            "created_at": c.get("created_at"),
+            "is_self_comment": bool(c.get("author")) and c.get("author") == pr_author,
+        }
+        for c in comments_raw
+    ]
+    comments.sort(key=lambda c: c["created_at"] or "")
+    return comments
 
 
 def _impl_prs_summary(
@@ -252,7 +280,7 @@ def _impl_prs_summary(
     discovered_evidence: dict[tuple[str, int], str | None],
     pr_overrides: list[dict],
     impl_prs_by_key: dict[tuple[str, int], dict],
-    impl_review_counts: dict[tuple[str, int], int],
+    impl_reviews_by_key: dict[tuple[str, int], list[dict]],
     tep_number: int,
     tep_authors: set[str],
 ) -> dict:
@@ -310,12 +338,17 @@ def _impl_prs_summary(
         attribution_source, evidence = _attribution((repo, pr_number))
         record = impl_prs_by_key.get((repo, pr_number))
         by_repo[repo] = by_repo.get(repo, 0) + 1
+        comments = _impl_pr_comments(
+            impl_reviews_by_key.get((repo, pr_number), []),
+            record.get("author") if record else None,
+        )
         base = {
             "repo": repo,
             "pr_number": pr_number,
             "attribution_source": attribution_source,
             "evidence": evidence,
-            "review_comment_count": impl_review_counts.get((repo, pr_number), 0),
+            "review_comment_count": len(comments),
+            "comments": comments,
         }
         if record is None or record.get("status") == 404:
             # Genuine 404 (fetched, GitHub says gone) vs. pending_fetch (a manual "include"
@@ -332,6 +365,7 @@ def _impl_prs_summary(
                     "deletions": None,
                     "files_changed": None,
                     "review_comment_count": 0,
+                    "comments": [],
                 }
             )
             continue
@@ -417,6 +451,30 @@ def _impl_prs_summary(
     }
 
 
+def _consistency_flags(status: str | None, impl_prs: dict) -> list[dict]:
+    """Signals worth a human's attention when reviewing the data — not proof of an error, but
+    exactly the kind of thing that's cheap to compute and expensive to notice by hand. Starting
+    with the sharpest one: a TEP marked implemented should have *something* to show for it."""
+    if status != "implemented" or impl_prs["total_count"] != 0:
+        return []
+    if impl_prs["candidate_count"] > 0:
+        return [
+            {
+                "code": "implemented_only_candidates",
+                "message": (
+                    f"Marked implemented, but the {impl_prs['candidate_count']} impl PR(s) "
+                    "found are still unconfirmed candidates"
+                ),
+            }
+        ]
+    return [
+        {
+            "code": "implemented_no_prs",
+            "message": "Marked implemented, but no implementation PRs were found at all",
+        }
+    ]
+
+
 # ---------------------------------------------------------------------------
 # Per-TEP record
 # ---------------------------------------------------------------------------
@@ -429,7 +487,7 @@ def build_tep_record(
     community_prs_by_number: dict[int, dict],
     community_pr_reviews: list[dict],
     impl_prs_by_key: dict[tuple[str, int], dict],
-    impl_review_counts: dict[tuple[str, int], int],
+    impl_reviews_by_key: dict[tuple[str, int], list[dict]],
     discoveries: dict,
     gaps_by_number: dict[int, dict],
     coverage_by_number: dict[int, dict],
@@ -451,10 +509,21 @@ def build_tep_record(
     }
     tep_authors = {_normalize_login(a) for a in tep.get("authors", []) if a}
 
+    status = tep.get("status")
+    impl_prs = _impl_prs_summary(
+        linked_evidence,
+        discovered_evidence,
+        pr_overrides_by_tep.get(tep_number, []),
+        impl_prs_by_key,
+        impl_reviews_by_key,
+        tep_number,
+        tep_authors,
+    )
+
     return {
         "tep_number": tep_number,
         "title": tep.get("title"),
-        "status": tep.get("status"),
+        "status": status,
         "authors": tep.get("authors", []),
         "collaborators": tep.get("collaborators", []),
         "creation_date": tep.get("creation_date"),
@@ -468,6 +537,7 @@ def build_tep_record(
         ),
         "gap": gaps_by_number.get(tep_number),
         "coverage": coverage_by_number.get(tep_number),
+        "flags": _consistency_flags(status, impl_prs),
         "proposal_pr": _proposal_pr_summary(
             pr_numbers,
             community_prs_by_number,
@@ -475,15 +545,7 @@ def build_tep_record(
             heading_positions,
             section_overrides,
         ),
-        "impl_prs": _impl_prs_summary(
-            linked_evidence,
-            discovered_evidence,
-            pr_overrides_by_tep.get(tep_number, []),
-            impl_prs_by_key,
-            impl_review_counts,
-            tep_number,
-            tep_authors,
-        ),
+        "impl_prs": impl_prs,
     }
 
 
@@ -557,12 +619,12 @@ def main(argv: list[str] | None = None) -> int:
     community_prs_by_number = {r["pr_number"]: r for r in _load_jsonl(Path(args.community_prs))}
     community_pr_reviews = _load_jsonl(Path(args.community_reviews))
     impl_prs_by_key = {(r["repo"], r["pr_number"]): r for r in _load_jsonl(Path(args.impl_prs))}
-    impl_review_counts: dict[tuple[str, int], int] = {}
+    impl_reviews_by_key: dict[tuple[str, int], list[dict]] = {}
     for r in _load_jsonl(Path(args.impl_reviews)):
         if _is_bot(r.get("author")):
             continue
         key = (r["repo"], r["pr_number"])
-        impl_review_counts[key] = impl_review_counts.get(key, 0) + 1
+        impl_reviews_by_key.setdefault(key, []).append(r)
     discoveries = _load_json(Path(args.discoveries))
     gaps_by_number = {int(r["tep_number"]): r for r in _load_jsonl(Path(args.gaps))}
     coverage_path = Path(args.coverage)
@@ -590,7 +652,7 @@ def main(argv: list[str] | None = None) -> int:
                 community_prs_by_number,
                 community_pr_reviews,
                 impl_prs_by_key,
-                impl_review_counts,
+                impl_reviews_by_key,
                 discoveries,
                 gaps_by_number,
                 coverage_by_number,
