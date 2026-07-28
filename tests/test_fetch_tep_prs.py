@@ -24,6 +24,7 @@ def test_selected_pr_numbers_filters_to_sample() -> None:
 def test_pr_record_collects_reviewers_and_decision() -> None:
     pr = {
         "number": 968,
+        "user": {"login": "tep-author"},
         "title": "[TEP-0132] Queueing concurrent Runs [Problem statement]",
         "body": "body",
         "labels": [{"name": "kind/tep"}],
@@ -39,6 +40,7 @@ def test_pr_record_collects_reviewers_and_decision() -> None:
 
     assert record == {
         "pr_number": 968,
+        "author": "tep-author",
         "title": "[TEP-0132] Queueing concurrent Runs [Problem statement]",
         "body": "body",
         "labels": ["kind/tep"],

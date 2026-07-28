@@ -121,9 +121,19 @@ CSS = """
   .pr-row .why { color: var(--ink-dim); font-size: 11.5px; }
   .pr-row.pending-exclude { opacity: 0.55; }
   .pr-row.excluded { opacity: 0.7; }
+  .pr-row.candidate { border-left: 2px solid var(--warn); padding-left: 8px; }
   .mini-btn { font-size: 11px; padding: 2px 8px; border: 1px solid var(--rule); border-radius: 10px;
     background: var(--bg-alt); color: var(--ink-dim); cursor: pointer; white-space: nowrap; }
   .mini-btn:hover { background: var(--rule); color: var(--ink); }
+
+  details.self-comments { margin-top: 10px; border: 1px solid var(--rule); border-radius: 6px; }
+  details.self-comments summary { cursor: pointer; padding: 8px 10px; font-size: 12.5px;
+    color: var(--ink-dim); list-style: none; }
+  details.self-comments summary::-webkit-details-marker { display: none; }
+  details.self-comments summary::before { content: "▸ "; }
+  details.self-comments[open] summary::before { content: "▾ "; }
+  details.self-comments .comment { margin: 0 10px 8px; }
+  details.self-comments .comment:first-of-type { margin-top: 0; }
 
   .comment { border: 1px solid var(--rule); border-radius: 6px; padding: 8px 10px; margin-bottom: 8px; }
   .comment .meta { display: flex; gap: 8px; align-items: center; margin-bottom: 4px; font-size: 11.5px;
@@ -446,6 +456,37 @@ function excludeControl(tepNumber, it, pending) {
   return `<button class="mini-btn" onclick="promptExclude(${tepNumber}, '${esc(it.repo)}', ${it.pr_number})">not relevant?</button>`;
 }
 
+function renderCandidateList(tepNumber, candidates) {
+  if (!candidates.length) return `<p style="color:var(--ink-dim)">None.</p>`;
+  return candidates.map(c => {
+    const key = prCorrectionKey(tepNumber, c.repo, c.pr_number);
+    const pending = prCorrections[key];
+    const pendingBadge = pending
+      ? `<span class="badge badge-override">pending ${pending.action === 'include' ? 'confirm' : 'dismiss'}</span>`
+      : '';
+    const titleText = c.status === 'not_found' ? `<span class="badge badge-skipped">404 not found</span>`
+      : c.status === 'pending_fetch' ? `<span class="badge badge-skipped">not yet fetched</span>`
+      : `${esc(c.title || '')} ${c.author ? `<span class="badge badge-skipped">by ${esc(c.author)}</span>` : ''}`;
+    const actions = pending ? '' : `
+        <button class="mini-btn" onclick="promptConfirmCandidate(${tepNumber}, '${esc(c.repo)}', ${c.pr_number})">confirm relevant</button>
+        <button class="mini-btn" onclick="promptExclude(${tepNumber}, '${esc(c.repo)}', ${c.pr_number})">dismiss</button>`;
+    return `<div class="pr-row candidate ${pending ? 'pending-exclude' : ''}">
+      <span class="repo">${esc(c.repo)}</span>
+      <a class="title" href="https://github.com/tektoncd/${esc(c.repo)}/pull/${c.pr_number}" target="_blank" rel="noopener">#${c.pr_number}</a>
+      ${titleText} ${pendingBadge}
+      ${actions}
+      <div class="why" style="flex-basis:100%">${esc(c.why_candidate)}${c.evidence ? ' — matched: “' + esc(c.evidence) + '”' : ''}</div>
+    </div>`;
+  }).join('');
+}
+
+function promptConfirmCandidate(tepNumber, repo, prNumber) {
+  const reason = prompt(`Why is ${repo}#${prNumber} confirmed as relevant to TEP-${tepNumber}?`, '');
+  if (reason === null) return;
+  recordPrCorrection(tepNumber, repo, prNumber, 'include', reason);
+  render();
+}
+
 function renderExcludedList(tepNumber, excluded) {
   if (!excluded.length) return '';
   const rows = excluded.map(e => `<div class="pr-row excluded">
@@ -489,6 +530,8 @@ function renderDetail(tepNumber) {
     : '(no merged file)';
 
   const commentsSorted = [...r.proposal_pr.comments].sort((a, b) => (a.created_at || '').localeCompare(b.created_at || ''));
+  const otherComments = commentsSorted.filter(c => !c.is_self_comment);
+  const selfComments = commentsSorted.filter(c => c.is_self_comment);
 
   container.innerHTML = `
     <a class="back-link" href="#">&larr; Back to all TEPs</a>
@@ -508,6 +551,7 @@ function renderDetail(tepNumber) {
       <div class="stat"><div class="num">${rate == null ? '—' : rate.toFixed(0) + '%'}</div><div class="label">Under-linking rate</div></div>
       <div class="stat"><div class="num">${r.proposal_pr.review_comment_count}</div><div class="label">Proposal review comments</div></div>
       <div class="stat"><div class="num">${r.proposal_pr.review_rounds_approx}</div><div class="label">Review rounds (approx)</div></div>
+      <div class="stat"><div class="num">${r.impl_prs.candidate_count}</div><div class="label">Candidates pending review</div></div>
     </div>
 
     ${gapHtml}
@@ -524,7 +568,17 @@ function renderDetail(tepNumber) {
 
     <section class="block">
       <h3>Review comments by section (${r.proposal_pr.comments.length} total, ${r.proposal_pr.comments_unmapped} unmapped)</h3>
-      ${commentsSorted.length ? commentsSorted.map(c => renderComment(r, c)).join('') : '<p style="color:var(--ink-dim)">No review comments captured.</p>'}
+      ${otherComments.length ? otherComments.map(c => renderComment(r, c)).join('') : '<p style="color:var(--ink-dim)">No review comments from others captured.</p>'}
+      ${selfComments.length ? `<details class="self-comments">
+        <summary>${selfComments.length} self-review comment${selfComments.length === 1 ? '' : 's'} from the PR's own author (usually just note-to-self, hidden by default)</summary>
+        ${selfComments.map(c => renderComment(r, c)).join('')}
+      </details>` : ''}
+    </section>
+
+    <section class="block">
+      <h3>Candidates &mdash; found by search, not yet confirmed relevant (${r.impl_prs.candidate_count})</h3>
+      ${r.impl_prs.bot_filtered_count ? `<p style="color:var(--ink-dim);font-size:12.5px;margin-bottom:8px">(${r.impl_prs.bot_filtered_count} bot-authored PR${r.impl_prs.bot_filtered_count === 1 ? '' : 's'} auto-filtered, not shown here or anywhere)</p>` : ''}
+      ${renderCandidateList(r.tep_number, r.impl_prs.candidates)}
     </section>
 
     <section class="block">

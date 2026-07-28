@@ -410,6 +410,29 @@ generation step.
   `include` naming a PR nothing has fetched yet needs `scripts/apply_pr_overrides.py`
   (`make apply-pr-overrides`) to run before the next `synthesize.py`, so its title/stats can be
   shown instead of a `pending_fetch` placeholder — `synthesize.py` itself does no network I/O.
+- Three algorithmic corrections, added after a manual review of TEP-0137 (a real TEP, checked
+  by its own author) turned up wrong attributions:
+  - **Bot filtering**: any PR or review comment whose author login ends in `"[bot]"`
+    (dependabot, github-actions, github-advanced-security, ...) is dropped entirely — linked or
+    discovered, no exception. No human judgment call needed there.
+  - **Candidate tier for unconfirmed search hits**: a search-discovered PR (`attribution_source:
+    "search"`) is only counted outright if its title names the TEP near the start (`[TEP-0137]
+    ...` / `TEP-0052: ...`) or its own author is one of the TEP's listed authors (from
+    `raw/teps.jsonl`'s `authors` frontmatter, matched case-insensitively with the `@` stripped).
+    Otherwise it's held in a `candidates` bucket — visible in the explorer with its evidence and
+    a `why_candidate` explanation, but excluded from `discovered_count`/`total_count`/under-linking
+    rate until a human confirms (`include`) or dismisses (`exclude`) it via the same override
+    mechanism. This is what catches the TEP-0137 case directly: a downstream repo's dependency
+    bump that vendors in a commit mentioning the TEP, authored by neither a TEP author nor named
+    after the TEP. PRs the TEP author explicitly linked in their own document (`tep_file_link`)
+    skip this gate — the linking itself is the confirmation, regardless of who opened the PR (a
+    TEP author commonly links a contributor's implementation).
+  - **Self-comment grouping**: a review comment whose author matches the specific proposal PR's
+    own author is still collected and counted exactly as before (`is_self_comment` just adds a
+    flag), but the explorer groups and collapses these by default — they're usually notes-to-self,
+    not the reviewer feedback the per-section view exists to surface.
+  - See `_is_bot`, `_search_confidence`, `_title_confirms_tep`, and the rewritten
+    `_impl_prs_summary()` / `_proposal_pr_summary()` in `scripts/synthesize.py`.
 
 **Todo List**:
 1. Write `scripts/synthesize.py`:

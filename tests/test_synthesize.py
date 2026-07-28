@@ -5,10 +5,14 @@ from scripts.synthesize import (
     _extract_headings,
     _heading_positions,
     _impl_prs_summary,
+    _is_bot,
     _load_pr_attribution_overrides,
     _load_section_overrides,
     _nearest_heading,
+    _normalize_login,
     _proposal_pr_summary,
+    _search_confidence,
+    _title_confirms_tep,
     _write_snapshot,
     build_tep_record,
 )
@@ -55,6 +59,60 @@ def test_divergences_reports_both_directions() -> None:
         "missing_from_tep": ["## Motivation"],
         "extra_in_tep": ["## Custom Section"],
     }
+
+
+# ---------------------------------------------------------------------------
+# Bot / candidate-confidence helpers
+# ---------------------------------------------------------------------------
+
+
+def test_is_bot_detects_bracket_suffix() -> None:
+    assert _is_bot("dependabot[bot]") is True
+    assert _is_bot("github-advanced-security[bot]") is True
+    assert _is_bot("vdemeester") is False
+    assert _is_bot(None) is False
+
+
+def test_normalize_login_strips_at_and_casefolds() -> None:
+    assert _normalize_login("@vdemeester") == "vdemeester"
+    assert _normalize_login("VDemeester") == "vdemeester"
+    assert _normalize_login("bob") == "bob"
+
+
+def test_title_confirms_tep_matches_bracket_and_colon_conventions() -> None:
+    assert _title_confirms_tep("[TEP-0124] implement tracing", 124) is True
+    assert _title_confirms_tep("TEP-0052: Automated Cleanup", 52) is True
+    assert _title_confirms_tep("TEP-52: Automated Cleanup", 52) is True  # unpadded also OK
+    assert _title_confirms_tep(None, 52) is False
+
+
+def test_title_confirms_tep_rejects_mention_elsewhere_or_wrong_number() -> None:
+    assert _title_confirms_tep("Bump pipeline, includes TEP-0052 fix", 52) is False
+    assert _title_confirms_tep("TEP-0520: unrelated", 52) is False
+    assert _title_confirms_tep("TEP-520: unrelated", 52) is False
+
+
+def test_search_confidence_confirms_via_title() -> None:
+    record = {"title": "TEP-0052: cleanup", "author": "a-stranger"}
+
+    assert _search_confidence(record, 52, tep_authors=set()) == "confirmed"
+
+
+def test_search_confidence_confirms_via_tep_author() -> None:
+    record = {"title": "unrelated bump", "author": "VDemeester"}
+
+    assert _search_confidence(record, 52, tep_authors={"vdemeester"}) == "confirmed"
+
+
+def test_search_confidence_is_candidate_without_either_signal() -> None:
+    record = {"title": "Bump pipeline to v0.51.0", "author": "dependabot-adjacent-human"}
+
+    assert _search_confidence(record, 52, tep_authors={"wlynch"}) == "candidate"
+
+
+def test_search_confidence_is_candidate_when_unfetched_or_404() -> None:
+    assert _search_confidence(None, 52, tep_authors=set()) == "candidate"
+    assert _search_confidence({"status": 404}, 52, tep_authors=set()) == "candidate"
 
 
 # ---------------------------------------------------------------------------
@@ -196,8 +254,64 @@ def test_proposal_pr_summary_comments_list_carries_identity_for_override_ui() ->
             "section": "### Goals",
             "heuristic_section": "### Goals",
             "is_override": False,
+            "is_self_comment": False,
         }
     ]
+
+
+def test_proposal_pr_summary_filters_bot_comments() -> None:
+    prs_by_number = {
+        82: {
+            "pr_number": 82,
+            "title": "t",
+            "created_at": "2020-01-01T00:00:00Z",
+            "merged_at": None,
+            "reviewer_logins": [],
+            "review_decision": "COMMENTED",
+        }
+    }
+    reviews = [
+        {"pr_number": 82, "comment_id": 1, "author": "bob", "line": 2, "created_at": "d"},
+        {
+            "pr_number": 82,
+            "comment_id": 2,
+            "author": "github-advanced-security[bot]",
+            "line": 2,
+            "created_at": "d",
+        },
+    ]
+    positions = [(2, "## Summary")]
+
+    summary = _proposal_pr_summary([82], prs_by_number, reviews, positions, overrides={})
+
+    assert summary["review_comment_count"] == 1
+    assert [c["comment_id"] for c in summary["comments"]] == [1]
+
+
+def test_proposal_pr_summary_flags_self_comments_but_still_counts_them() -> None:
+    prs_by_number = {
+        82: {
+            "pr_number": 82,
+            "title": "t",
+            "author": "author-of-pr",
+            "created_at": "2020-01-01T00:00:00Z",
+            "merged_at": None,
+            "reviewer_logins": [],
+            "review_decision": "COMMENTED",
+        }
+    }
+    reviews = [
+        {"pr_number": 82, "comment_id": 1, "author": "author-of-pr", "line": 2, "created_at": "d"},
+        {"pr_number": 82, "comment_id": 2, "author": "someone-else", "line": 2, "created_at": "d"},
+    ]
+    positions = [(2, "## Summary")]
+
+    summary = _proposal_pr_summary([82], prs_by_number, reviews, positions, overrides={})
+
+    assert summary["review_comment_count"] == 2  # still collected/counted, just flagged
+    by_id = {c["comment_id"]: c for c in summary["comments"]}
+    assert by_id[1]["is_self_comment"] is True
+    assert by_id[2]["is_self_comment"] is False
 
 
 def test_proposal_pr_summary_handles_no_pr_numbers() -> None:
@@ -216,6 +330,7 @@ def test_impl_prs_summary_splits_linked_and_discovered() -> None:
     impl_prs_by_key = {
         ("pipeline", 1): {
             "title": "linked one",
+            "author": "some-contributor",
             "review_decision": "APPROVED",
             "discovered_via": "tep_file_link",
             "additions": 10,
@@ -223,7 +338,8 @@ def test_impl_prs_summary_splits_linked_and_discovered() -> None:
             "files_changed": 2,
         },
         ("results", 2): {
-            "title": "discovered one",
+            "title": "TEP-0052: discovered one",  # title confirms -> not just a candidate
+            "author": "another-contributor",
             "review_decision": "COMMENTED",
             "discovered_via": "search",
             "additions": 5,
@@ -243,11 +359,14 @@ def test_impl_prs_summary_splits_linked_and_discovered() -> None:
         pr_overrides=[],
         impl_prs_by_key=impl_prs_by_key,
         impl_review_counts={("pipeline", 1): 3, ("results", 2): 4},
+        tep_number=52,
+        tep_authors=set(),
     )
 
     assert summary["linked_count"] == 1
     assert summary["discovered_count"] == 1
     assert summary["manual_count"] == 0
+    assert summary["candidate_count"] == 0
     assert summary["total_count"] == 2
     assert summary["by_repo"] == {"pipeline": 1, "results": 1}
     assert summary["review_comment_count"] == 7
@@ -267,6 +386,8 @@ def test_impl_prs_summary_marks_genuine_404_as_not_found() -> None:
         pr_overrides=[],
         impl_prs_by_key=impl_prs_by_key,
         impl_review_counts={},
+        tep_number=1,
+        tep_authors=set(),
     )
 
     assert summary["items"][0]["status"] == "not_found"
@@ -283,6 +404,8 @@ def test_impl_prs_summary_marks_never_fetched_manual_include_as_pending() -> Non
         ],
         impl_prs_by_key={},  # never fetched by anything
         impl_review_counts={},
+        tep_number=1,
+        tep_authors=set(),
     )
 
     assert summary["items"][0]["status"] == "pending_fetch"
@@ -293,6 +416,7 @@ def test_impl_prs_summary_prefers_linked_attribution_when_both() -> None:
     impl_prs_by_key = {
         ("pipeline", 1): {
             "title": "t",
+            "author": "a-stranger",
             "review_decision": "APPROVED",
             "discovered_via": "tep_file_link",
             "additions": 1,
@@ -307,9 +431,41 @@ def test_impl_prs_summary_prefers_linked_attribution_when_both() -> None:
         pr_overrides=[],
         impl_prs_by_key=impl_prs_by_key,
         impl_review_counts={},
+        tep_number=1,
+        tep_authors=set(),
     )
 
     assert summary["total_count"] == 1
+    assert summary["items"][0]["attribution_source"] == "tep_file_link"
+
+
+def test_impl_prs_summary_linked_pr_skips_candidate_gate_even_if_author_unknown() -> None:
+    """A TEP author commonly links a contributor's PR as 'the implementation' in their own
+    doc — the linking itself is the confirmation, regardless of who opened the linked PR."""
+    impl_prs_by_key = {
+        ("pipeline", 1): {
+            "title": "implement the thing",  # no TEP-number prefix
+            "author": "random-contributor",  # not a listed TEP author
+            "review_decision": "APPROVED",
+            "discovered_via": "tep_file_link",
+            "additions": 1,
+            "deletions": 1,
+            "files_changed": 1,
+        }
+    }
+
+    summary = _impl_prs_summary(
+        {("pipeline", 1): {"url": "u", "format": "full-url"}},
+        {},
+        pr_overrides=[],
+        impl_prs_by_key=impl_prs_by_key,
+        impl_review_counts={},
+        tep_number=52,
+        tep_authors={"someone-else"},
+    )
+
+    assert summary["linked_count"] == 1
+    assert summary["candidate_count"] == 0
     assert summary["items"][0]["attribution_source"] == "tep_file_link"
 
 
@@ -333,10 +489,13 @@ def test_impl_prs_summary_exclude_override_removes_pr_and_records_it() -> None:
         ],
         impl_prs_by_key=impl_prs_by_key,
         impl_review_counts={},
+        tep_number=52,
+        tep_authors=set(),
     )
 
     assert summary["total_count"] == 0
     assert summary["discovered_count"] == 0
+    assert summary["candidate_count"] == 0  # excluded before it could even become a candidate
     assert summary["excluded"] == [
         {
             "repo": "results",
@@ -372,12 +531,169 @@ def test_impl_prs_summary_include_override_adds_a_new_pr() -> None:
         ],
         impl_prs_by_key=impl_prs_by_key,
         impl_review_counts={},
+        tep_number=1,
+        tep_authors=set(),
     )
 
     assert summary["manual_count"] == 1
     assert summary["total_count"] == 1
     assert summary["items"][0]["attribution_source"] == "manual_include"
     assert summary["items"][0]["evidence"] == "missed by search"
+
+
+def test_impl_prs_summary_unconfirmed_search_hit_becomes_a_candidate() -> None:
+    """The concrete false-positive this whole tier exists for: a downstream repo's dependency
+    bump PR that happens to vendor in a commit mentioning the TEP number."""
+    impl_prs_by_key = {
+        ("catalog", 42): {
+            "title": "Bump github.com/tektoncd/pipeline from 0.42.0 to 0.51.0",
+            "author": "dependabot-lookalike",
+            "review_decision": "COMMENTED",
+            "discovered_via": "search",
+            "additions": 1,
+            "deletions": 1,
+            "files_changed": 1,
+        }
+    }
+
+    summary = _impl_prs_summary(
+        {},
+        {("catalog", 42): "…vendored commit mentions TEP-0052…"},
+        pr_overrides=[],
+        impl_prs_by_key=impl_prs_by_key,
+        impl_review_counts={("catalog", 42): 5},
+        tep_number=52,
+        tep_authors={"wlynch"},
+    )
+
+    assert summary["total_count"] == 0
+    assert summary["discovered_count"] == 0
+    assert summary["candidate_count"] == 1
+    assert summary["review_comment_count"] == 0  # candidates don't feed into counted totals
+    candidate = summary["candidates"][0]
+    assert candidate["repo"] == "catalog"
+    assert candidate["pr_number"] == 42
+    assert candidate["evidence"] == "…vendored commit mentions TEP-0052…"
+    assert "dependabot-lookalike" in candidate["why_candidate"]
+
+
+def test_impl_prs_summary_include_override_promotes_candidate_to_counted() -> None:
+    impl_prs_by_key = {
+        ("catalog", 42): {
+            "title": "Bump pipeline",
+            "author": "a-stranger",
+            "review_decision": "COMMENTED",
+            "discovered_via": "search",
+            "additions": 1,
+            "deletions": 1,
+            "files_changed": 1,
+        }
+    }
+
+    summary = _impl_prs_summary(
+        {},
+        {("catalog", 42): "snippet"},
+        pr_overrides=[
+            {
+                "repo": "catalog",
+                "pr_number": 42,
+                "action": "include",
+                "reason": "manually confirmed, genuinely implements this TEP",
+            }
+        ],
+        impl_prs_by_key=impl_prs_by_key,
+        impl_review_counts={},
+        tep_number=52,
+        tep_authors=set(),
+    )
+
+    assert summary["candidate_count"] == 0
+    assert summary["candidates"] == []
+    assert summary["manual_count"] == 1
+    assert summary["total_count"] == 1
+    assert summary["items"][0]["attribution_source"] == "manual_include"
+
+
+def test_impl_prs_summary_exclude_override_dismisses_candidate() -> None:
+    impl_prs_by_key = {
+        ("catalog", 42): {
+            "title": "Bump pipeline",
+            "author": "a-stranger",
+            "review_decision": "COMMENTED",
+            "discovered_via": "search",
+            "additions": 1,
+            "deletions": 1,
+            "files_changed": 1,
+        }
+    }
+
+    summary = _impl_prs_summary(
+        {},
+        {("catalog", 42): "snippet"},
+        pr_overrides=[
+            {
+                "repo": "catalog",
+                "pr_number": 42,
+                "action": "exclude",
+                "reason": "just a vendoring bump, unrelated",
+            }
+        ],
+        impl_prs_by_key=impl_prs_by_key,
+        impl_review_counts={},
+        tep_number=52,
+        tep_authors=set(),
+    )
+
+    assert summary["candidate_count"] == 0
+    assert summary["candidates"] == []
+    assert summary["excluded"] == [
+        {
+            "repo": "catalog",
+            "pr_number": 42,
+            "was_attribution_source": "search",
+            "reason": "just a vendoring bump, unrelated",
+        }
+    ]
+
+
+def test_impl_prs_summary_bot_authored_pr_is_silently_filtered() -> None:
+    impl_prs_by_key = {
+        ("pipeline", 1): {
+            "title": "linked one",
+            "author": "some-contributor",
+            "review_decision": "APPROVED",
+            "discovered_via": "tep_file_link",
+            "additions": 1,
+            "deletions": 1,
+            "files_changed": 1,
+        },
+        ("pipeline", 2): {
+            "title": "Bump golang.org/x/net",
+            "author": "dependabot[bot]",
+            "review_decision": "COMMENTED",
+            "discovered_via": "search",
+            "additions": 5,
+            "deletions": 5,
+            "files_changed": 1,
+        },
+    }
+
+    summary = _impl_prs_summary(
+        {("pipeline", 1): {"url": "u", "format": "full-url"}},
+        {("pipeline", 2): "…mentions TEP-0052…"},
+        pr_overrides=[],
+        impl_prs_by_key=impl_prs_by_key,
+        impl_review_counts={},
+        tep_number=52,
+        tep_authors=set(),
+    )
+
+    assert summary["total_count"] == 1  # only the non-bot linked PR
+    assert summary["candidate_count"] == 0  # not even surfaced as a candidate
+    assert summary["bot_filtered_count"] == 1
+    assert [i["pr_number"] for i in summary["items"]] == [1]
+    assert summary["candidates"] == []
+    assert summary["excluded"] == []
 
 
 # ---------------------------------------------------------------------------
@@ -415,7 +731,16 @@ def test_build_tep_record_assembles_full_record() -> None:
             }
         },
         community_pr_reviews=[],
-        impl_prs_by_key={},
+        impl_prs_by_key={
+            ("results", 103): {
+                "title": "TEP-0052: cleanup impl",  # title confirms -> counted, not a candidate
+                "review_decision": "APPROVED",
+                "discovered_via": "search",
+                "additions": 1,
+                "deletions": 1,
+                "files_changed": 1,
+            }
+        },
         impl_review_counts={},
         discoveries={"52": [{"repo": "results", "pr_number": 103, "evidence": "…TEP-0052…"}]},
         gaps_by_number={},

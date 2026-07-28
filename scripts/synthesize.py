@@ -107,6 +107,29 @@ def _nearest_heading(line: int | None, positions: list[tuple[int, str]]) -> str 
     return result
 
 
+def _is_bot(login: str | None) -> bool:
+    """GitHub Apps/bots (dependabot, github-actions, github-advanced-security, ...) all get a
+    login ending in "[bot]" — the one signal GitHub itself guarantees, so no allowlist to
+    maintain. There's no analytical value in a bot "implementing" or "reviewing" a TEP."""
+    return login is not None and login.endswith("[bot]")
+
+
+def _normalize_login(value: str) -> str:
+    """TEP frontmatter authors are written as free-text '@handle' (see raw/teps.jsonl); GitHub
+    API logins never carry the '@'. Case varies too (a few TEPs use inconsistent casing)."""
+    return value.lstrip("@").strip().casefold()
+
+
+def _title_confirms_tep(title: str | None, tep_number: int) -> bool:
+    """True if `title` names this TEP at/near the start (optionally wrapped in brackets, e.g.
+    '[TEP-0124] ...' or 'TEP-0052: ...' — both real conventions seen in this corpus). This is
+    the strongest signal a search hit is genuinely about the TEP, not a coincidental mention
+    buried in a vendored changelog or dependency-bump body."""
+    if not title:
+        return False
+    return bool(re.match(rf"^\W*TEP-0*{tep_number}\b", title, re.IGNORECASE))
+
+
 def _divergences(tep_sections: list[str], template_sections: list[str]) -> dict:
     tep_set = set(tep_sections)
     template_set = set(template_sections)
@@ -129,6 +152,11 @@ def _proposal_pr_summary(
     overrides: dict[tuple[str, int, int], str],
 ) -> dict:
     prs = [community_prs_by_number[n] for n in pr_numbers if n in community_prs_by_number]
+    pr_authors_by_number = {
+        n: community_prs_by_number[n].get("author")
+        for n in pr_numbers
+        if n in community_prs_by_number
+    }
 
     comments_by_section: dict[str, int] = {}
     comments: list[dict] = []
@@ -137,6 +165,8 @@ def _proposal_pr_summary(
     for comment in review_comments:
         if comment["pr_number"] not in pr_numbers:
             continue
+        if _is_bot(comment.get("author")):
+            continue  # no analytical value in a bot's own review comments
         dates.add(str(comment["created_at"])[:10])
         override_key = ("community", int(comment["pr_number"]), int(comment["comment_id"]))
         is_override = override_key in overrides
@@ -146,11 +176,13 @@ def _proposal_pr_summary(
             unmapped += 1
         else:
             comments_by_section[section] = comments_by_section.get(section, 0) + 1
+        author = comment.get("author")
+        is_self_comment = bool(author) and author == pr_authors_by_number.get(comment["pr_number"])
         comments.append(
             {
                 "pr_number": comment["pr_number"],
                 "comment_id": comment["comment_id"],
-                "author": comment.get("author"),
+                "author": author,
                 "body": comment.get("body"),
                 "path": comment.get("path"),
                 "line": comment.get("line"),
@@ -158,6 +190,7 @@ def _proposal_pr_summary(
                 "section": section,
                 "heuristic_section": heuristic_section,
                 "is_override": is_override,
+                "is_self_comment": is_self_comment,
             }
         )
 
@@ -190,17 +223,52 @@ def _proposal_pr_summary(
 # ---------------------------------------------------------------------------
 
 
+def _bot_authored(pair: tuple[str, int], impl_prs_by_key: dict[tuple[str, int], dict]) -> bool:
+    record = impl_prs_by_key.get(pair)
+    return record is not None and _is_bot(record.get("author"))
+
+
+def _search_confidence(record: dict | None, tep_number: int, tep_authors: set[str]) -> str:
+    """'confirmed' if the title itself names this TEP, or the PR's own author is a listed TEP
+    author — either signal alone is enough. 'candidate' otherwise: the search text matched
+    somewhere (title/body), but nothing ties the PR specifically to this TEP's own work. The
+    concrete failure mode this exists for: a dependency-bump PR in a downstream repo that
+    happens to vendor in a commit mentioning the TEP, opened by neither a TEP author nor
+    naming the TEP in its own title. A PR nothing has fetched yet (or a genuine 404) can't be
+    evaluated either way, so it defaults to 'candidate' — the safe, conservative bucket.
+    """
+    if record is None or record.get("status") == 404:
+        return "candidate"
+    if _title_confirms_tep(record.get("title"), tep_number):
+        return "confirmed"
+    author = record.get("author")
+    if author and _normalize_login(author) in tep_authors:
+        return "confirmed"
+    return "candidate"
+
+
 def _impl_prs_summary(
     linked_evidence: dict[tuple[str, int], dict],
     discovered_evidence: dict[tuple[str, int], str | None],
     pr_overrides: list[dict],
     impl_prs_by_key: dict[tuple[str, int], dict],
     impl_review_counts: dict[tuple[str, int], int],
+    tep_number: int,
+    tep_authors: set[str],
 ) -> dict:
     """Build the TEP's implementation-PR list, applying manual exclude/include overrides
     on top of the algorithmic link/discovery attribution. `evidence` on each item answers
     "why do we think this PR belongs to this TEP" — the linked URL+format, the search
     snippet that matched, or the human's stated reason for a manual inclusion.
+
+    A PR the TEP author explicitly linked in their own document is trusted outright — the
+    linking itself is the confirmation, regardless of who opened the linked PR (a TEP author
+    commonly links a contributor's implementation). A search-discovered PR gets no such
+    free pass: unless its title names the TEP or its author is a listed TEP author, it's
+    parked in `candidates` — visible, but excluded from every count until a human confirms it
+    (via an "include" override) or dismisses it (via "exclude", same as any other PR).
+    Bot-authored PRs (dependabot, etc.) are filtered out entirely, linked or discovered alike —
+    there's no human judgment call to make about those.
     """
     excluded_pairs = {(o["repo"], o["pr_number"]) for o in pr_overrides if o["action"] == "exclude"}
     include_reasons = {
@@ -209,8 +277,23 @@ def _impl_prs_summary(
         if o["action"] == "include"
     }
 
-    linked_pairs = set(linked_evidence) - excluded_pairs
-    discovered_pairs = set(discovered_evidence) - excluded_pairs
+    bot_pairs = {
+        pair
+        for pair in set(linked_evidence) | set(discovered_evidence)
+        if _bot_authored(pair, impl_prs_by_key)
+    }
+
+    linked_pairs = set(linked_evidence) - excluded_pairs - bot_pairs
+
+    search_pairs = set(discovered_evidence) - excluded_pairs - bot_pairs
+    confirmed_search_pairs = {
+        pair
+        for pair in search_pairs
+        if _search_confidence(impl_prs_by_key.get(pair), tep_number, tep_authors) == "confirmed"
+    }
+    candidate_search_pairs = search_pairs - confirmed_search_pairs - set(include_reasons)
+
+    discovered_pairs = confirmed_search_pairs
     manual_pairs = set(include_reasons) - linked_pairs - discovered_pairs - excluded_pairs
     all_pairs = linked_pairs | discovered_pairs | manual_pairs
 
@@ -288,15 +371,49 @@ def _impl_prs_summary(
             }
         )
 
+    candidates = []
+    for repo, pr_number in sorted(candidate_search_pairs):
+        record = impl_prs_by_key.get((repo, pr_number))
+        author = record.get("author") if record else None
+        why = (
+            f"opened by {author}, not a listed TEP author, and the title doesn't start "
+            f"with 'TEP-{tep_number:04d}'"
+            if author
+            else f"title doesn't start with 'TEP-{tep_number:04d}', and the PR's author isn't "
+            "known yet"
+        )
+        candidates.append(
+            {
+                "repo": repo,
+                "pr_number": pr_number,
+                "evidence": discovered_evidence.get((repo, pr_number)),
+                "why_candidate": why,
+                "title": record.get("title") if record else None,
+                "author": author,
+                "status": (
+                    "not_found"
+                    if record is not None and record.get("status") == 404
+                    else ("pending_fetch" if record is None else None)
+                ),
+                "review_decision": record.get("review_decision") if record else None,
+                "additions": record.get("additions") if record else None,
+                "deletions": record.get("deletions") if record else None,
+                "files_changed": record.get("files_changed") if record else None,
+            }
+        )
+
     return {
         "linked_count": len(linked_pairs),
         "discovered_count": len(discovered_pairs),
         "manual_count": len(manual_pairs),
+        "candidate_count": len(candidate_search_pairs),
+        "bot_filtered_count": len(bot_pairs),
         "total_count": len(all_pairs),
         "review_comment_count": sum(item["review_comment_count"] for item in items),
         "by_repo": by_repo,
         "items": items,
         "excluded": excluded_items,
+        "candidates": candidates,
     }
 
 
@@ -332,6 +449,7 @@ def build_tep_record(
         (entry["repo"], entry["pr_number"]): entry.get("evidence")
         for entry in discoveries.get(str(tep_number), [])
     }
+    tep_authors = {_normalize_login(a) for a in tep.get("authors", []) if a}
 
     return {
         "tep_number": tep_number,
@@ -363,6 +481,8 @@ def build_tep_record(
             pr_overrides_by_tep.get(tep_number, []),
             impl_prs_by_key,
             impl_review_counts,
+            tep_number,
+            tep_authors,
         ),
     }
 
@@ -439,6 +559,8 @@ def main(argv: list[str] | None = None) -> int:
     impl_prs_by_key = {(r["repo"], r["pr_number"]): r for r in _load_jsonl(Path(args.impl_prs))}
     impl_review_counts: dict[tuple[str, int], int] = {}
     for r in _load_jsonl(Path(args.impl_reviews)):
+        if _is_bot(r.get("author")):
+            continue
         key = (r["repo"], r["pr_number"])
         impl_review_counts[key] = impl_review_counts.get(key, 0) + 1
     discoveries = _load_json(Path(args.discoveries))
@@ -491,6 +613,10 @@ def main(argv: list[str] | None = None) -> int:
     print(f"Section overrides applied: {len(section_overrides)}")
     pr_override_count = sum(len(v) for v in pr_overrides_by_tep.values())
     print(f"PR attribution overrides : {pr_override_count}")
+    total_candidates = sum(r["impl_prs"]["candidate_count"] for r in records)
+    total_bot_filtered = sum(r["impl_prs"]["bot_filtered_count"] for r in records)
+    print(f"Candidate impl PRs (unconfirmed): {total_candidates}")
+    print(f"Bot-authored PRs filtered : {total_bot_filtered}")
     print(f"Written: {out_path}")
     return 0
 

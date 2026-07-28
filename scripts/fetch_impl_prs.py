@@ -171,6 +171,7 @@ def _pr_record(
     return {
         "repo": repo,
         "pr_number": int(pr["number"]),
+        "author": _user_login(pr),
         "title": str(pr.get("title") or ""),
         "body": str(pr.get("body") or ""),
         "labels": [
