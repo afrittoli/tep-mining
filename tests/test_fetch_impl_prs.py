@@ -56,6 +56,7 @@ def test_linked_issues_handles_empty_body() -> None:
 def test_pr_record_collects_reviewers_decision_and_size() -> None:
     pr = {
         "number": 3463,
+        "user": {"login": "some-contributor"},
         "title": "Add Custom Task support",
         "body": "Implements part of tektoncd/community#159. Fixes #200.",
         "labels": [{"name": "kind/feature"}],
@@ -75,6 +76,7 @@ def test_pr_record_collects_reviewers_decision_and_size() -> None:
     assert record == {
         "repo": "pipeline",
         "pr_number": 3463,
+        "author": "some-contributor",
         "title": "Add Custom Task support",
         "body": "Implements part of tektoncd/community#159. Fixes #200.",
         "labels": ["kind/feature"],

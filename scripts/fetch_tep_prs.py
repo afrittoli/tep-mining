@@ -24,6 +24,8 @@ from pathlib import Path
 
 import requests
 from dotenv import load_dotenv
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 load_dotenv()
 
@@ -38,6 +40,18 @@ def _session(token: str) -> requests.Session:
     session.headers["Accept"] = "application/vnd.github+json"
     session.headers["X-GitHub-Api-Version"] = "2022-11-28"
     session.headers["Authorization"] = f"Bearer {token}"
+    # Hundreds of requests hit occasional transient connection drops and read timeouts; retry
+    # those at the connection-pool level rather than failing the whole run (see the identical
+    # fix in fetch_impl_prs.py's _session(), added after the same failure mode there).
+    retry = Retry(
+        total=3,
+        backoff_factor=1.0,
+        status_forcelist=[500, 502, 503, 504],
+        allowed_methods=["GET"],
+    )
+    adapter = HTTPAdapter(max_retries=retry)
+    session.mount("https://", adapter)
+    session.mount("http://", adapter)
     return session
 
 
@@ -144,6 +158,7 @@ def _pr_record(pr: dict, reviews: list[dict]) -> dict:
             break
     return {
         "pr_number": int(pr["number"]),
+        "author": _user_login(pr),
         "title": str(pr.get("title") or ""),
         "body": str(pr.get("body") or ""),
         "labels": [
