@@ -7,6 +7,7 @@ from scripts.synthesize import (
     _heading_positions,
     _impl_prs_summary,
     _is_bot,
+    _load_known_commits,
     _load_pr_attribution_overrides,
     _load_section_overrides,
     _nearest_heading,
@@ -218,6 +219,26 @@ def test_load_pr_attribution_overrides_groups_by_tep(tmp_path: Path) -> None:
 
 def test_load_pr_attribution_overrides_missing_file_returns_empty(tmp_path: Path) -> None:
     assert _load_pr_attribution_overrides(tmp_path / "missing.jsonl") == {}
+
+
+def test_load_known_commits_groups_by_tep(tmp_path: Path) -> None:
+    path = tmp_path / "known_commits.jsonl"
+    path.write_text(
+        '{"tep_number": 10, "repo": "pipeline", "commit_sha": "1722db7", '
+        '"note": "author account deleted, no PR link"}\n'
+        '{"tep_number": 10, "repo": "pipeline", "commit_sha": "abcdef0", "note": "second commit"}\n'
+        '{"tep_number": 21, "repo": "results", "commit_sha": "9999999", "note": "n/a"}\n'
+    )
+
+    known = _load_known_commits(path)
+
+    assert len(known[10]) == 2
+    assert len(known[21]) == 1
+    assert known[10][0]["commit_sha"] == "1722db7"
+
+
+def test_load_known_commits_missing_file_returns_empty(tmp_path: Path) -> None:
+    assert _load_known_commits(tmp_path / "missing.jsonl") == {}
 
 
 # ---------------------------------------------------------------------------
@@ -915,6 +936,7 @@ def test_build_tep_record_assembles_full_record() -> None:
         coverage_by_number={52: {"linked": 1, "discovered": 1, "search_hits_confirmed": 2}},
         section_overrides={},
         pr_overrides_by_tep={},
+        known_commits_by_tep={52: [{"repo": "pipeline", "commit_sha": "abc1234", "note": "n/a"}]},
         heading_positions=[],
     )
 
@@ -927,6 +949,7 @@ def test_build_tep_record_assembles_full_record() -> None:
     assert record["coverage"]["discovered"] == 1
     assert record["impl_prs"]["total_count"] == 2  # 1 linked + 1 discovered
     assert record["proposal_pr"]["pr_numbers"] == [347]
+    assert record["known_commits"] == [{"repo": "pipeline", "commit_sha": "abc1234", "note": "n/a"}]
 
 
 def test_build_tep_record_stub_has_no_divergences() -> None:
@@ -957,6 +980,7 @@ def test_build_tep_record_stub_has_no_divergences() -> None:
         coverage_by_number={},
         section_overrides={},
         pr_overrides_by_tep={},
+        known_commits_by_tep={},
         heading_positions=[],
     )
 

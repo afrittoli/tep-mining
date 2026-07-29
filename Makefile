@@ -1,4 +1,4 @@
-.PHONY: help lint type-check test check parse scan-gaps gap-report mine-pr-cache map-prs pr-map-report fetch-tep-prs fetch-impl-prs report-index search synthesize query explorer apply-pr-overrides
+.PHONY: help lint type-check test check parse scan-gaps gap-report mine-pr-cache map-prs pr-map-report fetch-tep-prs fetch-impl-prs report-index search synthesize query explorer apply-pr-overrides apply-export
 
 # Load .env if it exists
 -include .env
@@ -93,6 +93,9 @@ apply-pr-overrides: ## Fetch metadata for "include" overrides not yet in raw/imp
 		--impl-prs raw/impl_prs.jsonl \
 		--output-reviews raw/impl_pr_reviews.jsonl
 
+apply-export: ## Merge an explorer-exported corrections file into overrides/*.jsonl, e.g. make apply-export FILE=~/Downloads/pr_attribution_overrides.export.jsonl
+	uv run scripts/apply_export.py "$(FILE)"
+
 synthesize: ## Sub-Task 7: Join raw data into per-TEP records → processed/
 	uv run scripts/synthesize.py \
 		--teps-jsonl raw/teps.jsonl \
@@ -106,6 +109,7 @@ synthesize: ## Sub-Task 7: Join raw data into per-TEP records → processed/
 		--coverage processed/latest/coverage.json \
 		--overrides overrides/section_overrides.jsonl \
 		--pr-overrides overrides/pr_attribution_overrides.jsonl \
+		--known-commits overrides/known_commits.jsonl \
 		--processed-dir processed
 
 explorer: ## Build the interactive TEP data explorer (run after synthesize) → reports/explorer.html

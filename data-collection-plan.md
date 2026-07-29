@@ -533,6 +533,26 @@ generation step.
   capture each PR's `state` (open/closed) alongside `merged_at`, both threaded through to impl
   PR items, candidates, and proposal PRs. `review_decision` is still collected and stored (it
   may be useful raw context later) but is no longer rendered as a badge anywhere.
+- Status filter: added an "exclude" checkbox that flips it from "show only this status" to
+  "show everything except" (applies to the "Flagged for review" pseudo-status too). No new
+  data, one boolean flag on the existing filter predicate.
+- `overrides/known_commits.jsonl` (`{tep_number, repo, commit_sha, note}`, hand-edited, no
+  fetching) tracks implementations that exist only as a bare commit with no retrievable PR —
+  confirmed real via TEP-0010: `GET /commits/{sha}/pulls` (verified working, via a known-good
+  commit) returns empty for that commit specifically, and its author account has since been
+  deleted from GitHub, the likely cause. Deliberately kept separate from
+  `pr_attribution_overrides.jsonl` rather than extending its schema to accept a commit SHA in
+  place of a PR number — what the PR-attribution mechanism is actually for is collecting
+  review comments, and a bare commit has none. `synthesize.py` exposes `known_commits` as a
+  plain per-TEP list, untouched by any impl-PR counting logic; the explorer shows it read-only.
+- Corrections made in the explorer now also trigger a real file download (`*.export.jsonl`)
+  instead of requiring copy-paste out of the textarea. `scripts/apply_export.py`
+  (`make apply-export FILE=...`) merges a downloaded export into the matching
+  `overrides/*.jsonl` file, auto-detected from the record's own field shape (each export only
+  ever contains one correction type), skipping byte-for-byte-identical records already
+  present — safe to run more than once on the same or an overlapping export. Deliberately not
+  a patch/diff format: the content is purely new lines to append, not a diff against existing
+  ones, so a diff format would add format complexity without adding capability.
 
 **Todo List**:
 1. Write `scripts/synthesize.py`:
