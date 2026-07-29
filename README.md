@@ -108,6 +108,10 @@ Implementation-PR review comments (`raw/impl_pr_reviews.jsonl`, ~10K records) ar
 
 `flags` on each TEP record surface data worth a second look without opening every TEP by hand: currently just "marked `implemented` but zero confirmed impl PRs" (split into `implemented_no_prs` vs. `implemented_only_candidates` depending on whether unconfirmed candidates exist) — see `_consistency_flags()` in [`scripts/synthesize.py`](scripts/synthesize.py). The explorer shows a warning badge next to a flagged TEP's title in the master table and a "Flagged for review" entry in the status filter.
 
+The master table's "Linked"/"Discovered" columns are individually sortable now (previously "Linked" wasn't wired to a real sort key at all, and "Discovered" was silently sorting by total instead), and a new "Total" column (linked + discovered) is sortable too.
+
+Per-PR badges no longer show `review_decision` (APPROVED / CHANGES_REQUESTED / COMMENTED) — that field is computed as "did *any* review, ever, hit this state" with a fixed priority, so it goes stale the moment a reviewer changes their mind after re-reviewing (confirmed on real data: `chains#590` and `chains#599` both got re-approved by the *same* reviewer who'd first requested changes, yet kept showing "changes requested" forever, since request-changes always wins the priority regardless of what came after). Fetch scripts now also capture each PR's `state` (open/closed); the badge shows the PR's actual disposition instead — **merged**, **closed, not merged**, or **open** — a more stable, honest signal than a review-event history that was never being interpreted with recency in mind.
+
 ## Detailed Plan
 
 See [data-collection-plan.md](data-collection-plan.md) for the full sub-task breakdown,

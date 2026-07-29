@@ -204,6 +204,7 @@ def _proposal_pr_summary(
                 "title": pr["title"],
                 "created_at": pr["created_at"],
                 "merged_at": pr["merged_at"],
+                "state": pr.get("state"),
                 "reviewer_logins": pr["reviewer_logins"],
                 "review_decision": pr["review_decision"],
             }
@@ -366,6 +367,8 @@ def _impl_prs_summary(
                     "files_changed": None,
                     "review_comment_count": 0,
                     "comments": [],
+                    "merged_at": None,
+                    "state": None,
                 }
             )
             continue
@@ -379,6 +382,8 @@ def _impl_prs_summary(
                 "additions": record["additions"],
                 "deletions": record["deletions"],
                 "files_changed": record["files_changed"],
+                "merged_at": record.get("merged_at"),
+                "state": record.get("state"),
             }
         )
 
@@ -433,6 +438,8 @@ def _impl_prs_summary(
                 "additions": record.get("additions") if record else None,
                 "deletions": record.get("deletions") if record else None,
                 "files_changed": record.get("files_changed") if record else None,
+                "merged_at": record.get("merged_at") if record else None,
+                "state": record.get("state") if record else None,
             }
         )
 

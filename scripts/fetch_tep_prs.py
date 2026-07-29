@@ -166,6 +166,7 @@ def _pr_record(pr: dict, reviews: list[dict]) -> dict:
         ],
         "created_at": pr.get("created_at"),
         "merged_at": pr.get("merged_at"),
+        "state": pr.get("state"),
         "reviewer_logins": reviewer_logins,
         "review_decision": review_decision,
     }
