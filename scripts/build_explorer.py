@@ -174,6 +174,20 @@ function esc(s) {
     { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
   ));
 }
+function downloadText(filename, text) {
+  // Real file download instead of copy-paste from the textarea — feeds straight into
+  // `uv run scripts/apply_export.py <downloaded file>`, which merges it into the right
+  // overrides/*.jsonl without any manual copy-paste.
+  const blob = new Blob([text], { type: 'application/x-jsonlines' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
 function mergeStateBadge(it) {
   // Not review_decision: that's "did any reviewer, ever, leave this state" (fixed priority),
   // which goes stale the moment a reviewer changes their mind after re-reviewing (confirmed on
@@ -230,6 +244,7 @@ function exportCorrections() {
   box.value = lines.join('\\n') + (lines.length ? '\\n' : '');
   box.classList.remove('hidden');
   box.select();
+  if (lines.length) downloadText('section_overrides.export.jsonl', box.value);
 }
 
 function clearCorrections() {
@@ -293,6 +308,7 @@ function exportPrCorrections() {
   box.value = lines.join('\\n') + (lines.length ? '\\n' : '');
   box.classList.remove('hidden');
   box.select();
+  if (lines.length) downloadText('pr_attribution_overrides.export.jsonl', box.value);
 }
 
 function clearPrCorrections() {
@@ -553,6 +569,19 @@ function renderExcludedList(tepNumber, excluded) {
   return `<section class="block"><h3>Excluded by manual override (${excluded.length})</h3>${rows}</section>`;
 }
 
+function renderKnownCommitsList(knownCommits) {
+  if (!knownCommits.length) return '';
+  const rows = knownCommits.map(k => `<div class="pr-row">
+    <span class="repo">${esc(k.repo)}</span>
+    <a class="title" href="https://github.com/tektoncd/${esc(k.repo)}/commit/${esc(k.commit_sha)}" target="_blank" rel="noopener">${esc(k.commit_sha)}</a>
+    <span class="badge badge-skipped">no PR available</span>
+    <div class="why" style="flex-basis:100%">${esc(k.note || '')}</div>
+  </div>`).join('');
+  return `<section class="block"><h3>Known implementation commits &mdash; no retrievable PR (${knownCommits.length})</h3>
+    <p style="color:var(--ink-dim);font-size:12.5px;margin-bottom:8px">Recorded manually in <code>overrides/known_commits.jsonl</code> — these don't count toward impl PR totals or candidates, since there's no PR (and so no review comments) to collect.</p>
+    ${rows}</section>`;
+}
+
 function renderDetail(tepNumber) {
   const r = BY_NUMBER.get(tepNumber);
   const container = document.getElementById('view-detail');
@@ -661,6 +690,7 @@ function renderDetail(tepNumber) {
     </section>
 
     ${renderExcludedList(r.tep_number, r.impl_prs.excluded || [])}
+    ${renderKnownCommitsList(r.known_commits || [])}
   `;
 }
 
@@ -782,15 +812,15 @@ def build_html(records: list[dict]) -> str:
   <button id="export-pr-btn">Export PR overrides as JSONL</button>
   <button id="clear-pr-btn">Clear</button>
   <textarea id="export-box" class="hidden" rows="4" readonly
-    placeholder="Copy this into overrides/section_overrides.jsonl and commit."></textarea>
+    placeholder="Downloaded as section_overrides.export.jsonl — merge it with: uv run scripts/apply_export.py <file>"></textarea>
   <textarea id="pr-export-box" class="hidden" rows="4" readonly
-    placeholder="Copy this into overrides/pr_attribution_overrides.jsonl and commit."></textarea>
+    placeholder="Downloaded as pr_attribution_overrides.export.jsonl — merge it with: uv run scripts/apply_export.py <file>"></textarea>
 </div>
 
 <footer>
-  Corrections are stored locally in your browser only. Export and commit them to
-  <code>overrides/section_overrides.jsonl</code> or <code>overrides/pr_attribution_overrides.jsonl</code>
-  for synthesize.py to pick up on the next run &mdash; that's the audit trail.
+  Corrections are stored locally in your browser only. Exporting also downloads a JSONL file &mdash;
+  merge it into <code>overrides/</code> with <code>uv run scripts/apply_export.py &lt;downloaded file&gt;</code>,
+  then commit for synthesize.py to pick up on the next run. That commit is the audit trail.
   &middot; Made with IBM Bob
 </footer>
 

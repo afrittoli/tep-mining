@@ -74,6 +74,20 @@ def _load_pr_attribution_overrides(path: Path) -> dict[int, list[dict]]:
     return overrides
 
 
+def _load_known_commits(path: Path) -> dict[int, list[dict]]:
+    """tep_number -> [{repo, commit_sha, note}, ...].
+
+    For implementations that exist as a bare commit with no retrievable PR (e.g. the
+    commit's author account was deleted, breaking GitHub's own commit-to-PR link) — nothing
+    to fetch here (no review comments exist for a bare commit), just a fact worth recording
+    so it doesn't look like the implementation was simply never found.
+    """
+    known: dict[int, list[dict]] = {}
+    for rec in _load_jsonl(path):
+        known.setdefault(int(rec["tep_number"]), []).append(rec)
+    return known
+
+
 # ---------------------------------------------------------------------------
 # Template / section structure
 # ---------------------------------------------------------------------------
@@ -500,6 +514,7 @@ def build_tep_record(
     coverage_by_number: dict[int, dict],
     section_overrides: dict[tuple[str, int, int], str],
     pr_overrides_by_tep: dict[int, list[dict]],
+    known_commits_by_tep: dict[int, list[dict]],
     heading_positions: list[tuple[int, str]],
 ) -> dict:
     tep_number = int(tep["tep_number"])
@@ -545,6 +560,7 @@ def build_tep_record(
         "gap": gaps_by_number.get(tep_number),
         "coverage": coverage_by_number.get(tep_number),
         "flags": _consistency_flags(status, impl_prs),
+        "known_commits": known_commits_by_tep.get(tep_number, []),
         "proposal_pr": _proposal_pr_summary(
             pr_numbers,
             community_prs_by_number,
@@ -595,6 +611,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--coverage", default="processed/latest/coverage.json")
     parser.add_argument("--overrides", default="overrides/section_overrides.jsonl")
     parser.add_argument("--pr-overrides", default="overrides/pr_attribution_overrides.jsonl")
+    parser.add_argument("--known-commits", default="overrides/known_commits.jsonl")
     parser.add_argument(
         "--teps-dir",
         default=(os.environ.get("COMMUNITY_REPO_PATH", "") + "/teps") or None,
@@ -639,6 +656,7 @@ def main(argv: list[str] | None = None) -> int:
     coverage_by_number = {int(r["tep_number"]): r for r in coverage_records}
     section_overrides = _load_section_overrides(Path(args.overrides))
     pr_overrides_by_tep = _load_pr_attribution_overrides(Path(args.pr_overrides))
+    known_commits_by_tep = _load_known_commits(Path(args.known_commits))
 
     records = []
     for tep in teps:
@@ -665,6 +683,7 @@ def main(argv: list[str] | None = None) -> int:
                 coverage_by_number,
                 section_overrides,
                 pr_overrides_by_tep,
+                known_commits_by_tep,
                 heading_positions,
             )
         )
@@ -686,6 +705,8 @@ def main(argv: list[str] | None = None) -> int:
     total_bot_filtered = sum(r["impl_prs"]["bot_filtered_count"] for r in records)
     print(f"Candidate impl PRs (unconfirmed): {total_candidates}")
     print(f"Bot-authored PRs filtered : {total_bot_filtered}")
+    known_commit_count = sum(len(v) for v in known_commits_by_tep.values())
+    print(f"Known implementation commits (no PR): {known_commit_count}")
     print(f"Written: {out_path}")
     return 0
 

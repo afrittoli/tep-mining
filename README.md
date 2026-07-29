@@ -73,6 +73,7 @@ make search          # Sub-Task 6: cross-repo TEP reference search
 make synthesize      # Sub-Task 7: join raw data -> processed/
 make explorer        # Sub-Task 7: build the interactive data explorer -> reports/explorer.html
 make apply-pr-overrides  # Optional: fetch metadata for a manually-"included" PR, then re-run synthesize
+make apply-export FILE=path/to/export.jsonl  # Merge an explorer-exported corrections file into overrides/
 make query           # Ad-hoc: launch DuckDB session over every raw/processed JSONL file
 ```
 
@@ -111,6 +112,12 @@ Implementation-PR review comments (`raw/impl_pr_reviews.jsonl`, ~10K records) ar
 The master table's "Linked"/"Discovered" columns are individually sortable now (previously "Linked" wasn't wired to a real sort key at all, and "Discovered" was silently sorting by total instead), and a new "Total" column (linked + discovered) is sortable too.
 
 Per-PR badges no longer show `review_decision` (APPROVED / CHANGES_REQUESTED / COMMENTED) — that field is computed as "did *any* review, ever, hit this state" with a fixed priority, so it goes stale the moment a reviewer changes their mind after re-reviewing (confirmed on real data: `chains#590` and `chains#599` both got re-approved by the *same* reviewer who'd first requested changes, yet kept showing "changes requested" forever, since request-changes always wins the priority regardless of what came after). Fetch scripts now also capture each PR's `state` (open/closed); the badge shows the PR's actual disposition instead — **merged**, **closed, not merged**, or **open** — a more stable, honest signal than a review-event history that was never being interpreted with recency in mind.
+
+A checkbox next to the status filter flips it from "show only this status" to "show everything except" (works on the "Flagged for review" pseudo-status too).
+
+Some implementations exist only as a bare commit with no retrievable PR — e.g. the commit's author account was later deleted, which can sever GitHub's own commit-to-PR association even though the code genuinely shipped (confirmed on TEP-0010: `GET /commits/{sha}/pulls` returns empty for that specific commit, but works correctly for other commits). Since there's no PR, there are no review comments to collect, so this is tracked separately in `overrides/known_commits.jsonl` (`{tep_number, repo, commit_sha, note}`, hand-edited, no fetching involved) rather than shoehorned into the PR-attribution mechanism above. The explorer shows these read-only, per TEP; they never count toward `total_count`, `candidate_count`, or any of the impl-PR stats.
+
+Corrections made in the explorer now trigger a real file download (`*.export.jsonl`) instead of requiring copy-paste out of the textarea. `scripts/apply_export.py` (`make apply-export FILE=...`) merges a downloaded export into the right `overrides/*.jsonl` — auto-detected from the record's own shape, since each export only ever contains one correction type — skipping any record that's already present, so it's safe to run more than once on the same or an overlapping export.
 
 ## Detailed Plan
 
