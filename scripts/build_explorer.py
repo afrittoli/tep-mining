@@ -65,6 +65,8 @@ CSS = """
   }
   .toolbar select { padding: 7px 10px; border: 1px solid var(--rule); border-radius: 6px; font-size: 13px; }
   .toolbar .count { color: var(--ink-dim); font-size: 12.5px; white-space: nowrap; }
+  .toolbar .exclude-toggle { display: flex; align-items: center; gap: 4px; font-size: 12.5px;
+    color: var(--ink-dim); white-space: nowrap; cursor: pointer; user-select: none; }
 
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
   thead th {
@@ -310,13 +312,13 @@ let sortKey = 'tep_number';
 let sortDir = 1;
 let filterText = '';
 let filterStatus = '';
+let filterStatusExclude = false;
 
 function filteredSorted() {
   let rows = DATA.filter(r => {
-    if (filterStatus === '__flagged__') {
-      if (!(r.flags || []).length) return false;
-    } else if (filterStatus && r.status !== filterStatus) {
-      return false;
+    if (filterStatus) {
+      const matches = filterStatus === '__flagged__' ? (r.flags || []).length > 0 : r.status === filterStatus;
+      if (filterStatusExclude ? matches : !matches) return false;
     }
     if (filterText) {
       const hay = (r.title + ' ' + (r.authors || []).join(' ') + ' TEP-' + r.tep_number).toLowerCase();
@@ -687,6 +689,7 @@ window.addEventListener('hashchange', render);
 window.addEventListener('DOMContentLoaded', () => {
   document.getElementById('search').addEventListener('input', e => { filterText = e.target.value; renderTable(); });
   document.getElementById('status-filter').addEventListener('change', e => { filterStatus = e.target.value; renderTable(); });
+  document.getElementById('status-exclude').addEventListener('change', e => { filterStatusExclude = e.target.checked; renderTable(); });
   document.querySelectorAll('thead th[data-key]').forEach(th => {
     th.addEventListener('click', () => {
       const key = th.dataset.key;
@@ -746,6 +749,7 @@ def build_html(records: list[dict]) -> str:
       <option value="__flagged__">&#9888; Flagged for review</option>
       {_status_options(records)}
     </select>
+    <label class="exclude-toggle"><input type="checkbox" id="status-exclude"> exclude</label>
     <span class="count" id="row-count"></span>
   </div>
   <table>
