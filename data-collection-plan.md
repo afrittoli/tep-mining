@@ -120,6 +120,33 @@ rationale: ~       # interviewer's reasoning
 A `Makefile` target loads all JSONL into an in-memory DuckDB session for SQL queries during
 the synthesis stage. No DuckDB file is stored; JSONL remains the source of truth.
 
+### Orchestration: why plain `make`, not a data-pipeline framework
+
+Considered (2026-07-29) whether an established orchestrator — Airflow, Dagster, Prefect,
+Snakemake — should replace the `Makefile` + per-script idempotency checks now that the pipeline
+has grown to nine ordered stages. Decision: **keep the Makefile**, revisit only if the shape of
+the problem changes.
+
+Reasoning: those tools earn their cost on recurring, scheduled, multi-team production pipelines
+— retries, alerting, backfills, distributed execution, a UI for run history. This pipeline is
+none of that: single machine, single user, human-triggered, runs end when Phase 0a does. Total
+wall-clock cost is dominated by GitHub API rate limits, not compute, so there's no parallelism
+to exploit even if a DAG scheduler were introduced. Airflow/Dagster/Prefect would mean
+standing up a scheduler, learning a DAG-definition API, and rewriting every script as a typed
+task/asset — real cost for a pipeline that already works and has a natural end date.
+Snakemake is the closest fit in spirit (declare "these outputs depend on these inputs, only
+rerun what's stale," built for exactly this kind of file-dependency data-processing pipeline,
+far lighter than Airflow) — worth a second look only if the pipeline needs to become a
+recurring/scheduled job (e.g. keeping the corpus mining current after Phase 0a ships), which
+isn't the current goal.
+
+What the Makefile is already missing that a real orchestrator would give for free: dependency
+order is enforced by doc comments ("Sub-Task 6 must run after `make fetch-impl-prs`"), not by
+the tool — a wrong invocation order fails at runtime, not before. Each script re-implements its
+own idempotency (skip-if-`(repo, pr_number)`-already-in-file) rather than the orchestrator
+handling staleness uniformly. Acceptable for a pipeline this size, run by the person who wrote
+it — a real friction point only for a wider group of maintainers.
+
 ---
 
 ## Sub-Tasks
@@ -492,6 +519,20 @@ generation step.
   explorer shows a warning badge next to the title in the master table plus a dedicated
   "Flagged for review" entry in the status filter, so these are discoverable by scanning rather
   than requiring every TEP to be opened individually.
+- Master table: added a "Total" (linked + discovered) column, sortable. Fixed while adding it:
+  the "Linked" header's `data-key` didn't match any case in the sort function at all (clicking
+  it silently did nothing — every row compared equal), and "Discovered" was wired to sort by
+  `total_count`, not `discovered_count`. Both were live bugs in the shipped explorer.
+- Replaced the per-PR `review_decision` badge (APPROVED / CHANGES_REQUESTED / COMMENTED) with
+  the PR's actual disposition (merged / closed, not merged / open). `review_decision` is
+  computed as "did *any* review, ever, hit this state," fixed priority order — it never
+  accounts for a reviewer changing their mind on a later re-review. Confirmed wrong on real
+  data: `chains#590` and `chains#599` were both re-approved by the *same* reviewer who'd
+  earlier requested changes, and both still showed "changes requested" indefinitely, since that
+  state always wins the priority regardless of what came after. The fetch scripts now also
+  capture each PR's `state` (open/closed) alongside `merged_at`, both threaded through to impl
+  PR items, candidates, and proposal PRs. `review_decision` is still collected and stored (it
+  may be useful raw context later) but is no longer rendered as a badge anywhere.
 
 **Todo List**:
 1. Write `scripts/synthesize.py`:

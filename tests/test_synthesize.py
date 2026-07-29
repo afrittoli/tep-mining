@@ -384,6 +384,25 @@ def test_proposal_pr_summary_handles_no_pr_numbers() -> None:
     assert summary["review_comment_count"] == 0
 
 
+def test_proposal_pr_summary_carries_merge_state() -> None:
+    prs_by_number = {
+        82: {
+            "pr_number": 82,
+            "title": "t",
+            "created_at": "2020-01-01T00:00:00Z",
+            "merged_at": "2020-02-01T00:00:00Z",
+            "state": "closed",
+            "reviewer_logins": [],
+            "review_decision": "APPROVED",
+        }
+    }
+
+    summary = _proposal_pr_summary([82], prs_by_number, [], [], {})
+
+    assert summary["prs"][0]["merged_at"] == "2020-02-01T00:00:00Z"
+    assert summary["prs"][0]["state"] == "closed"
+
+
 # ---------------------------------------------------------------------------
 # Implementation PRs summary
 # ---------------------------------------------------------------------------
@@ -557,6 +576,35 @@ def test_impl_prs_summary_prefers_linked_attribution_when_both() -> None:
 
     assert summary["total_count"] == 1
     assert summary["items"][0]["attribution_source"] == "tep_file_link"
+
+
+def test_impl_prs_summary_items_carry_merge_state() -> None:
+    impl_prs_by_key = {
+        ("pipeline", 1): {
+            "title": "t",
+            "author": "a",
+            "review_decision": "CHANGES_REQUESTED",
+            "discovered_via": "tep_file_link",
+            "additions": 1,
+            "deletions": 1,
+            "files_changed": 1,
+            "merged_at": "2021-05-01T00:00:00Z",
+            "state": "closed",
+        }
+    }
+
+    summary = _impl_prs_summary(
+        {("pipeline", 1): {"url": "u", "format": "full-url"}},
+        {},
+        pr_overrides=[],
+        impl_prs_by_key=impl_prs_by_key,
+        impl_reviews_by_key={},
+        tep_number=1,
+        tep_authors=set(),
+    )
+
+    assert summary["items"][0]["merged_at"] == "2021-05-01T00:00:00Z"
+    assert summary["items"][0]["state"] == "closed"
 
 
 def test_impl_prs_summary_linked_pr_skips_candidate_gate_even_if_author_unknown() -> None:

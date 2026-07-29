@@ -30,6 +30,7 @@ def test_pr_record_collects_reviewers_and_decision() -> None:
         "labels": [{"name": "kind/tep"}],
         "created_at": "2023-03-01T00:00:00Z",
         "merged_at": "2023-04-03T16:06:57Z",
+        "state": "closed",
     }
     reviews = [
         {"state": "COMMENTED", "user": {"login": "reviewer-1"}},
@@ -46,6 +47,7 @@ def test_pr_record_collects_reviewers_and_decision() -> None:
         "labels": ["kind/tep"],
         "created_at": "2023-03-01T00:00:00Z",
         "merged_at": "2023-04-03T16:06:57Z",
+        "state": "closed",
         "reviewer_logins": ["reviewer-1", "reviewer-2"],
         "review_decision": "APPROVED",
     }

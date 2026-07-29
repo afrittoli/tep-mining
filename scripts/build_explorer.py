@@ -167,18 +167,21 @@ JS = """
 const DATA = JSON.parse(document.getElementById('tep-data').textContent);
 const BY_NUMBER = new Map(DATA.map(r => [r.tep_number, r]));
 
-const REVIEW_BADGE = { APPROVED: 'badge-approved', CHANGES_REQUESTED: 'badge-changes',
-  COMMENTED: 'badge-commented', DISMISSED: 'badge-commented' };
-
 function esc(s) {
   return String(s == null ? '' : s).replace(/[&<>"']/g, c => (
     { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
   ));
 }
-function reviewBadge(decision) {
-  if (!decision) return '';
-  const cls = REVIEW_BADGE[decision] || 'badge-commented';
-  return `<span class="badge ${cls}">${esc(decision)}</span>`;
+function mergeStateBadge(it) {
+  // Not review_decision: that's "did any reviewer, ever, leave this state" (fixed priority),
+  // which goes stale the moment a reviewer changes their mind after re-reviewing (confirmed on
+  // real data — chains#590/#599 both got re-approved by the same reviewer who'd first requested
+  // changes, yet kept showing "changes requested" forever). Actual PR disposition is a much
+  // more stable, honest signal to show instead.
+  if (it.merged_at) return '<span class="badge badge-approved">merged</span>';
+  if (it.state === 'closed') return '<span class="badge badge-changes">closed, not merged</span>';
+  if (it.state === 'open') return '<span class="badge badge-commented">open</span>';
+  return '';
 }
 function underLinkingRate(r) {
   const total = r.impl_prs.total_count;
@@ -325,7 +328,9 @@ function filteredSorted() {
   rows.sort((a, b) => {
     let av, bv;
     if (key === 'under_linking') { av = underLinkingRate(a) ?? -1; bv = underLinkingRate(b) ?? -1; }
-    else if (key === 'impl_total') { av = a.impl_prs.total_count; bv = b.impl_prs.total_count; }
+    else if (key === 'linked_count') { av = a.impl_prs.linked_count; bv = b.impl_prs.linked_count; }
+    else if (key === 'discovered_count') { av = a.impl_prs.discovered_count; bv = b.impl_prs.discovered_count; }
+    else if (key === 'impl_sum') { av = a.impl_prs.linked_count + a.impl_prs.discovered_count; bv = b.impl_prs.linked_count + b.impl_prs.discovered_count; }
     else if (key === 'review_comments') { av = a.proposal_pr.review_comment_count; bv = b.proposal_pr.review_comment_count; }
     else if (key === 'authors') { av = (a.authors || []).join(','); bv = (b.authors || []).join(','); }
     else { av = a[key]; bv = b[key]; }
@@ -365,6 +370,7 @@ function renderTable() {
       <td class="num">${r.age_days ?? '—'}</td>
       <td class="num">${r.impl_prs.linked_count}</td>
       <td class="num">${r.impl_prs.discovered_count}</td>
+      <td class="num">${r.impl_prs.linked_count + r.impl_prs.discovered_count}</td>
       <td class="num">${rateStr}</td>
       <td class="num">${r.proposal_pr.review_comment_count}</td>
     </tr>`;
@@ -420,7 +426,7 @@ function renderProposalPrList(prs) {
       <a class="title" href="https://github.com/tektoncd/community/pull/${p.pr_number}" target="_blank" rel="noopener">
         #${p.pr_number} ${esc(p.title)}
       </a>
-      ${reviewBadge(p.review_decision)}
+      ${mergeStateBadge(p)}
       <span class="size">${esc((p.reviewer_logins || []).join(', ')) || 'no reviewers recorded'}</span>
     </div>`).join('');
 }
@@ -489,7 +495,7 @@ function renderImplPrList(tepNumber, items) {
       <a class="title" href="https://github.com/tektoncd/${esc(it.repo)}/pull/${it.pr_number}" target="_blank" rel="noopener">
         #${it.pr_number} ${esc(it.title)}
       </a>
-      ${reviewBadge(it.review_decision)}
+      ${mergeStateBadge(it)}
       <span class="size">+${it.additions ?? 0}/-${it.deletions ?? 0} (${it.files_changed ?? 0} files)</span>
       ${excludeControl(tepNumber, it, excludePending)}
       <div class="why" style="flex-basis:100%">${evidenceHtml(it)}</div>
@@ -513,7 +519,7 @@ function renderCandidateList(tepNumber, candidates) {
       : '';
     const titleText = c.status === 'not_found' ? `<span class="badge badge-skipped">404 not found</span>`
       : c.status === 'pending_fetch' ? `<span class="badge badge-skipped">not yet fetched</span>`
-      : `${esc(c.title || '')} ${c.author ? `<span class="badge badge-skipped">by ${esc(c.author)}</span>` : ''}`;
+      : `${esc(c.title || '')} ${c.author ? `<span class="badge badge-skipped">by ${esc(c.author)}</span>` : ''} ${mergeStateBadge(c)}`;
     const actions = pending ? '' : `
         <button class="mini-btn" onclick="promptConfirmCandidate(${tepNumber}, '${esc(c.repo)}', ${c.pr_number})">confirm relevant</button>
         <button class="mini-btn" onclick="promptExclude(${tepNumber}, '${esc(c.repo)}', ${c.pr_number})">dismiss</button>`;
@@ -750,8 +756,9 @@ def build_html(records: list[dict]) -> str:
         <th data-key="status">Status</th>
         <th data-key="authors">Authors</th>
         <th class="num" data-key="age_days">Age (d)</th>
-        <th class="num" data-key="linked">Linked</th>
-        <th class="num" data-key="impl_total">Discovered</th>
+        <th class="num" data-key="linked_count">Linked</th>
+        <th class="num" data-key="discovered_count">Discovered</th>
+        <th class="num" data-key="impl_sum">Total</th>
         <th class="num" data-key="under_linking">Under-linked</th>
         <th class="num" data-key="review_comments">Reviews</th>
       </tr>
