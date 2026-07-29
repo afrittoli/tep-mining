@@ -72,21 +72,27 @@ RE_TEP_CONFIRM = re.compile(r"\bTEP[-:\s]*0*(\d{1,4})\b", re.IGNORECASE)
 def _search_prs_for_tep(
     session, tep_number: int, last_logged_remaining: int | None
 ) -> tuple[list[dict], int | None]:
-    """Search org:tektoncd for PRs mentioning TEP-NNNN, anywhere, paginated.
+    """Search org:tektoncd for PRs mentioning this TEP, anywhere, paginated.
 
-    Only the zero-padded "TEP-NNNN" form is queried, deliberately. Verified against the
-    live search API across 6 real TEP numbers (2, 21, 52, 90, 104, 142): querying
-    "TEP_NNNN" (underscore) and "TEPNNNN" (concatenated) returned 0 genuine hits every
-    time, and non-padded "TEP-N" returned zero *new* hits after checking the actual
-    results — they were either duplicates already covered by the padded query, or false
+    Queries two quoted-phrase forms in one call, OR'd together: the zero-padded
+    "TEP-NNNN" (dash) and the non-padded "TEP NNNN" (space) — found necessary via
+    TEP-0109/chains#491 ("[TEP 109] ..." / "Implementation of TEP 109."), a real merged
+    PR the dash-only query never saw at all. Verified against the live search API across
+    6 real TEP numbers (2, 21, 52, 90, 104, 142) plus this one: querying "TEP_NNNN"
+    (underscore) and "TEPNNNN" (concatenated) returned 0 genuine hits every time, and
+    non-padded *dash* "TEP-N" returned zero *new* hits after checking the actual results
+    — they were either duplicates already covered by the padded query, or false
     positives from GitHub's search matching a bare short number inside unrelated text
     (e.g. "TEP-21" matching "k8s 1.21" / "v0.21.0"; "TEP-2" matching PRs with no "TEP"
-    mention at all). The TEP corpus convention (teps/NNNN-*.md, always 4-digit
-    zero-padded) is consistent enough that real mentions almost always copy that exact
-    format, so widening the query adds search volume and false-positive risk without
-    adding recall.
+    mention at all; adding non-padded dash as a third OR term for TEP-0109 alone jumped
+    3->22 raw hits, overwhelmingly noise). The non-padded *space* form doesn't share that
+    failure mode as badly (3->9 raw hits for TEP-0109) and demonstrably catches real
+    mentions the padded form misses, so it's worth the modest extra noise — especially
+    since noise here is cheap: _confirmed_hits() re-checks every hit's actual text
+    before anything gets fetched, so a wider net costs nothing beyond this one search
+    call (no extra rate-limit spend, no extra fetches for hits that don't confirm).
     """
-    query = f'org:{ORG} "TEP-{tep_number:04d}" type:pr'
+    query = f'org:{ORG} ("TEP-{tep_number:04d}" OR "TEP {tep_number}") type:pr'
     url: str | None = f"{GITHUB_API}/search/issues"
     params: dict[str, str | int] = {"q": query, "per_page": 30}
     items: list[dict] = []

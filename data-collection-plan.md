@@ -358,6 +358,19 @@ output, it does not replace it.
   newly discovered via search, across 156 TEPs — an under-linking rate of **70.3%**. Confirms
   the concern raised in TEP-0173 Phase 0a: the offline `impl_pr_links` extraction alone would
   have missed the majority of actual implementation PRs.
+- **Query widened (2026-07-29)**, found via a direct question about TEP-0109: `chains#491`
+  ("[TEP 109] Add feature to extract structured signable targets...") was invisible to search
+  entirely, because its title/body use "TEP 109" — space-separated, no zero-padding — and the
+  query only ever searched the quoted phrase `"TEP-0109"`. The confirmation regex
+  (`RE_TEP_CONFIRM`) already tolerated that form; only the query didn't. Now queries
+  `("TEP-{NNNN}" OR "TEP {N}") type:pr` in one call (padded-dash + non-padded-space) — verified
+  empirically before landing it: for TEP-0109, the padded-dash-only query returns 3 raw hits,
+  adding the non-padded-space OR term brings it to 9 (still includes chains#491), while also
+  adding non-padded-*dash* as a third term jumps to 22 — mostly noise, consistent with the
+  original investigation's finding that non-padded dash added nothing genuine. The extra OR
+  term costs nothing beyond this one search call: `_confirmed_hits()` re-verifies every hit's
+  actual text before anything gets fetched, so wider raw recall doesn't cost extra fetches or
+  rate-limit spend, only a marginally larger response to filter.
 
 **Todo List**:
 1. Write `scripts/cross_repo_search.py`:
