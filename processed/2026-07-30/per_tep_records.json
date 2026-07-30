@@ -29124,71 +29124,59 @@
         "## References"
       ]
     },
-    "flags": [
-      {
-        "code": "implemented_only_candidates",
-        "message": "Marked implemented, but the 3 impl PR(s) found are still unconfirmed candidates"
-      }
-    ],
+    "flags": [],
     "gap": null,
     "impl_prs": {
       "bot_filtered_count": 0,
-      "by_repo": {},
-      "candidate_count": 3,
-      "candidates": [
+      "by_repo": {
+        "pipeline": 1
+      },
+      "candidate_count": 0,
+      "candidates": [],
+      "discovered_count": 0,
+      "excluded": [
         {
-          "additions": 333,
-          "author": "waveywaves",
-          "deletions": 0,
-          "evidence": "\u2026or TaskRun and PipelineRuns This proposal builds on top of TEP-0042. It outlines the implementation details for attaching break\u2026",
-          "files_changed": 2,
-          "merged_at": "2022-07-12T12:51:26Z",
           "pr_number": 572,
+          "reason": "Wrong TEP - this is TEP-0097's proposal PR (Breakpoints for TaskRun and PipelineRuns), a different TEP by the same author.",
           "repo": "community",
-          "review_decision": "APPROVED",
-          "state": "closed",
-          "status": null,
-          "title": "TEP 0097: Breakpoints for TaskRun and PipelineRuns",
-          "why_candidate": "opened by waveywaves, not a listed TEP author, and the title doesn't start with 'TEP-0042'"
+          "was_attribution_source": "search"
         },
         {
-          "additions": 521,
-          "author": "waveywaves",
-          "deletions": 0,
-          "evidence": "\u2026elated TEPs | TEP | Relationship | |-----|-------------| | TEP-0042 | Interactive debugging (breakpoints) \u2014 complements this TE\u2026",
-          "files_changed": 1,
-          "merged_at": null,
           "pr_number": 1266,
+          "reason": "Wrong TEP - this is TEP-0167's proposal PR (Actionable Failure Diagnostics for TaskRuns), a different TEP by the same author.",
           "repo": "community",
-          "review_decision": "COMMENTED",
-          "state": "open",
-          "status": null,
-          "title": "TEP-0167: Actionable Failure Diagnostics for TaskRuns",
-          "why_candidate": "opened by waveywaves, not a listed TEP author, and the title doesn't start with 'TEP-0042'"
+          "was_attribution_source": "search"
         },
         {
-          "additions": 449,
-          "author": "jstrachan",
-          "deletions": 4,
-          "evidence": "\u2026ebug with breakpoint configuration to PipelineRun Based on TEP-0042, this commit will allow users to enable the `debug.breakpoi\u2026",
-          "files_changed": 12,
-          "merged_at": null,
           "pr_number": 4145,
+          "reason": "Closed without merging (2021-10-19), an earlier abandoned attempt at the same feature, superseded by pipeline#3857 which did merge.",
           "repo": "pipeline",
-          "review_decision": "COMMENTED",
-          "state": "closed",
-          "status": null,
-          "title": "Add debug with breakpoint configuration to PipelineRun",
-          "why_candidate": "opened by jstrachan, not a listed TEP author, and the title doesn't start with 'TEP-0042'"
+          "was_attribution_source": "search"
         }
       ],
-      "discovered_count": 0,
-      "excluded": [],
-      "items": [],
+      "items": [
+        {
+          "additions": null,
+          "attribution_source": "manual_include",
+          "comments": [],
+          "deletions": null,
+          "discovered_via": null,
+          "evidence": "'Add debug with breakpoint onFailure to TaskRun Spec' by waveywaves (TEP's own author), merged 2021-07-09. Also literally mentions TEP-0042 in cross-repo search text.",
+          "files_changed": null,
+          "merged_at": null,
+          "pr_number": 3857,
+          "repo": "pipeline",
+          "review_comment_count": 0,
+          "review_decision": null,
+          "state": null,
+          "status": "pending_fetch",
+          "title": null
+        }
+      ],
       "linked_count": 0,
-      "manual_count": 0,
+      "manual_count": 1,
       "review_comment_count": 0,
-      "total_count": 0
+      "total_count": 1
     },
     "known_commits": [],
     "last_updated": "2021-12-10",
@@ -33302,25 +33290,40 @@
         "### Implementation Pull Requests"
       ]
     },
-    "flags": [
-      {
-        "code": "implemented_no_prs",
-        "message": "Marked implemented, but no implementation PRs were found at all"
-      }
-    ],
+    "flags": [],
     "gap": null,
     "impl_prs": {
       "bot_filtered_count": 0,
-      "by_repo": {},
+      "by_repo": {
+        "pipeline": 1
+      },
       "candidate_count": 0,
       "candidates": [],
       "discovered_count": 0,
       "excluded": [],
-      "items": [],
+      "items": [
+        {
+          "additions": null,
+          "attribution_source": "manual_include",
+          "comments": [],
+          "deletions": null,
+          "discovered_via": null,
+          "evidence": "Title 'WhenExpressions in Finally Tasks' is an exact match to the TEP's own title, by jerop (TEP's listed author), merged 2021-02-04.",
+          "files_changed": null,
+          "merged_at": null,
+          "pr_number": 3738,
+          "repo": "pipeline",
+          "review_comment_count": 0,
+          "review_decision": null,
+          "state": null,
+          "status": "pending_fetch",
+          "title": null
+        }
+      ],
       "linked_count": 0,
-      "manual_count": 0,
+      "manual_count": 1,
       "review_comment_count": 0,
-      "total_count": 0
+      "total_count": 1
     },
     "known_commits": [],
     "last_updated": "2021-06-03",
@@ -33515,16 +33518,13 @@
         "### Implementation Pull Requests"
       ]
     },
-    "flags": [
-      {
-        "code": "implemented_only_candidates",
-        "message": "Marked implemented, but the 6 impl PR(s) found are still unconfirmed candidates"
-      }
-    ],
+    "flags": [],
     "gap": null,
     "impl_prs": {
       "bot_filtered_count": 0,
-      "by_repo": {},
+      "by_repo": {
+        "pipeline": 1
+      },
       "candidate_count": 6,
       "candidates": [
         {
@@ -33620,11 +33620,29 @@
       ],
       "discovered_count": 0,
       "excluded": [],
-      "items": [],
+      "items": [
+        {
+          "additions": null,
+          "attribution_source": "manual_include",
+          "comments": [],
+          "deletions": null,
+          "discovered_via": null,
+          "evidence": "PR body literally says 'This PR is an implementation of TEP #326' (TEP-0046's own proposal PR), by souleb (TEP's listed author).",
+          "files_changed": null,
+          "merged_at": null,
+          "pr_number": 3843,
+          "repo": "pipeline",
+          "review_comment_count": 0,
+          "review_decision": null,
+          "state": null,
+          "status": "pending_fetch",
+          "title": null
+        }
+      ],
       "linked_count": 0,
-      "manual_count": 0,
+      "manual_count": 1,
       "review_comment_count": 0,
-      "total_count": 0
+      "total_count": 1
     },
     "known_commits": [],
     "last_updated": "2021-12-14",
@@ -49989,25 +50007,57 @@
         "## References"
       ]
     },
-    "flags": [
-      {
-        "code": "implemented_no_prs",
-        "message": "Marked implemented, but no implementation PRs were found at all"
-      }
-    ],
+    "flags": [],
     "gap": null,
     "impl_prs": {
       "bot_filtered_count": 0,
-      "by_repo": {},
+      "by_repo": {
+        "hub": 2
+      },
       "candidate_count": 0,
       "candidates": [],
       "discovered_count": 0,
       "excluded": [],
-      "items": [],
+      "items": [
+        {
+          "additions": null,
+          "attribution_source": "manual_include",
+          "comments": [],
+          "deletions": null,
+          "discovered_via": null,
+          "evidence": "'Updates the resource API by adding Resource Categories Mapping' - directly implements the tag-to-category mapping TEP-0062 describes, by PuneetPunamiya (TEP's listed author).",
+          "files_changed": null,
+          "merged_at": null,
+          "pr_number": 269,
+          "repo": "hub",
+          "review_comment_count": 0,
+          "review_decision": null,
+          "state": null,
+          "status": "pending_fetch",
+          "title": null
+        },
+        {
+          "additions": null,
+          "attribution_source": "manual_include",
+          "comments": [],
+          "deletions": null,
+          "discovered_via": null,
+          "evidence": "Follow-up migration cleaning up stale categories, same author and feature area as hub#269, part of the same body of work.",
+          "files_changed": null,
+          "merged_at": null,
+          "pr_number": 290,
+          "repo": "hub",
+          "review_comment_count": 0,
+          "review_decision": null,
+          "state": null,
+          "status": "pending_fetch",
+          "title": null
+        }
+      ],
       "linked_count": 0,
-      "manual_count": 0,
+      "manual_count": 2,
       "review_comment_count": 0,
-      "total_count": 0
+      "total_count": 2
     },
     "known_commits": [],
     "last_updated": "2021-12-15",
@@ -53951,25 +54001,40 @@
         "## References"
       ]
     },
-    "flags": [
-      {
-        "code": "implemented_no_prs",
-        "message": "Marked implemented, but no implementation PRs were found at all"
-      }
-    ],
+    "flags": [],
     "gap": null,
     "impl_prs": {
       "bot_filtered_count": 0,
-      "by_repo": {},
+      "by_repo": {
+        "results": 1
+      },
       "candidate_count": 0,
       "candidates": [],
       "discovered_count": 0,
       "excluded": [],
-      "items": [],
+      "items": [
+        {
+          "additions": null,
+          "attribution_source": "manual_include",
+          "comments": [],
+          "deletions": null,
+          "discovered_via": null,
+          "evidence": "Title 'JSON Serialized Records + Postgres impl.' and body 'This commit implements JSON serialized Records' - exact match, by wlynch (TEP's listed author). Linked from the TEP's own References section (not a recognized Implementation heading, hence missed by extraction).",
+          "files_changed": null,
+          "merged_at": null,
+          "pr_number": 121,
+          "repo": "results",
+          "review_comment_count": 0,
+          "review_decision": null,
+          "state": null,
+          "status": "pending_fetch",
+          "title": null
+        }
+      ],
       "linked_count": 0,
-      "manual_count": 0,
+      "manual_count": 1,
       "review_comment_count": 0,
-      "total_count": 0
+      "total_count": 1
     },
     "known_commits": [],
     "last_updated": "2023-03-22",
@@ -164318,25 +164383,40 @@
         "### Implementation Pull Requests"
       ]
     },
-    "flags": [
-      {
-        "code": "implemented_no_prs",
-        "message": "Marked implemented, but no implementation PRs were found at all"
-      }
-    ],
+    "flags": [],
     "gap": null,
     "impl_prs": {
       "bot_filtered_count": 0,
-      "by_repo": {},
+      "by_repo": {
+        "results": 1
+      },
       "candidate_count": 0,
       "candidates": [],
       "discovered_count": 0,
       "excluded": [],
-      "items": [],
+      "items": [
+        {
+          "additions": null,
+          "attribution_source": "manual_include",
+          "comments": [],
+          "deletions": null,
+          "discovered_via": null,
+          "evidence": "PR body says 'Refer: tektoncd/community#1086' (TEP-0148's own proposal PR), by avinal (TEP's listed author). No 'TEP' text anywhere, only a shorthand reference to the proposal PR number.",
+          "files_changed": null,
+          "merged_at": null,
+          "pr_number": 642,
+          "repo": "results",
+          "review_comment_count": 0,
+          "review_decision": null,
+          "state": null,
+          "status": "pending_fetch",
+          "title": null
+        }
+      ],
       "linked_count": 0,
-      "manual_count": 0,
+      "manual_count": 1,
       "review_comment_count": 0,
-      "total_count": 0
+      "total_count": 1
     },
     "known_commits": [],
     "last_updated": "2024-02-28",
@@ -165288,16 +165368,53 @@
     "gap": null,
     "impl_prs": {
       "bot_filtered_count": 0,
-      "by_repo": {},
+      "by_repo": {
+        "pipeline": 2
+      },
       "candidate_count": 0,
       "candidates": [],
       "discovered_count": 0,
       "excluded": [],
-      "items": [],
+      "items": [
+        {
+          "additions": null,
+          "attribution_source": "manual_include",
+          "comments": [],
+          "deletions": null,
+          "discovered_via": null,
+          "evidence": "'Initiate Conformance Test Suite' - earlier PR in the same body of work as pipeline#7913, same author.",
+          "files_changed": null,
+          "merged_at": null,
+          "pr_number": 7826,
+          "repo": "pipeline",
+          "review_comment_count": 0,
+          "review_decision": null,
+          "state": null,
+          "status": "pending_fetch",
+          "title": null
+        },
+        {
+          "additions": null,
+          "attribution_source": "manual_include",
+          "comments": [],
+          "deletions": null,
+          "discovered_via": null,
+          "evidence": "Title 'TEP0152 - Complete V1 conformance test suite' (concatenated form, no separator - a third query variant not currently searched), by JeromeJu (TEP's listed author).",
+          "files_changed": null,
+          "merged_at": null,
+          "pr_number": 7913,
+          "repo": "pipeline",
+          "review_comment_count": 0,
+          "review_decision": null,
+          "state": null,
+          "status": "pending_fetch",
+          "title": null
+        }
+      ],
       "linked_count": 0,
-      "manual_count": 0,
+      "manual_count": 2,
       "review_comment_count": 0,
-      "total_count": 0
+      "total_count": 2
     },
     "known_commits": [],
     "last_updated": "2024-02-12",
