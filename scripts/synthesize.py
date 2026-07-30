@@ -472,11 +472,14 @@ def _impl_prs_summary(
     }
 
 
-def _consistency_flags(status: str | None, impl_prs: dict) -> list[dict]:
+def _consistency_flags(status: str | None, impl_prs: dict, known_commits: list[dict]) -> list[dict]:
     """Signals worth a human's attention when reviewing the data — not proof of an error, but
     exactly the kind of thing that's cheap to compute and expensive to notice by hand. Starting
-    with the sharpest one: a TEP marked implemented should have *something* to show for it."""
-    if status != "implemented" or impl_prs["total_count"] != 0:
+    with the sharpest one: a TEP marked implemented should have *something* to show for it.
+    A known_commits entry already answers that (a human found and recorded it), so it isn't
+    "unreviewed" anymore — just PR-less — and doesn't need to keep asking for the same look
+    twice."""
+    if status != "implemented" or impl_prs["total_count"] != 0 or known_commits:
         return []
     if impl_prs["candidate_count"] > 0:
         return [
@@ -541,6 +544,7 @@ def build_tep_record(
         tep_number,
         tep_authors,
     )
+    known_commits = known_commits_by_tep.get(tep_number, [])
 
     return {
         "tep_number": tep_number,
@@ -559,8 +563,8 @@ def build_tep_record(
         ),
         "gap": gaps_by_number.get(tep_number),
         "coverage": coverage_by_number.get(tep_number),
-        "flags": _consistency_flags(status, impl_prs),
-        "known_commits": known_commits_by_tep.get(tep_number, []),
+        "flags": _consistency_flags(status, impl_prs, known_commits),
+        "known_commits": known_commits,
         "proposal_pr": _proposal_pr_summary(
             pr_numbers,
             community_prs_by_number,

@@ -553,6 +553,19 @@ generation step.
   present — safe to run more than once on the same or an overlapping export. Deliberately not
   a patch/diff format: the content is purely new lines to append, not a diff against existing
   ones, so a diff format would add format complexity without adding capability.
+- Second real known-commit case (TEP-0021, confirmed via `GET /commits/{sha}/pulls` returning
+  empty) turned out to have a *different* cause than TEP-0010's: the author account isn't
+  deleted, the commit likely just predates or bypassed the PR workflow. `_consistency_flags()`
+  now also takes `known_commits` and suppresses `implemented_no_prs`/`implemented_only_candidates`
+  when at least one exists — a human has already explained the zero-PR case, so the flag
+  shouldn't keep asking for the same look twice.
+- "Tag a missing PR or commit as relevant" (`promptInclude()`) now takes one GitHub URL plus a
+  reason instead of three separate prompts (repo, then PR number, then reason). The URL is
+  parsed client-side (`parseGithubUrl()`): `.../pull/N` becomes a `pr_attribution_overrides.jsonl`
+  `include`, `.../commit/<sha>` becomes a `known_commits.jsonl` entry, anything else is rejected
+  with an explanation. Both shapes share one pending-corrections store/count/export button — a
+  single export can contain a mix of both, since `apply_export.py` already routes each record
+  independently by its own field shape, not by which button produced the file.
 
 **Todo List**:
 1. Write `scripts/synthesize.py`:

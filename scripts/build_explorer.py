@@ -290,15 +290,43 @@ function promptExclude(tepNumber, repo, prNumber) {
   render();
 }
 
+function parseGithubUrl(url) {
+  const prMatch = url.match(/^https:\\/\\/github\\.com\\/tektoncd\\/([^/\\s]+)\\/pull\\/(\\d+)/);
+  if (prMatch) return { kind: 'pr', repo: prMatch[1], pr_number: parseInt(prMatch[2], 10) };
+  const commitMatch = url.match(/^https:\\/\\/github\\.com\\/tektoncd\\/([^/\\s]+)\\/commit\\/([0-9a-f]{7,40})/i);
+  if (commitMatch) return { kind: 'commit', repo: commitMatch[1], commit_sha: commitMatch[2] };
+  return null;
+}
+
+function commitCorrectionKey(tepNumber, repo, commitSha) { return `commit:${tepNumber}:${repo}:${commitSha}`; }
+
+function recordCommitCorrection(tepNumber, repo, commitSha, note) {
+  prCorrections[commitCorrectionKey(tepNumber, repo, commitSha)] = {
+    tep_number: tepNumber, repo, commit_sha: commitSha, note: note || '',
+    created_at: new Date().toISOString(),
+  };
+  savePrCorrections(prCorrections);
+  renderCorrectionsBar();
+}
+
 function promptInclude(tepNumber) {
-  const repo = (prompt('Repo (e.g. pipeline, triggers, results)?', '') || '').trim();
-  if (!repo) return;
-  const prNumberStr = (prompt(`PR number in tektoncd/${repo}?`, '') || '').trim();
-  const prNumber = parseInt(prNumberStr, 10);
-  if (!Number.isFinite(prNumber)) { alert('Not a valid PR number.'); return; }
-  const reason = prompt(`Why is ${repo}#${prNumber} relevant to TEP-${tepNumber}?`, '');
+  const url = (prompt('GitHub URL for the missing implementation (PR or commit)?', '') || '').trim();
+  if (!url) return;
+  const parsed = parseGithubUrl(url);
+  if (!parsed) {
+    alert('Could not parse that as a tektoncd PR or commit URL. Expected e.g.\\n'
+      + 'https://github.com/tektoncd/pipeline/pull/1234\\n'
+      + 'or\\n'
+      + 'https://github.com/tektoncd/pipeline/commit/abcdef0123...');
+    return;
+  }
+  const reason = prompt(`Why is this relevant to TEP-${tepNumber}?`, '');
   if (reason === null) return;
-  recordPrCorrection(tepNumber, repo, prNumber, 'include', reason);
+  if (parsed.kind === 'pr') {
+    recordPrCorrection(tepNumber, parsed.repo, parsed.pr_number, 'include', reason);
+  } else {
+    recordCommitCorrection(tepNumber, parsed.repo, parsed.commit_sha, reason);
+  }
   render();
 }
 
@@ -312,7 +340,7 @@ function exportPrCorrections() {
 }
 
 function clearPrCorrections() {
-  if (!confirm('Clear all ' + Object.keys(prCorrections).length + ' pending PR attribution corrections? This does not affect anything already exported.')) return;
+  if (!confirm('Clear all ' + Object.keys(prCorrections).length + ' pending corrections? This does not affect anything already exported.')) return;
   prCorrections = {};
   savePrCorrections(prCorrections);
   renderCorrectionsBar();
@@ -686,7 +714,7 @@ function renderDetail(tepNumber) {
     <section class="block">
       <h3>Implementation PRs &mdash; manually included (${manual.length})</h3>
       ${renderImplPrList(r.tep_number, manual)}
-      <button class="mini-btn" onclick="promptInclude(${r.tep_number})" style="margin-top:8px">+ tag a missing PR as relevant</button>
+      <button class="mini-btn" onclick="promptInclude(${r.tep_number})" style="margin-top:8px">+ tag a missing PR or commit as relevant</button>
     </section>
 
     ${renderExcludedList(r.tep_number, r.impl_prs.excluded || [])}
@@ -808,13 +836,13 @@ def build_html(records: list[dict]) -> str:
   <button id="export-btn">Export sections as JSONL</button>
   <button id="clear-btn">Clear</button>
   <span class="sep"></span>
-  <span><b id="pr-corrections-count">0</b> pending PR attribution correction(s)</span>
-  <button id="export-pr-btn">Export PR overrides as JSONL</button>
+  <span><b id="pr-corrections-count">0</b> pending PR/commit correction(s)</span>
+  <button id="export-pr-btn">Export PR/commit corrections as JSONL</button>
   <button id="clear-pr-btn">Clear</button>
   <textarea id="export-box" class="hidden" rows="4" readonly
     placeholder="Downloaded as section_overrides.export.jsonl — merge it with: uv run scripts/apply_export.py <file>"></textarea>
   <textarea id="pr-export-box" class="hidden" rows="4" readonly
-    placeholder="Downloaded as pr_attribution_overrides.export.jsonl — merge it with: uv run scripts/apply_export.py <file>"></textarea>
+    placeholder="Downloaded as pr_attribution_overrides.export.jsonl — may include known-commit entries too, apply_export.py splits them correctly. Merge it with: uv run scripts/apply_export.py <file>"></textarea>
 </div>
 
 <footer>
