@@ -50,12 +50,7 @@
         "## References"
       ]
     },
-    "flags": [
-      {
-        "code": "implemented_no_prs",
-        "message": "Marked implemented, but no implementation PRs were found at all"
-      }
-    ],
+    "flags": [],
     "gap": null,
     "impl_prs": {
       "bot_filtered_count": 0,
@@ -70,7 +65,15 @@
       "review_comment_count": 0,
       "total_count": 0
     },
-    "known_commits": [],
+    "known_commits": [
+      {
+        "commit_sha": "1565ac41012b64e1c5eef2972688fcf5e7e32a5b",
+        "created_at": "2026-07-30T16:00:00.000Z",
+        "note": "Not a gap: community#82 (this commit) is both TEP-0001's proposal PR and its implementation -- the TEP process didn't exist yet when TEP-0001 itself was written, so there was no separate process to implement it under. Structurally a one-off; no other TEP can have this exception.",
+        "repo": "community",
+        "tep_number": 1
+      }
+    ],
     "last_updated": "2020-06-11",
     "proposal_pr": {
       "comments": [
