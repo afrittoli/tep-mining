@@ -156,14 +156,14 @@ def _impl_prs(total_count: int = 0, candidate_count: int = 0) -> dict:
 
 
 def test_consistency_flags_implemented_with_zero_prs() -> None:
-    flags = _consistency_flags("implemented", _impl_prs(total_count=0, candidate_count=0))
+    flags = _consistency_flags("implemented", _impl_prs(total_count=0, candidate_count=0), [])
 
     assert len(flags) == 1
     assert flags[0]["code"] == "implemented_no_prs"
 
 
 def test_consistency_flags_implemented_with_only_candidates() -> None:
-    flags = _consistency_flags("implemented", _impl_prs(total_count=0, candidate_count=2))
+    flags = _consistency_flags("implemented", _impl_prs(total_count=0, candidate_count=2), [])
 
     assert len(flags) == 1
     assert flags[0]["code"] == "implemented_only_candidates"
@@ -171,12 +171,20 @@ def test_consistency_flags_implemented_with_only_candidates() -> None:
 
 
 def test_consistency_flags_implemented_with_confirmed_prs_is_clean() -> None:
-    assert _consistency_flags("implemented", _impl_prs(total_count=3, candidate_count=0)) == []
+    assert _consistency_flags("implemented", _impl_prs(total_count=3, candidate_count=0), []) == []
 
 
 def test_consistency_flags_non_implemented_status_never_flagged() -> None:
-    assert _consistency_flags("proposed", _impl_prs(total_count=0, candidate_count=0)) == []
-    assert _consistency_flags(None, _impl_prs(total_count=0, candidate_count=0)) == []
+    assert _consistency_flags("proposed", _impl_prs(total_count=0, candidate_count=0), []) == []
+    assert _consistency_flags(None, _impl_prs(total_count=0, candidate_count=0), []) == []
+
+
+def test_consistency_flags_known_commit_clears_the_no_prs_flag() -> None:
+    """A known_commits entry means a human already explained the zero-PR case — it isn't
+    unreviewed anymore, so it shouldn't keep asking for the same look twice."""
+    known_commits = [{"repo": "pipeline", "commit_sha": "abc1234", "note": "n/a"}]
+
+    assert _consistency_flags("implemented", _impl_prs(total_count=0), known_commits) == []
 
 
 # ---------------------------------------------------------------------------
