@@ -45,7 +45,8 @@ afrittoli/tep-mining/
 │   └── synthesize.py               # joins raw/ -> processed/YYYY-MM-DD/per_tep_records.json
 │
 ├── prompts/
-│   └── group_conventions.md        # prompt template for AI grouping step
+│   ├── group_conventions.md        # prompt template for AI grouping step
+│   └── author_fallback_discovery.md # prompt template for AI-assisted impl-PR fallback discovery
 │
 ├── raw/                            # JSONL, git-tracked, append-only
 │   ├── teps.jsonl
@@ -427,6 +428,49 @@ output, it does not replace it.
 
 ---
 
+### Sub-Task 6b: Author-fallback implementation-PR discovery (`prompts/author_fallback_discovery.md`)
+
+**Intent**: Recover implementation PRs that Sub-Task 6's text search structurally cannot find —
+PRs that never mention "TEP-NNNN" anywhere, opened by one of the TEP's own listed authors, whose
+content is nonetheless genuinely the TEP's implementation. Text search cannot narrow this any
+further than "search by author" without risking false negatives (tested and rejected: date
+windowing and keyword narrowing both silently exclude real hits — see the prompt file for the
+concrete cases). This is an AI-agent task, not a deterministic script — the actual work is
+reading a PR's content against a TEP's actual content and judging fit, which is exactly the kind
+of judgment call a regex or keyword filter gets wrong.
+
+**Expected Outcomes**:
+- `prompts/author_fallback_discovery.md`: a prompt template documenting the search procedure,
+  the reading/judging criteria, known false-positive traps observed on real data, and the
+  required output shape (matching `overrides/pr_attribution_overrides.jsonl`)
+- Running it produces proposed `include` records for human (or reviewing-agent) sign-off, not
+  direct commits — same review discipline as every other correction mechanism in this pipeline
+- First real run (2026-07-30, on the "implemented + zero impl PRs" cohort) found 5 genuine hits
+  this way, all previously invisible to Sub-Task 6 for the same underlying reason: zero "TEP"
+  text anywhere in the PR, matched only by the PR's own author being a listed TEP author
+
+**Todo List**:
+1. Write `prompts/author_fallback_discovery.md` (done — see the file for the full procedure)
+2. Run it against the current "flagged for review" cohort (`status: implemented`,
+   `impl_prs.total_count == 0`) as the first real execution; review and apply findings via
+   `scripts/apply_export.py`, then re-run `make synthesize`
+3. Re-run periodically as new corrections surface more of these gaps, or on demand for a
+   specific TEP under manual review
+
+**Relevant Context**:
+- Companion mechanism to Sub-Task 6, not a replacement — text search stays the default (cheap,
+  deterministic, runs unattended); this is the fallback for what it structurally cannot see
+- This project's second AI-agent-driven pipeline stage — the first is Sub-Task 8's
+  `group_conventions.md` — for the same underlying reason: some steps need reading
+  comprehension, not string matching, and a heuristic that fakes it produces silently wrong data
+- Known limitation: an author whose GitHub account has been deleted breaks the `author:` search
+  qualifier itself (`422 Validation Failed`), the same root cause `known_commits.jsonl` exists
+  for on the commit-linkage side — no current workaround for either
+
+**Status**: [x] done (prompt written and dogfooded); re-run as needed, not a one-time step
+
+---
+
 ### Sub-Task 7: Synthesis — join raw data into per-TEP records (`synthesize.py`)
 
 **Intent**: Join all raw JSONL files into a single structured record per TEP, making the data
@@ -697,6 +741,10 @@ raw/impl_pr_reviews.jsonl
         v (Sub-Task 6: cross_repo_search.py - augments impl_prs.jsonl)
 processed/YYYY-MM-DD/coverage.json
 raw/impl_pr_discoveries.json
+        |
+        v (Sub-Task 6b: author_fallback_discovery.md prompt, run on demand - AI agent
+                         reads candidate PRs by a TEP's own authors, proposes
+                         overrides/pr_attribution_overrides.jsonl "include"s for review)
         |
         v (Sub-Task 7: synthesize.py)
 processed/YYYY-MM-DD/per_tep_records.json

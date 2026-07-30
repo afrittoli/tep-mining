@@ -37,6 +37,9 @@ raw/impl_pr_reviews.jsonl
 processed/YYYY-MM-DD/coverage.json
 raw/impl_pr_discoveries.json
         |
+        v  Sub-Task 6b: author_fallback_discovery.md prompt (on demand, AI agent)
+overrides/pr_attribution_overrides.jsonl (proposed "include"s, for review)
+        |
         v  Sub-Task 7: synthesize.py
 processed/YYYY-MM-DD/per_tep_records.json
         |
@@ -94,6 +97,10 @@ Sub-Task 5 also runs against all TEPs with implementation PR links by default, s
 Sub-Task 6 must run **after** `make fetch-impl-prs` — it reads and augments `raw/impl_prs.jsonl`, and needs `raw/tep_pr_map.json` (Sub-Task 3) to tell a TEP's own community proposal/doc PRs apart from a genuine implementation PR discovered elsewhere. Like Sub-Tasks 4 and 5, it runs against all TEPs by default (`--sample` remains available). Newly discovered records carry `discovered_via: "search"`. Per-TEP coverage (linked vs. discovered) is written to `processed/YYYY-MM-DD/coverage.json`, with `processed/latest` symlinked to the most recent run, per the storage design below.
 
 The search query matches two surface forms in one call: zero-padded `"TEP-0109"` and non-padded space-separated `"TEP 109"` — found necessary via a real merged PR (`chains#491`, TEP-0109) whose title/body only ever wrote "TEP 109", never "TEP-0109", so the original dash-only query never saw it at all. See the docstring on `_search_prs_for_tep()` in [`scripts/cross_repo_search.py`](scripts/cross_repo_search.py) for the full empirical case (why this variant and not others).
+
+## Sub-Task 6b note
+
+Some implementation PRs never mention the TEP at all — no number, no title reference, nothing text search could ever match — yet were opened by one of the TEP's own listed authors and clearly do implement it. Verified on 5 real cases: zero "TEP" text anywhere in any of them (checked directly against the API, not guessed), all opened by an exact-match listed author. Narrowing the candidate list mechanically (date window, keyword) was tested and rejected — both silently exclude real hits (see [`prompts/author_fallback_discovery.md`](prompts/author_fallback_discovery.md) for the specific cases). This is an AI-agent task, not a script: run the prompt against a TEP with `impl_prs.total_count == 0`, and it searches by author (no narrowing), reads the shortlisted candidates against the TEP's actual content, and proposes `include` records for review — same audit trail as every other correction (`overrides/pr_attribution_overrides.jsonl`, applied via `apply_export.py`).
 
 ## Sub-Task 7 note
 
