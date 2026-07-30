@@ -6552,25 +6552,40 @@
         "## References"
       ]
     },
-    "flags": [
-      {
-        "code": "implemented_no_prs",
-        "message": "Marked implemented, but no implementation PRs were found at all"
-      }
-    ],
+    "flags": [],
     "gap": null,
     "impl_prs": {
       "bot_filtered_count": 0,
-      "by_repo": {},
+      "by_repo": {
+        "pipeline": 1
+      },
       "candidate_count": 0,
       "candidates": [],
       "discovered_count": 0,
       "excluded": [],
-      "items": [],
+      "items": [
+        {
+          "additions": null,
+          "attribution_source": "manual_include",
+          "comments": [],
+          "deletions": null,
+          "discovered_via": null,
+          "evidence": "Tekton bundles in the title - it's the implementation PR",
+          "files_changed": null,
+          "merged_at": null,
+          "pr_number": 3142,
+          "repo": "pipeline",
+          "review_comment_count": 0,
+          "review_decision": null,
+          "state": null,
+          "status": "pending_fetch",
+          "title": null
+        }
+      ],
       "linked_count": 0,
-      "manual_count": 0,
+      "manual_count": 1,
       "review_comment_count": 0,
-      "total_count": 0
+      "total_count": 1
     },
     "known_commits": [],
     "last_updated": "2022-01-04",
@@ -13955,25 +13970,40 @@
         "### Implementation Pull Requests"
       ]
     },
-    "flags": [
-      {
-        "code": "implemented_no_prs",
-        "message": "Marked implemented, but no implementation PRs were found at all"
-      }
-    ],
+    "flags": [],
     "gap": null,
     "impl_prs": {
       "bot_filtered_count": 0,
-      "by_repo": {},
+      "by_repo": {
+        "pipeline": 1
+      },
       "candidate_count": 0,
       "candidates": [],
       "discovered_count": 0,
       "excluded": [],
-      "items": [],
+      "items": [
+        {
+          "additions": null,
+          "attribution_source": "manual_include",
+          "comments": [],
+          "deletions": null,
+          "discovered_via": null,
+          "evidence": "Link to the TEP in PR body. It's the implementation PR.",
+          "files_changed": null,
+          "merged_at": null,
+          "pr_number": 3087,
+          "repo": "pipeline",
+          "review_comment_count": 0,
+          "review_decision": null,
+          "state": null,
+          "status": "pending_fetch",
+          "title": null
+        }
+      ],
       "linked_count": 0,
-      "manual_count": 0,
+      "manual_count": 1,
       "review_comment_count": 0,
-      "total_count": 0
+      "total_count": 1
     },
     "known_commits": [],
     "last_updated": "2021-12-13",
@@ -15878,7 +15908,7 @@
           "comments": [],
           "deletions": null,
           "discovered_via": null,
-          "evidence": "Author (barthy1, listed TEP-0020 author) opened this PR to run s390x catalog tests, part of the s390x support work.",
+          "evidence": "Implementation PR - adding s390x tests. Text, author and date based match.",
           "files_changed": null,
           "merged_at": null,
           "pr_number": 959,
@@ -18323,41 +18353,158 @@
         "### Implementation Pull Requests"
       ]
     },
-    "flags": [
-      {
-        "code": "implemented_only_candidates",
-        "message": "Marked implemented, but the 1 impl PR(s) found are still unconfirmed candidates"
-      }
-    ],
+    "flags": [],
     "gap": null,
     "impl_prs": {
       "bot_filtered_count": 0,
-      "by_repo": {},
-      "candidate_count": 1,
-      "candidates": [
+      "by_repo": {
+        "community": 1,
+        "triggers": 1
+      },
+      "candidate_count": 0,
+      "candidates": [],
+      "discovered_count": 0,
+      "excluded": [],
+      "items": [
         {
           "additions": 2,
-          "author": "dibyom",
+          "attribution_source": "manual_include",
+          "comments": [],
           "deletions": 2,
-          "evidence": "Mark TEP-0016 and TEP-0024 as implemented. Both concise TriggerBindings and embedded\u2026",
+          "discovered_via": "search",
+          "evidence": "It's the update of the TEP to implemented",
           "files_changed": 2,
           "merged_at": "2020-11-16T10:25:29Z",
           "pr_number": 261,
           "repo": "community",
+          "review_comment_count": 0,
           "review_decision": "COMMENTED",
           "state": "closed",
           "status": null,
-          "title": "Mark TEP-0016 and TEP-0024 as implemented.",
-          "why_candidate": "opened by dibyom, not a listed TEP author, and the title doesn't start with 'TEP-0024'"
+          "title": "Mark TEP-0016 and TEP-0024 as implemented."
+        },
+        {
+          "additions": 231,
+          "attribution_source": "manual_include",
+          "comments": [
+            {
+              "author": "savitaashture",
+              "body": "nit\r\n```suggestion\r\n# Embedded Template Spec\r\n```",
+              "comment_id": 501874025,
+              "created_at": "2020-10-08T17:01:13Z",
+              "is_self_comment": false,
+              "line": null,
+              "path": "docs/triggers.md"
+            },
+            {
+              "author": "dibyom",
+              "body": "ahh nice catch again :)",
+              "comment_id": 501905963,
+              "created_at": "2020-10-08T17:52:52Z",
+              "is_self_comment": true,
+              "line": null,
+              "path": "docs/triggers.md"
+            },
+            {
+              "author": "wlynch",
+              "body": "```suggestion\r\n\t\t\tObjectMeta: metav1.ObjectMeta{}, // Unused. TODO: Just return Specs from here.\r\n```",
+              "comment_id": 503444685,
+              "created_at": "2020-10-12T17:46:21Z",
+              "is_self_comment": false,
+              "line": null,
+              "path": "pkg/template/resource.go"
+            },
+            {
+              "author": "wlynch",
+              "body": "nit: This can be brittle if we need to modify this . Let's break start with a PipelineRun type and define a func that will return the RawExtension?\r\n\r\ne.g.\r\n\r\n```go\r\nfunc rawExtension(t *testing.T, a interface{}) runtime.RawExtension {\r\n  t.Helper()\r\n  o, err := json.Marshal(a)\r\n  if err != nil {\r\n    t.Fatal(err)\r\n  }\r\n  return runtime.RawExtension{Raw: b}\r\n}\r\n```\r\n\r\nThen we can probably also get rid of this top level var and just inline it below (since this is only used once)",
+              "comment_id": 503446483,
+              "created_at": "2020-10-12T17:50:20Z",
+              "is_self_comment": false,
+              "line": null,
+              "path": "pkg/apis/triggers/v1alpha1/trigger_validation_test.go"
+            },
+            {
+              "author": "wlynch",
+              "body": "We should plumb the context through, otherwise we won't respect timeouts/cancels applied to the context.\r\n\r\n(I realize this is carry over from before - your choice if you want to handle it in this PR or if you want to differ to a different PR).",
+              "comment_id": 503447489,
+              "created_at": "2020-10-12T17:52:33Z",
+              "is_self_comment": false,
+              "line": 64,
+              "path": "pkg/template/resource.go"
+            },
+            {
+              "author": "wlynch",
+              "body": "Similar RawExtension func could be useful here as well.",
+              "comment_id": 503448937,
+              "created_at": "2020-10-12T17:55:47Z",
+              "is_self_comment": false,
+              "line": null,
+              "path": "pkg/template/resource_test.go"
+            },
+            {
+              "author": "dibyom",
+              "body": "done\r\n",
+              "comment_id": 503466774,
+              "created_at": "2020-10-12T18:31:31Z",
+              "is_self_comment": true,
+              "line": null,
+              "path": "pkg/template/resource.go"
+            },
+            {
+              "author": "dibyom",
+              "body": "neat, yeah the string approach is pretty brittle",
+              "comment_id": 503467058,
+              "created_at": "2020-10-12T18:32:12Z",
+              "is_self_comment": true,
+              "line": null,
+              "path": "pkg/apis/triggers/v1alpha1/trigger_validation_test.go"
+            },
+            {
+              "author": "dibyom",
+              "body": "I changed it here and opened #796 for cleaning up other usages. ",
+              "comment_id": 503472895,
+              "created_at": "2020-10-12T18:46:06Z",
+              "is_self_comment": true,
+              "line": null,
+              "path": "pkg/apis/triggers/v1alpha1/trigger_validation_test.go"
+            },
+            {
+              "author": "dibyom",
+              "body": "yeah, this was recently added due to an upgrade to k8s v1.18 which changed the interfaces for clients to accept a context. \r\nI think I'd want to do this in a different PR (probably using an lister cache -- so that we are not calling the API server for each event).",
+              "comment_id": 503473368,
+              "created_at": "2020-10-12T18:47:15Z",
+              "is_self_comment": true,
+              "line": 64,
+              "path": "pkg/template/resource.go"
+            },
+            {
+              "author": "dibyom",
+              "body": "done\r\n",
+              "comment_id": 503503828,
+              "created_at": "2020-10-12T19:56:09Z",
+              "is_self_comment": true,
+              "line": null,
+              "path": "pkg/template/resource_test.go"
+            }
+          ],
+          "deletions": 50,
+          "discovered_via": "search",
+          "evidence": "Although the PR references TEP-0023, the content is that of TEP-0024",
+          "files_changed": 10,
+          "merged_at": "2020-10-12T20:07:23Z",
+          "pr_number": 783,
+          "repo": "triggers",
+          "review_comment_count": 11,
+          "review_decision": "APPROVED",
+          "state": "closed",
+          "status": null,
+          "title": "Add support for embedded trigger templates"
         }
       ],
-      "discovered_count": 0,
-      "excluded": [],
-      "items": [],
       "linked_count": 0,
-      "manual_count": 0,
-      "review_comment_count": 0,
-      "total_count": 0
+      "manual_count": 2,
+      "review_comment_count": 11,
+      "total_count": 2
     },
     "known_commits": [],
     "last_updated": "2020-10-01",
@@ -21163,56 +21310,53 @@
         "## References"
       ]
     },
-    "flags": [
-      {
-        "code": "implemented_only_candidates",
-        "message": "Marked implemented, but the 2 impl PR(s) found are still unconfirmed candidates"
-      }
-    ],
+    "flags": [],
     "gap": null,
     "impl_prs": {
       "bot_filtered_count": 0,
-      "by_repo": {},
-      "candidate_count": 2,
-      "candidates": [
+      "by_repo": {
+        "pipeline": 1
+      },
+      "candidate_count": 0,
+      "candidates": [],
+      "discovered_count": 0,
+      "excluded": [
         {
-          "additions": 444,
-          "author": "afrittoli",
-          "deletions": 160,
-          "evidence": "\u2026workspace-paths.md')] WARNING:root:[InvalidTep('TEP number TEP-0028 from filename does not match TEP number TEP-0027 from title\u2026",
-          "files_changed": 12,
-          "merged_at": "2020-11-13T14:59:28Z",
           "pr_number": 259,
+          "reason": "It's a tool update, nothing to do with the TEP",
           "repo": "community",
-          "review_decision": "APPROVED",
-          "state": "closed",
-          "status": null,
-          "title": "Add tep validation and tep creation tools",
-          "why_candidate": "opened by afrittoli, not a listed TEP author, and the title doesn't start with 'TEP-0028'"
+          "was_attribution_source": "search"
         },
         {
-          "additions": 129,
-          "author": "pritidesai",
-          "deletions": 0,
-          "evidence": "\u202649: access aggregate status of the dag tasks from finally [TEP-0028](https://github.com/tektoncd/community/blob/main/teps/0028-\u2026",
-          "files_changed": 2,
-          "merged_at": "2021-04-01T16:18:47Z",
           "pr_number": 371,
+          "reason": "Wrong TEP, this is for TEP-0049",
           "repo": "community",
-          "review_decision": "APPROVED",
-          "state": "closed",
-          "status": null,
-          "title": "TEP-0049: access aggregate status of the dag tasks from finally",
-          "why_candidate": "opened by pritidesai, not a listed TEP author, and the title doesn't start with 'TEP-0028'"
+          "was_attribution_source": "search"
         }
       ],
-      "discovered_count": 0,
-      "excluded": [],
-      "items": [],
+      "items": [
+        {
+          "additions": null,
+          "attribution_source": "manual_include",
+          "comments": [],
+          "deletions": null,
+          "discovered_via": null,
+          "evidence": "It's linked from the TEP and it contains the implementation",
+          "files_changed": null,
+          "merged_at": null,
+          "pr_number": 3390,
+          "repo": "pipeline",
+          "review_comment_count": 0,
+          "review_decision": null,
+          "state": null,
+          "status": "pending_fetch",
+          "title": null
+        }
+      ],
       "linked_count": 0,
-      "manual_count": 0,
+      "manual_count": 1,
       "review_comment_count": 0,
-      "total_count": 0
+      "total_count": 1
     },
     "known_commits": [],
     "last_updated": "2021-06-03",
@@ -22787,25 +22931,40 @@
         "### Implementation Pull Requests"
       ]
     },
-    "flags": [
-      {
-        "code": "implemented_no_prs",
-        "message": "Marked implemented, but no implementation PRs were found at all"
-      }
-    ],
+    "flags": [],
     "gap": null,
     "impl_prs": {
       "bot_filtered_count": 0,
-      "by_repo": {},
+      "by_repo": {
+        "cli": 1
+      },
       "candidate_count": 0,
       "candidates": [],
       "discovered_count": 0,
       "excluded": [],
-      "items": [],
+      "items": [
+        {
+          "additions": null,
+          "attribution_source": "manual_include",
+          "comments": [],
+          "deletions": null,
+          "discovered_via": null,
+          "evidence": "It contains the TEP implementation",
+          "files_changed": null,
+          "merged_at": null,
+          "pr_number": 1328,
+          "repo": "cli",
+          "review_comment_count": 0,
+          "review_decision": null,
+          "state": null,
+          "status": "pending_fetch",
+          "title": null
+        }
+      ],
       "linked_count": 0,
-      "manual_count": 0,
+      "manual_count": 1,
       "review_comment_count": 0,
-      "total_count": 0
+      "total_count": 1
     },
     "known_commits": [],
     "last_updated": "2021-03-26",
