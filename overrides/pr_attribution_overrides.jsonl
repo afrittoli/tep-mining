@@ -1,1 +1,10 @@
 {"action": "include", "created_at": "2026-07-30T12:31:47.388Z", "pr_number": 959, "reason": "Author (barthy1, listed TEP-0020 author) opened this PR to run s390x catalog tests, part of the s390x support work.", "repo": "plumbing", "tep_number": 20}
+{"action": "include", "created_at": "2026-07-29T14:42:34.625Z", "pr_number": 3142, "reason": "Tekton bundles in the title - it's the implementation PR", "repo": "pipeline", "tep_number": 5}
+{"action": "include", "created_at": "2026-07-30T09:45:34.750Z", "pr_number": 3087, "reason": "Link to the TEP in PR body. It's the implementation PR.", "repo": "pipeline", "tep_number": 14}
+{"action": "include", "created_at": "2026-07-30T09:53:14.187Z", "pr_number": 959, "reason": "Implementation PR - adding s390x tests. Text, author and date based match.", "repo": "plumbing", "tep_number": 20}
+{"action": "include", "created_at": "2026-07-30T12:52:17.947Z", "pr_number": 783, "reason": "Although the PR references TEP-0023, the content is that of TEP-0024", "repo": "triggers", "tep_number": 24}
+{"action": "include", "created_at": "2026-07-30T12:53:03.541Z", "pr_number": 261, "reason": "It's the update of the TEP to implemented", "repo": "community", "tep_number": 24}
+{"action": "exclude", "created_at": "2026-07-30T12:53:44.282Z", "pr_number": 259, "reason": "It's a tool update, nothing to do with the TEP", "repo": "community", "tep_number": 28}
+{"action": "exclude", "created_at": "2026-07-30T12:54:04.686Z", "pr_number": 371, "reason": "Wrong TEP, this is for TEP-0049", "repo": "community", "tep_number": 28}
+{"action": "include", "created_at": "2026-07-30T12:59:55.831Z", "pr_number": 3390, "reason": "It's linked from the TEP and it contains the implementation", "repo": "pipeline", "tep_number": 28}
+{"action": "include", "created_at": "2026-07-30T13:04:25.384Z", "pr_number": 1328, "reason": "It contains the TEP implementation", "repo": "cli", "tep_number": 31}
