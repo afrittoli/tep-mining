@@ -9,19 +9,26 @@ maintainers for a keep/drop/modify interview (Phase 0b: Convention Freeze).
 
 ## Pipeline Stages
 
+Each stage is tagged `[script]` (deterministic `make` target, reproducible unattended),
+`[AI agent]` (needs an agentic AI session to read a `prompts/*.md` file and execute it — not
+run-to-run reproducible, which is why every one writes proposals to a reviewable file instead of
+committing directly), or `[human]` (a review/decision gate, no automation). See
+[data-collection-plan.md](data-collection-plan.md#data-flow) for the full diagram including
+Sub-Task 8, omitted here for brevity — this is the condensed operational version.
+
 ```
 community/teps/ .md files
         |
-        v  Sub-Task 2: parse_teps.py
+        v  [script] Sub-Task 2: parse_teps.py
 raw/teps.jsonl
         |
-        +----> Sub-Task 3: map_tep_prs.py
+        +----> [script] Sub-Task 3: map_tep_prs.py
         |              |
         |              v
         |      raw/tep_pr_map.json
         |              |
         v              v
-Sub-Task 4: fetch_tep_prs.py
+[script] Sub-Task 4: fetch_tep_prs.py
         |
         v
 raw/community_prs.jsonl
@@ -29,27 +36,28 @@ raw/community_pr_reviews.jsonl
 
 raw/teps.jsonl
         |
-        v  Sub-Task 5: fetch_impl_prs.py
+        v  [script] Sub-Task 5: fetch_impl_prs.py
 raw/impl_prs.jsonl
 raw/impl_pr_reviews.jsonl
         |
-        v  Sub-Task 6: cross_repo_search.py (augments impl_prs.jsonl)
+        v  [script] Sub-Task 6: cross_repo_search.py (augments impl_prs.jsonl)
 processed/YYYY-MM-DD/coverage.json
 raw/impl_pr_discoveries.json
         |
-        v  Sub-Task 6b: author_fallback_discovery.md prompt (on demand, AI agent)
-overrides/pr_attribution_overrides.jsonl (proposed "include"s, for review)
+        v  [AI agent] Sub-Task 6b: author_fallback_discovery.md prompt (on demand)
+        v  [human] review proposed includes/excludes
+overrides/pr_attribution_overrides.jsonl
         |
-        v  Sub-Task 7: synthesize.py
+        v  [script] Sub-Task 7: synthesize.py
 processed/YYYY-MM-DD/per_tep_records.json
         |
-        v  Sub-Task 7: build_explorer.py
+        v  [script] Sub-Task 7: build_explorer.py
 reports/explorer.html
         |
-        v  Sub-Task 8: AI grouping via group_conventions.md prompt
-conventions/*.yaml  (decision: ~ fields blank)
+        v  [script]+[AI agent]+[human] Sub-Task 8 (see data-collection-plan.md)
+conventions/*.yaml  (decision: ~ fields blank, 6 files)
         |
-        v  Sub-Task 9: human interview
+        v  [human] Sub-Task 9: human interview
 conventions/*.yaml  (decision: fields filled)
 conventions/SUMMARY.md
         |
@@ -78,6 +86,13 @@ make explorer        # Sub-Task 7: build the interactive data explorer -> report
 make apply-pr-overrides  # Optional: fetch metadata for a manually-"included" PR, then re-run synthesize
 make apply-export FILE=path/to/export.jsonl  # Merge an explorer-exported corrections file into overrides/
 make query           # Ad-hoc: launch DuckDB session over every raw/processed JSONL file
+
+# 4. Sub-Task 8: review-comment taxonomy - NOT YET IMPLEMENTED (status: pending),
+#    shown here as the planned sequence once built - see data-collection-plan.md for the full flow
+#   [AI agent] run prompts/extract_seed_taxonomy.md -> conventions/seed-taxonomy.yaml (draft)
+#   [human]    review/edit conventions/seed-taxonomy.yaml before it's used for anything
+#   [AI agent] classify review comments against the reviewed seed taxonomy -> conventions/review-taxonomy.yaml
+make validate-conventions  # [script] mechanical check: every count in review-taxonomy.yaml traces to real comment text
 ```
 
 ## Sub-Task 2 note
@@ -127,6 +142,24 @@ Some implementations exist only as a bare commit with no retrievable PR — e.g.
 "Tag a missing PR or commit as relevant" now takes a single GitHub URL plus a reason, not three separate prompts. The URL is parsed client-side: a `.../pull/N` link becomes a `pr_attribution_overrides.jsonl` `include`; a `.../commit/<sha>` link becomes a `known_commits.jsonl` entry; anything else is rejected with an explanation rather than silently misfiled. Both shapes share the same pending-corrections count and export button — a single export can contain a mix of both, since `apply_export.py` already routes each record by its own shape.
 
 Corrections made in the explorer now trigger a real file download (`*.export.jsonl`) instead of requiring copy-paste out of the textarea. `scripts/apply_export.py` (`make apply-export FILE=...`) merges a downloaded export into the right `overrides/*.jsonl` — auto-detected from the record's own shape, since each export only ever contains one correction type — skipping any record that's already present, so it's safe to run more than once on the same or an overlapping export.
+
+## Sub-Task 8 note
+
+Review-comment content needs a different method than headings/link-formats: two comments can
+raise the same concern in completely different words, so string-frequency clustering (right for
+rigid template vocabulary) is the wrong tool here. Instead, `prompts/extract_seed_taxonomy.md`
+reads this org's own documented standards — `design-principles.md`, `standards.md`,
+`api_compatibility_policy.md` (in `tektoncd/pipeline`, not `community`) — and proposes a seed
+vocabulary for two facets (`principle`, `artifact`), each value traceable to a real doc section;
+a human reviews `conventions/seed-taxonomy.yaml` before it's used for anything. Comments are then
+classified multi-label and confidence-scored against that seed vocabulary — not binary, not
+single-label, since a comment routinely spans more than one concern — and anything that doesn't
+fit an existing value proposes a new one, which is the actual mechanism for surfacing
+conventions nobody documented (the stated goal of this sub-task). A third facet, `nature`
+(cosmetic vs. structural vs. logical), has no seed at all and is built bottom-up entirely from
+what the classification pass finds. Scoped to the Pass-1 sample for now, not the full 12,779
+comments corpus-wide — full coverage would need batch LLM-API-calling infrastructure this
+pipeline doesn't have yet, deferred unless Sub-Task 9's interview shows the sample isn't enough.
 
 ## Detailed Plan
 
