@@ -42,10 +42,11 @@ afrittoli/tep-mining/
 │   ├── fetch_tep_prs.py            # API: TEP PR metadata + reviews -> community_prs.jsonl, community_pr_reviews.jsonl
 │   ├── fetch_impl_prs.py           # API: impl PR metadata + reviews -> impl_prs.jsonl, impl_pr_reviews.jsonl
 │   ├── cross_repo_search.py        # API: GH search for uncited TEP references
-│   └── synthesize.py               # joins raw/ -> processed/YYYY-MM-DD/per_tep_records.json
+│   ├── synthesize.py               # joins raw/ -> processed/YYYY-MM-DD/per_tep_records.json
+│   └── validate_conventions.py     # mechanical check: conventions/review-taxonomy.yaml traces back to real comment text (Sub-Task 8)
 │
 ├── prompts/
-│   ├── group_conventions.md        # prompt template for AI grouping step
+│   ├── extract_seed_taxonomy.md    # AI reads documented sources -> conventions/seed-taxonomy.yaml (Sub-Task 8)
 │   └── author_fallback_discovery.md # prompt template for AI-assisted impl-PR fallback discovery
 │
 ├── raw/                            # JSONL, git-tracked, append-only
@@ -58,15 +59,16 @@ afrittoli/tep-mining/
 ├── processed/
 │   ├── latest -> YYYY-MM-DD/       # symlink to most recent run
 │   └── YYYY-MM-DD/
-│       ├── per_tep_records.json
-│       └── convention_candidates.json
+│       └── per_tep_records.json
 │
-└── conventions/                    # human-annotated YAML, one file per convention area
-    ├── tep-structure.yaml
-    ├── pr-linking.yaml
-    ├── status-transitions.yaml
-    ├── tracking-issue.yaml
-    └── pr-sizing.yaml
+├── overrides/                      # human-edited JSONL, git-tracked (git history is the audit trail)
+│   ├── section_overrides.jsonl
+│   ├── pr_attribution_overrides.jsonl
+│   └── known_commits.jsonl
+│
+└── conventions/                    # human-annotated YAML
+    ├── seed-taxonomy.yaml          # human-reviewed input (not a candidate awaiting decision) - Sub-Task 8
+    └── review-taxonomy.yaml        # Sub-Task 8
 ```
 
 ---
@@ -96,22 +98,41 @@ pointed at `processed/latest/` to work from the current best snapshot without ha
 
 ### Annotation layer — YAML (human-edited)
 
-One file per convention area under `conventions/`. Each file contains AI-proposed candidate
-conventions with observed frequency evidence and a `decision:` field that the human interviewer
-fills in during Phase 0b. This is the direct input to Convention Freeze.
+Two files under `conventions/`, produced by Sub-Task 8. `seed-taxonomy.yaml` is human-reviewed
+*input* (no `decision:`/`rationale:` — it's not a candidate awaiting a call, see Sub-Task 8).
+`review-taxonomy.yaml` is the AI-proposed *output*: candidate conventions with observed-frequency
+evidence and a `decision:` field the human interviewer fills in during Phase 0b — the direct
+input to Convention Freeze.
 
 ```yaml
-# conventions/pr-linking.yaml (example structure)
-id: pr-link-format
-description: "How implementation PRs should reference the TEP they implement"
-observed_variants:
-  - format: "full URL in PR body"
-    frequency: 0.62
-  - format: "TEP-NNNN in PR title"
-    frequency: 0.31
-  - format: "shorthand #N reference"
-    frequency: 0.07
-ai_recommendation: "Require full URL in PR body, recommend TEP-NNNN in title"
+# conventions/review-taxonomy.yaml (example structure)
+id: review-taxonomy
+description: "What review comments actually raise, classified against documented standards"
+facets:
+  principle:
+    - value: simplicity
+      source: "design-principles.md#simplicity"
+      count: 214
+      confidence: {high: 180, medium: 30, low: 4}
+      examples:
+        - {tep: 45, pr: "pipeline#3738", quote: "do we need a new field for this, or can..."}
+    - value: security
+      source: "design-principles.md#security"
+      count: 58
+      confidence: {high: 50, medium: 8, low: 0}
+      examples: [...]
+  artifact:
+    - value: tests
+      source: "standards.md#tests"
+      count: 340
+      confidence: {high: 300, medium: 40, low: 0}
+      examples: [...]
+  nature:                    # no seed - built bottom-up from what classification finds
+    - value: "backward compatibility"
+      count: 41
+      confidence: {high: 20, medium: 15, low: 6}
+      examples: [...]
+ai_recommendation: "..."
 decision: ~        # keep / "modify: <text>" / drop
 rationale: ~       # interviewer's reasoning
 ```
@@ -461,8 +482,9 @@ of judgment call a regex or keyword filter gets wrong.
 - Companion mechanism to Sub-Task 6, not a replacement — text search stays the default (cheap,
   deterministic, runs unattended); this is the fallback for what it structurally cannot see
 - This project's second AI-agent-driven pipeline stage — the first is Sub-Task 8's
-  `group_conventions.md` — for the same underlying reason: some steps need reading
-  comprehension, not string matching, and a heuristic that fakes it produces silently wrong data
+  `extract_seed_taxonomy.md` / comment classification — for the same underlying reason: some
+  steps need reading comprehension, not string matching, and a heuristic that fakes it produces
+  silently wrong data
 - Known limitation: an author whose GitHub account has been deleted breaks the `author:` search
   qualifier itself (`422 Validation Failed`), the same root cause `known_commits.jsonl` exists
   for on the commit-linkage side — no current workaround for either
@@ -478,199 +500,75 @@ ready for AI grouping. This is the bridge between raw collection and the convent
 generation step.
 
 **Expected Outcomes**:
-- `processed/YYYY-MM-DD/per_tep_records.json`: a JSON array where each element is one TEP with:
-  - All frontmatter fields from `raw/teps.jsonl`
-  - `proposal_pr`: PR metadata + review summary (sections commented on, net review rounds,
-    review decision outcomes) from `raw/community_pr_reviews.jsonl`
-  - `impl_prs`: list of implementation PRs with title, body snippet, files changed, link format
-    used, discovered-via field
-  - `review_signals`: aggregated — which sections had inline review comments, how many rounds,
-    what types of changes were requested (inferred from comment text clustering)
-  - `divergences_from_template`: sections present in the template but absent in this TEP, and
-    vice versa
-- `latest` symlink updated to the new date directory
-- Current project decision: run against all TEPs (matches Sub-Tasks 4-6). No separate
-  `processed/YYYY-MM-DD/coverage.json` from this sub-task — Sub-Task 6 already produces one at
-  the same path; per-TEP coverage numbers are folded directly into each TEP's own record instead
-  (`record.coverage`), so nothing gets silently overwritten by two sub-tasks writing the same
-  filename into the same dated directory.
-- `review_signals` is comment counts per section (`comments_by_section`, `comments_unmapped`,
-  `review_rounds_approx`), not the keyword-based intent classification (structural feedback /
-  missing-section / wording / scope / approval) originally sketched below — that requires a real
-  keyword taxonomy this project doesn't have yet; counts are honest about what's actually known.
-- Section attribution maps a review comment's line number to the nearest preceding heading in
-  the TEP's *current* merged file (approximate — the file's structure when the comment was made
-  may have differed). `overrides/section_overrides.jsonl` (git-tracked, so auditable via git
-  history) lets a human correct specific `(repo, pr_number, comment_id)` mappings;
-  `synthesize.py` applies them on top of the heuristic on every run.
-- Added `reports/explorer.html` (`scripts/build_explorer.py`, `make explorer`): a self-contained,
-  filterable/sortable interactive browser over `per_tep_records.json` — the actual consumption
-  layer for this join, requested directly rather than left implicit. Section corrections are made
-  and exported from here; nothing is written back to disk automatically (static HTML, no server).
-- Implementation-PR attribution is correctable the same way, via `overrides/pr_attribution_overrides.jsonl`.
-  Each impl PR item carries `attribution_source` (`tep_file_link` / `search` / `manual_include`)
-  and `evidence` (the linked URL, the matching search snippet, or the human's reason) so the
-  explorer can answer "why was this PR picked" without re-deriving it — a manual check that finds
-  a wrong attribution can flag it `exclude`, or add a missed PR as `include`, right there. An
-  `include` naming a PR nothing has fetched yet needs `scripts/apply_pr_overrides.py`
-  (`make apply-pr-overrides`) to run before the next `synthesize.py`, so its title/stats can be
-  shown instead of a `pending_fetch` placeholder — `synthesize.py` itself does no network I/O.
-- Three algorithmic corrections, added after a manual review of TEP-0137 (a real TEP, checked
-  by its own author) turned up wrong attributions:
-  - **Bot filtering**: any PR or review comment whose author login ends in `"[bot]"`
-    (dependabot, github-actions, github-advanced-security, ...) is dropped entirely — linked or
-    discovered, no exception. No human judgment call needed there.
-  - **Candidate tier for unconfirmed search hits**: a search-discovered PR (`attribution_source:
-    "search"`) is only counted outright if its title names the TEP near the start (`[TEP-0137]
-    ...` / `TEP-0052: ...`) or its own author is one of the TEP's listed authors (from
-    `raw/teps.jsonl`'s `authors` frontmatter, matched case-insensitively with the `@` stripped).
-    Otherwise it's held in a `candidates` bucket — visible in the explorer with its evidence and
-    a `why_candidate` explanation, but excluded from `discovered_count`/`total_count`/under-linking
-    rate until a human confirms (`include`) or dismisses (`exclude`) it via the same override
-    mechanism. This is what catches the TEP-0137 case directly: a downstream repo's dependency
-    bump that vendors in a commit mentioning the TEP, authored by neither a TEP author nor named
-    after the TEP. PRs the TEP author explicitly linked in their own document (`tep_file_link`)
-    skip this gate — the linking itself is the confirmation, regardless of who opened the PR (a
-    TEP author commonly links a contributor's implementation).
-  - **Self-comment grouping**: a review comment whose author matches the specific proposal PR's
-    own author is still collected and counted exactly as before (`is_self_comment` just adds a
-    flag), but the explorer groups and collapses these by default — they're usually notes-to-self,
-    not the reviewer feedback the per-section view exists to surface.
-  - See `_is_bot`, `_search_confidence`, `_title_confirms_tep`, and the rewritten
-    `_impl_prs_summary()` / `_proposal_pr_summary()` in `scripts/synthesize.py`.
-- Follow-up correction, found while verifying the TEP-0137 fix against TEP-0075's data: the
-  candidate tier's "author is a listed TEP author" trust signal is withheld for `community`-repo
-  search hits specifically. A `community` PR is almost always *some* TEP's own proposal/doc PR,
-  and closely related TEPs frequently share an author (TEP-0075 and TEP-0076 both list
-  `bobcatfish`) — so "this PR's author is a TEP-0075 author" says nothing about whether the PR
-  is *about* TEP-0075 rather than TEP-0076's own proposal. Measured impact: 75 community-repo
-  items were search-confirmed corpus-wide; 34 of those were confirmed *only* via author-match
-  (the rest via a genuine title match, which still confirms). Only a title match confirms a
-  `community` hit now; code repos (pipeline, triggers, ...) keep both signals, since a TEP
-  author opening an implementation PR without a `[TEP-XXXX]`-prefixed title is normal.
-- Implementation-PR review comments (`raw/impl_pr_reviews.jsonl`) were being collapsed to a bare
-  `review_comment_count` — the actual comment bodies (already fully collected, ~10K records)
-  were never surfaced. Each confirmed impl PR item now carries a `comments` list (bot-filtered
-  and `is_self_comment`-flagged the same way as proposal-PR comments), rendered in the explorer
-  as a per-PR expandable toggle, collapsed by default given the volume. The proposal-PR "Review
-  comments by section" panel is now collapsed by default for the same reason (previously always
-  expanded).
-- `flags` on each TEP record surface inconsistencies worth a second look, computed in
-  `_consistency_flags()`: a TEP marked `status: implemented` with zero confirmed impl PRs is
-  either a real algorithmic miss or a stale/wrong status — either way worth a human glance.
-  Split into `implemented_no_prs` (nothing found at all) vs. `implemented_only_candidates`
-  (something was found but nothing's confirmed) since they suggest different next actions. The
-  explorer shows a warning badge next to the title in the master table plus a dedicated
-  "Flagged for review" entry in the status filter, so these are discoverable by scanning rather
-  than requiring every TEP to be opened individually.
-- Master table: added a "Total" (linked + discovered) column, sortable. Fixed while adding it:
-  the "Linked" header's `data-key` didn't match any case in the sort function at all (clicking
-  it silently did nothing — every row compared equal), and "Discovered" was wired to sort by
-  `total_count`, not `discovered_count`. Both were live bugs in the shipped explorer.
-- Replaced the per-PR `review_decision` badge (APPROVED / CHANGES_REQUESTED / COMMENTED) with
-  the PR's actual disposition (merged / closed, not merged / open). `review_decision` is
-  computed as "did *any* review, ever, hit this state," fixed priority order — it never
-  accounts for a reviewer changing their mind on a later re-review. Confirmed wrong on real
-  data: `chains#590` and `chains#599` were both re-approved by the *same* reviewer who'd
-  earlier requested changes, and both still showed "changes requested" indefinitely, since that
-  state always wins the priority regardless of what came after. The fetch scripts now also
-  capture each PR's `state` (open/closed) alongside `merged_at`, both threaded through to impl
-  PR items, candidates, and proposal PRs. `review_decision` is still collected and stored (it
-  may be useful raw context later) but is no longer rendered as a badge anywhere.
-- Status filter: added an "exclude" checkbox that flips it from "show only this status" to
-  "show everything except" (applies to the "Flagged for review" pseudo-status too). No new
-  data, one boolean flag on the existing filter predicate.
-- `overrides/known_commits.jsonl` (`{tep_number, repo, commit_sha, note}`, hand-edited, no
-  fetching) tracks implementations that exist only as a bare commit with no retrievable PR —
-  confirmed real via TEP-0010: `GET /commits/{sha}/pulls` (verified working, via a known-good
-  commit) returns empty for that commit specifically, and its author account has since been
-  deleted from GitHub, the likely cause. Deliberately kept separate from
-  `pr_attribution_overrides.jsonl` rather than extending its schema to accept a commit SHA in
-  place of a PR number — what the PR-attribution mechanism is actually for is collecting
-  review comments, and a bare commit has none. `synthesize.py` exposes `known_commits` as a
-  plain per-TEP list, untouched by any impl-PR counting logic; the explorer shows it read-only.
-- Corrections made in the explorer now also trigger a real file download (`*.export.jsonl`)
-  instead of requiring copy-paste out of the textarea. `scripts/apply_export.py`
-  (`make apply-export FILE=...`) merges a downloaded export into the matching
-  `overrides/*.jsonl` file, auto-detected from the record's own field shape (each export only
-  ever contains one correction type), skipping byte-for-byte-identical records already
-  present — safe to run more than once on the same or an overlapping export. Deliberately not
-  a patch/diff format: the content is purely new lines to append, not a diff against existing
-  ones, so a diff format would add format complexity without adding capability.
-- Second real known-commit case (TEP-0021, confirmed via `GET /commits/{sha}/pulls` returning
-  empty) turned out to have a *different* cause than TEP-0010's: the author account isn't
-  deleted, the commit likely just predates or bypassed the PR workflow. `_consistency_flags()`
-  now also takes `known_commits` and suppresses `implemented_no_prs`/`implemented_only_candidates`
-  when at least one exists — a human has already explained the zero-PR case, so the flag
-  shouldn't keep asking for the same look twice.
-- "Tag a missing PR or commit as relevant" (`promptInclude()`) now takes one GitHub URL plus a
-  reason instead of three separate prompts (repo, then PR number, then reason). The URL is
-  parsed client-side (`parseGithubUrl()`): `.../pull/N` becomes a `pr_attribution_overrides.jsonl`
-  `include`, `.../commit/<sha>` becomes a `known_commits.jsonl` entry, anything else is rejected
-  with an explanation. Both shapes share one pending-corrections store/count/export button — a
-  single export can contain a mix of both, since `apply_export.py` already routes each record
-  independently by its own field shape, not by which button produced the file.
+- One joined record per TEP, combining its metadata, proposal review activity, and
+  implementation PR history in one place, refreshed into a new dated snapshot on every run.
+- Review comments are attributed to the TEP section they relate to, surfacing which parts of a
+  TEP drew the most discussion; a wrong attribution can be corrected by hand.
+- Implementation PRs are attributed with a confidence tier, not a single yes/no: a PR the TEP's
+  own author links directly is trusted outright, a PR found only through search is confirmed
+  automatically when the evidence is strong, and weaker matches are held for a person to confirm
+  or dismiss instead of being counted automatically. Bot activity is excluded throughout.
+- Implementations that exist only as a bare commit, with no pull request to review, are tracked
+  as their own explicitly-curated case rather than showing up as a missing implementation.
+- Each record surfaces likely inconsistencies worth a second look — for example, a TEP marked
+  implemented with no confirmed implementation PR — so they can be found by scanning instead of
+  opening every TEP.
+- An interactive browser over the joined data supports filtering and sorting, and is where
+  corrections get made — flagging a wrong attribution, adding a missed PR or commit, fixing a
+  comment's section. Corrections are reviewed and applied back onto the source data as a
+  separate, auditable step, never written automatically.
 
 **Todo List**:
-1. Write `scripts/synthesize.py`:
-   - Load all JSONL files into memory (volume is small enough)
-   - For each TEP in the Pass 1 sample, build the per-TEP record by joining on `tep_number`
-     and `(repo, pr_number)`
-   - For review signals: bucket comments by the section heading they appear closest to in the
-     diff; use simple heuristics (keyword matching) to classify comment intent: structural
-     feedback / missing-section / wording / scope / approval
-   - Write output to `processed/YYYY-MM-DD/` and update `latest` symlink
-2. Add `synthesize` target to `Makefile`
-3. Add a `query` target that launches an in-memory DuckDB session with all JSONL loaded as
-   tables, for ad-hoc SQL exploration during synthesis review
+1. Join script: load every raw file, build one record per TEP, write a new dated snapshot.
+2. Interactive browser over the joined data.
+3. A round-trip path for corrections made in the browser to reach the source data.
+4. Ad-hoc SQL exploration over all raw and joined data, for review during synthesis.
 
 **Relevant Context**:
-- The join key between `community_pr_reviews.jsonl` and `teps.jsonl` is via
-  `raw/tep_pr_map.json` (TEP number → community PR number)
-- "Review rounds" can be approximated as the number of distinct review submission events
-  (`submitted_at` timestamps) per reviewer before a PR was merged — in practice, Sub-Task 4 never
-  persisted individual review-submission timestamps (only the collapsed `reviewer_logins` +
-  `review_decision`), so `review_rounds_approx` instead counts distinct review-comment dates
+- The join between review threads and TEPs goes through the TEP-to-proposal-PR mapping
+  (Sub-Task 3), not a direct field.
+- Review-round counts are approximate: only comment dates are available, not individual review
+  submission events.
 
 **Status**: [x] done
 
 ---
 
-### Sub-Task 8: AI grouping — convention candidate generation
+### Sub-Task 8: Review-comment taxonomy (`conventions/review-taxonomy.yaml`)
 
-**Intent**: Use an AI agent to cluster the per-TEP records into candidate conventions, producing
-structured YAML files in `conventions/` that serve as the direct input for the human interview
-step. The AI groups; the human decides.
+**Intent**: Classify review comments across the corpus against a small, controlled vocabulary
+seeded from the community's own documented standards, so recurring feedback can be read as
+evidence for or against a convention rather than left as unstructured text.
 
 **Expected Outcomes**:
-- `conventions/tep-structure.yaml` — section presence/ordering patterns across implemented TEPs
-- `conventions/pr-linking.yaml` — PR link format variants and frequencies
-- `conventions/status-transitions.yaml` — actual status transition paths observed (dates)
-- `conventions/tracking-issue.yaml` — whether and how TEPs used tracking issues/task lists
-- `conventions/pr-sizing.yaml` — PR count per TEP, file-change distributions, sequencing
-  patterns
-- Each file follows the annotated YAML schema described in the Storage Design section, with
-  `decision: ~` and `rationale: ~` fields left blank for the human interview
+- A seed vocabulary for classification, drawn from the community's existing written standards
+  rather than invented, with each value traceable to where it's already documented. Reviewed and
+  adjusted by a person before it's used for anything.
+- Every review comment classified against that vocabulary along more than one independent
+  dimension (broadly: which principle it invokes, and what part of the contribution it concerns),
+  each match carrying a confidence level rather than a strict yes/no, and free to match more than
+  one value at once. A comment that fits nothing well proposes a new value instead of being
+  forced into the closest existing one — the actual mechanism for surfacing conventions nobody
+  wrote down.
+- A result set with decision fields left blank for the human interview step, plus a check that
+  every reported count traces back to real, quotable comment text.
 
 **Todo List**:
-1. Write `prompts/group_conventions.md`: a prompt template that:
-   - Provides the per-TEP records from `processed/latest/per_tep_records.json` as context
-   - Instructs the AI to group observations into candidate conventions per area
-   - Requires evidence (observed frequency, example TEP numbers) for each candidate
-   - Requires an explicit `ai_recommendation` field with a rationale
-   - Outputs the five YAML files described above
-2. Run the prompt against `processed/latest/per_tep_records.json` using an AI agent
-   (Claude or equivalent); review the output for structural correctness before committing
-3. Commit the five `conventions/*.yaml` files with `decision: ~` fields blank
-4. Re-running this step with a different AI or prompt produces a new set of YAML files in a
-   dated subdirectory (e.g. `conventions/2026-07-10/`) to allow comparison; `conventions/*.yaml`
-   at the root holds the version taken forward to the interview
+1. Propose a seed vocabulary from documented sources; human review before use.
+2. Classify review comments against the reviewed vocabulary, scoped to the existing curated
+   sample rather than the full corpus — classifying every comment at full volume would need
+   infrastructure (batched, paid API calls) this pipeline doesn't have yet; expand only if the
+   interview step shows the sample isn't enough.
+3. Aggregate the classification into the result set.
+4. Verify every reported count traces back to real comment text.
 
 **Relevant Context**:
-- TEP-0173 Phase 0a step 4: "produce candidate conventions with observed-frequency evidence,
-  and a list of divergences between documented process and observed practice"
-- The AI grouping step is deliberately separated from the human interview so that the
-  interviewer sees evidence-backed proposals, not raw data
+- The seed vocabulary comes from this org's own documented design principles and contributor
+  standards, plus its API compatibility policy — not invented, and not derived from the corpus
+  being classified.
+- This sub-task exists because reviewing comment *content* for recurring feedback is explicitly
+  part of TEP-0173's corpus-mining goal, and nothing else in this pipeline captures it — Sub-Task
+  7 deliberately limited itself to comment counts, not content.
 
 **Status**: [ ] pending
 
@@ -714,58 +612,66 @@ the input to Phase 0b (Convention Freeze).
 
 ## Data Flow
 
-```
-community/teps/ .md files
-        |
-        v (Sub-Task 2: parse_teps.py)
-raw/teps.jsonl
-        |
-        +----> (Sub-Task 3: map_tep_prs.py)
-        |              |
-        |              v
-        |      raw/tep_pr_map.json
-        |              |
-        v              v
-(Sub-Task 4: fetch_tep_prs.py)
-        |
-        v
-raw/community_prs.jsonl
-raw/community_pr_reviews.jsonl
+Three kinds of step, shown as three shapes below — this is the answer to "how reproducible is
+this, from zero, and where does an LLM actually touch the data":
 
-raw/teps.jsonl
-        |
-        v (Sub-Task 5: fetch_impl_prs.py)
-raw/impl_prs.jsonl
-raw/impl_pr_reviews.jsonl
-        |
-        v (Sub-Task 6: cross_repo_search.py - augments impl_prs.jsonl)
-processed/YYYY-MM-DD/coverage.json
-raw/impl_pr_discoveries.json
-        |
-        v (Sub-Task 6b: author_fallback_discovery.md prompt, run on demand - AI agent
-                         reads candidate PRs by a TEP's own authors, proposes
-                         overrides/pr_attribution_overrides.jsonl "include"s for review)
-        |
-        v (Sub-Task 7: synthesize.py)
-processed/YYYY-MM-DD/per_tep_records.json
-        |
-        v (Sub-Task 7: build_explorer.py)
-reports/explorer.html  (interactive, corrections exported as JSONL, committed, then applied by
-                         re-running synthesize.py — the audit trail is git history:
-                           - overrides/section_overrides.jsonl
-                           - overrides/pr_attribution_overrides.jsonl (an "include" naming an
-                             unfetched PR needs apply_pr_overrides.py first, to populate
-                             impl_prs.jsonl before the next synthesize.py run))
-        |
-        v (Sub-Task 8: AI grouping via group_conventions.md prompt)
-conventions/*.yaml  (decision: ~ fields blank)
-        |
-        v (Sub-Task 9: human interview)
-conventions/*.yaml  (decision: fields filled)
-conventions/SUMMARY.md
-        |
-        v
-Phase 0b: Convention Freeze  (input to TEP-0173 Phase 1: Author the Skills)
+- **Rectangle = script.** A deterministic `make` target, byte-for-byte reproducible given the
+  same raw inputs, runnable unattended.
+- **Rounded/stadium = AI agent.** Requires an agentic AI session (Claude Code or equivalent) to
+  read a `prompts/*.md` file and execute it. Not automatically reproducible run-to-run — which is
+  exactly why every one of these writes proposals into a reviewable file rather than committing
+  directly.
+- **Diamond = human.** A review or decision gate. No script, no AI, a person looking at output
+  and deciding.
+
+Rebuilding from zero means walking this graph top to bottom: run the script stages, and at each
+AI-agent stage, have an agent execute the named prompt file and a human clear the following
+review gate before the pipeline continues.
+
+### Corpus mining (Sub-Tasks 2–7)
+
+```mermaid
+flowchart TD
+    classDef scriptNode fill:#dbe9ff,stroke:#3b6bb5,color:#111
+    classDef aiNode fill:#ffe8cc,stroke:#c8791f,color:#111
+    classDef humanNode fill:#dff2df,stroke:#4c8c4c,color:#111
+
+    parse["Parse TEPs<br/>TEP .md files → structured records"]:::scriptNode
+    mapprs["Map proposal PRs<br/>git log → TEP-to-PR lookup"]:::scriptNode
+    fetchprop["Fetch proposal PR reviews<br/>review threads on TEP docs"]:::scriptNode
+    fetchimpl["Fetch implementation PRs<br/>metadata for PRs the TEP itself links"]:::scriptNode
+    search["Cross-repo search<br/>find implementation PRs the TEP never linked"]:::scriptNode
+    fallback(["Author-fallback discovery<br/>read an author's other PRs for unlinked implementations"]):::aiNode
+    reviewmatch{"Review proposed matches"}:::humanNode
+    synth["Synthesize<br/>join everything into one record per TEP"]:::scriptNode
+    explorer["Build explorer<br/>interactive browser + correction workflow"]:::scriptNode
+    next["Convention candidate generation<br/>see next diagram"]
+
+    parse --> mapprs --> fetchprop
+    parse --> fetchimpl --> search --> fallback --> reviewmatch --> synth
+    fetchprop --> synth
+    reviewmatch -.corrections.-> synth
+    synth --> explorer --> next
+```
+
+### Convention candidate generation (Sub-Task 8)
+
+```mermaid
+flowchart TD
+    classDef scriptNode fill:#dbe9ff,stroke:#3b6bb5,color:#111
+    classDef aiNode fill:#ffe8cc,stroke:#c8791f,color:#111
+    classDef humanNode fill:#dff2df,stroke:#4c8c4c,color:#111
+
+    start["Per-TEP records<br/>review comments, from corpus mining"]
+    seed(["Extract seed taxonomy<br/>read documented standards → seed vocabulary"]):::aiNode
+    reviewseed{"Review seed taxonomy"}:::humanNode
+    classify(["Classify comments<br/>match to taxonomy, multi-label, confidence-scored"]):::aiNode
+    validate["Aggregate + validate<br/>every count traces to real comment text"]:::scriptNode
+    out["review-taxonomy.yaml<br/>decision: blank"]
+    interview{"Human interview<br/>keep / drop / modify each candidate"}:::humanNode
+    freeze["Convention Freeze<br/>input to Phase 1: Author the Skills"]
+
+    start --> seed --> reviewseed --> classify --> validate --> out --> interview --> freeze
 ```
 
 ---
