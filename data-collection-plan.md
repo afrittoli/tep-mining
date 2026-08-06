@@ -564,10 +564,10 @@ evidence for or against a convention rather than left as unstructured text.
 
 **Todo List**:
 1. Propose a seed vocabulary from documented sources; human review before use.
-2. Classify review comments against the reviewed vocabulary, scoped to the existing curated
-   sample rather than the full corpus — classifying every comment at full volume would need
-   infrastructure (batched, paid API calls) this pipeline doesn't have yet; expand only if the
-   interview step shows the sample isn't enough.
+2. Classify review comments against the reviewed vocabulary, across the full corpus rather
+   than a fixed curated sample — approached iteratively (pilot on a handful of TEPs first,
+   review the results, refine, then expand) across repeated agent-driven runs, not a single
+   pass, and not new batch-API infrastructure.
 3. Aggregate the classification into the result set.
 4. Verify every reported count traces back to real comment text.
 
