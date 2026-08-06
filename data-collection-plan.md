@@ -542,16 +542,25 @@ evidence for or against a convention rather than left as unstructured text.
 
 **Expected Outcomes**:
 - A seed vocabulary for classification, drawn from the community's existing written standards
-  rather than invented, with each value traceable to where it's already documented. Reviewed and
-  adjusted by a person before it's used for anything.
+  rather than invented, with each value traceable to where it's already documented, and each
+  facet itself (not just its values) carrying a stated definition — what it means for a comment
+  to be classified along that dimension at all. Reviewed and adjusted by a person before it's
+  used for anything.
 - Every review comment classified against that vocabulary along more than one independent
-  dimension (broadly: which principle it invokes, and what part of the contribution it concerns),
-  each match carrying a confidence level rather than a strict yes/no, and free to match more than
-  one value at once. A comment that fits nothing well proposes a new value instead of being
-  forced into the closest existing one — the actual mechanism for surfacing conventions nobody
-  wrote down.
-- A result set with decision fields left blank for the human interview step, plus a check that
-  every reported count traces back to real, quotable comment text.
+  dimension (broadly: which principle it invokes, and what part of the contribution it concerns).
+  The dimensions are independent lenses, not a hierarchy and not combined into one joint label:
+  within a dimension a comment may match zero, one, or several values, each with its own
+  confidence rather than a strict yes/no, and a comment may match nothing at all across every
+  dimension — most comments are purely procedural ("can you rebase," "LGTM") and that has to be
+  a legitimate outcome, not a gap the classification is pushed to fill. A comment that fits
+  nothing well proposes a new value instead of being forced into the closest existing one — the
+  actual mechanism for surfacing conventions nobody wrote down.
+- Classification stored per comment — which values it matched, on which dimension, at what
+  confidence — not collapsed straight into per-value counts. Aggregate counts are a view derived
+  from that, not the primary record, so co-occurrence (which comments matched more than one
+  value at once, on the same or different dimensions) stays queryable, and every reported count
+  traces back to real, quotable comment text by construction rather than as a separate check.
+- A result set with decision fields left blank for the human interview step.
 
 **Todo List**:
 1. Propose a seed vocabulary from documented sources; human review before use.
