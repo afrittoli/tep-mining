@@ -69,3 +69,19 @@ jobs:
         with:
           globs: "**/*.md"
           config: ".markdownlint.json"
+
+  validate-conventions:
+    name: Validate conventions/*.yaml
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Install dev dependencies
+        run: uv sync --extra dev
+
+      - name: validate conventions
+        run: uv run scripts/validate_conventions.py conventions/*.yaml
