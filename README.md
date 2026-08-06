@@ -87,12 +87,13 @@ make apply-pr-overrides  # Optional: fetch metadata for a manually-"included" PR
 make apply-export FILE=path/to/export.jsonl  # Merge an explorer-exported corrections file into overrides/
 make query           # Ad-hoc: launch DuckDB session over every raw/processed JSONL file
 
-# 4. Sub-Task 8: review-comment taxonomy - NOT YET IMPLEMENTED (status: pending),
-#    shown here as the planned sequence once built - see data-collection-plan.md for the full flow
-#   [AI agent] run prompts/extract_seed_taxonomy.md -> conventions/seed-taxonomy.yaml (draft)
-#   [human]    review/edit conventions/seed-taxonomy.yaml before it's used for anything
-#   [AI agent] classify review comments against the reviewed seed taxonomy -> conventions/review-taxonomy.yaml
-make validate-conventions  # [script] mechanical check: every count in review-taxonomy.yaml traces to real comment text
+# 4. Sub-Task 8: review-comment taxonomy - step 1 done (seed taxonomy extracted and
+#    human-reviewed), step 2 (classification) pending - see data-collection-plan.md for the full flow
+#   [AI agent] run prompts/extract_seed_taxonomy.md -> conventions/seed-taxonomy.yaml (draft)  # done
+#   [human]    review/edit conventions/seed-taxonomy.yaml before it's used for anything        # done
+make validate-conventions  # [script] structural checks now; extends to "every count in
+                            # review-taxonomy.yaml traces to real comment text" once step 2 exists
+#   [AI agent] classify review comments against the reviewed seed taxonomy -> conventions/review-taxonomy.yaml  # pending
 ```
 
 ## Sub-Task 2 note
