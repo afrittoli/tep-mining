@@ -254,6 +254,21 @@ facets:
           (part-of, component, instance, name, version) for cross-application lookup
         provenance: seeded
         source: "docs/developers/resources-labelling.md"
+      - value: tep-body
+        description: >
+          The TEP document's own substantive content - goals, requirements, design, use cases
+          - reviewed inline during proposal review. Distinct from `docs` (documentation for a
+          shipped feature) and from `pr-description` (the PR's own meta-fields, not the TEP
+          text). No seed source defines this as its own artifact; it emerged as the single most
+          common thing proposal-PR comments turned out to be about once real classification
+          started - most inline feedback on a TEP is on its own prose, not any of the other
+          15 artifact values.
+        provenance: discovered
+        source: >
+          TEP-0033 proposal PR #380 comments, e.g. 528761799 ("typo: similarly"), 553408291
+          ("these last 3 requirements seem to assume we're going with feature flags... maybe we
+          can reword them"), 592288592 ("I think we need to define what the lifecycle of such a
+          feature flag would look [like]")
 
   nature:
     description: >
