@@ -1,6 +1,7 @@
 import json
+from pathlib import Path
 
-from scripts.build_explorer import _status_options, build_html
+from scripts.build_explorer import _load_classifications, _status_options, build_html
 
 
 def _record(tep_number: int, status: str = "proposed") -> dict:
@@ -61,3 +62,57 @@ def test_build_html_handles_empty_records_without_crashing() -> None:
 
     assert "<b>0</b> TEPs" in html
     assert "<!DOCTYPE html>" in html
+
+
+def test_build_html_with_no_classifications_embeds_empty_list_and_no_stat() -> None:
+    html = build_html([_record(1)])
+
+    start = html.index('<script type="application/json" id="classification-data">') + len(
+        '<script type="application/json" id="classification-data">'
+    )
+    end = html.index("</script>", start)
+    assert json.loads(html[start:end]) == []
+    assert "comment classifications (Sub-Task 8 pilot)" not in html
+
+
+def test_build_html_embeds_classifications_and_shows_stat() -> None:
+    classifications = [
+        {
+            "repo": "community",
+            "pr_number": 280,
+            "comment_id": 1,
+            "facet": "artifact",
+            "value": "tep-body",
+            "confidence": 0.9,
+            "evidence": "typo fix",
+        }
+    ]
+
+    html = build_html([_record(1)], classifications)
+
+    start = html.index('<script type="application/json" id="classification-data">') + len(
+        '<script type="application/json" id="classification-data">'
+    )
+    end = html.index("</script>", start)
+    assert json.loads(html[start:end]) == classifications
+    assert "<b>1</b> comment classifications" in html
+
+
+def test_load_classifications_missing_file_returns_empty_list() -> None:
+    assert _load_classifications(Path("does/not/exist.jsonl")) == []
+
+
+def test_load_classifications_reads_real_jsonl(tmp_path: Path) -> None:
+    path = tmp_path / "classifications.jsonl"
+    rec = {
+        "repo": "community",
+        "pr_number": 1,
+        "comment_id": 2,
+        "facet": "nature",
+        "value": "structure",
+        "confidence": 0.5,
+        "evidence": "e",
+    }
+    path.write_text(json.dumps(rec) + "\n")
+
+    assert _load_classifications(path) == [rec]

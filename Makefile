@@ -118,6 +118,7 @@ synthesize: ## Sub-Task 7: Join raw data into per-TEP records → processed/
 explorer: ## Build the interactive TEP data explorer (run after synthesize) → reports/explorer.html
 	uv run scripts/build_explorer.py \
 		--records processed/latest/per_tep_records.json \
+		--classifications processed/latest/comment_classifications.jsonl \
 		--out reports/explorer.html
 
 query: ## Launch an interactive DuckDB session over every raw/processed JSONL file

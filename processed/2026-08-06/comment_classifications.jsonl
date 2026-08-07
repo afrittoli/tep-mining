@@ -1,0 +1,113 @@
+{"repo": "community", "pr_number": 280, "comment_id": 528761799, "facet": "artifact", "value": "tep-body", "confidence": 0.9, "evidence": "typo fix on TEP prose"}
+{"repo": "community", "pr_number": 280, "comment_id": 528761799, "facet": "nature", "value": "structure", "confidence": 0.9, "evidence": "surface wording fix, not substance"}
+{"repo": "community", "pr_number": 280, "comment_id": 539708451, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "proposes an alternative mechanism (annotations) used by another tool"}
+{"repo": "community", "pr_number": 280, "comment_id": 539708451, "facet": "nature", "value": "content", "confidence": 0.8, "evidence": "substantive design alternative"}
+{"repo": "community", "pr_number": 280, "comment_id": 539708451, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.4, "evidence": "references an existing pattern from another Tekton project (triggers)"}
+{"repo": "community", "pr_number": 280, "comment_id": 540017674, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "continues design discussion on annotations vs global flag"}
+{"repo": "community", "pr_number": 280, "comment_id": 540017674, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive follow-up in the same design thread"}
+{"repo": "community", "pr_number": 280, "comment_id": 553408291, "facet": "artifact", "value": "tep-body", "confidence": 0.85, "evidence": "requirements section assumes a specific solution prematurely"}
+{"repo": "community", "pr_number": 280, "comment_id": 553408291, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "about requirements scope/substance"}
+{"repo": "community", "pr_number": 280, "comment_id": 553408291, "facet": "artifact", "value": "tep-staging", "confidence": 0.5, "evidence": "doc prematurely commits to feature-flags as *the* solution in Requirements"}
+{"repo": "community", "pr_number": 280, "comment_id": 553408728, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "suggests moving content between sections"}
+{"repo": "community", "pr_number": 280, "comment_id": 553408728, "facet": "nature", "value": "structure", "confidence": 0.85, "evidence": "\"i think we could include this in the proposal instead\" - reorg, not substance"}
+{"repo": "community", "pr_number": 380, "comment_id": 591868527, "facet": "artifact", "value": "tep-body", "confidence": 0.85, "evidence": "substantive discussion of default-value change timing"}
+{"repo": "community", "pr_number": 380, "comment_id": 591868527, "facet": "nature", "value": "content", "confidence": 0.8, "evidence": "design reasoning about deprecation windows"}
+{"repo": "community", "pr_number": 380, "comment_id": 591868527, "facet": "principle", "value": "deprecation-handling", "confidence": 0.85, "evidence": "explicitly proposes splitting the 6-month window into deprecation + opt-out phases"}
+{"repo": "community", "pr_number": 380, "comment_id": 591868527, "facet": "principle", "value": "feature-graduation", "confidence": 0.6, "evidence": "staged rollout timing"}
+{"repo": "community", "pr_number": 380, "comment_id": 592251853, "facet": "artifact", "value": "tep-body", "confidence": 0.85, "evidence": "asks foundational questions about API field versioning mechanics"}
+{"repo": "community", "pr_number": 380, "comment_id": 592251853, "facet": "nature", "value": "content", "confidence": 0.85, "evidence": "substantive open questions, not wording"}
+{"repo": "community", "pr_number": 380, "comment_id": 592251853, "facet": "principle", "value": "feature-graduation", "confidence": 0.85, "evidence": "directly about how a field moves alpha->beta->v1"}
+{"repo": "community", "pr_number": 380, "comment_id": 592251853, "facet": "principle", "value": "crd-version-policy", "confidence": 0.5, "evidence": "\"always added to the latest available API version\""}
+{"repo": "community", "pr_number": 380, "comment_id": 592257851, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "proposes a different flag design (extra-api-fields)"}
+{"repo": "community", "pr_number": 380, "comment_id": 592257851, "facet": "nature", "value": "content", "confidence": 0.8, "evidence": "substantive alternative design"}
+{"repo": "community", "pr_number": 380, "comment_id": 592288592, "facet": "artifact", "value": "tep-body", "confidence": 0.85, "evidence": "defines the feature flag lifecycle"}
+{"repo": "community", "pr_number": 380, "comment_id": 592288592, "facet": "nature", "value": "content", "confidence": 0.85, "evidence": "substantive process definition"}
+{"repo": "community", "pr_number": 380, "comment_id": 592288592, "facet": "principle", "value": "feature-graduation", "confidence": 0.9, "evidence": "literally describing the feature-flag stability lifecycle"}
+{"repo": "community", "pr_number": 380, "comment_id": 592407509, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "adds a Con about apiVersion/alpha-field confusion"}
+{"repo": "community", "pr_number": 380, "comment_id": 592407509, "facet": "nature", "value": "content", "confidence": 0.8, "evidence": "substantive concern, not wording"}
+{"repo": "community", "pr_number": 380, "comment_id": 592407509, "facet": "principle", "value": "crd-version-policy", "confidence": 0.7, "evidence": "confusion between apiVersion of the document and enabled alpha fields"}
+{"repo": "community", "pr_number": 380, "comment_id": 592408643, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "requests moving a point to the Pro column"}
+{"repo": "community", "pr_number": 380, "comment_id": 592408643, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "reorganization request (which list a point belongs in)"}
+{"repo": "community", "pr_number": 380, "comment_id": 592408643, "facet": "principle", "value": "security", "confidence": 0.5, "evidence": "raised from a security/cluster-admin perspective"}
+{"repo": "community", "pr_number": 380, "comment_id": 592414957, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "walks through an imagined user flow, asks if it's right"}
+{"repo": "community", "pr_number": 380, "comment_id": 592414957, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "clarifying the intended user flow"}
+{"repo": "community", "pr_number": 380, "comment_id": 592416912, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "requests a concrete example"}
+{"repo": "community", "pr_number": 380, "comment_id": 592416912, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "requesting missing substantive detail"}
+{"repo": "community", "pr_number": 380, "comment_id": 592425275, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "adds a general pro about version info as source of truth"}
+{"repo": "community", "pr_number": 380, "comment_id": 592425275, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive"}
+{"repo": "community", "pr_number": 380, "comment_id": 592425275, "facet": "principle", "value": "crd-version-policy", "confidence": 0.4, "evidence": "version info baked into the document as source of truth"}
+{"repo": "community", "pr_number": 380, "comment_id": 592488319, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "asks who \"users\" refers to"}
+{"repo": "community", "pr_number": 380, "comment_id": 592488319, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "terminology precision, borderline structure/content"}
+{"repo": "community", "pr_number": 380, "comment_id": 592491405, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "objects to enabling alpha while disabling beta"}
+{"repo": "community", "pr_number": 380, "comment_id": 592491405, "facet": "nature", "value": "content", "confidence": 0.8, "evidence": "substantive design objection"}
+{"repo": "community", "pr_number": 380, "comment_id": 592491405, "facet": "principle", "value": "feature-graduation", "confidence": 0.6, "evidence": "alpha/beta field interaction rules"}
+{"repo": "community", "pr_number": 380, "comment_id": 592508188, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "adds a pro about the conversion webhook story"}
+{"repo": "community", "pr_number": 380, "comment_id": 592508188, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive"}
+{"repo": "community", "pr_number": 380, "comment_id": 592508188, "facet": "principle", "value": "crd-version-policy", "confidence": 0.7, "evidence": "conversion webhook behavior across stored versions"}
+{"repo": "community", "pr_number": 380, "comment_id": 592516345, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "flags monolithic-CRD mixing as tricky"}
+{"repo": "community", "pr_number": 380, "comment_id": 592516345, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive"}
+{"repo": "community", "pr_number": 380, "comment_id": 592516345, "facet": "principle", "value": "crd-version-policy", "confidence": 0.6, "evidence": "mixing features across CRD versions"}
+{"repo": "community", "pr_number": 380, "comment_id": 595542135, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "clarifies alpha/beta refers to features, not overall type version"}
+{"repo": "community", "pr_number": 380, "comment_id": 595542135, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "clarifying explanation"}
+{"repo": "community", "pr_number": 380, "comment_id": 595542135, "facet": "principle", "value": "feature-graduation", "confidence": 0.6, "evidence": "distinguishes feature-level from CRD-version-level stability"}
+{"repo": "community", "pr_number": 380, "comment_id": 595549409, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "confirms understanding, raises a validation question"}
+{"repo": "community", "pr_number": 380, "comment_id": 595549409, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive"}
+{"repo": "community", "pr_number": 380, "comment_id": 595585525, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "explores an edge-case upgrade scenario"}
+{"repo": "community", "pr_number": 380, "comment_id": 595585525, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive scenario analysis"}
+{"repo": "community", "pr_number": 380, "comment_id": 595585525, "facet": "principle", "value": "feature-graduation", "confidence": 0.5, "evidence": "scenario about a feature being upgraded from alpha to beta mid-flight"}
+{"repo": "community", "pr_number": 380, "comment_id": 597044964, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "asks whether v1alpha1/v1beta1 will be frozen and removed"}
+{"repo": "community", "pr_number": 380, "comment_id": 597044964, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive"}
+{"repo": "community", "pr_number": 380, "comment_id": 597044964, "facet": "principle", "value": "crd-version-policy", "confidence": 0.7, "evidence": "whether v1alpha1/v1beta1 get frozen and removed"}
+{"repo": "community", "pr_number": 380, "comment_id": 597046330, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "confirms the version-freeze timeline"}
+{"repo": "community", "pr_number": 380, "comment_id": 597046330, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "community", "pr_number": 380, "comment_id": 597046330, "facet": "principle", "value": "crd-version-policy", "confidence": 0.7, "evidence": "confirms v1alpha1/v1beta1 removal timeline"}
+{"repo": "community", "pr_number": 380, "comment_id": 597051951, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "reasoning about when validation should fail"}
+{"repo": "community", "pr_number": 380, "comment_id": 597051951, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "reasoning about when validation should fail"}
+{"repo": "community", "pr_number": 380, "comment_id": 597053864, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "answers round-trippability and latest-version questions"}
+{"repo": "community", "pr_number": 380, "comment_id": 597053864, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive"}
+{"repo": "community", "pr_number": 380, "comment_id": 597053864, "facet": "principle", "value": "crd-version-policy", "confidence": 0.6, "evidence": "round-trippable APIs / latest version question"}
+{"repo": "community", "pr_number": 380, "comment_id": 597054933, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "clarifies the assumption of a single v1 version"}
+{"repo": "community", "pr_number": 380, "comment_id": 597054933, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "community", "pr_number": 380, "comment_id": 597054933, "facet": "principle", "value": "crd-version-policy", "confidence": 0.5, "evidence": "assumption about which version is in scope"}
+{"repo": "community", "pr_number": 380, "comment_id": 597055659, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "explains why the scenario can't happen given API policy"}
+{"repo": "community", "pr_number": 380, "comment_id": 597055659, "facet": "nature", "value": "content", "confidence": 0.8, "evidence": "substantive policy reasoning"}
+{"repo": "community", "pr_number": 380, "comment_id": 597055659, "facet": "principle", "value": "api-compatibility", "confidence": 0.7, "evidence": "explicit: \"otherwise we are breaking our API policy\""}
+{"repo": "community", "pr_number": 380, "comment_id": 597059766, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "adds a con about single-stored-CRD-version conversion"}
+{"repo": "community", "pr_number": 380, "comment_id": 597059766, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive"}
+{"repo": "community", "pr_number": 380, "comment_id": 597059766, "facet": "principle", "value": "crd-version-policy", "confidence": 0.7, "evidence": "single stored CRD version, conversion between versions"}
+{"repo": "community", "pr_number": 380, "comment_id": 597063480, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "adds a maintainability con re: embedded spec"}
+{"repo": "community", "pr_number": 380, "comment_id": 597063480, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "community", "pr_number": 380, "comment_id": 597063480, "facet": "artifact", "value": "code", "confidence": 0.4, "evidence": "\"messy to maintain (in code)\""}
+{"repo": "community", "pr_number": 380, "comment_id": 599724146, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "notes future new types could also start at v1alpha1"}
+{"repo": "community", "pr_number": 380, "comment_id": 599724146, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "community", "pr_number": 380, "comment_id": 599724146, "facet": "principle", "value": "crd-version-policy", "confidence": 0.55, "evidence": "future new types starting at v1alpha1"}
+{"repo": "community", "pr_number": 380, "comment_id": 599825618, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "objects that changing the default value is itself a compat break"}
+{"repo": "community", "pr_number": 380, "comment_id": 599825618, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive"}
+{"repo": "community", "pr_number": 380, "comment_id": 599825618, "facet": "principle", "value": "api-compatibility", "confidence": 0.75, "evidence": "explicit: \"feels like a backwards incompatible change\""}
+{"repo": "community", "pr_number": 380, "comment_id": 599837810, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "proposes concrete flag values/naming (stable/alpha/beta)"}
+{"repo": "community", "pr_number": 380, "comment_id": 599837810, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "borderline naming/structure vs substance"}
+{"repo": "community", "pr_number": 380, "comment_id": 599847686, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "notes the naming choice simplifies test matrix"}
+{"repo": "community", "pr_number": 380, "comment_id": 599847686, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "\"this simplifies the tests we'll need to run as well\""}
+{"repo": "community", "pr_number": 380, "comment_id": 599847686, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "consequence of the design choice"}
+{"repo": "community", "pr_number": 380, "comment_id": 599888589, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "adding an example of field removal impact"}
+{"repo": "community", "pr_number": 380, "comment_id": 599888589, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive example addition"}
+{"repo": "community", "pr_number": 380, "comment_id": 599891443, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "asks whether required fields can ever be added"}
+{"repo": "community", "pr_number": 380, "comment_id": 599891443, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "clarifying question"}
+{"repo": "community", "pr_number": 380, "comment_id": 599906338, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "heads-up about what a related PR needs to do"}
+{"repo": "community", "pr_number": 380, "comment_id": 599906338, "facet": "artifact", "value": "docs", "confidence": 0.4, "evidence": "\"make sure your feature is in an alpha docs section\""}
+{"repo": "community", "pr_number": 380, "comment_id": 599906338, "facet": "artifact", "value": "tests", "confidence": 0.4, "evidence": "\"there's a test or example\""}
+{"repo": "community", "pr_number": 380, "comment_id": 600430832, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "date typo nit"}
+{"repo": "community", "pr_number": 380, "comment_id": 600430832, "facet": "nature", "value": "structure", "confidence": 0.8, "evidence": "explicit nit/date typo"}
+{"repo": "community", "pr_number": 380, "comment_id": 601251578, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "confirms required fields can't be added"}
+{"repo": "community", "pr_number": 380, "comment_id": 601251578, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "short factual confirmation"}
+{"repo": "community", "pr_number": 380, "comment_id": 601251578, "facet": "principle", "value": "api-compatibility", "confidence": 0.4, "evidence": "confirms required fields can't be added"}
+{"repo": "community", "pr_number": 380, "comment_id": 601830677, "facet": "artifact", "value": "tep-body", "confidence": 0.65, "evidence": "guesses at impact on existing alpha version"}
+{"repo": "community", "pr_number": 380, "comment_id": 601830677, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "tentative substantive comment"}
+{"repo": "community", "pr_number": 380, "comment_id": 601841038, "facet": "artifact", "value": "tep-body", "confidence": 0.65, "evidence": "checking understanding of a compatibility table"}
+{"repo": "community", "pr_number": 380, "comment_id": 601841038, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "clarifying question with a table"}
+{"repo": "community", "pr_number": 380, "comment_id": 601861949, "facet": "artifact", "value": "tep-body", "confidence": 0.85, "evidence": "wording nit: timeout -> tasksTimeout"}
+{"repo": "community", "pr_number": 380, "comment_id": 601861949, "facet": "nature", "value": "structure", "confidence": 0.9, "evidence": "explicit NIT wording fix"}
+{"repo": "community", "pr_number": 380, "comment_id": 601862126, "facet": "artifact", "value": "tep-body", "confidence": 0.85, "evidence": "typo nit: will will -> we will"}
+{"repo": "community", "pr_number": 380, "comment_id": 601862126, "facet": "nature", "value": "structure", "confidence": 0.9, "evidence": "explicit NIT typo fix"}
+{"repo": "community", "pr_number": 380, "comment_id": 603450969, "facet": "artifact", "value": "tep-body", "confidence": 0.65, "evidence": "corrects the compatibility table for pre-v1 state"}
+{"repo": "community", "pr_number": 380, "comment_id": 603450969, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive correction to a table"}
