@@ -1,4 +1,4 @@
-.PHONY: help lint type-check test check parse scan-gaps gap-report mine-pr-cache map-prs pr-map-report fetch-tep-prs fetch-impl-prs report-index search synthesize query explorer apply-pr-overrides apply-export
+.PHONY: help lint type-check test check parse scan-gaps gap-report mine-pr-cache map-prs pr-map-report fetch-tep-prs fetch-impl-prs report-index search synthesize query explorer apply-pr-overrides apply-export validate-conventions
 
 # Load .env if it exists
 -include .env
@@ -19,7 +19,7 @@ type-check: ## Run mypy type checks over scripts/
 test: ## Run pytest unit tests
 	uv run pytest --tb=short -q
 
-check: lint type-check test ## Run all static checks and tests
+check: lint type-check test validate-conventions ## Run all static checks and tests
 
 parse: ## Sub-Task 2: Parse TEP .md files → raw/teps.jsonl
 	uv run scripts/parse_teps.py \
@@ -96,6 +96,9 @@ apply-pr-overrides: ## Fetch metadata for "include" overrides not yet in raw/imp
 apply-export: ## Merge an explorer-exported corrections file into overrides/*.jsonl, e.g. make apply-export FILE=~/Downloads/pr_attribution_overrides.export.jsonl
 	uv run scripts/apply_export.py "$(FILE)"
 
+validate-conventions: ## Validate conventions/*.yaml structural invariants (Sub-Task 8)
+	uv run scripts/validate_conventions.py conventions/*.yaml
+
 synthesize: ## Sub-Task 7: Join raw data into per-TEP records → processed/
 	uv run scripts/synthesize.py \
 		--teps-jsonl raw/teps.jsonl \
@@ -115,6 +118,7 @@ synthesize: ## Sub-Task 7: Join raw data into per-TEP records → processed/
 explorer: ## Build the interactive TEP data explorer (run after synthesize) → reports/explorer.html
 	uv run scripts/build_explorer.py \
 		--records processed/latest/per_tep_records.json \
+		--classifications processed/latest/comment_classifications.jsonl \
 		--out reports/explorer.html
 
 query: ## Launch an interactive DuckDB session over every raw/processed JSONL file

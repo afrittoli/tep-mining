@@ -91,6 +91,10 @@ CSS = """
   .badge-skipped   { background: var(--bg-alt); color: var(--ink-dim); border-color: var(--rule); }
   .badge-warn      { background: var(--warn-bg); color: var(--warn); border-color: #f1d9a8; }
   .badge-override  { background: #f5f3ff; color: #6d28d9; border-color: #ddd6fe; }
+  .badge-classification { background: #ecfeff; color: #0e7490; border-color: #a5f3fc; cursor: help; }
+  .badge-classification-audit { background: #fff7ed; color: #c2410c; border-color: #fed7aa; cursor: help; }
+
+  .classification-badges { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
 
   .back-link { display: inline-block; margin-bottom: 12px; font-size: 13px; }
   .detail-header { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
@@ -168,6 +172,30 @@ CSS = """
 JS = """
 const DATA = JSON.parse(document.getElementById('tep-data').textContent);
 const BY_NUMBER = new Map(DATA.map(r => [r.tep_number, r]));
+
+// Sub-Task 8 pilot: comment classifications, keyed by repo|pr_number|comment_id -> matches.
+// Absent entirely (no comments classified yet) is the normal case for most of the corpus —
+// classificationsFor() returns [] and every call site below renders nothing extra.
+const CLASSIFICATIONS = JSON.parse(document.getElementById('classification-data').textContent);
+const CLASSIFICATION_INDEX = new Map();
+for (const c of CLASSIFICATIONS) {
+  const key = `${c.repo}|${c.pr_number}|${c.comment_id}`;
+  if (!CLASSIFICATION_INDEX.has(key)) CLASSIFICATION_INDEX.set(key, []);
+  CLASSIFICATION_INDEX.get(key).push(c);
+}
+function classificationsFor(repo, prNumber, commentId) {
+  return CLASSIFICATION_INDEX.get(`${repo}|${prNumber}|${commentId}`) || [];
+}
+function classificationBadgesHtml(repo, prNumber, commentId) {
+  const matches = classificationsFor(repo, prNumber, commentId);
+  if (!matches.length) return '';
+  return `<div class="classification-badges">${matches.map(m => {
+    const audit = m.source_pass === 'audit';
+    const cls = audit ? 'badge-classification-audit' : 'badge-classification';
+    const title = audit ? `[found on audit pass] ${m.evidence}` : m.evidence;
+    return `<span class="badge ${cls}" title="${esc(title)}">${esc(m.facet)}:${esc(m.value)} (${m.confidence})</span>`;
+  }).join('')}</div>`;
+}
 
 function esc(s) {
   return String(s == null ? '' : s).replace(/[&<>"']/g, c => (
@@ -462,6 +490,7 @@ function renderComment(record, c) {
       </span>
     </div>
     <div class="body">${esc(c.body)}</div>
+    ${classificationBadgesHtml('community', c.pr_number, c.comment_id)}
   </div>`;
 }
 
@@ -492,7 +521,7 @@ function evidenceHtml(it) {
   return '';
 }
 
-function renderImplComment(c) {
+function renderImplComment(c, repo, prNumber) {
   const where = c.path ? `<span class="badge badge-skipped">${esc(c.path)}${c.line != null ? ':' + c.line : ''}</span>` : '';
   return `<div class="comment">
     <div class="meta">
@@ -501,6 +530,7 @@ function renderImplComment(c) {
       ${where}
     </div>
     <div class="body">${esc(c.body)}</div>
+    ${classificationBadgesHtml(repo, prNumber, c.comment_id)}
   </div>`;
 }
 
@@ -508,11 +538,11 @@ function implCommentsToggle(it) {
   if (!it.comments || !it.comments.length) return '';
   const other = it.comments.filter(c => !c.is_self_comment);
   const self = it.comments.filter(c => c.is_self_comment);
-  const otherHtml = other.length ? other.map(renderImplComment).join('')
+  const otherHtml = other.length ? other.map(c => renderImplComment(c, it.repo, it.pr_number)).join('')
     : '<p style="color:var(--ink-dim)">No review comments from others.</p>';
   const selfHtml = self.length ? `<details class="self-comments">
     <summary>${self.length} self-review comment${self.length === 1 ? '' : 's'} from the PR's own author</summary>
-    ${self.map(renderImplComment).join('')}
+    ${self.map(c => renderImplComment(c, it.repo, it.pr_number)).join('')}
   </details>` : '';
   return `<details class="impl-comments" style="flex-basis:100%">
     <summary>${it.review_comment_count} review comment${it.review_comment_count === 1 ? '' : 's'}</summary>
@@ -770,7 +800,7 @@ def _status_options(records: list[dict]) -> str:
     return "".join(f'<option value="{s}">{s}</option>' for s in sorted(statuses))
 
 
-def build_html(records: list[dict]) -> str:
+def build_html(records: list[dict], classifications: list[dict] | None = None) -> str:
     generated = datetime.now(UTC).strftime("%Y-%m-%d %H:%M UTC")
     total_impl = sum(r["impl_prs"]["total_count"] for r in records)
     total_discovered = sum(r["impl_prs"]["discovered_count"] for r in records)
@@ -778,6 +808,7 @@ def build_html(records: list[dict]) -> str:
     rate = (total_discovered / total_impl * 100) if total_impl else 0.0
 
     data_json = json.dumps(records, sort_keys=True)
+    classifications_json = json.dumps(classifications or [], sort_keys=True)
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -796,6 +827,7 @@ def build_html(records: list[dict]) -> str:
     <span><b>{total_impl}</b> implementation PRs</span>
     <span><b>{total_reviews}</b> review comments</span>
     <span><b>{rate:.0f}%</b> under-linking rate</span>
+    {f"<span><b>{len(classifications or [])}</b> comment classifications (Sub-Task 8 pilot)</span>" if classifications else ""}
   </div>
 </header>
 
@@ -853,15 +885,28 @@ def build_html(records: list[dict]) -> str:
 </footer>
 
 <script type="application/json" id="tep-data">{data_json}</script>
+<script type="application/json" id="classification-data">{classifications_json}</script>
 <script>{JS}</script>
 </body>
 </html>
 """
 
 
+def _load_classifications(path: Path) -> list[dict]:
+    """Sub-Task 8 pilot output — optional. Most of the corpus has none yet, and that's fine:
+    the explorer just renders no classification badges wherever nothing's been classified."""
+    if not path.exists():
+        return []
+    with path.open(encoding="utf-8") as fh:
+        return [json.loads(line) for line in fh if line.strip()]
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Build the interactive TEP data explorer")
     parser.add_argument("--records", default="processed/latest/per_tep_records.json")
+    parser.add_argument(
+        "--classifications", default="processed/latest/comment_classifications.jsonl"
+    )
     parser.add_argument("--out", default="reports/explorer.html")
     args = parser.parse_args(argv)
 
@@ -871,10 +916,11 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     records = json.loads(records_path.read_text(encoding="utf-8"))
+    classifications = _load_classifications(Path(args.classifications))
     out_path = Path(args.out)
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(build_html(records), encoding="utf-8")
-    print(f"Written: {out_path}")
+    out_path.write_text(build_html(records, classifications), encoding="utf-8")
+    print(f"Written: {out_path} ({len(classifications)} comment classifications loaded)")
     return 0
 
 

@@ -1,0 +1,312 @@
+id: seed-taxonomy
+description: >
+  Seed vocabulary for classifying review comments (Sub-Task 8), sourced from documented
+  community standards rather than invented or derived from the corpus being classified.
+  Human-reviewed input, not a candidate awaiting a decision - no decision/rationale fields.
+  Edit this file directly (add, remove, rename, or merge values) before it's used for
+  classification; re-running prompts/extract_seed_taxonomy.md produces a fresh draft, not an
+  update to your edits.
+
+semantics: >
+  The three facets are independent lenses on the same comment, not a hierarchy and not
+  mutually exclusive - classifying a comment does not combine them into one joint label.
+  Within a facet, a comment may match zero, one, or several values, each with its own
+  confidence; zero is a legitimate, expected outcome (most comments - "can you rebase",
+  "LGTM", "nit: typo" - invoke no documented principle and no specific artifact at all), and
+  a comment may match nothing across all three facets. Forcing at least one match per facet
+  would fabricate signal that isn't there. Classification output (Sub-Task 8, step 2) must be
+  stored per comment - a list of (facet, value, confidence) matches per comment_id - not
+  pre-aggregated into per-value counts; aggregate counts are a derived view, so co-occurrence
+  (e.g. which comments were about both "tests" and "simplicity" at once) stays queryable and
+  every count traces to real comment text by construction, not as a separate check.
+
+  Every value carries a `provenance`, independent of which facet it's in - this is a property
+  of the value, not of the facet:
+    - seeded: extracted from a documented source. `source` cites the document and section.
+    - discovered: found bottom-up during classification, backed by real example comments.
+      `source` cites those examples (TEP/PR numbers).
+    - suggested: proposed from a person's own review experience - not yet backed by a document
+      or by classified examples. `source` records that basis, not a citation.
+  No facet is exclusive to one provenance. `principle` and `artifact` can gain `discovered` or
+  `suggested` values just as `nature` can; `nature` could in principle gain a `seeded` value if
+  something ever documents "kind of fix" categories. `nature` currently has zero values only
+  because nothing documents that axis yet, not because it's structurally reserved for
+  non-seeded values.
+
+  A value may optionally carry a `parent`, naming another value in the *same* facet that it's a
+  more specific case of - every comment matching the narrower value should also reasonably match
+  the parent, but not the reverse. This is advisory, not enforced: classification still matches
+  each value independently, `parent` only exists so a coarser rollup view is possible later
+  (e.g. "show `security` including its narrower `supply-chain-compliance` and
+  `custom-cryptography` matches") without collapsing them into one value now. Not every closely
+  related pair is parent/child - e.g. `deprecation-handling` is related to both
+  `api-compatibility` and `feature-graduation` but a strict subset of neither (deprecation isn't
+  only for API-driven features), so it has no `parent` and stays a sibling to both.
+
+facets:
+  principle:
+    description: >
+      Why the feedback matters: which documented value or principle it invokes.
+    values:
+      - value: api-conventions
+        description: "Whether a change to the Tekton API follows Kubernetes API conventions"
+        provenance: seeded
+        source: "design-principles.md#api-conventions"
+      - value: tekton-api-conventions
+        description: >
+          Whether a new field or CRD follows Tekton's own existing structural idioms - the
+          param/result variable-substitution syntax, the TaskRef-vs-inline-TaskSpec
+          reference/embed pattern, status condition shape - for internal consistency. Distinct
+          from api-conventions (defers to external Kubernetes conventions) and
+          api-compatibility (a stability/versioning concern, not a shape concern) - neither
+          covers "does this look like the rest of our own API."
+        provenance: suggested
+        source: "Suggested from reviewer experience, not yet backed by a document or classified examples"
+        parent: consistency-with-existing
+      - value: reusability
+        description: >
+          Whether an existing feature or Catalog solution should be used instead of adding a
+          new core feature, and whether a new feature's impact on reusability is discussed
+        provenance: seeded
+        source: "design-principles.md#reusability"
+      - value: authoring-vs-runtime
+        description: >
+          Whether a concern belongs at authoring time (fixed in the Task/Pipeline definition,
+          required for every execution) or at run time (controllable per-invocation via
+          PipelineRun/TaskRun, without needing to modify the Task or Pipeline itself)
+        provenance: seeded
+        source: "design-principles.md#reusability"
+      - value: simplicity
+        description: >
+          Whether the simplest solution covering the common use cases was chosen over a more
+          complex one that covers every case
+        provenance: seeded
+        source: "design-principles.md#simplicity"
+      - value: consistency-with-existing
+        description: >
+          Whether a new feature is consistent with existing components in structure and
+          behavior, for learnability, trialability, and easy adoption
+        provenance: seeded
+        source: "design-principles.md#simplicity"
+      - value: feature-justification
+        description: >
+          Whether the feature was previously discussed and agreed via a TEP, and whether that
+          TEP demonstrates the feature is necessary
+        provenance: seeded
+        source: "design-principles.md#simplicity"
+      - value: flexibility
+        description: >
+          Whether the change avoids being opinionated in the core API, using an existing plugin
+          mechanism (CustomTasks, Step level) or variable replacement instead of new templating
+          or expression syntax
+        provenance: seeded
+        source: "design-principles.md#flexibility"
+      - value: conformance
+        description: >
+          Whether the feature behaves consistently across environments and avoids
+          Kubernetes-specific API surface
+        provenance: seeded
+        source: "design-principles.md#conformance"
+      - value: security
+        description: >
+          Whether the change follows secure design principles (OpenSSF), avoids increasing
+          Tekton's attack surface or threat model, and doesn't make it harder for users to
+          follow security best practices
+        provenance: seeded
+        source: "design-principles.md#security"
+      - value: supply-chain-compliance
+        description: >
+          Whether the change affects users' ability to achieve SLSA compliance, or introduces
+          concerns from a provenance point of view
+        provenance: seeded
+        source: "design-principles.md#security"
+        parent: security
+      - value: custom-cryptography
+        description: >
+          Whether the change avoids implementing cryptographic algorithms directly, relying on
+          proven tools and libraries instead
+        provenance: seeded
+        source: "design-principles.md#security"
+        parent: security
+      - value: api-compatibility
+        description: "Whether a change is additive or backwards incompatible, per the project's API compatibility policy"
+        provenance: seeded
+        source: "api_compatibility_policy.md#approving-api-changes"
+      - value: feature-graduation
+        description: >
+          Whether an individual API field's alpha/beta/stable graduation and support-window
+          rules are respected (via enable-api-fields / per-feature flags) - e.g. a beta
+          field needs 9 months' migration warning before a breaking change, a GA/stable field
+          needs a major version bump. Distinct from crd-version-policy, which is about the CRD
+          schema version as a whole, not an individual gated field within it.
+        provenance: seeded
+        source: "api_compatibility_policy.md#feature-gates, #feature-graduation-process"
+      - value: crd-version-policy
+        description: >
+          Whether a change respects the CRD API version rules - which versions are stable vs.
+          deprecated, and whether new functionality belongs on a deprecated version at all. The
+          documented policy says deprecated versions (e.g. v1beta1) receive bug fixes only, not
+          new features - but in practice, new v1 fields are often backported to v1beta1 anyway,
+          to keep v1<->v1beta1 conversion simple and symmetric. A real documented-vs-observed
+          divergence worth watching for once classification runs against actual comments.
+        provenance: seeded
+        source: >
+          api_compatibility_policy.md#crd-api-versions (documented policy); the
+          backport-for-conversion-symmetry practice itself is not documented anywhere -
+          reviewer experience
+      - value: deprecation-handling
+        description: >
+          Whether a deprecated field or feature follows the documented sequence: opt-in before
+          opt-out, a Godoc "Deprecated:" comment, tombstoning before removal
+        provenance: seeded
+        source: "docs/developers/api-changes.md#deprecations"
+
+  artifact:
+    description: >
+      Where in the contribution the feedback applies: which part of the PR or TEP it's about.
+    values:
+      - value: pr-description
+        description: "The PR description itself: linked issue, TEP reference, checklist, milestones"
+        provenance: seeded
+        source: "standards.md#pull-request-description"
+      - value: release-notes
+        description: "Whether release notes are present, accurate, and appropriately detailed"
+        provenance: seeded
+        source: "standards.md#release-notes"
+      - value: commit-message
+        description: >
+          Commit message content and formatting: explaining what and why, imperative subject
+          line, TEP reference
+        provenance: seeded
+        source: "standards.md#commit-messages"
+      - value: pr-size
+        description: >
+          Whether the PR is small and self-contained, one commit per PR, refactoring separated
+          from feature work
+        provenance: seeded
+        source: "standards.md#small-pull-requests"
+      - value: incremental-delivery
+        description: >
+          Whether a large feature is being split into smaller PRs behind a feature flag, with
+          documentation marking partial functionality
+        provenance: seeded
+        source: "standards.md#incremental-feature-development"
+        parent: functionality
+      - value: functionality
+        description: "Whether merging this PR alone would leave the project in a releasable state"
+        provenance: seeded
+        source: "standards.md#functionality"
+      - value: docs
+        description: >
+          Markdown documentation updates: spelling, formatting, completeness for user-visible
+          features
+        provenance: seeded
+        source: "standards.md#docs"
+      - value: container-image-config
+        description: "Whether a newly-used container image is configurable rather than hardcoded"
+        provenance: seeded
+        source: "standards.md#content"
+      - value: code
+        description: "Go style and code structure: error handling, package naming, exported API surface"
+        provenance: seeded
+        source: "standards.md#code"
+      - value: tests
+        description: "Unit, example, and end-to-end test coverage and quality"
+        provenance: seeded
+        source: "standards.md#tests"
+      - value: reconciler-pattern
+        description: "Conventions specific to CRD reconciler/controller code"
+        provenance: seeded
+        source: "standards.md#reconcilercontroller-changes"
+      - value: approval-process
+        description: >
+          Whether the TEP has the required OWNER approvals, including company diversity
+          (at least two OWNERs from different companies)
+        provenance: seeded
+        source: "process/tep-process.md#approval-requirements"
+      - value: tep-staging
+        description: >
+          Whether a TEP's initial content is scoped to merge quickly (motivation and use cases
+          first), with design and remaining detail added in follow-up PRs. A process/workflow
+          recommendation, not a content-quality signal - its original rationale (avoid
+          over-investing in a design before knowing if the core idea is accepted) assumes
+          significant human authoring effort, which may not transfer directly to an
+          AI-assisted authoring context.
+        provenance: seeded
+        source: "process/tep-process.md#creating-and-merging-teps"
+      - value: crd-registration
+        description: >
+          Whether all the steps for adding a new CRD type are complete: config YAML, cluster
+          roles, Go structs implementing Defaultable/Validatable, webhook registration,
+          known-types registration
+        provenance: seeded
+        source: "DEVELOPMENT.md#adding-new-crd-types"
+      - value: feature-gate-registration
+        description: >
+          Whether all the steps for introducing a new per-feature flag are complete: default
+          value in the PerFeatureFlag struct, unit tests, integration tests in the alpha/beta
+          Prow environments, configMap entry, docs update
+        provenance: seeded
+        source: "docs/developers/feature-versioning.md#adding-feature-gated-api-fields-for-api-driven-features"
+      - value: resource-labeling
+        description: >
+          Whether a new Kubernetes resource carries the standard app.kubernetes.io labels
+          (part-of, component, instance, name, version) for cross-application lookup
+        provenance: seeded
+        source: "docs/developers/resources-labelling.md"
+      - value: tep-body
+        description: >
+          The TEP document's own substantive content - goals, requirements, design, use cases
+          - reviewed inline during proposal review. Distinct from `docs` (documentation for a
+          shipped feature) and from `pr-description` (the PR's own meta-fields, not the TEP
+          text). No seed source defines this as its own artifact; it emerged as the single most
+          common thing proposal-PR comments turned out to be about once real classification
+          started - most inline feedback on a TEP is on its own prose, not any of the other
+          15 artifact values.
+        provenance: discovered
+        source: >
+          TEP-0033 proposal PR #380 comments, e.g. 528761799 ("typo: similarly"), 553408291
+          ("these last 3 requirements seem to assume we're going with feature flags... maybe we
+          can reword them"), 592288592 ("I think we need to define what the lifecycle of such a
+          feature flag would look [like]")
+
+  nature:
+    description: >
+      What kind of fix the feedback is asking for, independent of which artifact it applies
+      to - e.g. "commit-message + structure" (subject/body separation) vs.
+      "commit-message + content" (what/why explanation) are the same artifact, different nature.
+      Nothing documents this axis, so it has no seeded values; it grows the same way the other
+      facets can, via `discovered` (during classification) or `suggested` (from review
+      experience) values.
+    values:
+      - value: structure
+        description: >
+          The structural or formatting shape of an artifact - e.g. commit subject/body
+          separation, line length, imperative mood - rather than its substance
+        provenance: suggested
+        source: "Suggested from reviewer experience, not yet backed by a document or classified examples"
+      - value: content
+        description: >
+          The substantive content of an artifact - e.g. what a commit message explains, why a
+          decision was made - rather than its form
+        provenance: suggested
+        source: "Suggested from reviewer experience, not yet backed by a document or classified examples"
+      - value: magnitude
+        description: >
+          How much a change does in raw terms (diff size, file count) - whether it's
+          reviewable in one pass
+        provenance: suggested
+        source: "Suggested from reviewer experience, not yet backed by a document or classified examples"
+      - value: self-containedness
+        description: >
+          Whether a change stands on its own and makes sense without depending on another,
+          unmerged PR's context - even when it's necessarily one piece of a larger feature
+          split, and even if that means it isn't small
+        provenance: suggested
+        source: "Suggested from reviewer experience, not yet backed by a document or classified examples"
+      - value: cohesion
+        description: >
+          Whether a change does exactly one thing, rather than bundling in something unrelated
+          (e.g. a feature change plus an unrelated docs fix noticed along the way)
+        provenance: suggested
+        source: "Suggested from reviewer experience, not yet backed by a document or classified examples"
