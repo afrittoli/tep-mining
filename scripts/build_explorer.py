@@ -92,6 +92,7 @@ CSS = """
   .badge-warn      { background: var(--warn-bg); color: var(--warn); border-color: #f1d9a8; }
   .badge-override  { background: #f5f3ff; color: #6d28d9; border-color: #ddd6fe; }
   .badge-classification { background: #ecfeff; color: #0e7490; border-color: #a5f3fc; cursor: help; }
+  .badge-classification-audit { background: #fff7ed; color: #c2410c; border-color: #fed7aa; cursor: help; }
 
   .classification-badges { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
 
@@ -188,9 +189,12 @@ function classificationsFor(repo, prNumber, commentId) {
 function classificationBadgesHtml(repo, prNumber, commentId) {
   const matches = classificationsFor(repo, prNumber, commentId);
   if (!matches.length) return '';
-  return `<div class="classification-badges">${matches.map(m =>
-    `<span class="badge badge-classification" title="${esc(m.evidence)}">${esc(m.facet)}:${esc(m.value)} (${m.confidence})</span>`
-  ).join('')}</div>`;
+  return `<div class="classification-badges">${matches.map(m => {
+    const audit = m.source_pass === 'audit';
+    const cls = audit ? 'badge-classification-audit' : 'badge-classification';
+    const title = audit ? `[found on audit pass] ${m.evidence}` : m.evidence;
+    return `<span class="badge ${cls}" title="${esc(title)}">${esc(m.facet)}:${esc(m.value)} (${m.confidence})</span>`;
+  }).join('')}</div>`;
 }
 
 function esc(s) {
