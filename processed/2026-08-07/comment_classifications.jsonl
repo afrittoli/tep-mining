@@ -251,3 +251,358 @@
 {"repo": "community", "pr_number": 260, "comment_id": 532677965, "facet": "principle", "value": "flexibility", "confidence": 0.4, "evidence": "deciding which underlying Kubernetes VolumeMount fields to expose/support is a coupling/opinionation choice", "source_pass": "audit"}
 {"repo": "pipeline", "pr_number": 3700, "comment_id": 626032378, "facet": "principle", "value": "feature-graduation", "confidence": 0.4, "evidence": "about validation behavior for the \"stable\" and \"alpha\" stability-level values specifically", "source_pass": "audit"}
 {"repo": "pipeline", "pr_number": 3700, "comment_id": 626044841, "facet": "principle", "value": "feature-graduation", "confidence": 0.35, "evidence": "discusses the behavioral difference between alpha-API and stable-API workspace availability", "source_pass": "audit"}
+{"repo": "community", "pr_number": 519, "comment_id": 712213332, "facet": "artifact", "value": "tep-body", "confidence": 0.55, "evidence": "nit to remove template placeholder comments"}
+{"repo": "community", "pr_number": 519, "comment_id": 712213332, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "formatting nit, not substance"}
+{"repo": "community", "pr_number": 519, "comment_id": 713208744, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "markdown image syntax fix so rich preview renders"}
+{"repo": "community", "pr_number": 519, "comment_id": 713208744, "facet": "nature", "value": "structure", "confidence": 0.7, "evidence": "formatting fix, not substance"}
+{"repo": "community", "pr_number": 519, "comment_id": 713209811, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "proposes involving the Workflows working group as an alternative"}
+{"repo": "community", "pr_number": 519, "comment_id": 713209811, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive alternative-approach suggestion"}
+{"repo": "community", "pr_number": 519, "comment_id": 713807628, "facet": "artifact", "value": "tep-body", "confidence": 0.85, "evidence": "proposes storing events in tektoncd/results for the same reason"}
+{"repo": "community", "pr_number": 519, "comment_id": 713807628, "facet": "nature", "value": "content", "confidence": 0.8, "evidence": "substantive architecture discussion"}
+{"repo": "community", "pr_number": 519, "comment_id": 713807628, "facet": "principle", "value": "reusability", "confidence": 0.45, "evidence": "suggests reusing/extending existing tektoncd/results component"}
+{"repo": "community", "pr_number": 519, "comment_id": 713814682, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "explains why the event itself isn't representative of input params"}
+{"repo": "community", "pr_number": 519, "comment_id": 713814682, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive"}
+{"repo": "community", "pr_number": 519, "comment_id": 713818220, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "brief agreement with a caveat about difficulty"}
+{"repo": "community", "pr_number": 519, "comment_id": 713818220, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "short"}
+{"repo": "community", "pr_number": 519, "comment_id": 713820752, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "questions whether in-toto is already supported, wants continued support"}
+{"repo": "community", "pr_number": 519, "comment_id": 713820752, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive"}
+{"repo": "community", "pr_number": 519, "comment_id": 713820752, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.4, "evidence": "wants to keep supporting the existing in-toto format"}
+{"repo": "community", "pr_number": 705, "comment_id": 873928209, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "flags that pipeline resources are deprecated and excluded from new features"}
+{"repo": "community", "pr_number": 705, "comment_id": 873928209, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "community", "pr_number": 705, "comment_id": 873928209, "facet": "principle", "value": "deprecation-handling", "confidence": 0.6, "evidence": "explicitly invokes deprecated-feature policy for new design"}
+{"repo": "community", "pr_number": 705, "comment_id": 874220909, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "describes removing the deprecated reference from the TEP"}
+{"repo": "community", "pr_number": 705, "comment_id": 874220909, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "community", "pr_number": 705, "comment_id": 888103434, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "asks whether specs or CRDs in-cluster get updated"}
+{"repo": "community", "pr_number": 705, "comment_id": 888103434, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive clarifying question"}
+{"repo": "community", "pr_number": 705, "comment_id": 888526196, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "questions whether example attestation's mapping matches resolved-params assumption"}
+{"repo": "community", "pr_number": 705, "comment_id": 888526196, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive"}
+{"repo": "community", "pr_number": 705, "comment_id": 888536666, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "asks whether name corresponds to task name or pipelineTask name"}
+{"repo": "community", "pr_number": 705, "comment_id": 888536666, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive naming/semantics question"}
+{"repo": "community", "pr_number": 705, "comment_id": 888536666, "facet": "nature", "value": "structure", "confidence": 0.3, "evidence": "terminology clarity"}
+{"repo": "community", "pr_number": 705, "comment_id": 888539728, "facet": "artifact", "value": "tep-body", "confidence": 0.85, "evidence": "proposes reusing existing IMAGE_URL/IMAGE_DIGEST taskrun artifact convention"}
+{"repo": "community", "pr_number": 705, "comment_id": 888539728, "facet": "nature", "value": "content", "confidence": 0.8, "evidence": "substantive design suggestion"}
+{"repo": "community", "pr_number": 705, "comment_id": 888539728, "facet": "principle", "value": "reusability", "confidence": 0.5, "evidence": "proposes reusing existing taskrun artifact-naming convention rather than inventing a new one"}
+{"repo": "community", "pr_number": 705, "comment_id": 890565797, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "explains what a PipelineRun must conform to for Chains to attest it"}
+{"repo": "community", "pr_number": 705, "comment_id": 890565797, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive"}
+{"repo": "community", "pr_number": 705, "comment_id": 890567751, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "explains not wanting to deviate too much from taskrun attestation approach"}
+{"repo": "community", "pr_number": 705, "comment_id": 890567751, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "community", "pr_number": 705, "comment_id": 890567751, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.5, "evidence": "explicitly: \"trying to not deviate too much from how taskrun attestations are done today\""}
+{"repo": "community", "pr_number": 705, "comment_id": 890573277, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "discusses existing CHAINS-GIT_COMMIT/CHAINS-GIT_URL naming and cross-references TEP-109"}
+{"repo": "community", "pr_number": 705, "comment_id": 890573277, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "community", "pr_number": 705, "comment_id": 890575652, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "clarifies pipelineTask terminology and updates text"}
+{"repo": "community", "pr_number": 705, "comment_id": 890575652, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief clarification"}
+{"repo": "community", "pr_number": 705, "comment_id": 890575652, "facet": "nature", "value": "structure", "confidence": 0.3, "evidence": "terminology correction"}
+{"repo": "community", "pr_number": 705, "comment_id": 890579132, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "asks what \"capturing the Task version\" is meant to mean"}
+{"repo": "community", "pr_number": 705, "comment_id": 890579132, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "community", "pr_number": 705, "comment_id": 908604074, "facet": "artifact", "value": "tep-body", "confidence": 0.55, "evidence": "clarifies the intended meaning is the app.kubernetes.io/version label"}
+{"repo": "community", "pr_number": 705, "comment_id": 908604074, "facet": "artifact", "value": "resource-labeling", "confidence": 0.5, "evidence": "references the app.kubernetes.io/version label convention"}
+{"repo": "community", "pr_number": 705, "comment_id": 908604074, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief clarification"}
+{"repo": "community", "pr_number": 705, "comment_id": 908650509, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "agrees UUID is best for identifying unique versions"}
+{"repo": "community", "pr_number": 705, "comment_id": 908650509, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief decision"}
+{"repo": "community", "pr_number": 770, "comment_id": 938324099, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "asks whether parallel step execution can be indicated in the attestation"}
+{"repo": "community", "pr_number": 770, "comment_id": 938324099, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive question"}
+{"repo": "community", "pr_number": 770, "comment_id": 938775496, "facet": "artifact", "value": "tep-body", "confidence": 0.65, "evidence": "points to existing proposal text answering the question"}
+{"repo": "community", "pr_number": 770, "comment_id": 938775496, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive but mostly a pointer"}
+{"repo": "community", "pr_number": 770, "comment_id": 938885587, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "asks for elaboration on what circumstances cause multiple attestations"}
+{"repo": "community", "pr_number": 770, "comment_id": 938885587, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive clarifying question"}
+{"repo": "community", "pr_number": 770, "comment_id": 938934878, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "asks whether attestation still generates when the artifact-producing task fails"}
+{"repo": "community", "pr_number": 770, "comment_id": 938934878, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive edge-case question"}
+{"repo": "community", "pr_number": 770, "comment_id": 938939092, "facet": "artifact", "value": "tep-body", "confidence": 0.85, "evidence": "proposes disabling the taskrun reconciler when pipelinerun attestation is enabled"}
+{"repo": "community", "pr_number": 770, "comment_id": 938939092, "facet": "nature", "value": "content", "confidence": 0.8, "evidence": "substantive design proposal"}
+{"repo": "community", "pr_number": 770, "comment_id": 938943230, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "requests adding pipeline/pipelinerun definition links for readers"}
+{"repo": "community", "pr_number": 770, "comment_id": 938943230, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "requests adding missing reference material for clarity"}
+{"repo": "community", "pr_number": 770, "comment_id": 938943230, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "helps completeness of explanation"}
+{"repo": "community", "pr_number": 770, "comment_id": 938985498, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "wants PipelineRun failed-attestation behavior to match existing TaskRun behavior"}
+{"repo": "community", "pr_number": 770, "comment_id": 938985498, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive"}
+{"repo": "community", "pr_number": 770, "comment_id": 938985498, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.5, "evidence": "explicitly wants new behavior to match existing TaskRun behavior"}
+{"repo": "community", "pr_number": 770, "comment_id": 938989174, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "explains reconciler-disable implications and avoiding duplicate signing"}
+{"repo": "community", "pr_number": 770, "comment_id": 938989174, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive"}
+{"repo": "community", "pr_number": 770, "comment_id": 938993307, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "brief ack of an accepted addition"}
+{"repo": "community", "pr_number": 770, "comment_id": 938993307, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "thin"}
+{"repo": "community", "pr_number": 770, "comment_id": 939169905, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "follow-up concern about multiple attestations for one image"}
+{"repo": "community", "pr_number": 770, "comment_id": 939169905, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "community", "pr_number": 770, "comment_id": 939200869, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "clarifies attestation vs signature terminology nuance"}
+{"repo": "community", "pr_number": 770, "comment_id": 939200869, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "community", "pr_number": 770, "comment_id": 942557381, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "FYI note about a possible future field format change"}
+{"repo": "community", "pr_number": 770, "comment_id": 942557381, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "low-substance FYI, explicitly \"no action needed\""}
+{"repo": "community", "pr_number": 770, "comment_id": 942563001, "facet": "artifact", "value": "tep-body", "confidence": 0.85, "evidence": "proposes a single artifacts.tekton key prefix instead of per-type variants"}
+{"repo": "community", "pr_number": 770, "comment_id": 942563001, "facet": "nature", "value": "content", "confidence": 0.8, "evidence": "substantive design proposal"}
+{"repo": "community", "pr_number": 770, "comment_id": 942563001, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.45, "evidence": "prefers one consistent key format over per-run-type variants"}
+{"repo": "community", "pr_number": 770, "comment_id": 942565429, "facet": "artifact", "value": "tep-body", "confidence": 0.55, "evidence": "brief response about attestation retrieval/verification usefulness"}
+{"repo": "community", "pr_number": 770, "comment_id": 942565429, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "community", "pr_number": 770, "comment_id": 942710781, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "points to existing tkn chain CLI command to extend for attestations"}
+{"repo": "community", "pr_number": 770, "comment_id": 942710781, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "community", "pr_number": 770, "comment_id": 942710781, "facet": "principle", "value": "reusability", "confidence": 0.4, "evidence": "suggests extending an existing CLI command rather than building new"}
+{"repo": "community", "pr_number": 770, "comment_id": 942713598, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "proposes aliasing the existing artifacts.taskrun config key to the new prefix"}
+{"repo": "community", "pr_number": 770, "comment_id": 942713598, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive"}
+{"repo": "community", "pr_number": 770, "comment_id": 942713598, "facet": "principle", "value": "api-compatibility", "confidence": 0.4, "evidence": "proposes aliasing the old config key rather than breaking it outright"}
+{"repo": "community", "pr_number": 770, "comment_id": 943913758, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "discusses using the run object's GroupVersionKind for buildType"}
+{"repo": "community", "pr_number": 770, "comment_id": 943913758, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive implementation-detail discussion"}
+{"repo": "community", "pr_number": 770, "comment_id": 943916660, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "notes Chains also operates on non-Tekton artifacts, not just TaskRun/PipelineRun"}
+{"repo": "community", "pr_number": 770, "comment_id": 943916660, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive"}
+{"repo": "community", "pr_number": 770, "comment_id": 943916660, "facet": "principle", "value": "flexibility", "confidence": 0.45, "evidence": "highlights need to support artifact types beyond TaskRun/PipelineRun"}
+{"repo": "chains", "pr_number": 436, "comment_id": 866392410, "facet": "artifact", "value": "code", "confidence": 0.8, "evidence": "references prior art pattern in tektoncd/results for the same problem"}
+{"repo": "chains", "pr_number": 436, "comment_id": 866392410, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive design reference"}
+{"repo": "chains", "pr_number": 436, "comment_id": 866392410, "facet": "principle", "value": "reusability", "confidence": 0.4, "evidence": "points to an existing pattern to reuse rather than reinvent"}
+{"repo": "chains", "pr_number": 436, "comment_id": 866392698, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "suggests relying on Listers where possible"}
+{"repo": "chains", "pr_number": 436, "comment_id": 866392698, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive design suggestion"}
+{"repo": "chains", "pr_number": 436, "comment_id": 866395167, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "raises ambiguity in what \"builder id\" should identify for a Pipeline"}
+{"repo": "chains", "pr_number": 436, "comment_id": 866395167, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive design concern"}
+{"repo": "chains", "pr_number": 436, "comment_id": 866395787, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "brief suggestion this should be the run payload"}
+{"repo": "chains", "pr_number": 436, "comment_id": 866395787, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "chains", "pr_number": 436, "comment_id": 866396089, "facet": "artifact", "value": "code", "confidence": 0.8, "evidence": "flags repeated nil,nil passing as a sign the object abstraction needs rethinking"}
+{"repo": "chains", "pr_number": 436, "comment_id": 866396089, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive design concern"}
+{"repo": "chains", "pr_number": 436, "comment_id": 866397178, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "forward-looking note about pipeline run compatibility"}
+{"repo": "chains", "pr_number": 436, "comment_id": 866397178, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "chains", "pr_number": 436, "comment_id": 870491477, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "proposes reusing the existing generic object implementation"}
+{"repo": "chains", "pr_number": 436, "comment_id": 870491477, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 436, "comment_id": 870491477, "facet": "principle", "value": "reusability", "confidence": 0.5, "evidence": "proposes reusing an existing implementation instead of duplicating"}
+{"repo": "chains", "pr_number": 436, "comment_id": 870493612, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "explains a call exists to preserve original behavior"}
+{"repo": "chains", "pr_number": 436, "comment_id": 870493612, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive explanation"}
+{"repo": "chains", "pr_number": 436, "comment_id": 870496036, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "explains keeping the attestation in line with the provenance predicate schema"}
+{"repo": "chains", "pr_number": 436, "comment_id": 870496036, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 436, "comment_id": 870496036, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.4, "evidence": "keeping in line with the provenance predicate schema"}
+{"repo": "chains", "pr_number": 436, "comment_id": 870496645, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "notes plan to move to the shared abstraction after refactor"}
+{"repo": "chains", "pr_number": 436, "comment_id": 870496645, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 436, "comment_id": 870496645, "facet": "principle", "value": "reusability", "confidence": 0.35, "evidence": "plans to move to the shared/existing abstraction"}
+{"repo": "chains", "pr_number": 436, "comment_id": 870497078, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "brief clarifying question"}
+{"repo": "chains", "pr_number": 436, "comment_id": 870497078, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "chains", "pr_number": 436, "comment_id": 871558073, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.5, "evidence": "explicitly ok with starting with 1-2 backends and adding more as we go"}
+{"repo": "chains", "pr_number": 436, "comment_id": 871558073, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "notes wanting the same storage options for PipelineRuns as TaskRuns"}
+{"repo": "chains", "pr_number": 436, "comment_id": 871558073, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 436, "comment_id": 940392571, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "nit: rename variable ts to something more meaningful"}
+{"repo": "chains", "pr_number": 436, "comment_id": 940392571, "facet": "nature", "value": "structure", "confidence": 0.7, "evidence": "naming nit, not substance"}
+{"repo": "chains", "pr_number": 436, "comment_id": 946928483, "facet": "artifact", "value": "code", "confidence": 0.8, "evidence": "flags param-default vs param-value ordering as a possible correctness bug"}
+{"repo": "chains", "pr_number": 436, "comment_id": 946928483, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive bug-risk concern"}
+{"repo": "chains", "pr_number": 436, "comment_id": 947854505, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "confirms expected precedence and asks if the bug is reproduced"}
+{"repo": "chains", "pr_number": 436, "comment_id": 947854505, "facet": "artifact", "value": "tests", "confidence": 0.3, "evidence": "asks whether the bug has been reproduced"}
+{"repo": "chains", "pr_number": 436, "comment_id": 947854505, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 436, "comment_id": 947899808, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "points to an existing TaskRun-side fix to mirror for PipelineRun"}
+{"repo": "chains", "pr_number": 436, "comment_id": 947899808, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 436, "comment_id": 947899808, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.45, "evidence": "wants the same fix applied consistently to both TaskRun and PipelineRun paths"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950512642, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "brief style note on receiver naming, citing style guide"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950512642, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "style nit"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950515311, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "questions why latest annotations are fetched instead of the reconciling state's own"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950515311, "facet": "artifact", "value": "reconciler-pattern", "confidence": 0.5, "evidence": "reconciler-specific state/annotation question"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950515311, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950525154, "facet": "artifact", "value": "code", "confidence": 0.8, "evidence": "package naming convention: avoid \"util\", cites Go blog guidance"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950525154, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "naming/package-organization convention"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950525154, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "exposure-surface concern if not test-only"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950525775, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "initialism naming fix: URLParam"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950525775, "facet": "nature", "value": "structure", "confidence": 0.75, "evidence": "naming fix"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950526118, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "function naming fix: SPDXGit"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950526118, "facet": "nature", "value": "structure", "confidence": 0.7, "evidence": "naming fix"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950526599, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "function naming/casing fix: TaskRunFromFile"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950526599, "facet": "nature", "value": "structure", "confidence": 0.7, "evidence": "naming fix"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950526653, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "function naming/casing fix: PipelineRunFromFile"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950526653, "facet": "nature", "value": "structure", "confidence": 0.7, "evidence": "naming fix"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950527403, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "suggests os.ReadFile refactor, notes it applies below too"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950527403, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "minor refactor suggestion"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950528336, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "asks whether this would be useful to contribute upstream to pipelines"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950528336, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "forward-looking suggestion"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950528336, "facet": "principle", "value": "reusability", "confidence": 0.35, "evidence": "suggests upstreaming for wider reuse"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950528907, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "requests godoc comments for package + types"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950528907, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "missing-documentation completeness request"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950533288, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "optional alternative: define generation method on the Run objects themselves"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950533288, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive optional design alternative"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950533977, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "flags a possibly-unused logger and suggests returning the error instead"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950533977, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive code-quality concern"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950539282, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "suggests using the existing b.pipelineclientset instead of passing client as a param"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950539282, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950539282, "facet": "principle", "value": "reusability", "confidence": 0.35, "evidence": "reuse existing field instead of threading a new param"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950541273, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "asks whether \"unsupported\" is temporary or permanent, suggests a tracking issue"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950541273, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive clarifying question"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950542861, "facet": "artifact", "value": "code", "confidence": 0.8, "evidence": "flags that all backends load for pipelineruns despite being marked TaskRun-only above"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950542861, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive bug-risk observation"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950546269, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "optional style suggestion to attach context once instead of repeating in every log line"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950546269, "facet": "artifact", "value": "reconciler-pattern", "confidence": 0.4, "evidence": "reconciler logging pattern"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950546269, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "logging-style suggestion"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950547817, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "asks whether this should be shared with the taskrun reconciler in an internal package"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950547817, "facet": "principle", "value": "reusability", "confidence": 0.5, "evidence": "proposes sharing code between reconcilers instead of duplicating"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950547817, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950548654, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "suggests a pkg/internal/tekton package organization"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950548654, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "code organization suggestion"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950564609, "facet": "artifact", "value": "code", "confidence": 0.8, "evidence": "traces call sites to determine if functions are dead code"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950564609, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive investigation"}
+{"repo": "chains", "pr_number": 436, "comment_id": 951797815, "facet": "artifact", "value": "pr-size", "confidence": 0.5, "evidence": "considers whether to fold this into the current PR or split out later"}
+{"repo": "chains", "pr_number": 436, "comment_id": 951797815, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 436, "comment_id": 951797815, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief but scope-relevant"}
+{"repo": "chains", "pr_number": 436, "comment_id": 951844815, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "investigates whether functions are only used as test helpers and where they'd better fit"}
+{"repo": "chains", "pr_number": 436, "comment_id": 951844815, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 436, "comment_id": 952586467, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "explains \"not yet supported\" status, proposes a tracking issue"}
+{"repo": "chains", "pr_number": 436, "comment_id": 952586467, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "acknowledges backend hasn't been tested yet"}
+{"repo": "chains", "pr_number": 436, "comment_id": 952586467, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 436, "comment_id": 952678015, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "questions whether an unused exported function is required externally before removing it"}
+{"repo": "chains", "pr_number": 436, "comment_id": 952678015, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 436, "comment_id": 952678015, "facet": "principle", "value": "api-compatibility", "confidence": 0.35, "evidence": "checking external usage before removing an exported function"}
+{"repo": "chains", "pr_number": 436, "comment_id": 952690087, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "answers why latest annotations are retrieved"}
+{"repo": "chains", "pr_number": 436, "comment_id": 952690087, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 436, "comment_id": 952690850, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "traces usage to subject-digest extraction"}
+{"repo": "chains", "pr_number": 436, "comment_id": 952690850, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive investigation"}
+{"repo": "chains", "pr_number": 436, "comment_id": 952703882, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "finds the functions are implemented by every backend but only used in tests"}
+{"repo": "chains", "pr_number": 436, "comment_id": 952703882, "facet": "artifact", "value": "tests", "confidence": 0.35, "evidence": "functions only exercised by tests, not production code"}
+{"repo": "chains", "pr_number": 436, "comment_id": 952703882, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive finding"}
+{"repo": "chains", "pr_number": 436, "comment_id": 953018943, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "discusses keeping related code together due to reuse between them"}
+{"repo": "chains", "pr_number": 436, "comment_id": 953018943, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 436, "comment_id": 953018943, "facet": "principle", "value": "reusability", "confidence": 0.4, "evidence": "amount of code reuse between the two is the stated reason to keep them together"}
+{"repo": "chains", "pr_number": 436, "comment_id": 953087975, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "suggests moving a check so misconfiguration fails deployment immediately"}
+{"repo": "chains", "pr_number": 436, "comment_id": 953087975, "facet": "artifact", "value": "reconciler-pattern", "confidence": 0.4, "evidence": "startup/config validation placement"}
+{"repo": "chains", "pr_number": 436, "comment_id": 953087975, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 436, "comment_id": 954046950, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "reports discussion concluding the functions are largely unused now but may have future CLI use"}
+{"repo": "chains", "pr_number": 436, "comment_id": 954046950, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 436, "comment_id": 954076888, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "cross-references a related PR fixing an adjacent section"}
+{"repo": "chains", "pr_number": 436, "comment_id": 954076888, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 436, "comment_id": 958803137, "facet": "artifact", "value": "pr-size", "confidence": 0.55, "evidence": "explicitly defers removing unused code as out of scope for this PR"}
+{"repo": "chains", "pr_number": 436, "comment_id": 958803137, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "substantive scoping decision"}
+{"repo": "chains", "pr_number": 436, "comment_id": 958803137, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief but scope-relevant"}
+{"repo": "chains", "pr_number": 436, "comment_id": 958803794, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "moved helpers to internal package per feedback"}
+{"repo": "chains", "pr_number": 436, "comment_id": 958803794, "facet": "artifact", "value": "tests", "confidence": 0.4, "evidence": "explains helpers are used in test init functions"}
+{"repo": "chains", "pr_number": 436, "comment_id": 958803794, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive follow-up"}
+{"repo": "chains", "pr_number": 436, "comment_id": 973143588, "facet": "artifact", "value": "pr-size", "confidence": 0.45, "evidence": "flags a further consolidation as possibly out of scope for this PR"}
+{"repo": "chains", "pr_number": 436, "comment_id": 973143588, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "substantive design note about future consolidation"}
+{"repo": "chains", "pr_number": 436, "comment_id": 973143588, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 436, "comment_id": 974746345, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "forward note about revamping to match objects GVK"}
+{"repo": "chains", "pr_number": 436, "comment_id": 974746345, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "chains", "pr_number": 436, "comment_id": 974748206, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "optional design suggestion to add methods to the TektonObject interface"}
+{"repo": "chains", "pr_number": 436, "comment_id": 974748206, "facet": "artifact", "value": "pr-size", "confidence": 0.35, "evidence": "explicitly \"not blocking for this PR\""}
+{"repo": "chains", "pr_number": 436, "comment_id": 974748206, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 564, "comment_id": 978762537, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "nit pointing to a more authoritative source for the same info"}
+{"repo": "chains", "pr_number": 564, "comment_id": 978762537, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "nit"}
+{"repo": "chains", "pr_number": 564, "comment_id": 978764684, "facet": "artifact", "value": "code", "confidence": 0.85, "evidence": "raises a matrix-pipeline correctness concern about signing too early"}
+{"repo": "chains", "pr_number": 564, "comment_id": 978764684, "facet": "artifact", "value": "reconciler-pattern", "confidence": 0.4, "evidence": "timing of reconciler action relative to sibling TaskRuns"}
+{"repo": "chains", "pr_number": 564, "comment_id": 978764684, "facet": "nature", "value": "content", "confidence": 0.8, "evidence": "substantive correctness concern"}
+{"repo": "chains", "pr_number": 564, "comment_id": 978795012, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "explains the actual condition needed (last Task with signable subjects)"}
+{"repo": "chains", "pr_number": 564, "comment_id": 978795012, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 564, "comment_id": 980243331, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "brief follow-up confirming understanding"}
+{"repo": "chains", "pr_number": 564, "comment_id": 980243331, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "brief"}
+{"repo": "chains", "pr_number": 564, "comment_id": 980322143, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "explains the annotation-update timing across multiple TaskRuns"}
+{"repo": "chains", "pr_number": 564, "comment_id": 980322143, "facet": "artifact", "value": "reconciler-pattern", "confidence": 0.4, "evidence": "reconciler update timing"}
+{"repo": "chains", "pr_number": 564, "comment_id": 980322143, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 564, "comment_id": 980485333, "facet": "artifact", "value": "code", "confidence": 0.8, "evidence": "proposes a simpler redesign requiring fewer changes"}
+{"repo": "chains", "pr_number": 564, "comment_id": 980485333, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 564, "comment_id": 980485333, "facet": "principle", "value": "simplicity", "confidence": 0.45, "evidence": "explicitly: \"we can actually do this with less changes\""}
+{"repo": "chains", "pr_number": 564, "comment_id": 981273736, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "implements the suggested approach, reports a panic"}
+{"repo": "chains", "pr_number": 564, "comment_id": 981273736, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive implementation + bug report"}
+{"repo": "chains", "pr_number": 564, "comment_id": 981284657, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "suggests fixing client injection to mirror the pipelinerun informer pattern"}
+{"repo": "chains", "pr_number": 564, "comment_id": 981284657, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 564, "comment_id": 981284657, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.4, "evidence": "mirrors an existing informer injection pattern"}
+{"repo": "chains", "pr_number": 564, "comment_id": 981456231, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "adopts the suggested approach, notes uncertainty about a second part"}
+{"repo": "chains", "pr_number": 564, "comment_id": 981456231, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 564, "comment_id": 981555221, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "suggests using a tracker pattern to watch PipelineRun's children"}
+{"repo": "chains", "pr_number": 564, "comment_id": 981555221, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 564, "comment_id": 981555221, "facet": "principle", "value": "reusability", "confidence": 0.4, "evidence": "points to an existing tracker pattern to reuse"}
+{"repo": "chains", "pr_number": 564, "comment_id": 981635175, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "adopted the tracker approach"}
+{"repo": "chains", "pr_number": 564, "comment_id": 981635175, "facet": "artifact", "value": "pr-size", "confidence": 0.35, "evidence": "offers to squash commits"}
+{"repo": "chains", "pr_number": 564, "comment_id": 981635175, "facet": "artifact", "value": "tests", "confidence": 0.4, "evidence": "notes a failing e2e test appears unrelated"}
+{"repo": "chains", "pr_number": 564, "comment_id": 981635175, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 590, "comment_id": 987953036, "facet": "artifact", "value": "code", "confidence": 0.8, "evidence": "explains rationale for a rename to expose the full GVK for reuse"}
+{"repo": "chains", "pr_number": 590, "comment_id": 987953036, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 590, "comment_id": 987953036, "facet": "principle", "value": "reusability", "confidence": 0.35, "evidence": "renaming to enable reuse of the full GVK elsewhere"}
+{"repo": "chains", "pr_number": 590, "comment_id": 987961841, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "asks whether tests land in a follow-up PR"}
+{"repo": "chains", "pr_number": 590, "comment_id": 987961841, "facet": "artifact", "value": "pr-size", "confidence": 0.4, "evidence": "scope-of-this-PR question"}
+{"repo": "chains", "pr_number": 590, "comment_id": 987961841, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "chains", "pr_number": 590, "comment_id": 987962555, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "asks if a debugging leftover was accidentally committed"}
+{"repo": "chains", "pr_number": 590, "comment_id": 987962555, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "code-cleanliness nit"}
+{"repo": "chains", "pr_number": 590, "comment_id": 987963840, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "nitpick suggesting a DRY refactor of near-duplicate fields"}
+{"repo": "chains", "pr_number": 590, "comment_id": 987963840, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "duplication/style nit"}
+{"repo": "chains", "pr_number": 590, "comment_id": 987963840, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "brief"}
+{"repo": "chains", "pr_number": 590, "comment_id": 988013510, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "agrees to extract the duplicated logic"}
+{"repo": "chains", "pr_number": 590, "comment_id": 988013510, "facet": "nature", "value": "structure", "confidence": 0.35, "evidence": "agrees to a structural refactor"}
+{"repo": "chains", "pr_number": 590, "comment_id": 992401507, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "reports unit tests finished and manual verification against a real grafeas server"}
+{"repo": "chains", "pr_number": 590, "comment_id": 992401507, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 590, "comment_id": 993611603, "facet": "artifact", "value": "pr-size", "confidence": 0.5, "evidence": "defers removing a leftover config value to a separate PR"}
+{"repo": "chains", "pr_number": 590, "comment_id": 993611603, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "substantive scoping instruction"}
+{"repo": "chains", "pr_number": 590, "comment_id": 993611603, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "chains", "pr_number": 590, "comment_id": 993614878, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "initialism naming fix citing style guide"}
+{"repo": "chains", "pr_number": 590, "comment_id": 993614878, "facet": "nature", "value": "structure", "confidence": 0.7, "evidence": "naming fix"}
+{"repo": "chains", "pr_number": 590, "comment_id": 993619194, "facet": "artifact", "value": "tests", "confidence": 0.8, "evidence": "suggests converting to a table-driven test"}
+{"repo": "chains", "pr_number": 590, "comment_id": 993619194, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "test-structure suggestion"}
+{"repo": "chains", "pr_number": 590, "comment_id": 993619194, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "chains", "pr_number": 590, "comment_id": 993626037, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "nit for consistent tense in field naming"}
+{"repo": "chains", "pr_number": 590, "comment_id": 993626037, "facet": "nature", "value": "structure", "confidence": 0.65, "evidence": "naming consistency nit"}
+{"repo": "chains", "pr_number": 590, "comment_id": 993635692, "facet": "artifact", "value": "tests", "confidence": 0.8, "evidence": "substantive suggestion to restructure assertions and scope filters for clearer failures"}
+{"repo": "chains", "pr_number": 590, "comment_id": 993635692, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive test-quality suggestion"}
+{"repo": "chains", "pr_number": 590, "comment_id": 993635692, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "restructuring assertions"}
+{"repo": "chains", "pr_number": 590, "comment_id": 993654788, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "function naming fix: getTaskRunBuildOcc"}
+{"repo": "chains", "pr_number": 590, "comment_id": 993654788, "facet": "nature", "value": "structure", "confidence": 0.65, "evidence": "naming fix"}
+{"repo": "chains", "pr_number": 590, "comment_id": 993655770, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "function naming fix: getTaskRunAttestationOcc"}
+{"repo": "chains", "pr_number": 590, "comment_id": 993655770, "facet": "nature", "value": "structure", "confidence": 0.65, "evidence": "naming fix"}
+{"repo": "chains", "pr_number": 590, "comment_id": 993656344, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "function naming fix: getPipelineRunBuildOcc"}
+{"repo": "chains", "pr_number": 590, "comment_id": 993656344, "facet": "nature", "value": "structure", "confidence": 0.65, "evidence": "naming fix"}
+{"repo": "chains", "pr_number": 590, "comment_id": 993661419, "facet": "artifact", "value": "code", "confidence": 0.8, "evidence": "flags a maintainability risk from an undocumented side-effect (implicit sorting)"}
+{"repo": "chains", "pr_number": 590, "comment_id": 993661419, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive maintainability concern"}
+{"repo": "chains", "pr_number": 590, "comment_id": 997152044, "facet": "artifact", "value": "tests", "confidence": 0.75, "evidence": "discusses what the test is actually meant to verify"}
+{"repo": "chains", "pr_number": 590, "comment_id": 997152044, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive test-design discussion"}
+{"repo": "chains", "pr_number": 590, "comment_id": 997157896, "facet": "artifact", "value": "pr-size", "confidence": 0.45, "evidence": "defers a fix to a separate PR"}
+{"repo": "chains", "pr_number": 590, "comment_id": 997157896, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "brief"}
+{"repo": "chains", "pr_number": 590, "comment_id": 997161203, "facet": "artifact", "value": "tests", "confidence": 0.55, "evidence": "confirms the change to a table-driven test"}
+{"repo": "chains", "pr_number": 590, "comment_id": 997161203, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "test restructuring confirmed"}
+{"repo": "chains", "pr_number": 590, "comment_id": 998423099, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "asks what should happen for missing Subject fields, requests error handling"}
+{"repo": "chains", "pr_number": 590, "comment_id": 998423099, "facet": "artifact", "value": "tests", "confidence": 0.55, "evidence": "explicitly requests adding tests for this case"}
+{"repo": "chains", "pr_number": 590, "comment_id": 998423099, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive edge-case question"}
+{"repo": "chains", "pr_number": 590, "comment_id": 998509813, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "explains the design decision for the missing-subject edge case"}
+{"repo": "chains", "pr_number": 590, "comment_id": 998509813, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "agrees to add tests"}
+{"repo": "chains", "pr_number": 590, "comment_id": 998509813, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive design rationale"}
+{"repo": "chains", "pr_number": 590, "comment_id": 998569183, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "moved a function to a shared package to make it reusable elsewhere"}
+{"repo": "chains", "pr_number": 590, "comment_id": 998569183, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive refactor rationale"}
+{"repo": "chains", "pr_number": 590, "comment_id": 998569183, "facet": "principle", "value": "reusability", "confidence": 0.55, "evidence": "explicit goal: make functionality reusable across storage backends"}
+{"repo": "chains", "pr_number": 590, "comment_id": 998576094, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "agrees with the design, asks that the behavior be documented"}
+{"repo": "chains", "pr_number": 590, "comment_id": 998576094, "facet": "artifact", "value": "docs", "confidence": 0.35, "evidence": "requests documenting what counts as valid input"}
+{"repo": "chains", "pr_number": 590, "comment_id": 998576094, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "chains", "pr_number": 590, "comment_id": 998577137, "facet": "artifact", "value": "tests", "confidence": 0.85, "evidence": "requests specific malformed-input test cases"}
+{"repo": "chains", "pr_number": 590, "comment_id": 998577137, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive test-coverage suggestion"}
+{"repo": "chains", "pr_number": 590, "comment_id": 998649129, "facet": "artifact", "value": "tests", "confidence": 0.4, "evidence": "confirms added tests"}
+{"repo": "chains", "pr_number": 590, "comment_id": 998649129, "facet": "artifact", "value": "docs", "confidence": 0.35, "evidence": "added godoc for the function"}
+{"repo": "chains", "pr_number": 590, "comment_id": 998649129, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "chains", "pr_number": 590, "comment_id": 998650674, "facet": "artifact", "value": "tests", "confidence": 0.55, "evidence": "confirms edge-case tests added"}
+{"repo": "chains", "pr_number": 590, "comment_id": 998650674, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "chains", "pr_number": 590, "comment_id": 1000065297, "facet": "artifact", "value": "tests", "confidence": 0.8, "evidence": "flags redundant/overlapping test cases as possibly excessive"}
+{"repo": "chains", "pr_number": 590, "comment_id": 1000065297, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive test-quality concern"}
+{"repo": "chains", "pr_number": 590, "comment_id": 1000065297, "facet": "principle", "value": "simplicity", "confidence": 0.35, "evidence": "concern about over-engineering the test set"}
+{"repo": "chains", "pr_number": 590, "comment_id": 1000659960, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "explains the intent behind the seemingly-overlapping test cases"}
+{"repo": "chains", "pr_number": 590, "comment_id": 1000659960, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 590, "comment_id": 1001992571, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "restructures the table-driven test for clarity"}
+{"repo": "chains", "pr_number": 590, "comment_id": 1001992571, "facet": "nature", "value": "structure", "confidence": 0.45, "evidence": "test restructuring"}
+{"repo": "chains", "pr_number": 598, "comment_id": 1000863143, "facet": "artifact", "value": "tests", "confidence": 0.75, "evidence": "asks whether a pipelinerun test case is missing"}
+{"repo": "chains", "pr_number": 598, "comment_id": 1000863143, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive coverage gap"}
+{"repo": "chains", "pr_number": 598, "comment_id": 1000871001, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "wording fix suggestion for a log line"}
+{"repo": "chains", "pr_number": 598, "comment_id": 1000871001, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "wording nit"}
+{"repo": "chains", "pr_number": 598, "comment_id": 1000946817, "facet": "artifact", "value": "tests", "confidence": 0.55, "evidence": "confirms the missing pipelinerun test was added"}
+{"repo": "chains", "pr_number": 598, "comment_id": 1000946817, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "chains", "pr_number": 599, "comment_id": 1004878251, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "nit proposing to move a check to avoid repeating logic"}
+{"repo": "chains", "pr_number": 599, "comment_id": 1004878251, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "refactor to reduce repetition"}
+{"repo": "chains", "pr_number": 599, "comment_id": 1004878251, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "some substance about accepted result types"}
+{"repo": "chains", "pr_number": 599, "comment_id": 1004893454, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "explains the tradeoff around when logging should happen"}
+{"repo": "chains", "pr_number": 599, "comment_id": 1004893454, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 599, "comment_id": 1004897100, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "suggests downgrading a log statement to Debug level with rationale"}
+{"repo": "chains", "pr_number": 599, "comment_id": 1004897100, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 599, "comment_id": 1004900553, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "proposes consolidating a repeated type check"}
+{"repo": "chains", "pr_number": 599, "comment_id": 1004900553, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "refactor proposal"}
+{"repo": "chains", "pr_number": 599, "comment_id": 1004900553, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 599, "comment_id": 1008246128, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "nit: remove a redundant t.Run wrapper"}
+{"repo": "chains", "pr_number": 599, "comment_id": 1008246128, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "nit"}
+{"repo": "chains", "pr_number": 599, "comment_id": 1008258277, "facet": "artifact", "value": "tests", "confidence": 0.8, "evidence": "requests tests for different result-format behaviors"}
+{"repo": "chains", "pr_number": 599, "comment_id": 1008258277, "facet": "artifact", "value": "code", "confidence": 0.4, "evidence": "questions whether the check is even needed"}
+{"repo": "chains", "pr_number": 599, "comment_id": 1008258277, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 599, "comment_id": 1008258277, "facet": "principle", "value": "simplicity", "confidence": 0.35, "evidence": "suspects the check may be unnecessary given other logic"}
+{"repo": "chains", "pr_number": 599, "comment_id": 1009382645, "facet": "artifact", "value": "tests", "confidence": 0.55, "evidence": "confirms tests added and the unnecessary check removed"}
+{"repo": "chains", "pr_number": 599, "comment_id": 1009382645, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950535570, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "suggests enforcing test-only usage of *RunFromFile helpers via a t.Testing param - missed on first pass", "source_pass": "audit"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950535570, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "suggests enforcing test-only usage via a t.Testing param - missed on first pass", "source_pass": "audit"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950535570, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive suggestion for enforcing test-only scope - missed on first pass", "source_pass": "audit"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950537325, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "brief clarifying note that functions are used in the reconcilers - missed on first pass", "source_pass": "audit"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950537325, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief clarification - missed on first pass", "source_pass": "audit"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950538671, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "\"Remove\" - dead code nit - missed on first pass", "source_pass": "audit"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950538671, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "removal nit, not substance - missed on first pass", "source_pass": "audit"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950539770, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "\"Same for the other storage functions\" - extends a prior substantive suggestion - missed on first pass", "source_pass": "audit"}
+{"repo": "chains", "pr_number": 436, "comment_id": 950539770, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief follow-on - missed on first pass", "source_pass": "audit"}
+{"repo": "community", "pr_number": 519, "comment_id": 713820752, "facet": "principle", "value": "supply-chain-compliance", "confidence": 0.55, "evidence": "wants continued in-toto format support for new attestation data - in-toto/SLSA format compliance is the concern, not just consistency", "source_pass": "audit"}
+{"repo": "community", "pr_number": 770, "comment_id": 938934878, "facet": "principle", "value": "supply-chain-compliance", "confidence": 0.5, "evidence": "asks whether an attestation is still produced when the artifact-producing task fails - a missing attestation is a provenance/compliance gap", "source_pass": "audit"}
+{"repo": "community", "pr_number": 770, "comment_id": 938939092, "facet": "principle", "value": "supply-chain-compliance", "confidence": 0.45, "evidence": "proposes disabling taskrun-level attestation to avoid duplicate/conflicting attestations for the same build - attestation correctness concern", "source_pass": "audit"}
+{"repo": "community", "pr_number": 705, "comment_id": 890565797, "facet": "principle", "value": "supply-chain-compliance", "confidence": 0.5, "evidence": "explains what a PipelineRun must conform to in order for Chains to correctly sign/attest it", "source_pass": "audit"}
+{"repo": "chains", "pr_number": 436, "comment_id": 951797815, "facet": "nature", "value": "cohesion", "confidence": 0.5, "evidence": "\"okay to be a part of this PR for now, then separate it out later?\" - scope/bundling judgment", "source_pass": "audit"}
+{"repo": "chains", "pr_number": 436, "comment_id": 958803137, "facet": "nature", "value": "cohesion", "confidence": 0.55, "evidence": "\"removing such a large amount of code ... seems out of scope for this PR\" - explicit scope/bundling judgment", "source_pass": "audit"}
+{"repo": "chains", "pr_number": 436, "comment_id": 973143588, "facet": "nature", "value": "cohesion", "confidence": 0.45, "evidence": "\"Maybe out of scope of this pr\" re: consolidating Ref and Invocation pending other work", "source_pass": "audit"}
+{"repo": "chains", "pr_number": 436, "comment_id": 974748206, "facet": "nature", "value": "cohesion", "confidence": 0.4, "evidence": "\"Not blocking for this PR (because I do want to get this in)\" - explicit decision not to bundle an optional improvement in", "source_pass": "audit"}
+{"repo": "chains", "pr_number": 590, "comment_id": 993611603, "facet": "nature", "value": "cohesion", "confidence": 0.5, "evidence": "\"Remove tekton-provenance in another PR\" - explicit unbundling instruction", "source_pass": "audit"}
+{"repo": "chains", "pr_number": 590, "comment_id": 997157896, "facet": "nature", "value": "cohesion", "confidence": 0.4, "evidence": "\"Sorry about that! I'll do it in another PR.\" - agrees to unbundle", "source_pass": "audit"}
