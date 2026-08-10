@@ -17,3 +17,4 @@ Log starts at TEP-84; TEP-33 and TEP-29 predate this tracking and aren't backfil
 | TEP-84 | chains | 178 | 138 | 336 | 19 | 40,395 | first-pass + audit | - |
 | TEP-109 | chains | 172 | 151 | 374 | 1 | 35,111 | first-pass + audit | - |
 | TEP-9 | triggers | 128 | 107 | 253 | 7 | 21,474 | first-pass + audit | - |
+| TEP-26 | triggers | 123 | 107 | 267 | 0 | 26,762 | first-pass + audit | - |

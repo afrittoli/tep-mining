@@ -1241,3 +1241,270 @@
 {"repo": "community", "pr_number": 148, "comment_id": 455843905, "facet": "principle", "value": "feature-justification", "confidence": 0.45, "evidence": "explicitly frames Motivation/Goals as what lets a reader judge whether the proposal is solving a real, necessary problem", "source_pass": "audit"}
 {"repo": "triggers", "pr_number": 773, "comment_id": 500369433, "facet": "nature", "value": "cohesion", "confidence": 0.4, "evidence": "\"might want to use an informer here ... (can be a follow up though)\" - explicit in-this-PR-vs-follow-up scoping call", "source_pass": "audit"}
 {"repo": "triggers", "pr_number": 628, "comment_id": 445148006, "facet": "nature", "value": "cohesion", "confidence": 0.4, "evidence": "\"let's remove this for now. We can always add it later!!\" - explicit scope-trim/deferral decision", "source_pass": "audit"}
+{"repo": "community", "pr_number": 229, "comment_id": 503475799, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "asks what motivates a specific requirement"}
+{"repo": "community", "pr_number": 229, "comment_id": 503475799, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "community", "pr_number": 229, "comment_id": 503475799, "facet": "principle", "value": "feature-justification", "confidence": 0.35, "evidence": "asking what motivates a stated requirement"}
+{"repo": "community", "pr_number": 229, "comment_id": 503478136, "facet": "artifact", "value": "tep-body", "confidence": 0.55, "evidence": "self-resolves by finding the answer in another section"}
+{"repo": "community", "pr_number": 229, "comment_id": 503478136, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "community", "pr_number": 229, "comment_id": 504213398, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "asks whether a requirement might be dropped post-beta"}
+{"repo": "community", "pr_number": 229, "comment_id": 504213398, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "brief"}
+{"repo": "community", "pr_number": 229, "comment_id": 504213398, "facet": "principle", "value": "feature-graduation", "confidence": 0.35, "evidence": "requirement stability across alpha/beta"}
+{"repo": "community", "pr_number": 229, "comment_id": 504215161, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "asks for elaboration on a scaling-concern claim"}
+{"repo": "community", "pr_number": 229, "comment_id": 504215161, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive clarifying question"}
+{"repo": "community", "pr_number": 229, "comment_id": 504215602, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "asks for clarification of what \"diverges\" means and its user impact"}
+{"repo": "community", "pr_number": 229, "comment_id": 504215602, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "community", "pr_number": 229, "comment_id": 504215907, "facet": "artifact", "value": "tep-body", "confidence": 0.65, "evidence": "asks for a link explaining resourceNames"}
+{"repo": "community", "pr_number": 229, "comment_id": 504215907, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive clarity request"}
+{"repo": "community", "pr_number": 229, "comment_id": 504218960, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "questions the status-code design, notes overlap with Continue field"}
+{"repo": "community", "pr_number": 229, "comment_id": 504218960, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive API design question"}
+{"repo": "community", "pr_number": 229, "comment_id": 504219469, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "asks what installing a built-in interceptor actually involves"}
+{"repo": "community", "pr_number": 229, "comment_id": 504219469, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive UX/install question"}
+{"repo": "community", "pr_number": 229, "comment_id": 504219711, "facet": "artifact", "value": "tep-body", "confidence": 0.65, "evidence": "asks whether the controller continues monitoring over time"}
+{"repo": "community", "pr_number": 229, "comment_id": 504219711, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive design question"}
+{"repo": "community", "pr_number": 229, "comment_id": 504220249, "facet": "artifact", "value": "tep-body", "confidence": 0.65, "evidence": "asks whether bullet points should be indented as subpoints"}
+{"repo": "community", "pr_number": 229, "comment_id": 504220249, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "formatting clarity"}
+{"repo": "community", "pr_number": 229, "comment_id": 504220249, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "brief"}
+{"repo": "community", "pr_number": 229, "comment_id": 504220533, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "asks whether an alternative could avoid introducing a new CRD"}
+{"repo": "community", "pr_number": 229, "comment_id": 504220533, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive"}
+{"repo": "community", "pr_number": 229, "comment_id": 504220533, "facet": "principle", "value": "feature-justification", "confidence": 0.5, "evidence": "wants to dive into motivations for adding the new CRD"}
+{"repo": "community", "pr_number": 229, "comment_id": 504220533, "facet": "principle", "value": "simplicity", "confidence": 0.35, "evidence": "avoid a new CRD if an alternative achieves the same thing"}
+{"repo": "community", "pr_number": 229, "comment_id": 504220751, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "asks for explanation of the webhook type"}
+{"repo": "community", "pr_number": 229, "comment_id": 504220751, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "brief"}
+{"repo": "community", "pr_number": 229, "comment_id": 504676229, "facet": "artifact", "value": "tep-body", "confidence": 0.55, "evidence": "NIT: wording (built-in)"}
+{"repo": "community", "pr_number": 229, "comment_id": 504676229, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "wording nit"}
+{"repo": "community", "pr_number": 229, "comment_id": 504698565, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "flags HTTP roundtrips scaling linearly with interceptor count as a performance concern"}
+{"repo": "community", "pr_number": 229, "comment_id": 504698565, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive design/performance concern"}
+{"repo": "community", "pr_number": 229, "comment_id": 504701960, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "flags the shared-service-account downside of bundling interceptors, proposes configurable bundles"}
+{"repo": "community", "pr_number": 229, "comment_id": 504701960, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive design tradeoff"}
+{"repo": "community", "pr_number": 229, "comment_id": 504701960, "facet": "principle", "value": "security", "confidence": 0.35, "evidence": "service-account/privilege boundary implications of bundling"}
+{"repo": "community", "pr_number": 229, "comment_id": 505690071, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "agrees the interface can be dropped once beta is reached"}
+{"repo": "community", "pr_number": 229, "comment_id": 505690071, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "community", "pr_number": 229, "comment_id": 505690071, "facet": "principle", "value": "feature-graduation", "confidence": 0.4, "evidence": "alpha interface can be dropped once beta is reached"}
+{"repo": "community", "pr_number": 229, "comment_id": 506639132, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "elaborates on the cross-EL scaling concern with a concrete scenario"}
+{"repo": "community", "pr_number": 229, "comment_id": 506639132, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "community", "pr_number": 229, "comment_id": 506679684, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "updates wording per feedback"}
+{"repo": "community", "pr_number": 229, "comment_id": 506679684, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "wording edit"}
+{"repo": "community", "pr_number": 229, "comment_id": 506684768, "facet": "artifact", "value": "tep-body", "confidence": 0.65, "evidence": "explains resourceNames and adds a doc link"}
+{"repo": "community", "pr_number": 229, "comment_id": 506684768, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive explanation"}
+{"repo": "community", "pr_number": 229, "comment_id": 506687944, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "explains install stays kubectl apply -f, matching existing pattern"}
+{"repo": "community", "pr_number": 229, "comment_id": 506687944, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "community", "pr_number": 229, "comment_id": 506687944, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.4, "evidence": "install experience matches the existing pattern"}
+{"repo": "community", "pr_number": 229, "comment_id": 506688858, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "reconsiders whether a Ready status field is worth the complexity"}
+{"repo": "community", "pr_number": 229, "comment_id": 506688858, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive design reconsideration"}
+{"repo": "community", "pr_number": 229, "comment_id": 506694721, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "updates the field set to follow Google AIP error-status guidance"}
+{"repo": "community", "pr_number": 229, "comment_id": 506694721, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "community", "pr_number": 229, "comment_id": 506694721, "facet": "principle", "value": "api-conventions", "confidence": 0.4, "evidence": "follows Google AIP error-status guidance"}
+{"repo": "community", "pr_number": 229, "comment_id": 506695167, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "acknowledges indenting is off"}
+{"repo": "community", "pr_number": 229, "comment_id": 506695167, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "formatting issue ack"}
+{"repo": "community", "pr_number": 229, "comment_id": 506700935, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "converts bullets to headings"}
+{"repo": "community", "pr_number": 229, "comment_id": 506700935, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "structural edit"}
+{"repo": "community", "pr_number": 229, "comment_id": 506715646, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "clarifies which interface is meant, rewrites the section"}
+{"repo": "community", "pr_number": 229, "comment_id": 506715646, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief"}
+{"repo": "community", "pr_number": 229, "comment_id": 506715646, "facet": "nature", "value": "structure", "confidence": 0.3, "evidence": "section rewrite for clarity"}
+{"repo": "community", "pr_number": 229, "comment_id": 506719299, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "responds to the roundtrip-scaling concern, wants interceptors reusable/small/focused"}
+{"repo": "community", "pr_number": 229, "comment_id": 506719299, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "community", "pr_number": 229, "comment_id": 506719299, "facet": "principle", "value": "reusability", "confidence": 0.4, "evidence": "explicit goal: interceptors should be reusable, small and focused"}
+{"repo": "community", "pr_number": 229, "comment_id": 507858312, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "proposes breaking runtime data types into a separate context subtype"}
+{"repo": "community", "pr_number": 229, "comment_id": 507858312, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive design proposal"}
+{"repo": "community", "pr_number": 229, "comment_id": 507858312, "facet": "nature", "value": "structure", "confidence": 0.3, "evidence": "type-shape restructuring"}
+{"repo": "community", "pr_number": 229, "comment_id": 507858483, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "nit: fix indenting"}
+{"repo": "community", "pr_number": 229, "comment_id": 507858483, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "formatting nit"}
+{"repo": "community", "pr_number": 229, "comment_id": 507876479, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "proposes using an object ref + Knative Callable interface instead of a crafted URL"}
+{"repo": "community", "pr_number": 229, "comment_id": 507876479, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive design alternative"}
+{"repo": "community", "pr_number": 229, "comment_id": 507876479, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.4, "evidence": "proposes reusing the Knative Callable interface convention"}
+{"repo": "community", "pr_number": 229, "comment_id": 507876479, "facet": "principle", "value": "reusability", "confidence": 0.4, "evidence": "reuse an existing interface instead of a new URL convention"}
+{"repo": "community", "pr_number": 229, "comment_id": 507877184, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "asks how URL reachability will be tested"}
+{"repo": "community", "pr_number": 229, "comment_id": 507877184, "facet": "artifact", "value": "tests", "confidence": 0.35, "evidence": "testability question"}
+{"repo": "community", "pr_number": 229, "comment_id": 507877184, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "community", "pr_number": 229, "comment_id": 507877492, "facet": "artifact", "value": "tep-body", "confidence": 0.65, "evidence": "suggests deferring to underlying object status for readiness"}
+{"repo": "community", "pr_number": 229, "comment_id": 507877492, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive suggestion"}
+{"repo": "community", "pr_number": 229, "comment_id": 507888911, "facet": "artifact", "value": "tep-body", "confidence": 0.55, "evidence": "doc formatting suggestion"}
+{"repo": "community", "pr_number": 229, "comment_id": 507888911, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "formatting suggestion"}
+{"repo": "community", "pr_number": 229, "comment_id": 508568051, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "flags duplicated text, suggests removing one"}
+{"repo": "community", "pr_number": 229, "comment_id": 508568051, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "duplication nit"}
+{"repo": "community", "pr_number": 229, "comment_id": 508571466, "facet": "artifact", "value": "tep-body", "confidence": 0.55, "evidence": "grammar/typo nit (missing \"not\")"}
+{"repo": "community", "pr_number": 229, "comment_id": 508571466, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "grammar nit"}
+{"repo": "community", "pr_number": 229, "comment_id": 508576784, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "indentation nit"}
+{"repo": "community", "pr_number": 229, "comment_id": 508576784, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "formatting nit"}
+{"repo": "community", "pr_number": 229, "comment_id": 508581504, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "elaborates on adding a context field for passing the Trigger namespace"}
+{"repo": "community", "pr_number": 229, "comment_id": 508581504, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "community", "pr_number": 229, "comment_id": 508621585, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "notes the design allows an alternate service type without changing the design later"}
+{"repo": "community", "pr_number": 229, "comment_id": 508621585, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "community", "pr_number": 229, "comment_id": 508621585, "facet": "principle", "value": "flexibility", "confidence": 0.4, "evidence": "design accommodates a future alternative without requiring a redesign"}
+{"repo": "community", "pr_number": 229, "comment_id": 508853100, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "realizes a field already covers the raised concern"}
+{"repo": "community", "pr_number": 229, "comment_id": 508853100, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "community", "pr_number": 229, "comment_id": 508863226, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "decides to support both Callables and regular URLs, references the Knative spec"}
+{"repo": "community", "pr_number": 229, "comment_id": 508863226, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive design decision"}
+{"repo": "community", "pr_number": 229, "comment_id": 508863226, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.4, "evidence": "adopts the Knative Callable interface convention"}
+{"repo": "community", "pr_number": 229, "comment_id": 508863226, "facet": "principle", "value": "flexibility", "confidence": 0.4, "evidence": "supports both approaches rather than picking one exclusively"}
+{"repo": "community", "pr_number": 229, "comment_id": 508866695, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "decides to punt on Ready status conditions for v1, use a simpler health check instead"}
+{"repo": "community", "pr_number": 229, "comment_id": 508866695, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive design reconsideration"}
+{"repo": "community", "pr_number": 229, "comment_id": 508866695, "facet": "principle", "value": "simplicity", "confidence": 0.4, "evidence": "defers a more complex status mechanism in favor of a simpler check"}
+{"repo": "community", "pr_number": 229, "comment_id": 511136842, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "corrects a cross-reference to the wrong TEP number"}
+{"repo": "community", "pr_number": 229, "comment_id": 511136842, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "reference correction"}
+{"repo": "community", "pr_number": 229, "comment_id": 511136842, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "brief"}
+{"repo": "community", "pr_number": 229, "comment_id": 511139251, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "questions whether this design is orthogonal to a concurrently-proposed CRD in another TEP"}
+{"repo": "community", "pr_number": 229, "comment_id": 511139251, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive cross-TEP dependency question"}
+{"repo": "community", "pr_number": 229, "comment_id": 512169366, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "explains why the two designs are orthogonal"}
+{"repo": "community", "pr_number": 229, "comment_id": 512169366, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "community", "pr_number": 229, "comment_id": 512198395, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "questions field naming, suggests matching syntax used elsewhere in the API"}
+{"repo": "community", "pr_number": 229, "comment_id": 512198395, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "community", "pr_number": 229, "comment_id": 512198395, "facet": "nature", "value": "structure", "confidence": 0.3, "evidence": "naming clarity"}
+{"repo": "community", "pr_number": 229, "comment_id": 512198395, "facet": "principle", "value": "tekton-api-conventions", "confidence": 0.45, "evidence": "proposes matching existing internal API syntax elsewhere"}
+{"repo": "community", "pr_number": 229, "comment_id": 512198456, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "asks whether this holds only for a window of alpha versions"}
+{"repo": "community", "pr_number": 229, "comment_id": 512198456, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "community", "pr_number": 229, "comment_id": 512198456, "facet": "principle", "value": "feature-graduation", "confidence": 0.45, "evidence": "alpha-to-beta deprecation window question"}
+{"repo": "community", "pr_number": 229, "comment_id": 512198456, "facet": "principle", "value": "deprecation-handling", "confidence": 0.4, "evidence": "asks about dropping support for deprecated syntax later"}
+{"repo": "community", "pr_number": 229, "comment_id": 512198707, "facet": "artifact", "value": "tep-body", "confidence": 0.65, "evidence": "clarifying question about whether the new syntax requires the separate CEL interceptor"}
+{"repo": "community", "pr_number": 229, "comment_id": 512198707, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "community", "pr_number": 229, "comment_id": 512200830, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "asks whether multiple interceptor deployments per cluster are actually allowed"}
+{"repo": "community", "pr_number": 229, "comment_id": 512200830, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive clarifying question"}
+{"repo": "community", "pr_number": 229, "comment_id": 512201525, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "suggests a passthrough ID for correlating an event across interceptors"}
+{"repo": "community", "pr_number": 229, "comment_id": 512201525, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive design suggestion"}
+{"repo": "community", "pr_number": 229, "comment_id": 512209726, "facet": "artifact", "value": "tep-body", "confidence": 0.65, "evidence": "asks how to represent GRPC status codes in a JSON body"}
+{"repo": "community", "pr_number": 229, "comment_id": 512209726, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive implementation question"}
+{"repo": "community", "pr_number": 229, "comment_id": 512210239, "facet": "artifact", "value": "tep-body", "confidence": 0.65, "evidence": "adds an optional caBundle field for TLS cert verification"}
+{"repo": "community", "pr_number": 229, "comment_id": 512210239, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "community", "pr_number": 229, "comment_id": 512210239, "facet": "principle", "value": "security", "confidence": 0.4, "evidence": "TLS certificate verification support"}
+{"repo": "community", "pr_number": 229, "comment_id": 512211525, "facet": "artifact", "value": "tep-body", "confidence": 0.65, "evidence": "brainstorms additional context fields ahead of a WG call"}
+{"repo": "community", "pr_number": 229, "comment_id": 512211525, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive brainstorming"}
+{"repo": "community", "pr_number": 229, "comment_id": 512212891, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "notes a possible divergence from a related concurrent proposal"}
+{"repo": "community", "pr_number": 229, "comment_id": 512212891, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "community", "pr_number": 229, "comment_id": 512212891, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.35, "evidence": "flags possible divergence from a related proposal"}
+{"repo": "community", "pr_number": 229, "comment_id": 512213175, "facet": "artifact", "value": "tep-body", "confidence": 0.65, "evidence": "requests a link explaining what grpc.Status contains for interceptor authors"}
+{"repo": "community", "pr_number": 229, "comment_id": 512213175, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive doc-completeness request"}
+{"repo": "community", "pr_number": 229, "comment_id": 512213175, "facet": "nature", "value": "structure", "confidence": 0.3, "evidence": "missing reference"}
+{"repo": "community", "pr_number": 229, "comment_id": 512213444, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "asks for clarification of the json/protobuf mix"}
+{"repo": "community", "pr_number": 229, "comment_id": 512213444, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive clarifying question"}
+{"repo": "community", "pr_number": 229, "comment_id": 512230356, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "confirms built-in interceptors are packaged with the default Triggers install"}
+{"repo": "community", "pr_number": 229, "comment_id": 512230356, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive answer"}
+{"repo": "community", "pr_number": 229, "comment_id": 512231620, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "confirms multiple CEL services with separate CRs are supported"}
+{"repo": "community", "pr_number": 229, "comment_id": 512231620, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive answer"}
+{"repo": "community", "pr_number": 229, "comment_id": 512233243, "facet": "artifact", "value": "tep-body", "confidence": 0.65, "evidence": "clarifies EventID is already passed, asks if a per-interceptor id is wanted"}
+{"repo": "community", "pr_number": 229, "comment_id": 512233243, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "community", "pr_number": 229, "comment_id": 512233683, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "admits a field is leftover copy-paste from another type"}
+{"repo": "community", "pr_number": 229, "comment_id": 512233683, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief"}
+{"repo": "community", "pr_number": 229, "comment_id": 512241490, "facet": "artifact", "value": "tep-body", "confidence": 0.65, "evidence": "notes the syntax is valid only until beta, when the old one can be deprecated"}
+{"repo": "community", "pr_number": 229, "comment_id": 512241490, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "community", "pr_number": 229, "comment_id": 512241490, "facet": "principle", "value": "deprecation-handling", "confidence": 0.45, "evidence": "explicit plan to deprecate old syntax at beta"}
+{"repo": "community", "pr_number": 229, "comment_id": 512241490, "facet": "principle", "value": "feature-graduation", "confidence": 0.4, "evidence": "ties deprecation to the alpha-to-beta transition"}
+{"repo": "community", "pr_number": 229, "comment_id": 513724805, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "notes this line of discussion is scope creep"}
+{"repo": "community", "pr_number": 229, "comment_id": 513724805, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "community", "pr_number": 229, "comment_id": 513725801, "facet": "artifact", "value": "tep-body", "confidence": 0.55, "evidence": "confirms understanding of dual-syntax support"}
+{"repo": "community", "pr_number": 229, "comment_id": 513725801, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "brief confirmation"}
+{"repo": "community", "pr_number": 229, "comment_id": 514387221, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "expects follow-up TEPs after this one"}
+{"repo": "community", "pr_number": 229, "comment_id": 514387221, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.35, "evidence": "anticipates follow-up TEPs to extend this work"}
+{"repo": "community", "pr_number": 229, "comment_id": 514387221, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief"}
+{"repo": "community", "pr_number": 229, "comment_id": 516787223, "facet": "artifact", "value": "tep-body", "confidence": 0.65, "evidence": "decides several ideas are useful but don't need to be in the initial implementation"}
+{"repo": "community", "pr_number": 229, "comment_id": 516787223, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.5, "evidence": "explicitly defers several additions to a follow-up"}
+{"repo": "community", "pr_number": 229, "comment_id": 516787223, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive scope decision"}
+{"repo": "community", "pr_number": 229, "comment_id": 516794640, "facet": "artifact", "value": "tep-body", "confidence": 0.65, "evidence": "records WG consensus: no objections to either syntax, notes a Kustomize-patching benefit of an optional name field"}
+{"repo": "community", "pr_number": 229, "comment_id": 516794640, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "community", "pr_number": 229, "comment_id": 516794727, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "suggests tracking deferred ideas via non-goals/alternatives or a new template section"}
+{"repo": "community", "pr_number": 229, "comment_id": 516794727, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "community", "pr_number": 229, "comment_id": 516794727, "facet": "nature", "value": "structure", "confidence": 0.35, "evidence": "process/template suggestion for tracking deferred scope"}
+{"repo": "community", "pr_number": 229, "comment_id": 516794727, "facet": "artifact", "value": "tep-staging", "confidence": 0.35, "evidence": "proposes a formal mechanism for tracking deferred scope so it isn't lost"}
+{"repo": "community", "pr_number": 229, "comment_id": 516798827, "facet": "artifact", "value": "tep-body", "confidence": 0.65, "evidence": "shares a reference doc and explanation for strategic merge patch"}
+{"repo": "community", "pr_number": 229, "comment_id": 516798827, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "community", "pr_number": 229, "comment_id": 516806068, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "adds a WorkPlan section and links follow-up tracking issues"}
+{"repo": "community", "pr_number": 229, "comment_id": 516806068, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive"}
+{"repo": "community", "pr_number": 229, "comment_id": 516806068, "facet": "nature", "value": "structure", "confidence": 0.35, "evidence": "new section addition"}
+{"repo": "community", "pr_number": 229, "comment_id": 516813972, "facet": "artifact", "value": "tep-body", "confidence": 0.65, "evidence": "concludes an optional name field achieves the same merging behavior, cross-references a pipeline issue"}
+{"repo": "community", "pr_number": 229, "comment_id": 516813972, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "community", "pr_number": 229, "comment_id": 519963178, "facet": "artifact", "value": "tep-body", "confidence": 0.55, "evidence": "records a final design decision among options"}
+{"repo": "community", "pr_number": 229, "comment_id": 519963178, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "community", "pr_number": 229, "comment_id": 520000531, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "records the final field decisions for the HTTP interface"}
+{"repo": "community", "pr_number": 229, "comment_id": 520000531, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive design decision record"}
+{"repo": "community", "pr_number": 229, "comment_id": 520000717, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "adds links to the Google AIP status-code spec"}
+{"repo": "community", "pr_number": 229, "comment_id": 520000717, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "brief"}
+{"repo": "community", "pr_number": 229, "comment_id": 520001387, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "adds a Work Plan section"}
+{"repo": "community", "pr_number": 229, "comment_id": 520001387, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "new section addition"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 578807672, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "questions whether the CRD should be cluster-scoped vs. namespace-scoped"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 578807672, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive design concern"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 578812421, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "suggests reusing the existing WebhookClientConfig type"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 578812421, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 578812421, "facet": "principle", "value": "reusability", "confidence": 0.5, "evidence": "explicit suggestion to reuse an existing type"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 578812421, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.4, "evidence": "matching an existing Kubernetes type"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 578813964, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "bikesheds naming to match ValidatingWebhookConfiguration convention"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 578813964, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "naming suggestion"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 578813964, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 578813964, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.45, "evidence": "naming to match an existing Kubernetes convention"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 578813964, "facet": "principle", "value": "api-conventions", "confidence": 0.4, "evidence": "follows Kubernetes admission-webhook naming pattern"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 578814119, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "suggests nesting a field under service, notes optional-field documentation"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 578814119, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "schema-shape suggestion"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 578814119, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 578816305, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "notes a zero-port edge case probably doesn't matter"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 578816305, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 579074066, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "non-blocking preference for a pointer type to simplify defaulting"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 579074066, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive style preference"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 579135424, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "agrees reusing WebhookClientConfig is a good idea, suggests reimplementing to avoid a dependency"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 579135424, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 579135424, "facet": "principle", "value": "reusability", "confidence": 0.45, "evidence": "reuse the shape of an existing type"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 579491337, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "explains the differences from the type being reimplemented"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 579491337, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive explanation"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 579491618, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "confirms switching to a pointer type"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 579491618, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "confirms structural change"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 579492447, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "counter-proposes RBAC-based restriction instead of namespace scoping"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 579492447, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive design counter-proposal"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 579492447, "facet": "principle", "value": "security", "confidence": 0.35, "evidence": "RBAC-based access restriction"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 579494404, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "confirms design is based on WebhookConfiguration CRDs, discusses naming confusion"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 579494404, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 579494404, "facet": "nature", "value": "structure", "confidence": 0.3, "evidence": "naming discussion"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 581167970, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "decides to start cluster-scoped, add namespace-scoped support later"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 581167970, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.45, "evidence": "explicitly phases scope support across a future addition"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 581167970, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive design decision"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 581299596, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "flags something still needs fixing"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 581299596, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 581299596, "facet": "nature", "value": "structure", "confidence": 0.3, "evidence": "follow-up on an unresolved fix"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 581300396, "facet": "artifact", "value": "docs", "confidence": 0.4, "evidence": "asks to update docs to reflect the change"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 581300396, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 581309835, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "non-blocking naming opinion about the Configuration suffix"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 581309835, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "naming opinion"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 581309835, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "substantive but explicitly non-blocking"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 582376367, "facet": "artifact", "value": "docs", "confidence": 0.5, "evidence": "flags remaining rename inconsistencies in the docs"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 582376367, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "rename-consistency nit"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 591760268, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "questions using standard ports 80/443 as defaults"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 591760268, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive design suggestion"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 591760388, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "copyright year fix suggestion"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 591760388, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "nit"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 591761547, "facet": "artifact", "value": "tests", "confidence": 0.65, "evidence": "suggests direct call instead of a for-loop for a single test case"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 591761547, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "test-simplification suggestion"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 591761547, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 591761547, "facet": "principle", "value": "simplicity", "confidence": 0.35, "evidence": "avoid unneeded loop machinery for one case"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 591761894, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "missing license header"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 591761894, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "nit"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 591762020, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "missing license header"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 591762020, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "nit"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 591763341, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "doc-comment wording fix suggestion"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 591763341, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "comment wording nit"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 591764161, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "suggests adding omitempty for an optional field"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 591764161, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "code convention nit"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 591765695, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "suggests reusing an existing defaultPort constant instead of hardcoding"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 591765695, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "DRY suggestion"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 591765695, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 591765695, "facet": "principle", "value": "simplicity", "confidence": 0.3, "evidence": "avoid duplicating a constant that already exists"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 591766839, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "missing license header"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 591766839, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "nit"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 591768154, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "copyright year fix suggestion"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 591768154, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "nit"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 591830495, "facet": "artifact", "value": "tests", "confidence": 0.55, "evidence": "explains keeping the for-loop for future test additions"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 591830495, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive rationale"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 591833842, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "rebuts the port-choice concern, explains the default-port rationale"}
+{"repo": "triggers", "pr_number": 960, "comment_id": 591833842, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive rationale"}
+{"repo": "triggers", "pr_number": 976, "comment_id": 595300253, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "suggests moving this to TriggerInterceptor"}
+{"repo": "triggers", "pr_number": 976, "comment_id": 595300253, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "code-organization suggestion"}
+{"repo": "triggers", "pr_number": 976, "comment_id": 595300253, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive"}
+{"repo": "triggers", "pr_number": 976, "comment_id": 595321993, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "suggests renaming a test function to match what it actually tests"}
+{"repo": "triggers", "pr_number": 976, "comment_id": 595321993, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "naming clarity nit"}
+{"repo": "triggers", "pr_number": 976, "comment_id": 595325019, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "questions why a local value is styled like an exported one"}
+{"repo": "triggers", "pr_number": 976, "comment_id": 595325019, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "style question"}
+{"repo": "triggers", "pr_number": 976, "comment_id": 595325019, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive"}
+{"repo": "triggers", "pr_number": 976, "comment_id": 595332295, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "prefers a naming consistent with an existing method"}
+{"repo": "triggers", "pr_number": 976, "comment_id": 595332295, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "naming consistency suggestion"}
+{"repo": "triggers", "pr_number": 976, "comment_id": 595332295, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.3, "evidence": "match existing naming pattern"}
+{"repo": "triggers", "pr_number": 976, "comment_id": 595333161, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "suggests a more informative error message"}
+{"repo": "triggers", "pr_number": 976, "comment_id": 595333161, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "triggers", "pr_number": 976, "comment_id": 595475583, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "confirms the rename and reorganization fix"}
+{"repo": "triggers", "pr_number": 976, "comment_id": 595475583, "facet": "nature", "value": "structure", "confidence": 0.45, "evidence": "confirms structural change"}
+{"repo": "triggers", "pr_number": 976, "comment_id": 595476248, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "explains a leftover was caused by a broad search-and-replace"}
+{"repo": "triggers", "pr_number": 976, "comment_id": 595476248, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief explanation"}
