@@ -125,6 +125,14 @@ if you specifically want to force the currently-active venv instead.
    low `nature:structure` confidence; a comment making a forceful, specific design argument gets
    a high one. Confidences don't need to be calibrated across TEPs, only honest within one.
 
+**At scale** (a large TEP can have 400+ comments across a dozen implementation PRs — too many
+`add()` calls to reason through and write correctly in one pass): split into several scripts,
+e.g. `classify_tepN_part1.py`, `_part2.py`, ... (by PR, or by chunks of ~80-100 comments), each
+writing its own `.jsonl`, then `cat` them together into one `classify_tepN.jsonl` before
+validating. This is the expected pattern for large TEPs, not a workaround — trying to hold an
+entire large TEP's classification in one continuous pass is exactly when the "row silently never
+gets written" bug (see Known gotchas) gets worse, not better.
+
 ## Validate before merging
 
 Two checks, every time, before this data touches the real classification file. Run both from
@@ -201,7 +209,8 @@ go back and add the row you meant to write.
 Once first-pass classification validates clean, run a **separate** pass per
 `prompts/audit_classification_coverage.md` — re-reading each already-classified comment fresh
 against the full taxonomy to catch matches the first pass missed. Write findings the same way as
-first pass, but add `"source_pass": "audit"` to each row:
+first pass — same `add(comment_id, repo, pr_number, tags)` shape, so the two scripts are
+copy-pasteable from each other — but stamp `"source_pass": "audit"` on every row:
 
 ```python
 # audit_tepN.py
@@ -209,14 +218,19 @@ import json
 
 rows = []
 
-def add(comment_id, repo, pr_number, facet, value, confidence, evidence):
-    rows.append({
-        "repo": repo, "pr_number": pr_number, "comment_id": comment_id,
-        "facet": facet, "value": value, "confidence": confidence,
-        "evidence": evidence, "source_pass": "audit",
-    })
+def add(comment_id, repo, pr_number, tags):
+    """tags: list of (facet, value, confidence, evidence) - same shape as classify_tepN.py"""
+    for facet, value, confidence, evidence in tags:
+        rows.append({
+            "repo": repo, "pr_number": pr_number, "comment_id": comment_id,
+            "facet": facet, "value": value, "confidence": confidence,
+            "evidence": evidence, "source_pass": "audit",
+        })
 
-# one add() call per missed match found on re-read
+# one add() call per comment with a missed match found on re-read, e.g.:
+add(123456789, "community", 148, [
+    ("principle", "feature-justification", 0.45, "explicitly frames Motivation/Goals as ..."),
+])
 
 out_path = "audit_tepN.jsonl"
 with open(out_path, "w") as f:
@@ -238,6 +252,16 @@ grep -c '"value": "VALUE_NAME_HERE"' processed/latest/comment_classifications.js
 — a TEP whose topic plausibly touches one of those low-count values is the best chance to find
 its first real example, and it's easy to under-tag a value you haven't seen fire yet. A
 zero-finding audit pass is a legitimate, honest outcome — don't invent findings to pad the count.
+
+**Scoping the audit at scale**: `audit_classification_coverage.md` describes re-reading every
+already-classified comment fresh, which is the ideal — exhaustively re-deriving a classification
+from zero is what actually catches blind spots a first pass had. For a small TEP (a few dozen
+comments), just do that. For a large one (a few hundred+), exhaustive re-read of every comment
+is expensive enough that a **targeted audit** is an acceptable substitute: the low-count-value
+`grep -c` sweep above, plus rereading specifically the comments your first pass flagged to
+itself as ambiguous, borderline-confidence, or "possibly more here" while classifying. This
+trades completeness for cost — say explicitly in your report which approach you used, so the
+gap is visible rather than silently assumed away.
 
 ## Merging, building, verifying
 
@@ -265,14 +289,22 @@ zero-finding audit pass is a legitimate, honest outcome — don't invent finding
 
 3. **Verify rendering**, not just the row count — badges are easy to get right in the data and
    wrong in the browser (a missing argument, a stale cache key). `reports/explorer.html` embeds
-   the classification data as JSON and exposes `CLASSIFICATION_INDEX` (a `Map` keyed by
-   `` `${repo}|${pr_number}|${comment_id}` ``) and `classificationBadgesHtml(repo, pr_number,
-   comment_id)` as globals in its inline `<script>`. Any JS-capable environment can spot-check a
-   few comment IDs this way — a headless browser (e.g. `puppeteer-core` against a local Chrome
-   install) is one option if available, but isn't required; reading the embedded JSON block
-   directly and confirming a few rows are present and well-formed is an acceptable substitute if
-   no browser automation is available in your environment. Check at least one audit-pass row
-   renders with `source_pass: "audit"` intact.
+   the classification data verbatim as
+   `<script type="application/json" id="classification-data">...</script>`, and separately
+   exposes `CLASSIFICATION_INDEX` (a `Map` keyed by `` `${repo}|${pr_number}|${comment_id}` ``)
+   and `classificationBadgesHtml(repo, pr_number, comment_id)` as globals in its main inline
+   `<script>` (no `type` attribute — the one that parses the JSON block above and defines the
+   page's JS). Two ways to verify, depending on your environment:
+   - **No browser automation available**: extract and parse the `#classification-data` block
+     directly (e.g. `grep -o '<script type="application/json" id="classification-data">.*</script>'
+     reports/explorer.html`, strip the tags, `json.loads` it) and confirm your new rows are
+     present and well-formed. This does not exercise `classificationBadgesHtml()` itself, only
+     the data it reads — good enough for a data-correctness check, not a rendering check.
+   - **Headless browser available** (e.g. `puppeteer-core` against a local Chrome install):
+     load the file, then call `classificationBadgesHtml(repo, pr_number, comment_id)` directly
+     in-page for a few real IDs — this actually exercises the rendering code, including badge
+     styling. Check at least one audit-pass row renders with `source_pass: "audit"` intact
+     (it should carry the `[found on audit pass]` tooltip prefix).
 
 4. **Update `conventions/classification_cost_log.md`** with a row for this TEP: comment counts,
    first-pass/audit row counts, and total comment-body character count as a proxy for the token
@@ -316,6 +348,14 @@ zero-finding audit pass is a legitimate, honest outcome — don't invent finding
   If an implementation PR's actual content doesn't match the TEP's subject at all, check
   `overrides/pr_attribution_overrides.jsonl` and add an `exclude` entry rather than classifying
   unrelated comments.
+- **A PR can legitimately belong to two sibling TEPs at once** — this is different from
+  misattribution and needs no override. Closely related TEPs sometimes land as one shared PR
+  (e.g. a PR whose description says "part of work in TEP-00XX" while `per_tep_records.json`
+  attributes it to a *different*, sibling TEP number). Before assuming this is the misattribution
+  bug above, read the actual comment thread: if reviewers are discussing both TEPs' concerns in
+  the same PR (e.g. explicitly splitting mixed logic that serves both proposals), it's a genuine
+  shared PR — classify its comments normally, and just note the fact in your commit message
+  rather than excluding it.
 - **Length is not a coverage metric.** Do not use comment length vs. tag count as a completeness
   signal for anything — facets are independent axes, so tag count conflates "how many distinct
   facets does this one point touch" with "how many separate points does this comment make." See
