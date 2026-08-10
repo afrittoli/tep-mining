@@ -15,3 +15,4 @@ Log starts at TEP-84; TEP-33 and TEP-29 predate this tracking and aren't backfil
 | TEP | repo | comments (total) | comments classified (non-zero) | first-pass rows | audit rows | comment-body chars | passes | session $ (from /cost) |
 |---|---|---|---|---|---|---|---|---|
 | TEP-84 | chains | 178 | 138 | 336 | 19 | 40,395 | first-pass + audit | - |
+| TEP-109 | chains | 172 | 151 | 374 | 1 | 35,111 | first-pass + audit | - |

@@ -606,3 +606,378 @@
 {"repo": "chains", "pr_number": 436, "comment_id": 974748206, "facet": "nature", "value": "cohesion", "confidence": 0.4, "evidence": "\"Not blocking for this PR (because I do want to get this in)\" - explicit decision not to bundle an optional improvement in", "source_pass": "audit"}
 {"repo": "chains", "pr_number": 590, "comment_id": 993611603, "facet": "nature", "value": "cohesion", "confidence": 0.5, "evidence": "\"Remove tekton-provenance in another PR\" - explicit unbundling instruction", "source_pass": "audit"}
 {"repo": "chains", "pr_number": 590, "comment_id": 997157896, "facet": "nature", "value": "cohesion", "confidence": 0.4, "evidence": "\"Sorry about that! I'll do it in another PR.\" - agrees to unbundle", "source_pass": "audit"}
+{"repo": "community", "pr_number": 697, "comment_id": 864259046, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "notes Pipeline-level provenance scope may not apply, still in discussion elsewhere"}
+{"repo": "community", "pr_number": 697, "comment_id": 864259046, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive scope note"}
+{"repo": "community", "pr_number": 697, "comment_id": 866402444, "facet": "artifact", "value": "tep-body", "confidence": 0.85, "evidence": "argues user-supplied params are unlikely to ever be a complete provenance source"}
+{"repo": "community", "pr_number": 697, "comment_id": 866402444, "facet": "nature", "value": "content", "confidence": 0.8, "evidence": "substantive design concern"}
+{"repo": "community", "pr_number": 697, "comment_id": 866402444, "facet": "principle", "value": "supply-chain-compliance", "confidence": 0.5, "evidence": "concern about provenance completeness/trustworthiness of the data source"}
+{"repo": "community", "pr_number": 697, "comment_id": 866405893, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "asks why the source type needs to be constrained"}
+{"repo": "community", "pr_number": 697, "comment_id": 866405893, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "brief"}
+{"repo": "community", "pr_number": 697, "comment_id": 866405893, "facet": "principle", "value": "flexibility", "confidence": 0.35, "evidence": "questions an unnecessary constraint"}
+{"repo": "community", "pr_number": 697, "comment_id": 866407777, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "asks whether this is standardizing on SLSA's materials field rather than a new type"}
+{"repo": "community", "pr_number": 697, "comment_id": 866407777, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive"}
+{"repo": "community", "pr_number": 697, "comment_id": 866407777, "facet": "principle", "value": "supply-chain-compliance", "confidence": 0.5, "evidence": "checking alignment with the SLSA materials field/definition"}
+{"repo": "community", "pr_number": 697, "comment_id": 866407886, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "asks whether this standardizes on SLSA's subject field"}
+{"repo": "community", "pr_number": 697, "comment_id": 866407886, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "community", "pr_number": 697, "comment_id": 866407886, "facet": "principle", "value": "supply-chain-compliance", "confidence": 0.5, "evidence": "checking alignment with the SLSA subject field"}
+{"repo": "community", "pr_number": 697, "comment_id": 866409759, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "flags param/result volume sprawl as an existing Tekton concern this proposal would add to"}
+{"repo": "community", "pr_number": 697, "comment_id": 866409759, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive"}
+{"repo": "community", "pr_number": 697, "comment_id": 866409759, "facet": "principle", "value": "simplicity", "confidence": 0.4, "evidence": "hesitance to add to existing field/param sprawl"}
+{"repo": "community", "pr_number": 697, "comment_id": 866410362, "facet": "artifact", "value": "tep-body", "confidence": 0.85, "evidence": "raises a design alternative and flags user-controlled result values as a weak provenance basis"}
+{"repo": "community", "pr_number": 697, "comment_id": 866410362, "facet": "nature", "value": "content", "confidence": 0.8, "evidence": "substantive"}
+{"repo": "community", "pr_number": 697, "comment_id": 866410362, "facet": "principle", "value": "supply-chain-compliance", "confidence": 0.5, "evidence": "concern about trustworthiness of user-controlled data as provenance basis"}
+{"repo": "community", "pr_number": 697, "comment_id": 866410362, "facet": "principle", "value": "security", "confidence": 0.35, "evidence": "user-controlled/untrusted input feeding into provenance data"}
+{"repo": "community", "pr_number": 697, "comment_id": 867065335, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "clarifying question about what kind of tool is meant"}
+{"repo": "community", "pr_number": 697, "comment_id": 867065335, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "brief"}
+{"repo": "community", "pr_number": 697, "comment_id": 867066076, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "confirms structures follow SLSA materials standard, not invented locally"}
+{"repo": "community", "pr_number": 697, "comment_id": 867066076, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "community", "pr_number": 697, "comment_id": 867066076, "facet": "principle", "value": "supply-chain-compliance", "confidence": 0.4, "evidence": "explicit alignment with SLSA materials standard"}
+{"repo": "community", "pr_number": 697, "comment_id": 868283497, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "explains tasks would be responsible for outputting their own provenance, Chains stays task-agnostic"}
+{"repo": "community", "pr_number": 697, "comment_id": 868283497, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive design explanation"}
+{"repo": "community", "pr_number": 697, "comment_id": 868283497, "facet": "principle", "value": "flexibility", "confidence": 0.4, "evidence": "plugin-like extensibility via tasks rather than Chains hardcoding knowledge"}
+{"repo": "community", "pr_number": 697, "comment_id": 869282728, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "clarifies source types aren't constrained, can be extended later"}
+{"repo": "community", "pr_number": 697, "comment_id": 869282728, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief clarification"}
+{"repo": "community", "pr_number": 697, "comment_id": 869282728, "facet": "nature", "value": "structure", "confidence": 0.3, "evidence": "wording clarity edit"}
+{"repo": "community", "pr_number": 697, "comment_id": 870882610, "facet": "artifact", "value": "tep-body", "confidence": 0.65, "evidence": "decides schemas will be predefined json schemas living in source code, in the controller image"}
+{"repo": "community", "pr_number": 697, "comment_id": 870882610, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "brief design decision"}
+{"repo": "community", "pr_number": 697, "comment_id": 870883222, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "adds flexibility for provenance to come from results and other new fields for trusted tasks"}
+{"repo": "community", "pr_number": 697, "comment_id": 870883222, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "community", "pr_number": 697, "comment_id": 870883222, "facet": "principle", "value": "flexibility", "confidence": 0.45, "evidence": "explicitly adding flexibility to the source of provenance data"}
+{"repo": "community", "pr_number": 697, "comment_id": 870883222, "facet": "principle", "value": "security", "confidence": 0.35, "evidence": "distinguishes \"trusted tasks\" as a gate on this new field"}
+{"repo": "community", "pr_number": 697, "comment_id": 871653444, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "flags a missing required field in the example"}
+{"repo": "community", "pr_number": 697, "comment_id": 871653444, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "missing-field/completeness flag"}
+{"repo": "community", "pr_number": 697, "comment_id": 871653444, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "brief"}
+{"repo": "community", "pr_number": 697, "comment_id": 871655317, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "raises the two-OCI-images-per-task edge case for name uniqueness"}
+{"repo": "community", "pr_number": 697, "comment_id": 871655317, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive edge-case concern"}
+{"repo": "community", "pr_number": 697, "comment_id": 871664727, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "prefers naming that doesn't signal Chains-specific usage"}
+{"repo": "community", "pr_number": 697, "comment_id": 871664727, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive design preference"}
+{"repo": "community", "pr_number": 697, "comment_id": 871664727, "facet": "principle", "value": "flexibility", "confidence": 0.45, "evidence": "avoid forcing consumer-specific naming onto task authors"}
+{"repo": "community", "pr_number": 697, "comment_id": 871664727, "facet": "principle", "value": "reusability", "confidence": 0.35, "evidence": "naming not Chains-specific keeps results usable by other consumers"}
+{"repo": "community", "pr_number": 697, "comment_id": 871669207, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "questions whether the field is the digest algorithm, proposes a clearer name/format"}
+{"repo": "community", "pr_number": 697, "comment_id": 871669207, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive schema design suggestion"}
+{"repo": "community", "pr_number": 697, "comment_id": 871669207, "facet": "nature", "value": "structure", "confidence": 0.3, "evidence": "naming clarity"}
+{"repo": "community", "pr_number": 697, "comment_id": 871675582, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "likes that VCS support can be extended via a Task without changing Chains itself"}
+{"repo": "community", "pr_number": 697, "comment_id": 871675582, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive"}
+{"repo": "community", "pr_number": 697, "comment_id": 871675582, "facet": "principle", "value": "flexibility", "confidence": 0.5, "evidence": "extensibility without core changes"}
+{"repo": "community", "pr_number": 697, "comment_id": 871675582, "facet": "principle", "value": "reusability", "confidence": 0.4, "evidence": "extending support via an ordinary Task rather than new Chains code"}
+{"repo": "community", "pr_number": 697, "comment_id": 872580222, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "typo nit: extra @"}
+{"repo": "community", "pr_number": 697, "comment_id": 872580222, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "typo nit"}
+{"repo": "community", "pr_number": 697, "comment_id": 872696850, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "asks whether the plan still relies on user params or task-expanded structured results"}
+{"repo": "community", "pr_number": 697, "comment_id": 872696850, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive clarifying question"}
+{"repo": "community", "pr_number": 697, "comment_id": 877177762, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "changes naming to not be Chains-scoped, proposes an array-typed result alternative"}
+{"repo": "community", "pr_number": 697, "comment_id": 877177762, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive design change"}
+{"repo": "community", "pr_number": 697, "comment_id": 877181219, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "renames field, keeps separate fields for flexibility"}
+{"repo": "community", "pr_number": 697, "comment_id": 877181219, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "community", "pr_number": 697, "comment_id": 877181219, "facet": "principle", "value": "flexibility", "confidence": 0.3, "evidence": "keeping fields separate for flexibility"}
+{"repo": "community", "pr_number": 697, "comment_id": 877189528, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "removes all proposals related to relying on params"}
+{"repo": "community", "pr_number": 697, "comment_id": 877189528, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "brief but substantive removal"}
+{"repo": "community", "pr_number": 697, "comment_id": 877191484, "facet": "artifact", "value": "tep-body", "confidence": 0.65, "evidence": "changes naming again, raises removing the required-naming-convention requirement"}
+{"repo": "community", "pr_number": 697, "comment_id": 877191484, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "community", "pr_number": 697, "comment_id": 877191484, "facet": "principle", "value": "flexibility", "confidence": 0.35, "evidence": "proposes not requiring a specific result naming convention"}
+{"repo": "community", "pr_number": 697, "comment_id": 883946263, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "asks whether $(NAME) is actual interpolation or a placeholder"}
+{"repo": "community", "pr_number": 697, "comment_id": 883946263, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "brief"}
+{"repo": "community", "pr_number": 697, "comment_id": 883957229, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "suggests defining one result type with usage examples instead of near-duplicate variants"}
+{"repo": "community", "pr_number": 697, "comment_id": 883957229, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "community", "pr_number": 697, "comment_id": 883957229, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "restructuring the schema/doc"}
+{"repo": "community", "pr_number": 697, "comment_id": 883957229, "facet": "principle", "value": "simplicity", "confidence": 0.4, "evidence": "avoid proliferating near-duplicate schema variants"}
+{"repo": "community", "pr_number": 697, "comment_id": 883958729, "facet": "artifact", "value": "tep-body", "confidence": 0.85, "evidence": "proposes two concrete design alternatives: consolidate results, or move to status fields"}
+{"repo": "community", "pr_number": 697, "comment_id": 883958729, "facet": "nature", "value": "content", "confidence": 0.8, "evidence": "substantive alternatives proposal"}
+{"repo": "community", "pr_number": 697, "comment_id": 883958729, "facet": "principle", "value": "simplicity", "confidence": 0.4, "evidence": "consolidating to fewer result types"}
+{"repo": "community", "pr_number": 697, "comment_id": 883960840, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "questions how inputs vs outputs are actually distinguished"}
+{"repo": "community", "pr_number": 697, "comment_id": 883960840, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive clarifying question"}
+{"repo": "community", "pr_number": 697, "comment_id": 883964481, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "questions how provenance gets from Runs to Chains, references a possibly-prerequisite TEP"}
+{"repo": "community", "pr_number": 697, "comment_id": 883964481, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive, flags a cross-TEP dependency"}
+{"repo": "community", "pr_number": 697, "comment_id": 894870914, "facet": "artifact", "value": "tep-body", "confidence": 0.4, "evidence": "clarifies a value is just a placeholder in the doc"}
+{"repo": "community", "pr_number": 697, "comment_id": 894870914, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "thin"}
+{"repo": "community", "pr_number": 697, "comment_id": 894884048, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "clarifies proposed schema shape with a concrete example"}
+{"repo": "community", "pr_number": 697, "comment_id": 894884048, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "community", "pr_number": 697, "comment_id": 894884855, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "clarifies intent for a prov_type field"}
+{"repo": "community", "pr_number": 697, "comment_id": 894884855, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "community", "pr_number": 697, "comment_id": 912533083, "facet": "artifact", "value": "tep-body", "confidence": 0.65, "evidence": "removes a section since only one schema is needed for now"}
+{"repo": "community", "pr_number": 697, "comment_id": 912533083, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive removal decision"}
+{"repo": "community", "pr_number": 697, "comment_id": 912533083, "facet": "nature", "value": "structure", "confidence": 0.3, "evidence": "removing a section"}
+{"repo": "community", "pr_number": 697, "comment_id": 912533140, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "records offline decision to use SIGNABLE_INPUTS/OUTPUTS in results"}
+{"repo": "community", "pr_number": 697, "comment_id": 912533140, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive design decision record"}
+{"repo": "community", "pr_number": 697, "comment_id": 912533166, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "pointer to a schema refactor discussed offline"}
+{"repo": "community", "pr_number": 697, "comment_id": 912533166, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief"}
+{"repo": "community", "pr_number": 697, "comment_id": 923919891, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "asks about prioritizing dedicated provenance fields in Run status, a cross-cutting WG topic"}
+{"repo": "community", "pr_number": 697, "comment_id": 923919891, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive"}
+{"repo": "community", "pr_number": 697, "comment_id": 923924012, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "flags a tricky Intoto Material spec-compliance edge case, suggests raising with SLSA folks"}
+{"repo": "community", "pr_number": 697, "comment_id": 923924012, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive"}
+{"repo": "community", "pr_number": 697, "comment_id": 923924012, "facet": "principle", "value": "supply-chain-compliance", "confidence": 0.5, "evidence": "spec-compliance concern with the Intoto Material object"}
+{"repo": "community", "pr_number": 697, "comment_id": 923924603, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "rewording suggestion for the SLSA/in-toto motivation paragraph"}
+{"repo": "community", "pr_number": 697, "comment_id": 923924603, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "wording/structure suggestion"}
+{"repo": "community", "pr_number": 697, "comment_id": 923924603, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "brief"}
+{"repo": "community", "pr_number": 697, "comment_id": 923927635, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "asks for a worked example TaskRun to validate ease of authoring"}
+{"repo": "community", "pr_number": 697, "comment_id": 923927635, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "community", "pr_number": 697, "comment_id": 923930908, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "asks for the distinction between a signable target and an output artifact"}
+{"repo": "community", "pr_number": 697, "comment_id": 923930908, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive terminology/semantics question"}
+{"repo": "community", "pr_number": 697, "comment_id": 923931837, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "asks how DigestSets will be handled"}
+{"repo": "community", "pr_number": 697, "comment_id": 923931837, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive open design question"}
+{"repo": "community", "pr_number": 697, "comment_id": 924808561, "facet": "artifact", "value": "tep-body", "confidence": 0.55, "evidence": "nit: delete stray dash in description field"}
+{"repo": "community", "pr_number": 697, "comment_id": 924808561, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "nit"}
+{"repo": "community", "pr_number": 697, "comment_id": 924809810, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "flags a missing property declaration inconsistent with the description text"}
+{"repo": "community", "pr_number": 697, "comment_id": 924809810, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive spec-completeness bug flag"}
+{"repo": "community", "pr_number": 697, "comment_id": 924809810, "facet": "nature", "value": "structure", "confidence": 0.3, "evidence": "schema completeness"}
+{"repo": "community", "pr_number": 697, "comment_id": 924817684, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "flags the example is inconsistent with the stated subjects/materials mapping"}
+{"repo": "community", "pr_number": 697, "comment_id": 924817684, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive spec-inconsistency flag"}
+{"repo": "community", "pr_number": 697, "comment_id": 924817684, "facet": "nature", "value": "structure", "confidence": 0.45, "evidence": "internal doc inconsistency"}
+{"repo": "community", "pr_number": 697, "comment_id": 930300817, "facet": "artifact", "value": "tep-body", "confidence": 0.55, "evidence": "adds a Run-status section to Alternatives per feedback"}
+{"repo": "community", "pr_number": 697, "comment_id": 930300817, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief"}
+{"repo": "community", "pr_number": 697, "comment_id": 930523084, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "asks for more context"}
+{"repo": "community", "pr_number": 697, "comment_id": 930523084, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "community", "pr_number": 697, "comment_id": 930524185, "facet": "artifact", "value": "tep-body", "confidence": 0.55, "evidence": "changes wording to consistent terminology (\"signable artifacts\")"}
+{"repo": "community", "pr_number": 697, "comment_id": 930524185, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "terminology consistency"}
+{"repo": "community", "pr_number": 697, "comment_id": 930524331, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "confirms making terminology consistent"}
+{"repo": "community", "pr_number": 697, "comment_id": 930524331, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "terminology consistency"}
+{"repo": "community", "pr_number": 697, "comment_id": 930528395, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "clarifies artifact_type can be empty and doesn't affect Intoto provenance generation"}
+{"repo": "community", "pr_number": 697, "comment_id": 930528395, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive clarification"}
+{"repo": "community", "pr_number": 697, "comment_id": 930529905, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "explains the input/output distinction in terms of source vs. produced materials"}
+{"repo": "community", "pr_number": 697, "comment_id": 930529905, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive explanation"}
+{"repo": "community", "pr_number": 697, "comment_id": 937092066, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "updates design per an in-toto spec discussion on PACKAGE URL format"}
+{"repo": "community", "pr_number": 697, "comment_id": 937092066, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive"}
+{"repo": "community", "pr_number": 697, "comment_id": 937092066, "facet": "principle", "value": "supply-chain-compliance", "confidence": 0.4, "evidence": "tracking upstream in-toto spec discussion for artifact-type identification"}
+{"repo": "community", "pr_number": 697, "comment_id": 937117382, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "adds a link to a worked example implementation"}
+{"repo": "community", "pr_number": 697, "comment_id": 937117382, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief pointer"}
+{"repo": "community", "pr_number": 697, "comment_id": 940068717, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "typo nit: formnat -> format"}
+{"repo": "community", "pr_number": 697, "comment_id": 940068717, "facet": "nature", "value": "structure", "confidence": 0.7, "evidence": "typo nit"}
+{"repo": "community", "pr_number": 697, "comment_id": 940075688, "facet": "artifact", "value": "tep-body", "confidence": 0.65, "evidence": "markdown formatting convention nit: italic/bold vs monospace"}
+{"repo": "community", "pr_number": 697, "comment_id": 940075688, "facet": "nature", "value": "structure", "confidence": 0.7, "evidence": "formatting convention nit"}
+{"repo": "community", "pr_number": 697, "comment_id": 940076944, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "asks for confirmation of the in-scope input types list"}
+{"repo": "community", "pr_number": 697, "comment_id": 940076944, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive scope clarifying question"}
+{"repo": "community", "pr_number": 697, "comment_id": 940184965, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "typo nit: provenence -> provenance"}
+{"repo": "community", "pr_number": 697, "comment_id": 940184965, "facet": "nature", "value": "structure", "confidence": 0.7, "evidence": "typo nit"}
+{"repo": "community", "pr_number": 697, "comment_id": 940189852, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "brief clarifying edit suggestion about Chains awareness"}
+{"repo": "community", "pr_number": 697, "comment_id": 940189852, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "community", "pr_number": 697, "comment_id": 940189852, "facet": "nature", "value": "structure", "confidence": 0.3, "evidence": "wording edit"}
+{"repo": "community", "pr_number": 697, "comment_id": 940204552, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "discusses backward-compatibility impact on existing tasks/result naming"}
+{"repo": "community", "pr_number": 697, "comment_id": 940204552, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive"}
+{"repo": "community", "pr_number": 697, "comment_id": 940204552, "facet": "principle", "value": "api-compatibility", "confidence": 0.4, "evidence": "explicitly about being less disruptive to existing tasks"}
+{"repo": "community", "pr_number": 697, "comment_id": 940217444, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "asks whether this refers to the go package dependency"}
+{"repo": "community", "pr_number": 697, "comment_id": 940217444, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "brief"}
+{"repo": "community", "pr_number": 697, "comment_id": 940218018, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "asks for clarification of the implementation plan section"}
+{"repo": "community", "pr_number": 697, "comment_id": 940218018, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "community", "pr_number": 697, "comment_id": 940456114, "facet": "artifact", "value": "tep-body", "confidence": 0.55, "evidence": "deletes a stale paragraph addressing an old design"}
+{"repo": "community", "pr_number": 697, "comment_id": 940456114, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "community", "pr_number": 697, "comment_id": 940456114, "facet": "nature", "value": "structure", "confidence": 0.35, "evidence": "removing stale content"}
+{"repo": "community", "pr_number": 697, "comment_id": 940460584, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "rewords a bullet point for clarity"}
+{"repo": "community", "pr_number": 697, "comment_id": 940460584, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "wording edit"}
+{"repo": "community", "pr_number": 697, "comment_id": 940517656, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "cross-references related discussion threads and a prior TEP on provenance metadata fields"}
+{"repo": "community", "pr_number": 697, "comment_id": 940517656, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "community", "pr_number": 697, "comment_id": 940517656, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.35, "evidence": "cross-referencing a related prior TEP's pattern"}
+{"repo": "community", "pr_number": 697, "comment_id": 940533464, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "proposes an artifact_type key alternative design"}
+{"repo": "community", "pr_number": 697, "comment_id": 940533464, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive design alternative"}
+{"repo": "community", "pr_number": 697, "comment_id": 940546216, "facet": "artifact", "value": "tep-body", "confidence": 0.85, "evidence": "flags uri type string is incompatible with SLSA's map[string]string definition"}
+{"repo": "community", "pr_number": 697, "comment_id": 940546216, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive spec-compliance bug flag"}
+{"repo": "community", "pr_number": 697, "comment_id": 940546216, "facet": "principle", "value": "supply-chain-compliance", "confidence": 0.6, "evidence": "explicit: \"this isn't compatible with the intoto spec\""}
+{"repo": "community", "pr_number": 697, "comment_id": 940550630, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "argues Results isn't the ideal place for provenance metadata, proposes alternative"}
+{"repo": "community", "pr_number": 697, "comment_id": 940550630, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive design suggestion"}
+{"repo": "community", "pr_number": 697, "comment_id": 940572701, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "prefers not tying provenance to results so authors don't need to pre-declare it"}
+{"repo": "community", "pr_number": 697, "comment_id": 940572701, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive design preference"}
+{"repo": "community", "pr_number": 697, "comment_id": 940572701, "facet": "principle", "value": "simplicity", "confidence": 0.4, "evidence": "avoids requiring pre-declared result schema"}
+{"repo": "community", "pr_number": 697, "comment_id": 940572701, "facet": "principle", "value": "flexibility", "confidence": 0.4, "evidence": "authors can output provenance without prior declaration"}
+{"repo": "community", "pr_number": 697, "comment_id": 940573256, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "flags that putting data in object keys breaks from the intoto spec"}
+{"repo": "community", "pr_number": 697, "comment_id": 940573256, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive"}
+{"repo": "community", "pr_number": 697, "comment_id": 940573256, "facet": "principle", "value": "supply-chain-compliance", "confidence": 0.5, "evidence": "explicit intoto spec breakage concern"}
+{"repo": "community", "pr_number": 697, "comment_id": 940582804, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "adds a DigestSets section after realizing nested-object support is needed"}
+{"repo": "community", "pr_number": 697, "comment_id": 940582804, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "community", "pr_number": 697, "comment_id": 940601756, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "adds in-toto compatibility as an explicit goal, discusses spec-change tradeoffs"}
+{"repo": "community", "pr_number": 697, "comment_id": 940601756, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive"}
+{"repo": "community", "pr_number": 697, "comment_id": 940601756, "facet": "principle", "value": "supply-chain-compliance", "confidence": 0.55, "evidence": "explicit: in-toto provenance compatibility added as a stated goal"}
+{"repo": "community", "pr_number": 697, "comment_id": 940607328, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "discusses digest verification between produced and uploaded artifacts as critical"}
+{"repo": "community", "pr_number": 697, "comment_id": 940607328, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "community", "pr_number": 697, "comment_id": 940607328, "facet": "principle", "value": "supply-chain-compliance", "confidence": 0.45, "evidence": "digest integrity/verification concern for provenance correctness"}
+{"repo": "community", "pr_number": 697, "comment_id": 940610817, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "weighs results-based vs status-based provenance retrieval tradeoffs"}
+{"repo": "community", "pr_number": 697, "comment_id": 940610817, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive design tradeoff discussion"}
+{"repo": "community", "pr_number": 697, "comment_id": 940625360, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "proposes making result-based provenance optional rather than a fixed format requirement"}
+{"repo": "community", "pr_number": 697, "comment_id": 940625360, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive design proposal"}
+{"repo": "community", "pr_number": 697, "comment_id": 940625360, "facet": "principle", "value": "flexibility", "confidence": 0.45, "evidence": "authors can format optional output data however they want"}
+{"repo": "community", "pr_number": 697, "comment_id": 940651685, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "asks how Chains stays usable if the string type-hinting format is being deprecated"}
+{"repo": "community", "pr_number": 697, "comment_id": 940651685, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive"}
+{"repo": "community", "pr_number": 697, "comment_id": 940651685, "facet": "principle", "value": "deprecation-handling", "confidence": 0.4, "evidence": "discusses migration path for a format being deprecated"}
+{"repo": "community", "pr_number": 697, "comment_id": 940705921, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "rewording suggestion aligning DigestSets description with the in-toto spec"}
+{"repo": "community", "pr_number": 697, "comment_id": 940705921, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "wording suggestion"}
+{"repo": "community", "pr_number": 697, "comment_id": 940705921, "facet": "principle", "value": "supply-chain-compliance", "confidence": 0.4, "evidence": "aligning description with in-toto DigestSets spec"}
+{"repo": "community", "pr_number": 697, "comment_id": 940723832, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "asks how variable-length outputs (e.g. multiarch images) would be represented"}
+{"repo": "community", "pr_number": 697, "comment_id": 940723832, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive edge-case design question"}
+{"repo": "community", "pr_number": 697, "comment_id": 940726627, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "raises implementation-feasibility concerns about hardcoding array-typed results"}
+{"repo": "community", "pr_number": 697, "comment_id": 940726627, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive feasibility concern"}
+{"repo": "community", "pr_number": 697, "comment_id": 941494746, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "investigates subjects/materials incompatibility with multiarch image digests"}
+{"repo": "community", "pr_number": 697, "comment_id": 941494746, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive spec-compatibility investigation"}
+{"repo": "community", "pr_number": 697, "comment_id": 941494746, "facet": "principle", "value": "supply-chain-compliance", "confidence": 0.55, "evidence": "multiarch image compatibility with in-toto subjects/materials spec"}
+{"repo": "community", "pr_number": 697, "comment_id": 941496850, "facet": "artifact", "value": "tep-body", "confidence": 0.55, "evidence": "clarifies the question being asked about author ergonomics"}
+{"repo": "community", "pr_number": 697, "comment_id": 941496850, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "community", "pr_number": 697, "comment_id": 941564666, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "relays SLSA team guidance on handling multiarch image digests"}
+{"repo": "community", "pr_number": 697, "comment_id": 941564666, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive"}
+{"repo": "community", "pr_number": 697, "comment_id": 941564666, "facet": "principle", "value": "supply-chain-compliance", "confidence": 0.55, "evidence": "directly relays upstream SLSA team guidance"}
+{"repo": "community", "pr_number": 697, "comment_id": 949320005, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "questions confidence in status-based provenance as the long-term solution"}
+{"repo": "community", "pr_number": 697, "comment_id": 949320005, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive strategic design question"}
+{"repo": "community", "pr_number": 697, "comment_id": 949320005, "facet": "principle", "value": "deprecation-handling", "confidence": 0.35, "evidence": "tied to the string type-hinting deprecation discussion"}
+{"repo": "community", "pr_number": 697, "comment_id": 951541987, "facet": "artifact", "value": "tep-body", "confidence": 0.55, "evidence": "updates a note per an offline discussion"}
+{"repo": "community", "pr_number": 697, "comment_id": 951541987, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief"}
+{"repo": "community", "pr_number": 697, "comment_id": 951628554, "facet": "artifact", "value": "tep-body", "confidence": 0.85, "evidence": "suggests refocusing the TEP on end state and moving interim details to other sections"}
+{"repo": "community", "pr_number": 697, "comment_id": 951628554, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "reorganizing which content belongs in which TEP section"}
+{"repo": "community", "pr_number": 697, "comment_id": 951628554, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "community", "pr_number": 792, "comment_id": 960826853, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "argues Trusted Tasks aren't the right mechanism, explains the actual trust boundary"}
+{"repo": "community", "pr_number": 792, "comment_id": 960826853, "facet": "nature", "value": "content", "confidence": 0.75, "evidence": "substantive design/trust-boundary correctness concern"}
+{"repo": "community", "pr_number": 792, "comment_id": 960826853, "facet": "principle", "value": "security", "confidence": 0.45, "evidence": "trust-boundary correctness for what can and can't modify run status"}
+{"repo": "community", "pr_number": 792, "comment_id": 960828637, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "asks for a tracking issue to be created and linked"}
+{"repo": "community", "pr_number": 792, "comment_id": 960828637, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief process request"}
+{"repo": "community", "pr_number": 792, "comment_id": 966001626, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "clarifies the argument about controller-only status mutation and reworks the reasoning"}
+{"repo": "community", "pr_number": 792, "comment_id": 966001626, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "community", "pr_number": 792, "comment_id": 966007421, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "confirms a tracking issue was created"}
+{"repo": "community", "pr_number": 792, "comment_id": 966007421, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief"}
+{"repo": "community", "pr_number": 792, "comment_id": 973265811, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "suggests linking the tracking issue and noting eventual deprecation"}
+{"repo": "community", "pr_number": 792, "comment_id": 973265811, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "community", "pr_number": 792, "comment_id": 973265811, "facet": "principle", "value": "deprecation-handling", "confidence": 0.4, "evidence": "suggests explicitly noting the deprecation path once the linked issue lands"}
+{"repo": "community", "pr_number": 792, "comment_id": 973482332, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "asks whether artifact type must be part of the naming or is just illustrative"}
+{"repo": "community", "pr_number": 792, "comment_id": 973482332, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive clarifying question"}
+{"repo": "community", "pr_number": 792, "comment_id": 974533659, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "requests supporting comma-separated digest lists for SLSA DigestSet feature completeness"}
+{"repo": "community", "pr_number": 792, "comment_id": 974533659, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive"}
+{"repo": "community", "pr_number": 792, "comment_id": 974533659, "facet": "principle", "value": "supply-chain-compliance", "confidence": 0.5, "evidence": "explicit: to be feature complete with respect to SLSA's DigestSet"}
+{"repo": "community", "pr_number": 792, "comment_id": 980483357, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "clarifies the naming examples aren't a strict requirement, just illustrative"}
+{"repo": "community", "pr_number": 792, "comment_id": 980483357, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive clarification"}
+{"repo": "community", "pr_number": 792, "comment_id": 980484805, "facet": "artifact", "value": "tep-body", "confidence": 0.65, "evidence": "agrees to raise the idea for discussion, plans to implement the basic feature first"}
+{"repo": "community", "pr_number": 792, "comment_id": 980484805, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.4, "evidence": "implement the basic feature first, extend after discussion"}
+{"repo": "community", "pr_number": 792, "comment_id": 980484805, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987036425, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "suggests a builtin error is sufficient rather than a Knative FieldError"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987036425, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive code design suggestion"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987041141, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "suggests checking for empty digest field before format validation"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987041141, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive edge-case suggestion"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987047168, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "flags struct naming as too provenance-specific for what it actually represents"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987047168, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987047168, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "naming/comment suggestion"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987058522, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "flags missing pipelinerun-level material extraction parity"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987058522, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive coverage-gap flag"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987058522, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.4, "evidence": "parity between taskrun and pipelinerun extraction paths"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987143050, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "responds about whether the struct should be renamed more generically"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987143050, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987144881, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "explains the emptiness check already happens inside checkDigest"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987144881, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive technical answer"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987197701, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "records offline resolution of the digest-check question"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987197701, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987201368, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "flags naming risk of implying a competing schema to intoto/SLSA"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987201368, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987201368, "facet": "nature", "value": "structure", "confidence": 0.3, "evidence": "naming concern"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987201368, "facet": "principle", "value": "supply-chain-compliance", "confidence": 0.4, "evidence": "naming shouldn't imply defining an alternative to the intoto/SLSA schema"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987206603, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "agrees to unexport the struct since it doesn't affect external integrations"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987206603, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987206603, "facet": "principle", "value": "api-compatibility", "confidence": 0.4, "evidence": "unexporting to avoid impact on external integrations"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987900946, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "nit: extract result parsing into its own function for testability"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987900946, "facet": "artifact", "value": "tests", "confidence": 0.35, "evidence": "rationale is easier testing"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987900946, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "refactor nit"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987901805, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "questions redundant validation given re-validation happens during extraction"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987901805, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive redundancy concern"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987901805, "facet": "principle", "value": "simplicity", "confidence": 0.35, "evidence": "avoid duplicated validation logic"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987904571, "facet": "artifact", "value": "tests", "confidence": 0.8, "evidence": "suggests grouping input/output test cases together, shows a t.Run example"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987904571, "facet": "nature", "value": "structure", "confidence": 0.65, "evidence": "test-structure suggestion"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987905403, "facet": "artifact", "value": "tests", "confidence": 0.7, "evidence": "suggests a cmpopts.SortSlices option to make comparisons order-independent"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987905403, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987905403, "facet": "nature", "value": "structure", "confidence": 0.3, "evidence": "test-comparison fix"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987906451, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "code suggestion fixing t.Fatalf usage"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987906451, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "code fix nit"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987911030, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "categoryMarker name isn't self-explanatory, suggests renaming and/or more godoc"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987911030, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "naming/doc clarity"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987912305, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "suggests downgrading a log level since this reflects user input, not a Chains problem"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987912305, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive logging-severity suggestion"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987914820, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "flags a potential panic on unexpected digest format"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987914820, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "explicitly requests a test for this"}
+{"repo": "chains", "pr_number": 491, "comment_id": 987914820, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive bug-risk + coverage gap"}
+{"repo": "chains", "pr_number": 491, "comment_id": 990394201, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "asks for clarification of the ignore-vs-error strategy for malformed schema"}
+{"repo": "chains", "pr_number": 491, "comment_id": 990394201, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive clarifying question"}
+{"repo": "chains", "pr_number": 491, "comment_id": 992418245, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "confirms not extracting a separate function after all"}
+{"repo": "chains", "pr_number": 491, "comment_id": 992418245, "facet": "nature", "value": "structure", "confidence": 0.35, "evidence": "brief structural decision"}
+{"repo": "chains", "pr_number": 491, "comment_id": 992428097, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "adds godoc to clarify type hinting distinguishes inputs/outputs"}
+{"repo": "chains", "pr_number": 491, "comment_id": 992428097, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "documentation completeness"}
+{"repo": "chains", "pr_number": 491, "comment_id": 992439025, "facet": "artifact", "value": "tests", "confidence": 0.65, "evidence": "adds a dedicated test for separate validation plus a combined-TaskRun grouping test"}
+{"repo": "chains", "pr_number": 491, "comment_id": 992439025, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive test addition"}
+{"repo": "chains", "pr_number": 491, "comment_id": 992444400, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "confirms moving logic out and returning an error"}
+{"repo": "chains", "pr_number": 491, "comment_id": 992444400, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "brief structural change"}
+{"repo": "chains", "pr_number": 491, "comment_id": 992452323, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "explains existing coverage and defers additional SubjectDigests() tests to a follow-up PR"}
+{"repo": "chains", "pr_number": 491, "comment_id": 992452323, "facet": "artifact", "value": "pr-size", "confidence": 0.35, "evidence": "defers additional test coverage to a separate PR"}
+{"repo": "chains", "pr_number": 491, "comment_id": 992452323, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993792321, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "asks whether to document or restrict the accepted suffix values"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993792321, "facet": "artifact", "value": "docs", "confidence": 0.35, "evidence": "documenting accepted values"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993792321, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive design question"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993797728, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "suggests log.Debug over log.Error for expected-normal cases, with more context"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993797728, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive logging convention suggestion"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993798069, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "asks whether context can be plumbed through to use logging.FromContext"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993798069, "facet": "artifact", "value": "reconciler-pattern", "confidence": 0.3, "evidence": "context-based logging pattern"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993798069, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993799149, "facet": "artifact", "value": "code", "confidence": 0.8, "evidence": "flags near-duplicate exported/unexported functions with the same signature and godoc"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993799149, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive duplication concern"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993799149, "facet": "principle", "value": "simplicity", "confidence": 0.35, "evidence": "near-duplicate functions should likely be consolidated"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993802276, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "points to an existing interface-method pattern used elsewhere to avoid type switching"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993802276, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive design-pattern pointer"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993802276, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.45, "evidence": "points to an established pattern already used elsewhere in the codebase"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993802276, "facet": "principle", "value": "reusability", "confidence": 0.35, "evidence": "reuse the existing interface-method pattern instead of a new type switch"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993803166, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "flags a potential panic on improperly formatted digest"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993803166, "facet": "artifact", "value": "tests", "confidence": 0.55, "evidence": "requests a test for this"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993803166, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive bug-risk + coverage gap"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993805100, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "doc comments need more description"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993805100, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "documentation completeness nit"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993807636, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "prefers returning the list over pointer mutation, lets caller append"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993807636, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive code-style preference"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993807636, "facet": "nature", "value": "structure", "confidence": 0.3, "evidence": "return-value vs mutation style"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993811427, "facet": "artifact", "value": "tests", "confidence": 0.75, "evidence": "pushes back on splitting tests, explains the grouping rationale"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993811427, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive test-design pushback"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993812069, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "nit: repeat cmpopts.SortSlices suggestion across more comparisons"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993812069, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "test-comparison nit"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993814776, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "validateResult name is too generic, suggests isArtifactResult"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993814776, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "naming nit"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993815118, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "code suggestion fixing the uri-field validation logic"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993815118, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "code fix"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993817022, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "asks whether this panics for non-object result types"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993817022, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive edge-case bug-risk question"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993819296, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "flags that an exported function can't assume golden-path-only callers"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993819296, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive robustness concern"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993819296, "facet": "principle", "value": "api-compatibility", "confidence": 0.35, "evidence": "exported surface needs defensive handling for arbitrary callers"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993822186, "facet": "artifact", "value": "tests", "confidence": 0.75, "evidence": "flags redundant test cases and unnecessary use of cmp for simple types"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993822186, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 491, "comment_id": 993822186, "facet": "principle", "value": "simplicity", "confidence": 0.4, "evidence": "redundant tests and unnecessary comparison complexity"}
+{"repo": "chains", "pr_number": 491, "comment_id": 994768115, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "explains interface casting is needed because structured results aren't yet in TektonObject"}
+{"repo": "chains", "pr_number": 491, "comment_id": 994768115, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive explanation of a real constraint"}
+{"repo": "chains", "pr_number": 491, "comment_id": 994769644, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "brief clarifying question"}
+{"repo": "chains", "pr_number": 491, "comment_id": 994769644, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "chains", "pr_number": 491, "comment_id": 994773847, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "confirms a test was added"}
+{"repo": "chains", "pr_number": 491, "comment_id": 994773847, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "brief"}
+{"repo": "chains", "pr_number": 491, "comment_id": 994775414, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "confirms returning a list and letting the caller merge"}
+{"repo": "chains", "pr_number": 491, "comment_id": 994775414, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "confirms structural change"}
+{"repo": "chains", "pr_number": 491, "comment_id": 994776345, "facet": "artifact", "value": "code", "confidence": 0.45, "evidence": "confirms merging code together"}
+{"repo": "chains", "pr_number": 491, "comment_id": 994776345, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "confirms structural change"}
+{"repo": "chains", "pr_number": 491, "comment_id": 994777110, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "confirms rename to isStructuredResult"}
+{"repo": "chains", "pr_number": 491, "comment_id": 994777110, "facet": "nature", "value": "structure", "confidence": 0.45, "evidence": "naming change confirmed"}
+{"repo": "chains", "pr_number": 491, "comment_id": 994777464, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "confirms an additional check was added"}
+{"repo": "chains", "pr_number": 491, "comment_id": 994777464, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief"}
+{"repo": "chains", "pr_number": 491, "comment_id": 994801261, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "asks the benefit of logging.FromContext given existing callers already pass a logger"}
+{"repo": "chains", "pr_number": 491, "comment_id": 994801261, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive clarifying question"}
+{"repo": "chains", "pr_number": 491, "comment_id": 996042394, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "confirms an additional check was added"}
+{"repo": "chains", "pr_number": 491, "comment_id": 996042394, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief"}
+{"repo": "chains", "pr_number": 491, "comment_id": 997138996, "facet": "artifact", "value": "tests", "confidence": 0.7, "evidence": "explains switching to simple comparison, notes error-message checks aren't covered elsewhere"}
+{"repo": "chains", "pr_number": 491, "comment_id": 997138996, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive test rationale"}
+{"repo": "chains", "pr_number": 491, "comment_id": 997233896, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "adds a PipelineRun test to match existing TaskRun coverage"}
+{"repo": "chains", "pr_number": 491, "comment_id": 997233896, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "brief but confirms parity coverage"}
+{"repo": "chains", "pr_number": 491, "comment_id": 997233896, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.35, "evidence": "taskrun/pipelinerun test parity"}
+{"repo": "chains", "pr_number": 491, "comment_id": 998224819, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "flags a likely oversight since TaskRuns already support this, asks for follow-up"}
+{"repo": "chains", "pr_number": 491, "comment_id": 998224819, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive bug flag"}
+{"repo": "chains", "pr_number": 491, "comment_id": 998224819, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.4, "evidence": "TaskRun/PipelineRun feature parity gap"}
+{"repo": "chains", "pr_number": 491, "comment_id": 998235882, "facet": "artifact", "value": "tests", "confidence": 0.7, "evidence": "code suggestion adding SortSlices for order-independent comparison"}
+{"repo": "chains", "pr_number": 491, "comment_id": 998235882, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "test fix"}
+{"repo": "chains", "pr_number": 491, "comment_id": 998239156, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "clarifies we should check and handle input defensively since we don't control what users hand us"}
+{"repo": "chains", "pr_number": 491, "comment_id": 998239156, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive robustness point"}
+{"repo": "chains", "pr_number": 491, "comment_id": 998239156, "facet": "principle", "value": "security", "confidence": 0.3, "evidence": "defensive handling of untrusted user input"}
+{"repo": "chains", "pr_number": 491, "comment_id": 998242476, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "code suggestion renaming a function signature"}
+{"repo": "chains", "pr_number": 491, "comment_id": 998242476, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "naming/signature fix"}
+{"repo": "chains", "pr_number": 491, "comment_id": 998342870, "facet": "artifact", "value": "code", "confidence": 0.45, "evidence": "confirms a tracking issue was created"}
+{"repo": "chains", "pr_number": 491, "comment_id": 998342870, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "brief"}
+{"repo": "chains", "pr_number": 491, "comment_id": 998363439, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "adds an extra check after realizing it wasn't already covered elsewhere"}
+{"repo": "chains", "pr_number": 491, "comment_id": 998363439, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "chains", "pr_number": 491, "comment_id": 998564276, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "code suggestion fixing the materials comparison"}
+{"repo": "chains", "pr_number": 491, "comment_id": 998564276, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "test fix"}
+{"repo": "chains", "pr_number": 491, "comment_id": 998565606, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "code suggestion fixing the validation-error comparison"}
+{"repo": "chains", "pr_number": 491, "comment_id": 998565606, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "test fix"}
+{"repo": "chains", "pr_number": 491, "comment_id": 998567522, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "code suggestion adding SortSlices to the subjects comparison"}
+{"repo": "chains", "pr_number": 491, "comment_id": 998567522, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "test fix"}
+{"repo": "chains", "pr_number": 491, "comment_id": 998569950, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "code suggestion adding SortSlices to the outputs comparison"}
+{"repo": "chains", "pr_number": 491, "comment_id": 998569950, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "test fix"}
+{"repo": "chains", "pr_number": 491, "comment_id": 992452323, "facet": "nature", "value": "cohesion", "confidence": 0.45, "evidence": "defers additional SubjectDigests() test coverage to a separate PR - same in-this-PR-vs-another-PR scoping judgment first observed on TEP-84", "source_pass": "audit"}
