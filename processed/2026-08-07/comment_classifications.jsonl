@@ -1508,3 +1508,754 @@
 {"repo": "triggers", "pr_number": 976, "comment_id": 595475583, "facet": "nature", "value": "structure", "confidence": 0.45, "evidence": "confirms structural change"}
 {"repo": "triggers", "pr_number": 976, "comment_id": 595476248, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "explains a leftover was caused by a broad search-and-replace"}
 {"repo": "triggers", "pr_number": 976, "comment_id": 595476248, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief explanation"}
+{"repo": "community", "pr_number": 477, "comment_id": 671566749, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "self-correction of an incorrect YAML example for array param syntax"}
+{"repo": "community", "pr_number": 477, "comment_id": 671566749, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "fixes the substance of the example, not just wording"}
+{"repo": "community", "pr_number": 477, "comment_id": 673505911, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "argues use case doesn't address dynamism / variable-sized arrays"}
+{"repo": "community", "pr_number": 477, "comment_id": 673505911, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive critique of Use Cases section"}
+{"repo": "community", "pr_number": 477, "comment_id": 673506358, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "proposes reusing same result path with a format key instead of new mechanism"}
+{"repo": "community", "pr_number": 477, "comment_id": 673506358, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "alternative design proposal"}
+{"repo": "community", "pr_number": 477, "comment_id": 673506358, "facet": "principle", "value": "simplicity", "confidence": 0.4, "evidence": "argues for one unified mechanism instead of a new one"}
+{"repo": "community", "pr_number": 477, "comment_id": 673506821, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "suggests validating on resource creation"}
+{"repo": "community", "pr_number": 477, "comment_id": 673506821, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive suggestion"}
+{"repo": "community", "pr_number": 477, "comment_id": 673506821, "facet": "principle", "value": "authoring-vs-runtime", "confidence": 0.6, "evidence": "suggests partial validation at creation time rather than only at runtime"}
+{"repo": "community", "pr_number": 477, "comment_id": 673508137, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "proposes non-indexed array syntax `$(params.environments[])` for fan-out"}
+{"repo": "community", "pr_number": 477, "comment_id": 673508137, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "alternative design proposal with rationale"}
+{"repo": "community", "pr_number": 477, "comment_id": 675654614, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "questions whether `type: array` is required, as for task params"}
+{"repo": "community", "pr_number": 477, "comment_id": 675654614, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive question about field requirements"}
+{"repo": "community", "pr_number": 477, "comment_id": 675654614, "facet": "principle", "value": "tekton-api-conventions", "confidence": 0.6, "evidence": "asks whether the new field must follow the existing param `type` requirement"}
+{"repo": "community", "pr_number": 477, "comment_id": 680995538, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "cites task-loop custom task's multiline-string hack as motivation for array results"}
+{"repo": "community", "pr_number": 477, "comment_id": 680995538, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive motivation content"}
+{"repo": "community", "pr_number": 477, "comment_id": 680995538, "facet": "principle", "value": "reusability", "confidence": 0.6, "evidence": "discusses whether an existing custom-task workaround is sufficient vs a core feature"}
+{"repo": "community", "pr_number": 477, "comment_id": 681000263, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "extends motivation: need to capture results from a loop"}
+{"repo": "community", "pr_number": 477, "comment_id": 681000263, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive use-case addition"}
+{"repo": "community", "pr_number": 477, "comment_id": 681001739, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "proposes new use case: array as args for another task"}
+{"repo": "community", "pr_number": 477, "comment_id": 681001739, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive use-case addition"}
+{"repo": "community", "pr_number": 477, "comment_id": 681006917, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "\"no use case defined to support the indexing goal\""}
+{"repo": "community", "pr_number": 477, "comment_id": 681006917, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "flags a gap in requirements/use-cases"}
+{"repo": "community", "pr_number": 477, "comment_id": 681008880, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "questions the use case for indexing given task-loop dynamism"}
+{"repo": "community", "pr_number": 477, "comment_id": 681008880, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive design question"}
+{"repo": "community", "pr_number": 477, "comment_id": 681041607, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "struggles to imagine concrete example for indexing use case"}
+{"repo": "community", "pr_number": 477, "comment_id": 681041607, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "mild elaboration of prior point"}
+{"repo": "community", "pr_number": 477, "comment_id": 683553124, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "\"not sold on having loop support in pipeline itself (aka as a custom task looks just fine)\""}
+{"repo": "community", "pr_number": 477, "comment_id": 683553124, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive scope objection"}
+{"repo": "community", "pr_number": 477, "comment_id": 683553124, "facet": "principle", "value": "reusability", "confidence": 0.6, "evidence": "argues an existing custom task is sufficient instead of a core feature"}
+{"repo": "community", "pr_number": 477, "comment_id": 683553124, "facet": "principle", "value": "flexibility", "confidence": 0.6, "evidence": "favors the existing CustomTask plugin mechanism over new core-API surface"}
+{"repo": "community", "pr_number": 477, "comment_id": 683557283, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "endorses a use case as the main one to list"}
+{"repo": "community", "pr_number": 477, "comment_id": 683557283, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "agreement with content direction"}
+{"repo": "community", "pr_number": 477, "comment_id": 683559702, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "\"Any reason for going json vs another format?\""}
+{"repo": "community", "pr_number": 477, "comment_id": 683559702, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "design-choice question"}
+{"repo": "community", "pr_number": 477, "comment_id": 683560291, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "asks about failure handling for complex json"}
+{"repo": "community", "pr_number": 477, "comment_id": 683560291, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "design-choice question"}
+{"repo": "community", "pr_number": 477, "comment_id": 683562852, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "disagrees with including loop indexing in TEP scope"}
+{"repo": "community", "pr_number": 477, "comment_id": 683562852, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive scope pushback"}
+{"repo": "community", "pr_number": 477, "comment_id": 683562852, "facet": "principle", "value": "simplicity", "confidence": 0.6, "evidence": "wants to avoid committing to complexity unless truly needed"}
+{"repo": "community", "pr_number": 477, "comment_id": 683562852, "facet": "principle", "value": "reusability", "confidence": 0.5, "evidence": "\"custom task are not enough\" needs to be established first"}
+{"repo": "community", "pr_number": 477, "comment_id": 683562852, "facet": "principle", "value": "feature-justification", "confidence": 0.5, "evidence": "wants to \"make sure we really need this\" before committing"}
+{"repo": "community", "pr_number": 477, "comment_id": 683563609, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "asks about huge array results (e.g. 10M json file)"}
+{"repo": "community", "pr_number": 477, "comment_id": 683563609, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive scalability concern"}
+{"repo": "community", "pr_number": 477, "comment_id": 683565512, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "raises unaddressed concern about relying solely on json syntax for results"}
+{"repo": "community", "pr_number": 477, "comment_id": 683565512, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive design gap"}
+{"repo": "community", "pr_number": 477, "comment_id": 683582705, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "cites test-sharding use cases avoiding spec copy+paste"}
+{"repo": "community", "pr_number": 477, "comment_id": 683582705, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive use-case content"}
+{"repo": "community", "pr_number": 477, "comment_id": 683584812, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "argues the feature deserves to be in core API rather than a custom task"}
+{"repo": "community", "pr_number": 477, "comment_id": 683584812, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive argument"}
+{"repo": "community", "pr_number": 477, "comment_id": 683584812, "facet": "principle", "value": "reusability", "confidence": 0.6, "evidence": "argues core API is warranted over a custom-task-only approach"}
+{"repo": "community", "pr_number": 477, "comment_id": 683602559, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "points back to task-loop custom task as existing solution"}
+{"repo": "community", "pr_number": 477, "comment_id": 683602559, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "continues scope debate"}
+{"repo": "community", "pr_number": 477, "comment_id": 683602559, "facet": "principle", "value": "reusability", "confidence": 0.6, "evidence": "reiterates that an existing custom task already covers this"}
+{"repo": "community", "pr_number": 477, "comment_id": 690546863, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "agrees test-sharding is a use case but debates whether looping is in scope"}
+{"repo": "community", "pr_number": 477, "comment_id": 690546863, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive scoping discussion"}
+{"repo": "community", "pr_number": 477, "comment_id": 690554561, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "proposes two additional use cases for array results"}
+{"repo": "community", "pr_number": 477, "comment_id": 690554561, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive use-case proposal"}
+{"repo": "community", "pr_number": 477, "comment_id": 690560473, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "surveys yaml/protobuf/xml/csv alternatives and justifies json"}
+{"repo": "community", "pr_number": 477, "comment_id": 690560473, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive alternatives analysis"}
+{"repo": "community", "pr_number": 477, "comment_id": 690560473, "facet": "principle", "value": "api-conventions", "confidence": 0.5, "evidence": "\"yaml and json are the two formats that k8s is using\""}
+{"repo": "community", "pr_number": 477, "comment_id": 690561068, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "asks how format would be known until runtime"}
+{"repo": "community", "pr_number": 477, "comment_id": 690561068, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "design clarification question"}
+{"repo": "community", "pr_number": 477, "comment_id": 690563646, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "explains json vs string file semantics and back-compat approach"}
+{"repo": "community", "pr_number": 477, "comment_id": 690563646, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive design explanation"}
+{"repo": "community", "pr_number": 477, "comment_id": 690563646, "facet": "principle", "value": "api-compatibility", "confidence": 0.5, "evidence": "ensures current string-result behavior is preserved additively alongside json syntax"}
+{"repo": "community", "pr_number": 477, "comment_id": 691502726, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "flags a missing word in TEP prose"}
+{"repo": "community", "pr_number": 477, "comment_id": 691502726, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "wording nit, not a design point"}
+{"repo": "community", "pr_number": 477, "comment_id": 691629841, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "fixes the missing-word nit"}
+{"repo": "community", "pr_number": 477, "comment_id": 691629841, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "wording fix"}
+{"repo": "community", "pr_number": 477, "comment_id": 693187593, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "corrects example: values belong in the pipelinerun not the pipeline"}
+{"repo": "community", "pr_number": 477, "comment_id": 693187593, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive correction of example content"}
+{"repo": "community", "pr_number": 477, "comment_id": 694136694, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "notes OpenAPI spec as an alternative schema approach to explore"}
+{"repo": "community", "pr_number": 477, "comment_id": 694136694, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive alternative to investigate"}
+{"repo": "community", "pr_number": 477, "comment_id": 694136694, "facet": "principle", "value": "tekton-api-conventions", "confidence": 0.5, "evidence": "considers aligning with the OpenAPI spec CRDs already use"}
+{"repo": "community", "pr_number": 477, "comment_id": 703907764, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "self-note that the Summary section is confusing and needs rewriting"}
+{"repo": "community", "pr_number": 477, "comment_id": 703907764, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "about clarity of prose, not substance"}
+{"repo": "community", "pr_number": 477, "comment_id": 704861280, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "reports OpenAPI-schema exploration outcome for the design"}
+{"repo": "community", "pr_number": 477, "comment_id": 704861280, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive follow-up on schema alternative"}
+{"repo": "community", "pr_number": 477, "comment_id": 704861280, "facet": "principle", "value": "tekton-api-conventions", "confidence": 0.5, "evidence": "OpenAPI schemas would be \"more consistent with k8s\""}
+{"repo": "community", "pr_number": 477, "comment_id": 708380813, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "markdown numbered-list rendering nit"}
+{"repo": "community", "pr_number": 477, "comment_id": 708380813, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "pure formatting issue"}
+{"repo": "community", "pr_number": 477, "comment_id": 730939438, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "typo: togther -> together"}
+{"repo": "community", "pr_number": 477, "comment_id": 730939438, "facet": "nature", "value": "structure", "confidence": 0.7, "evidence": "pure typo"}
+{"repo": "community", "pr_number": 477, "comment_id": 738838741, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "suggests a workaround avoiding array indexing via loop reconciler string parsing"}
+{"repo": "community", "pr_number": 477, "comment_id": 738838741, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive alternative"}
+{"repo": "community", "pr_number": 477, "comment_id": 738838741, "facet": "principle", "value": "reusability", "confidence": 0.4, "evidence": "workaround using existing loop reconciler behavior instead of new indexing"}
+{"repo": "community", "pr_number": 477, "comment_id": 759527467, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "+1 to array size as a variable-replacement addition"}
+{"repo": "community", "pr_number": 477, "comment_id": 759527467, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive proposal to extend requirements"}
+{"repo": "community", "pr_number": 477, "comment_id": 762412789, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "discusses dedicated controller/CRD architecture for loops, referencing TEP-0044"}
+{"repo": "community", "pr_number": 477, "comment_id": 762412789, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive architecture discussion"}
+{"repo": "community", "pr_number": 477, "comment_id": 762413369, "facet": "artifact", "value": "tep-body", "confidence": 0.4, "evidence": "endorses adding a use case to the TEP"}
+{"repo": "community", "pr_number": 477, "comment_id": 762413369, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "brief endorsement of content addition"}
+{"repo": "community", "pr_number": 477, "comment_id": 762413780, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "identifies a use case for indexing tied to needing array length"}
+{"repo": "community", "pr_number": 477, "comment_id": 762413780, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive use-case reasoning"}
+{"repo": "community", "pr_number": 477, "comment_id": 792212292, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "records scoping decision to leave nested-array support out for now, in alternatives section"}
+{"repo": "community", "pr_number": 477, "comment_id": 792212292, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive scope decision"}
+{"repo": "community", "pr_number": 477, "comment_id": 792857100, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "reorganizes doc: new \"Validating JSON results at runtime\" section, moved out of notes/caveats"}
+{"repo": "community", "pr_number": 477, "comment_id": 792857100, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "reorganizing where content lives in the doc"}
+{"repo": "community", "pr_number": 477, "comment_id": 798109011, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "notes YAML is a JSON superset as an argument for the format choice"}
+{"repo": "community", "pr_number": 477, "comment_id": 798109011, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive design-rationale point"}
+{"repo": "community", "pr_number": 477, "comment_id": 798838457, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "explains yaml/json in-memory equivalence re: jsonpath/jsonpointer"}
+{"repo": "community", "pr_number": 477, "comment_id": 798838457, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive technical point"}
+{"repo": "community", "pr_number": 477, "comment_id": 798843479, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "flags \"type: array\" conflicting with \"type: object\", proposes alternative \"multiple: true\" attribute"}
+{"repo": "community", "pr_number": 477, "comment_id": 798843479, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive alternative-design proposal spanning TEP-0075/0076"}
+{"repo": "community", "pr_number": 477, "comment_id": 798843479, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.6, "evidence": "concerned the array/object type fields are inconsistent with each other across sibling TEPs"}
+{"repo": "community", "pr_number": 477, "comment_id": 799744148, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "proposes json-schema-aligned array-of-objects syntax and clarifies nested-type scoping vs TEP-0075"}
+{"repo": "community", "pr_number": 477, "comment_id": 799744148, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive alternative-design counter-proposal"}
+{"repo": "community", "pr_number": 477, "comment_id": 799744148, "facet": "principle", "value": "tekton-api-conventions", "confidence": 0.5, "evidence": "aligns proposed syntax with json-schema conventions"}
+{"repo": "community", "pr_number": 477, "comment_id": 799744148, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.5, "evidence": "keeps nested types out of scope consistently for both this TEP and TEP-0075"}
+{"repo": "community", "pr_number": 707, "comment_id": 875199319, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "suggestion diff correcting example wording"}
+{"repo": "community", "pr_number": 707, "comment_id": 875199319, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "wording/example clarity fix"}
+{"repo": "community", "pr_number": 707, "comment_id": 875202269, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "discusses whether append-benefit applies to object results too"}
+{"repo": "community", "pr_number": 707, "comment_id": 875202269, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive design comparison between array and object types"}
+{"repo": "community", "pr_number": 707, "comment_id": 875211024, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "flags example inconsistency: a task name is described as a param"}
+{"repo": "community", "pr_number": 707, "comment_id": 875211024, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive correctness issue in an example"}
+{"repo": "community", "pr_number": 707, "comment_id": 875221486, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "notes array variable replacement makes sense, object case differs"}
+{"repo": "community", "pr_number": 707, "comment_id": 875221486, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive scoping note"}
+{"repo": "community", "pr_number": 707, "comment_id": 875330521, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "explains overlapping examples given K8s default quoting behavior, suggests removing redundancy"}
+{"repo": "community", "pr_number": 707, "comment_id": 875330521, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive correctness/redundancy point"}
+{"repo": "community", "pr_number": 707, "comment_id": 875330521, "facet": "principle", "value": "api-conventions", "confidence": 0.6, "evidence": "cites Kubernetes' documented default object/string handling"}
+{"repo": "community", "pr_number": 707, "comment_id": 876009092, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "clarifies TEP-0076 examples will stay array-focused, object examples deferred to a separate PR"}
+{"repo": "community", "pr_number": 707, "comment_id": 876009092, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive scoping clarification"}
+{"repo": "community", "pr_number": 707, "comment_id": 876009092, "facet": "nature", "value": "cohesion", "confidence": 0.4, "evidence": "keeps TEP-0076's examples focused on arrays rather than mixing in TEP-0075's object examples"}
+{"repo": "community", "pr_number": 707, "comment_id": 876052862, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "explains yaml/json conversion via K8s OpenAPI and json.Unmarshaller"}
+{"repo": "community", "pr_number": 707, "comment_id": 876052862, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive technical explanation"}
+{"repo": "community", "pr_number": 707, "comment_id": 876052862, "facet": "principle", "value": "api-conventions", "confidence": 0.5, "evidence": "cites the K8s API (OpenAPI/swagger) mechanism underpinning the design"}
+{"repo": "community", "pr_number": 707, "comment_id": 876053701, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "fixes a wrong word (environments) in own text"}
+{"repo": "community", "pr_number": 707, "comment_id": 876053701, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "wording correction"}
+{"repo": "community", "pr_number": 707, "comment_id": 915967667, "facet": "artifact", "value": "tep-body", "confidence": 0.4, "evidence": "clarifying question: is this an alternative approach"}
+{"repo": "community", "pr_number": 707, "comment_id": 915967667, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "thin clarifying question"}
+{"repo": "community", "pr_number": 707, "comment_id": 919294464, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "asks about functional difference between quoted/unquoted value interpretation"}
+{"repo": "community", "pr_number": 707, "comment_id": 919294464, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive semantics question"}
+{"repo": "community", "pr_number": 707, "comment_id": 919296669, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "flags an example as implying nested arrays, a stated non-goal, suggests omitting it"}
+{"repo": "community", "pr_number": 707, "comment_id": 919296669, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive scope/correctness point"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 854391832, "facet": "artifact", "value": "code", "confidence": 0.4, "evidence": "asks for a TODO note for the object type in swagger.json"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 854565933, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "explains v1alpha1-first-then-migrate-to-v1beta1 rollout plan"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 854565933, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive rollout explanation"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 854565933, "facet": "principle", "value": "feature-graduation", "confidence": 0.5, "evidence": "introducing changes in v1alpha1 first, then gradually migrating to v1beta1"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 854566509, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "suggests naming file consistently with params_types.go"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 854566509, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "naming-convention suggestion, not substance"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 854566509, "facet": "principle", "value": "tekton-api-conventions", "confidence": 0.5, "evidence": "wants the new file to follow the existing param file naming idiom"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 854584323, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "naming suggestion: should this be ResultType?"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 854584323, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "naming nit"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 854585205, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "suggests an interface for ResultType/ParamsType given they both feed ArrayOrString"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 854585205, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive code-architecture suggestion"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 854607558, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "explains v1alpha1 vs v1beta1 field differences with source links"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 854607558, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive technical explanation"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 854607558, "facet": "principle", "value": "crd-version-policy", "confidence": 0.5, "evidence": "discusses differing fields across CRD API versions"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 854610328, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "uncertain whether _types files should contain a CRD"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 854610328, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "naming/convention uncertainty"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 854610328, "facet": "principle", "value": "tekton-api-conventions", "confidence": 0.4, "evidence": "questions the existing _types.go naming idiom"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 854627355, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "proposes centralizing TaskResult/TaskRunResult structs into results_types.go, mirroring ParamsSpec/Param"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 854627355, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive code-structure proposal"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 854714372, "facet": "artifact", "value": "code", "confidence": 0.4, "evidence": "confirms alpha-gated changes land on v1beta1"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 854714372, "facet": "principle", "value": "feature-graduation", "confidence": 0.5, "evidence": "confirms alpha feature flag gating on the v1beta1 API version"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 854929238, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "asks why not move to ArrayOrString now, since string usage keeps working"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 854929238, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive design question"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 854929238, "facet": "principle", "value": "api-compatibility", "confidence": 0.6, "evidence": "\"all current API usage will still work because string is still supported\""}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 855294965, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "self-note to document naming rationale"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 855294965, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "requests explanatory doc comment"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 855338948, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "suggests a TODO for bringing ResultType into scope"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 855338948, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "thin follow-up suggestion"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 860275259, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "accepts default result type as an acceptable mutation"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 860275259, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive but brief"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 860278513, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "requests TODO(name) be TODO(@user) or TODO(#issue) instead"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 860278513, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "TODO-comment formatting convention"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 860281153, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "suggests cross-referencing comment given PipelineResources is deprecated"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 860281153, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive suggestion"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 860281153, "facet": "principle", "value": "deprecation-handling", "confidence": 0.5, "evidence": "PipelineResources are deprecated, wants a pointer comment for the new ResultType"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 860281572, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "asks why a map rather than a slice"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 860281572, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "data-structure design question"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 860284495, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "analyzes map vs slice tradeoffs for validation use"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 860284495, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive data-structure analysis"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 860956421, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "asks whether PipelineResourceResult (distinct from deprecated PipelineResources) will be deprecated"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 860956421, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive clarifying question"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 860956421, "facet": "principle", "value": "deprecation-handling", "confidence": 0.5, "evidence": "distinguishes a deprecated type from a related non-deprecated one"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 861829606, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "requests TODO(bug #) format instead of TODO(name)"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 861829606, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "TODO-comment formatting convention"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 861830504, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "asks whether the field needs \"+optional\""}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 861830504, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "K8s API marker affecting field semantics"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 861830504, "facet": "principle", "value": "api-conventions", "confidence": 0.6, "evidence": "\"+optional\" is a Kubernetes API marker convention"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 861834478, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "suggests reusing sets.String as used elsewhere in the codebase"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 861834478, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "reuse-of-existing-pattern suggestion"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 861834478, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.6, "evidence": "\"we've used sets.String elsewhere in the codebase\""}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 862119062, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "switches to sets.String after noting param type uses a list"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 862119062, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "aligning with existing param-type pattern"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 862119062, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.5, "evidence": "aligns with how the existing param type is implemented"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 862136117, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "explains sets.String can't be used because ResultsType isn't a string key"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 862136117, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive technical constraint"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 863084070, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "suggests separate ResultValue *ArrayOrString field to isolate array usage"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 863084070, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive field-design proposal"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 863084070, "facet": "principle", "value": "api-compatibility", "confidence": 0.5, "evidence": "proposes an additive field rather than changing the existing one"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 863089086, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "lays out Option 1 (change Value type) vs Option 2 (new field) tradeoffs"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 863089086, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive tradeoff analysis"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 863089086, "facet": "principle", "value": "api-compatibility", "confidence": 0.7, "evidence": "\"backwards compatible without reducing termination msg limit\" pro/con"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 863193264, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "explains a change made for better unit testing"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 863193264, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive testing rationale"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 863812457, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "asks to also error out at the default case"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 863812457, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "error-handling completeness"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 863816940, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "requests empty-case and non-\"/[ prefix test cases"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 863816940, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "requests specific test coverage"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 863851337, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "flags this as an API change requiring policy compliance"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 863851337, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive compatibility-policy argument"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 863851337, "facet": "principle", "value": "api-compatibility", "confidence": 0.9, "evidence": "explicitly cites api_compatibility_policy.md#alpha-beta-and-ga for adding a new feature/field"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 863863173, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "argues the change won't break users, cites the TEP requiring it"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 863863173, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive compatibility argument"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 863863173, "facet": "principle", "value": "api-compatibility", "confidence": 0.8, "evidence": "\"it won't have effect on users or introduce breaking changes\""}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 863863173, "facet": "principle", "value": "feature-justification", "confidence": 0.5, "evidence": "\"our TEP 0076 requires us to change this Value\""}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 863875353, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "explains default-handling code path"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 863875353, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive explanation"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 863876584, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "clarifies which case counts as \"empty\""}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 863876584, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive test-case clarification"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 864200038, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "concludes this won't break the API compatibility policy, but design (new struct vs rename) is still blocked"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 864200038, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive conclusion"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 864200038, "facet": "principle", "value": "api-compatibility", "confidence": 0.7, "evidence": "\"won't be breaking the API change policy\""}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 864208046, "facet": "artifact", "value": "code", "confidence": 0.4, "evidence": "confirms this PR isn't blocked by the pending design decision in another PR"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 864208046, "facet": "nature", "value": "self-containedness", "confidence": 0.4, "evidence": "PR proceeds independent of an unresolved decision elsewhere"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 864239824, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "confirms a missed test case for a non-\"/[ prefixed value"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 864239824, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "test-coverage follow-up"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 864249700, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "offers to add a test asserting the expected error"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 864249700, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "test-coverage follow-up"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 864265610, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "suggests extracting a `ReadArrayFromFile()` module for testability"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 864265610, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "refactor-for-testability suggestion"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 864271763, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "explains signature choice preserves test coverage already added"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 864271763, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive testing rationale"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 864279260, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "wants the entrypointer changes restructured to be independent of result_types.go changes"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 864279260, "facet": "nature", "value": "self-containedness", "confidence": 0.6, "evidence": "wants \"all the changes made here\" to be independent of another file's changes"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 865228681, "facet": "artifact", "value": "code", "confidence": 0.4, "evidence": "confirms introducing a new ArrayOrString struct isn't an API change"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 865228681, "facet": "principle", "value": "api-compatibility", "confidence": 0.6, "evidence": "\"this is not a API change\""}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 865248704, "facet": "artifact", "value": "tests", "confidence": 0.4, "evidence": "adds a test to assert error"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 865251567, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "asks whether Value field is being deprecated and requests new ResultValue test cases"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 865251567, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive test-scope question"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 865251567, "facet": "principle", "value": "deprecation-handling", "confidence": 0.6, "evidence": "asks whether the existing Value field is being deprecated"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 865259398, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "suggestion diff correcting a test-case description"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 865259398, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "test description wording"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 865260298, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "suggestion diff correcting a test-case description"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 865260298, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "test description wording"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 865264924, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "suggests adding new test cases for resultValue rather than modifying old unit tests"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 865264924, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive test-coverage approach"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 865292747, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "proposes cleaner ArrayOrString value (not pointer) usage pattern"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 865292747, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive code-design suggestion"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 865305611, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "explains fallback-to-string conversion behavior for unsupported types"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 865305611, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive explanation"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 865318632, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "explains why old mixed test cases need changes vs adding separate new ones"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 865318632, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive test-design explanation"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 865318632, "facet": "nature", "value": "cohesion", "confidence": 0.4, "evidence": "separating mixed results/other-message test concerns into distinct cases"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 865394516, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "explains pointer is required for omitempty JSON marshalling"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 865394516, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive technical explanation"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 865417318, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "reformats/expands test cases distinguishing InternalTektonResult vs TaskRunResult"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 865417318, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive test restructuring"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 866359163, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "suggestion diff: simplify len(value)==0 check"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 866359163, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "code-style suggestion"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 866442609, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "flags value-vs-pointer mistake, same below"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 866442609, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive correctness catch"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 866445846, "facet": "artifact", "value": "code", "confidence": 0.4, "evidence": "acknowledges forgetting to format the file"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 866445846, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "formatting slip"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 866446835, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "explains linting failure tied to pointer-vs-value from a helper func"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 866446835, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive explanation"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 866975207, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "asks to confirm fallback-to-string-on-unmarshal-failure behavior and control flow"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 866975207, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive error-handling question"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 866990103, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "explains fallback design for unmarshal failure, asks for confirmation"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 866990103, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive design explanation"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 866990686, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "proposes logging the error instead of silently continuing"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 866990686, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive error-handling alternative"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 867012467, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "catches that errors aren't actually thrown, should be err != nil"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 867012467, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive bug catch"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 867013715, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "suggests collecting errors via multierror.Error so users see all unmarshal issues"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 867013715, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive error-handling improvement"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 867029163, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "explains nested-list/non-string-element fallback handling, self-critiques the code"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 867029163, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive explanation with self-critique"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 867036543, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "confirms type-mismatch is caught elsewhere, asks for explanatory comments"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 867036543, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "requests clarifying documentation in code"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 867037130, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "requests detailed explanation of unmarshalling cases in comments"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 867037130, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "requests clarifying documentation in code"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 867187308, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "requests a comment noting type mismatches are captured elsewhere"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 867187308, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "requests clarifying documentation in code"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 867188187, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "asks to confirm this refers to configured-vs-unmarshalled type validation"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 867188187, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive clarifying question"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 867190872, "facet": "artifact", "value": "code", "confidence": 0.4, "evidence": "confirms schema-vs-object validation understanding"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 867190872, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "confirms prior explanation"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 872417907, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "typo in Results"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 872417907, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "pure typo"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 875159671, "facet": "artifact", "value": "docs", "confidence": 0.7, "evidence": "requests an example Pipeline in addition to the Task example"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 875159671, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive example-completeness request"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 875166418, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.7, "evidence": "explains this PR only wires entrypoint->controller emission; cross-task passing and indexing are planned for a follow-up PR"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 875166418, "facet": "artifact", "value": "docs", "confidence": 0.4, "evidence": "unsure whether to add examples now or defer to follow-up"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 875166418, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive scope explanation"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 875168997, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.5, "evidence": "considers removing the example and adding both in the next PR"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 875168997, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "scope-deferral consideration"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 875174635, "facet": "artifact", "value": "docs", "confidence": 0.5, "evidence": "asks what happens when a consumer refers to the array result the traditional way"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 875174635, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive semantics question"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 875180114, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.5, "evidence": "explains this PR only enables task-level results array, cross-task passing not yet real"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 875180114, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive scope explanation"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 875182789, "facet": "artifact", "value": "docs", "confidence": 0.6, "evidence": "realizes the added doc may mislead users about cross-task array passing"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 875182789, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.5, "evidence": "doc should clarify partial functionality"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 875182789, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive doc-accuracy concern"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 875203449, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "asks how array results without the alpha flag are prevented"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 875203449, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive feature-gating question"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 875203449, "facet": "principle", "value": "feature-graduation", "confidence": 0.6, "evidence": "concerned about enforcement of the alpha feature flag"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 875209424, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "explains alpha-gate fallback converts array to string when flag is off"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 875209424, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive feature-gating explanation"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 875209424, "facet": "principle", "value": "feature-graduation", "confidence": 0.6, "evidence": "explains alpha-flag-gated behavior"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 875231590, "facet": "artifact", "value": "docs", "confidence": 0.6, "evidence": "offers to fix the readme to clarify scope"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 875231590, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive doc-accuracy fix"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 875283196, "facet": "artifact", "value": "docs", "confidence": 0.5, "evidence": "suggests a more robust example validating the expected output"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 875283196, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive example-quality suggestion"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 875373251, "facet": "artifact", "value": "docs", "confidence": 0.6, "evidence": "agrees to drop a step from the doc, clarifies the section's purpose"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 875373251, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive doc scoping"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 876033037, "facet": "artifact", "value": "docs", "confidence": 0.5, "evidence": "adds more clarification to the doc"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 876033037, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "doc follow-up"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 877308689, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "adds fail-fast behavior when the alpha gate is not enabled"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 877308689, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive feature-gating change"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 877308689, "facet": "principle", "value": "feature-graduation", "confidence": 0.6, "evidence": "fail-fast when alpha gate isn't enabled"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 877590359, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "asks whether empty-value params are covered by a required-param validation test"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 877590359, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "requests specific test coverage"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 877590852, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "typo: tring -> trying"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 877590852, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "pure typo"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 877592455, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "asks the comment to name the specific validation routine explicitly"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 877592455, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "requests clearer explanatory comment"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 877596249, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "explains empty-param handling with a concrete YAML example"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 877596249, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive explanation"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 877638606, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "proposes refactoring away from switch and flags an ArrayVal-nil-reset quirk"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 877638606, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive refactor proposal with a real bug note"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 877639198, "facet": "artifact", "value": "tests", "confidence": 0.7, "evidence": "requests tests for unmarshalling a map as well"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 877639198, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "requests specific test coverage"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 877731636, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "explains string-unmarshal necessity and the nil-reset quirk"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 877731636, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive explanation"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 878363108, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "questions whether a condition would incorrectly fail array/map results"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 878363108, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "requests a unit test for result_validation.go"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 878363108, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive correctness question"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 878365928, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "suggests using the typed constant instead of a literal string"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 878365928, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "test-code style suggestion"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 878366514, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "suggests using the typed constant instead of a literal string"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 878366514, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "test-code style suggestion"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 878401015, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "explains why the validation won't fail as feared"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 878401015, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive clarification"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 878402314, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "considers deferring a dedicated test to another PR"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 878402314, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "test-scope deferral"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 878428117, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "questions whether this check is redundant given validation elsewhere"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 878428117, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive redundancy question"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 878430687, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "defends adding defense-in-depth checks in reconciler code"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 878430687, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive design rationale"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 878433266, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "catches unreachable dead code since UnmarshalJSON never errors"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 878433266, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive dead-code catch"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 878442608, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "keeps defensive dead code in case UnmarshalJSON semantics change later"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 878442608, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive design rationale"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 878519558, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "argues the validation adds no value and unnecessary complexity long-term"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 878519558, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive necessity argument"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 878519558, "facet": "principle", "value": "simplicity", "confidence": 0.5, "evidence": "\"this validation does not add any value... might require more cycles to understand\""}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 878526809, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "defends validating at reconciler since webhook can't infer runtime-emitted result types"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 878526809, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive design rationale"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 878526809, "facet": "principle", "value": "authoring-vs-runtime", "confidence": 0.6, "evidence": "webhook (authoring time) can't validate a type only known once results are emitted at runtime"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 878538970, "facet": "artifact", "value": "functionality", "confidence": 0.6, "evidence": "reports the CLI breaks against this change (\"unrecognized type: string\")"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 878538970, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive cross-repo compatibility report"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 878538970, "facet": "principle", "value": "api-compatibility", "confidence": 0.7, "evidence": "flags a breaking change for the downstream CLI consumer"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 880882792, "facet": "artifact", "value": "functionality", "confidence": 0.6, "evidence": "confirms taskRun listing will be fully broken for CLI until updated, asks to notify CLI maintainers"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 880882792, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive cross-repo compatibility report"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 880882792, "facet": "principle", "value": "api-compatibility", "confidence": 0.7, "evidence": "breaking change affecting a downstream consumer"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 880907702, "facet": "artifact", "value": "functionality", "confidence": 0.5, "evidence": "asks to confirm the fix path is bumping pipeline version in CLI"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 880907702, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive follow-up"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 880907702, "facet": "principle", "value": "api-compatibility", "confidence": 0.6, "evidence": "discusses api mismatch/fix sequencing between pipeline and cli"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 880977368, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "questions unmarshalling call and why limited to custom task"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 880977368, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive design question"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 880981794, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "asks whether custom task results will change from string to array"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 880981794, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive scope question"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 880984078, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.5, "evidence": "confirms structured custom-task results are intentionally out of scope for this PR"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 880984078, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive scope confirmation"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 880985744, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "notes custom task isn't explicitly mentioned in the TEP, deferred for later discussion"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 880985744, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive scope clarification citing the TEP"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 881057356, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "cites the TEP's first use case explicitly discussing custom task arrays"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 881057356, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive correction citing the TEP's own text"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 881069440, "facet": "artifact", "value": "functionality", "confidence": 0.5, "evidence": "explains the CLI/pipeline version-mismatch fix path"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 881069440, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive follow-up"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 881069440, "facet": "principle", "value": "api-compatibility", "confidence": 0.5, "evidence": "explains the cross-repo compatibility fix sequencing"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 873771138, "facet": "artifact", "value": "docs", "confidence": 0.6, "evidence": "table rows rendering incorrectly in docs/variables.md"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 873771138, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "doc table formatting issue"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 873775843, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "nit: pattern + \"[%d]\""}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 873775843, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "code style nit"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 873792096, "facet": "artifact", "value": "tests", "confidence": 0.7, "evidence": "asks if invalid/out-of-bound indexing test cases are planned"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 873792096, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive test-coverage request"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 873809033, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "explains out-of-bound cases currently silently pass through as strings"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 873809033, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive gap acknowledgment"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 873813306, "facet": "artifact", "value": "docs", "confidence": 0.5, "evidence": "confirms rows differ between local preview and GitHub preview"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 873813306, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "doc rendering follow-up"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 873883464, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "realizes the pattern change won't pass the build test"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 873883464, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "formatting/lint issue"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 873889796, "facet": "artifact", "value": "tests", "confidence": 0.7, "evidence": "\"we definitely need those tests for coverage and guards\""}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 873889796, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.5, "evidence": "suggests a TODO if deferring to a later PR"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 873889796, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive test-coverage requirement"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 874068306, "facet": "artifact", "value": "docs", "confidence": 0.5, "evidence": "requests an additional example step exercising indexed param substitution"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 874068306, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive example-completeness request"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 874086203, "facet": "artifact", "value": "code", "confidence": 0.4, "evidence": "explains gofmt removes the spaces causing lint failure"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 874086203, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "formatting constraint"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 875064078, "facet": "artifact", "value": "docs", "confidence": 0.5, "evidence": "flags incorrect example syntax, suggests the correct script form"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 875064078, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive example correctness"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 916012489, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "suggestion diff for a TODO(#issue) validating out-of-bound array reference"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 916012489, "facet": "artifact", "value": "tests", "confidence": 0.4, "evidence": "TODO flags missing out-of-bound validation"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 916012489, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive TODO about missing validation"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 916012877, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "asks what happens today if the array index is out of bound"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 916012877, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive correctness question"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 916013463, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "same TODO(#issue) suggestion for the taskrun-side apply.go"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 916013463, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive TODO about missing validation"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 916015182, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "asks how hard it would be to add out-of-bound validation, notes silent failure is confusing"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 916015182, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive push for validation"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 916017061, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "questions whether all these mutations are needed to test indexing"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 916017061, "facet": "nature", "value": "magnitude", "confidence": 0.5, "evidence": "questions the size/necessity of the test-mutation surface"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 916120165, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "explains mutations are needed to cover every place indexing can be used"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 916120165, "facet": "nature", "value": "magnitude", "confidence": 0.4, "evidence": "defends the size of the test surface"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 916186765, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "reports current out-of-bound behavior: no errors, ref string kept as-is"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 916186765, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive current-behavior report"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 916199675, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.6, "evidence": "asks to defer validation to another PR given the release deadline"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 916199675, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive scope-deferral request"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 917030567, "facet": "artifact", "value": "docs", "confidence": 0.6, "evidence": "nit: use \"i-th element\" wording"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 917030567, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "wording nit"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 917032041, "facet": "artifact", "value": "docs", "confidence": 0.6, "evidence": "comments don't match the example, suggests verifying output in the first step"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 917032041, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive example-quality feedback"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 917036491, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.6, "evidence": "pushes back on holding off validation \"just to get the feature out the door\""}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 917036491, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "wants validation, not deferred"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 917036491, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive pushback on deferring validation"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 918281827, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "suggests a helper function instead of exporting"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 918281827, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive API-surface suggestion"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 918282671, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "asks whether this can move into the substitution/v1beta1 packages that already handle param parsing"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 918282671, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive code-placement suggestion"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 918283577, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "suggests a shared helper to avoid duplicating a similar function in the TaskRun reconciler"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 918283577, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive dedup suggestion"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 918284105, "facet": "artifact", "value": "docs", "confidence": 0.6, "evidence": "suggests documenting the feature is still undergoing implementation, or removing until complete"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 918284105, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.7, "evidence": "documentation marking partial functionality, per the standard"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 918284105, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive partial-functionality documentation request"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 918325106, "facet": "artifact", "value": "tests", "confidence": 0.7, "evidence": "requests test names describing what's invalid and asserting the expected error"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 918325106, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive test-quality request"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 918325106, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "test-naming clarity"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 918327000, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "asks whether string parsing can move into the substitution package"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 918327000, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive code-placement suggestion"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 918327942, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "typo: leftmost"}
+{"repo": "pipeline", "pr_number": 4855, "comment_id": 918327942, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "pure typo"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 890352799, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "comment format nit"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 890352799, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "pure formatting"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 890354786, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "requests a test case for an invalid reference like [blah]"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 890354786, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive test-coverage request"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 890608980, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "extra space"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 890608980, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "pure formatting"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 890609511, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "naming suggestion: correctValueType / correctAoSType"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 890609511, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "naming nit"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 890612542, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "asks for a comment explaining what the function does"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 890612542, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "requests explanatory documentation"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 890615363, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "suggests a separate test in validate_resource_test for the changed params"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 890615363, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive test-coverage request"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 891267019, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "questions whether this function belongs here vs. a higher-level reconcile placement"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 891267019, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive code-placement question"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 893540095, "facet": "artifact", "value": "docs", "confidence": 0.5, "evidence": "notes array echo workaround since it can't be used in script yet"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 893540095, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive current-limitation note"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 899167567, "facet": "artifact", "value": "docs", "confidence": 0.7, "evidence": "checks whether [*] applicability and script limitation are documented elsewhere"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 899167567, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive doc-completeness question"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 899178130, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "flags an unnecessary fmt.Sprintf wrapper"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 899178130, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive code simplification"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 899254288, "facet": "artifact", "value": "tests", "confidence": 0.7, "evidence": "notes the test still passes without [*], asks if that's expected/validated elsewhere"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 899254288, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive test-gap question"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 899396541, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "asks to merge duplicate if/else-if bodies"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 899396541, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive dedup suggestion"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 899398385, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "asks why the whole array reference can exist in both string and array replacement"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 899398385, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive design question"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 899400347, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "confirms whether the webhook rejects a malformed reference"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 899400347, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive validation-behavior question"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 899565600, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "flags an unintended-match case for the substitution regex, asks if type correction is expected"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 899565600, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive test-gap question"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 900202256, "facet": "artifact", "value": "docs", "confidence": 0.6, "evidence": "commits to adding [*] applicability and script-limitation doc clarifications"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 900202256, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive doc-completeness follow-up"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 901813855, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "explains the un-indexed reference currently \"passes\" but isn't functionally wired up yet"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 901813855, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "notes the test gap this leaves"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 901813855, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive explanation of a known gap"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 901817512, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "cites the TEP's own text on the [*] syntax as the source of truth for this decision"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 901817512, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive design decision citing the TEP"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 901818970, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.5, "evidence": "defers type-correction validation to another PR after offline discussion"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 901818970, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "scope-deferral note"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 901821335, "facet": "artifact", "value": "code", "confidence": 0.4, "evidence": "considers whether to merge the split if/else-if blocks"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 901821335, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "thin follow-up"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 901823237, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "agrees a missed case should be an error"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 901823237, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "confirms a test-gap fix"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 901824728, "facet": "artifact", "value": "code", "confidence": 0.4, "evidence": "confirms this case isn't currently supported for results"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 901824728, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive current-behavior note"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 902768589, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.5, "evidence": "suggests leaving a case as a follow-up issue for another PR"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 902768589, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "scope-deferral note"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 903075543, "facet": "nature", "value": "self-containedness", "confidence": 0.4, "evidence": "notes this part depends on another unmerged PR (#5007) that should merge/rebase first"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 904234052, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "confirms the invalid-reference validation is understood to be handled elsewhere"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 904234052, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive clarifying question"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 905047988, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.4, "evidence": "confirms cleanup work is planned for later"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 912269783, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "suggestion diff improving a doc-comment's wording"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 912269783, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "comment wording clarity"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 912269923, "facet": "artifact", "value": "docs", "confidence": 0.5, "evidence": "asks to revert whitespace-only changes unrelated to the PR"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 912269923, "facet": "nature", "value": "cohesion", "confidence": 0.6, "evidence": "changes in this file \"all seem to be about removing spaces\", unrelated to the PR's purpose"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 912274638, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "notes the test still passes without [*], asks for validation or a comment flagging upcoming work"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 912274638, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.5, "evidence": "comment flagging this as upcoming work"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 912274638, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive test-gap follow-up"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 913185302, "facet": "artifact", "value": "docs", "confidence": 0.4, "evidence": "explains the unrelated whitespace changes were IDE autoformat"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 913185302, "facet": "nature", "value": "cohesion", "confidence": 0.4, "evidence": "addresses the unrelated-diff concern"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 913932997, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.5, "evidence": "leaves a TODO to validate and reject the un-indexed $(results.foo) reference"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 913932997, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive design decision"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 913932997, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.5, "evidence": "supporting both forms would be \"confusing for users to mix these usages\""}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 913963959, "facet": "artifact", "value": "docs", "confidence": 0.3, "evidence": "confirms main branch reformatting resolved the whitespace diff"}
+{"repo": "pipeline", "pr_number": 4908, "comment_id": 913963959, "facet": "nature", "value": "cohesion", "confidence": 0.3, "evidence": "resolves the unrelated-diff concern"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 883014480, "facet": "artifact", "value": "tests", "confidence": 0.7, "evidence": "requests more test cases for invalid and out-of-index cases"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 883014480, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive test-coverage request"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 883015460, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "same request for invalid test cases in another spot"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 883015460, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive test-coverage request"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 884912535, "facet": "artifact", "value": "docs", "confidence": 0.5, "evidence": "explains two syntaxes are unsupported due to a regex bug, may remove and re-add later"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 884912535, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.5, "evidence": "defers unsupported syntax documentation until the bug is fixed"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 884912535, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive current-limitation explanation"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 886140343, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "confirms keeping a test case that documents out-of-bound handling"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 886140343, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive test-scope decision"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 887017365, "facet": "artifact", "value": "docs", "confidence": 0.5, "evidence": "typo in this file and the file's name"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 887017365, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "pure typo/filename issue"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 887019308, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "asks the reason for a change that doesn't look related to results"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 887019308, "facet": "nature", "value": "cohesion", "confidence": 0.7, "evidence": "questions an unrelated change bundled into the PR"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 887070184, "facet": "artifact", "value": "docs", "confidence": 0.5, "evidence": "suggests exit 0/exit 1 instead of echo true/false in the example"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 887070184, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive example-quality suggestion"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 887072569, "facet": "artifact", "value": "docs", "confidence": 0.6, "evidence": "asks whether specifying `type` is necessary here"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 887072569, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive example correctness question"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 887078109, "facet": "artifact", "value": "docs", "confidence": 0.6, "evidence": "asks whether star notation is supported in this context"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 887078109, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive scope/semantics question"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 887186032, "facet": "artifact", "value": "docs", "confidence": 0.5, "evidence": "thanks for typo catch, confirms adding `type`"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 887186032, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "confirms a doc/example fix"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 887187626, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.5, "evidence": "clarifies star notation belongs to a different PR (#4908)"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 887187626, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive scope-split clarification"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 887187990, "facet": "artifact", "value": "docs", "confidence": 0.5, "evidence": "distinguishes star notation (whole array) from index reference (this PR's focus)"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 887187990, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive scope clarification"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 887194059, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "explains out-of-bound index validation design in ResolveResultRefs, unsure if it's the best approach"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 887194059, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive design explanation"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 887195811, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "explains error propagation path through runNextSchedulableTask"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 887195811, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive explanation"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 888105439, "facet": "artifact", "value": "docs", "confidence": 0.5, "evidence": "filename still needs to be fixed"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 888105439, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "filename typo follow-up"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 893956061, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "suggests returning -1 for invalid/non-array index cases for clarity"}
+{"repo": "pipeline", "pr_number": 4911, "comment_id": 893956061, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive API-return-value design suggestion"}
+{"repo": "pipeline", "pr_number": 4920, "comment_id": 892603476, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "suggestion diff renaming a function signature"}
+{"repo": "pipeline", "pr_number": 4920, "comment_id": 892603476, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "naming suggestion"}
+{"repo": "pipeline", "pr_number": 4920, "comment_id": 892625288, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "suggestion diff improving a comment's wording"}
+{"repo": "pipeline", "pr_number": 4920, "comment_id": 892625288, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "comment wording clarity"}
+{"repo": "pipeline", "pr_number": 4920, "comment_id": 892642700, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "argues the reused function's naming would confuse readers, proposes rescoping/splitting"}
+{"repo": "pipeline", "pr_number": 4920, "comment_id": 892642700, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive naming/structure argument"}
+{"repo": "pipeline", "pr_number": 4920, "comment_id": 898074070, "facet": "artifact", "value": "reconciler-pattern", "confidence": 0.5, "evidence": "argues this functionality belongs in reconciler code, not the pod package"}
+{"repo": "pipeline", "pr_number": 4920, "comment_id": 898074070, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "code-placement concern"}
+{"repo": "pipeline", "pr_number": 4920, "comment_id": 898074070, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive architecture argument"}
+{"repo": "pipeline", "pr_number": 4920, "comment_id": 898076630, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "suggests using a single task spec as source of truth for this function"}
+{"repo": "pipeline", "pr_number": 4920, "comment_id": 898076630, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive design suggestion"}
+{"repo": "pipeline", "pr_number": 4920, "comment_id": 898078614, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "asks what \"type: 1\" means in a test case"}
+{"repo": "pipeline", "pr_number": 4920, "comment_id": 898078614, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive test-clarity question"}
+{"repo": "pipeline", "pr_number": 4920, "comment_id": 898080507, "facet": "artifact", "value": "tests", "confidence": 0.7, "evidence": "asks if there are test cases for successful matches"}
+{"repo": "pipeline", "pr_number": 4920, "comment_id": 898080507, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive test-coverage gap"}
+{"repo": "pipeline", "pr_number": 4920, "comment_id": 898243099, "facet": "artifact", "value": "reconciler-pattern", "confidence": 0.4, "evidence": "explains difficulty testing when the code lived in reconcile"}
+{"repo": "pipeline", "pr_number": 4920, "comment_id": 898243099, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "explains testing difficulty"}
+{"repo": "pipeline", "pr_number": 4920, "comment_id": 898243099, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive testing-difficulty explanation"}
+{"repo": "pipeline", "pr_number": 4920, "comment_id": 898310941, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "suggests a dedicated results/substitution package to ease testing"}
+{"repo": "pipeline", "pr_number": 4920, "comment_id": 898310941, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive architecture suggestion"}
+{"repo": "pipeline", "pr_number": 4920, "comment_id": 898352850, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "asks which refactor option is meant, weighs testing tradeoffs"}
+{"repo": "pipeline", "pr_number": 4920, "comment_id": 898352850, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive clarifying question"}
+{"repo": "pipeline", "pr_number": 4920, "comment_id": 898354246, "facet": "artifact", "value": "reconciler-pattern", "confidence": 0.5, "evidence": "confirms the pod package isn't the right place"}
+{"repo": "pipeline", "pr_number": 4920, "comment_id": 898354246, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive architecture guidance"}
+{"repo": "pipeline", "pr_number": 4920, "comment_id": 903764636, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "asks whether type validations need to be bypassed here, requests a TODO if so"}
+{"repo": "pipeline", "pr_number": 4920, "comment_id": 903764636, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive clarifying question"}
+{"repo": "pipeline", "pr_number": 4920, "comment_id": 903920068, "facet": "artifact", "value": "code", "confidence": 0.4, "evidence": "clarifies this isn't the validation meant to be bypassed"}
+{"repo": "pipeline", "pr_number": 4920, "comment_id": 903920068, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "clarification"}
+{"repo": "pipeline", "pr_number": 4920, "comment_id": 907718396, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "argues resolvedTaskSpec should be the source of truth for the task spec"}
+{"repo": "pipeline", "pr_number": 4920, "comment_id": 907718396, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive design argument"}
+{"repo": "pipeline", "pr_number": 4965, "comment_id": 898060394, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "suggestion diff improving a comment's wording"}
+{"repo": "pipeline", "pr_number": 4965, "comment_id": 898060394, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "comment wording clarity"}
+{"repo": "pipeline", "pr_number": 4965, "comment_id": 898060848, "facet": "artifact", "value": "commit-message", "confidence": 0.7, "evidence": "asks to note in the commit message/PR description that this includes a breaking Go-library change"}
+{"repo": "pipeline", "pr_number": 4965, "comment_id": 898060848, "facet": "artifact", "value": "pr-description", "confidence": 0.6, "evidence": "same request for the PR description"}
+{"repo": "pipeline", "pr_number": 4965, "comment_id": 898060848, "facet": "principle", "value": "api-compatibility", "confidence": 0.7, "evidence": "explicitly flags a breaking change to the Go libraries"}
+{"repo": "pipeline", "pr_number": 4965, "comment_id": 898060848, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "requests substantive disclosure of a breaking change"}
+{"repo": "pipeline", "pr_number": 4965, "comment_id": 898060956, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "suggestion diff improving a comment's wording"}
+{"repo": "pipeline", "pr_number": 4965, "comment_id": 898060956, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "comment wording clarity"}
+{"repo": "pipeline", "pr_number": 4965, "comment_id": 898064498, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "questions a comment duplicating a docstring that could drift out of sync"}
+{"repo": "pipeline", "pr_number": 4965, "comment_id": 898064498, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive maintainability concern"}
+{"repo": "pipeline", "pr_number": 4965, "comment_id": 898066406, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "questions whether to export the regex or a parsing function instead"}
+{"repo": "pipeline", "pr_number": 4965, "comment_id": 898066406, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive API-surface question"}
+{"repo": "pipeline", "pr_number": 4965, "comment_id": 898068798, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "suggests this belongs in a separate substitution/replacement/params package"}
+{"repo": "pipeline", "pr_number": 4965, "comment_id": 898068798, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive architecture suggestion"}
+{"repo": "pipeline", "pr_number": 4965, "comment_id": 898070840, "facet": "artifact", "value": "tests", "confidence": 0.7, "evidence": "test case description doesn't match what's actually tested (multiple tasks vs one)"}
+{"repo": "pipeline", "pr_number": 4965, "comment_id": 898070840, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive test-accuracy catch"}
+{"repo": "pipeline", "pr_number": 4965, "comment_id": 898101333, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "will fix the comment to match ParamType's existing docstring pattern"}
+{"repo": "pipeline", "pr_number": 4965, "comment_id": 898101333, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive follow-up"}
+{"repo": "pipeline", "pr_number": 4965, "comment_id": 898101333, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.5, "evidence": "matches the existing ParamType docstring pattern"}
+{"repo": "pipeline", "pr_number": 4965, "comment_id": 898111750, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "explains a missed pipeline task when adapting an existing test case"}
+{"repo": "pipeline", "pr_number": 4965, "comment_id": 898111750, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive test-fix explanation"}
+{"repo": "pipeline", "pr_number": 4965, "comment_id": 898353219, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "asks to avoid exporting the regexes"}
+{"repo": "pipeline", "pr_number": 4965, "comment_id": 898353219, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive API-surface request"}
+{"repo": "pipeline", "pr_number": 4965, "comment_id": 901875156, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "explains the functionality was moved into ParseResultName, asks if something else was meant"}
+{"repo": "pipeline", "pr_number": 4965, "comment_id": 901875156, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive clarifying follow-up"}
+{"repo": "pipeline", "pr_number": 4965, "comment_id": 911220973, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "suggests moving string-parsing logic into one helper location"}
+{"repo": "pipeline", "pr_number": 4965, "comment_id": 911220973, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive dedup/architecture suggestion"}
+{"repo": "pipeline", "pr_number": 4965, "comment_id": 911221279, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "asks where this variable is actually used"}
+{"repo": "pipeline", "pr_number": 4965, "comment_id": 911221279, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "flags likely-dead code"}
+{"repo": "pipeline", "pr_number": 4965, "comment_id": 911282230, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "confirms the flagged variable was missed and should be removed"}
+{"repo": "pipeline", "pr_number": 4965, "comment_id": 911282230, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "confirms dead-code removal"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 915945546, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "suggests making magic numbers into consts"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 915945546, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "code style suggestion"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 915973687, "facet": "artifact", "value": "docs", "confidence": 0.6, "evidence": "suggests additional array/object result examples"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 915973687, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive example-completeness suggestion"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 916101703, "facet": "artifact", "value": "docs", "confidence": 0.5, "evidence": "realizes these examples now work, thanks reviewer for catching it"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 916101703, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "confirms example-correctness fix"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 916905123, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "asks for a comment describing what these values are"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 916905123, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "requests explanatory documentation"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 916905927, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "asks what validation is needed here"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 916905927, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive validation-scope question"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 916926805, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "details the two validations needed: array index bounds and object key existence"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 916926805, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive validation-scope explanation"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 917071516, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.6, "evidence": "pushes back on releasing without the validation"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 917071516, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive pushback on deferring validation to release"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 917414925, "facet": "artifact", "value": "pr-size", "confidence": 0.6, "evidence": "\"adding a TODO for validation is to avoid having those XL PRs\""}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 917414925, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.6, "evidence": "considers moving the unfinished feature to next release"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 917414925, "facet": "nature", "value": "magnitude", "confidence": 0.5, "evidence": "explicitly weighs XL-PR size against validation completeness"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 917415403, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "explains the object-key validation approach against PipelineSpec"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 917415403, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive design explanation"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 917415832, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.6, "evidence": "notes object-result and array-indexing validation are the only unfinished pieces, may pull from the release"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 917415832, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive release-readiness assessment"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 917415832, "facet": "principle", "value": "feature-graduation", "confidence": 0.5, "evidence": "weighs whether unfinished pieces should ship in this release"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 919136774, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "proposes validating the results reference during apply"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 919136774, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive design proposal"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 919324868, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "notices array test cases mixed into an object-focused PR"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 919324868, "facet": "nature", "value": "cohesion", "confidence": 0.7, "evidence": "asks to keep the PR focused on object results, move array changes to a separate PR"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 919331504, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "suggests moving a function out of v1beta1, doesn't belong exported from that package"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 919331504, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive API-surface/placement suggestion"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 919335337, "facet": "artifact", "value": "pr-size", "confidence": 0.5, "evidence": "suggests splitting part of this out into a separate PR"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 919335337, "facet": "nature", "value": "cohesion", "confidence": 0.5, "evidence": "flags scope that should be split out"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 919363664, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.5, "evidence": "asks whether validation belongs in this PR or should be split out"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 919363664, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive scope question"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 919365465, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.5, "evidence": "confirms it's fine to add validation in an earlier PR rather than later"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 919365465, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive sequencing guidance"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 919365813, "facet": "nature", "value": "cohesion", "confidence": 0.5, "evidence": "explains the added validation covers both array and object, causing the scope overlap"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 919411290, "facet": "artifact", "value": "tests", "confidence": 0.4, "evidence": "removes the array validation part to keep the PR object-focused"}
+{"repo": "pipeline", "pr_number": 5088, "comment_id": 919411290, "facet": "nature", "value": "cohesion", "confidence": 0.5, "evidence": "resolves the scope-mixing concern by removing array-specific test changes"}
+{"repo": "pipeline", "pr_number": 5132, "comment_id": 921186776, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "notes duplicate code across two for-loops that could be consolidated, out of scope for this PR"}
+{"repo": "pipeline", "pr_number": 5132, "comment_id": 921186776, "facet": "nature", "value": "cohesion", "confidence": 0.5, "evidence": "explicitly \"out of scope for this PR\""}
+{"repo": "pipeline", "pr_number": 5132, "comment_id": 921186776, "facet": "nature", "value": "magnitude", "confidence": 0.4, "evidence": "flags duplicate code as a size/consolidation concern"}
+{"repo": "pipeline", "pr_number": 5132, "comment_id": 921188659, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "asks how params are applied without the alpha feature flag in test context"}
+{"repo": "pipeline", "pr_number": 5132, "comment_id": 921188659, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive feature-gating test question"}
+{"repo": "pipeline", "pr_number": 5132, "comment_id": 921188659, "facet": "principle", "value": "feature-graduation", "confidence": 0.6, "evidence": "questions alpha feature flag enforcement in tests"}
+{"repo": "pipeline", "pr_number": 5132, "comment_id": 921190459, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "notes near-duplicate code vs the pipelinerun reconciler, asks about a common location"}
+{"repo": "pipeline", "pr_number": 5132, "comment_id": 921190459, "facet": "artifact", "value": "reconciler-pattern", "confidence": 0.4, "evidence": "duplication across taskrun/pipelinerun reconciler code"}
+{"repo": "pipeline", "pr_number": 5132, "comment_id": 921190459, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive dedup suggestion"}
+{"repo": "pipeline", "pr_number": 5132, "comment_id": 921232772, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "considers merging taskrun/pipelinerun results code into a shared package"}
+{"repo": "pipeline", "pr_number": 5132, "comment_id": 921232772, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive architecture consideration"}
+{"repo": "pipeline", "pr_number": 5132, "comment_id": 921234483, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "asks whether to write a test for out-of-bound param indexing keeping the reference string"}
+{"repo": "pipeline", "pr_number": 5132, "comment_id": 921234483, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive test-coverage question"}
+{"repo": "pipeline", "pr_number": 5132, "comment_id": 921237623, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "clarifies which duplicate functions are actually mergeable"}
+{"repo": "pipeline", "pr_number": 5132, "comment_id": 921237623, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive dedup clarification"}
+{"repo": "pipeline", "pr_number": 5132, "comment_id": 921250679, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "agrees the duplicate functions could be pulled out, proposes a new pkg/params package in a separate PR"}
+{"repo": "pipeline", "pr_number": 5132, "comment_id": 921250679, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.5, "evidence": "proposes the refactor as a separate PR"}
+{"repo": "pipeline", "pr_number": 5132, "comment_id": 921250679, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive dedup/architecture proposal"}
+{"repo": "pipeline", "pr_number": 5132, "comment_id": 921280971, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.4, "evidence": "defers the refactor to later work"}
+{"repo": "pipeline", "pr_number": 5132, "comment_id": 921337120, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "explains alpha feature flag context propagation for tests in detail"}
+{"repo": "pipeline", "pr_number": 5132, "comment_id": 921337120, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive test-context explanation"}
+{"repo": "pipeline", "pr_number": 5132, "comment_id": 921337120, "facet": "principle", "value": "feature-graduation", "confidence": 0.6, "evidence": "explains how alpha API fields must be set via context in tests"}
+{"repo": "pipeline", "pr_number": 5132, "comment_id": 921341302, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "explains this particular test doesn't need the alpha flag, unlike others"}
+{"repo": "pipeline", "pr_number": 5132, "comment_id": 921341302, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive test-context explanation"}
+{"repo": "pipeline", "pr_number": 5132, "comment_id": 921341302, "facet": "principle", "value": "feature-graduation", "confidence": 0.5, "evidence": "distinguishes which tests need the alpha flag"}
+{"repo": "pipeline", "pr_number": 5132, "comment_id": 921433255, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.5, "evidence": "cautions against deferring the refactor to after the feature ships"}
+{"repo": "pipeline", "pr_number": 5132, "comment_id": 921433255, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive pushback on deferring cleanup"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1101987840, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "asks why the test explicitly checks not-Stable instead of testing the intended flag states directly"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1101987840, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive test-design question"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1101987840, "facet": "principle", "value": "feature-graduation", "confidence": 0.5, "evidence": "question about how feature-flag test coverage is structured"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1103340095, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "explains the test validates CheckAlphaOrBetaAPIFields across all three flag states"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1103340095, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive test-purpose explanation"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1103409025, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "agrees with the naming as an intermediate stage to beta"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1103409025, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive naming discussion"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1103409025, "facet": "principle", "value": "feature-graduation", "confidence": 0.6, "evidence": "naming reflects an intermediate alpha-to-beta graduation stage"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1105594292, "facet": "artifact", "value": "docs", "confidence": 0.7, "evidence": "NIT: docs should say array results is a beta feature enabled via enable-api-fields=beta"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1105594292, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive doc-accuracy request"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1105594292, "facet": "principle", "value": "feature-graduation", "confidence": 0.8, "evidence": "explicit beta-feature-flag documentation request"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1105595914, "facet": "artifact", "value": "docs", "confidence": 0.7, "evidence": "ditto: mention arrays are a beta feature in tasks.md"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1105595914, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive doc-accuracy request"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1105595914, "facet": "principle", "value": "feature-graduation", "confidence": 0.8, "evidence": "explicit beta-feature-flag documentation request"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1105599089, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "NIT: stable is the default, so this check feels redundant"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1105599089, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive redundancy point"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1105599089, "facet": "principle", "value": "simplicity", "confidence": 0.5, "evidence": "questions unnecessary/redundant test logic"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1105602649, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "questions why this constant exists if it's only used, unnecessarily, in one test"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1105602649, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive necessity question"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1105602649, "facet": "principle", "value": "simplicity", "confidence": 0.6, "evidence": "argues the code isn't really needed given stable is the default"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1105612276, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "suggests an explicit default-case check rather than relying on the sum of case conditions for coverage"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1105612276, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive robustness suggestion"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1105613259, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "same default-case suggestion for the v1beta1 file"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1105613259, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive robustness suggestion"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1105617469, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "NIT: use the same config.BetaAPIFields constant in the test as in the code"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1105617469, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive test/code consistency point"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1105617469, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.5, "evidence": "wants the test to use the same constant as the implementation"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1106102904, "facet": "artifact", "value": "docs", "confidence": 0.5, "evidence": "asks how prior beta-graduated features (propagated params/workspaces) approached this, for guidance"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1106102904, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive graduation-precedent question"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1106102904, "facet": "principle", "value": "feature-graduation", "confidence": 0.8, "evidence": "asks about precedent for API-version-specific beta feature-flag requirements"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1106111647, "facet": "artifact", "value": "docs", "confidence": 0.4, "evidence": "explains the propagated-params/propagated-workspaces graduation precedent"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1106111647, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive precedent explanation"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1106111647, "facet": "principle", "value": "feature-graduation", "confidence": 0.8, "evidence": "direct precedent for alpha/beta/stable feature-flag gating"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1106142959, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "questions whether a conditioned default case makes sense vs explicit case statements"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1106142959, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive code-design follow-up"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1106151562, "facet": "artifact", "value": "docs", "confidence": 0.5, "evidence": "cross-references doc/example updates for matrix and when-expression features in other PRs"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1106151562, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive doc-coverage cross-reference"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1106169819, "facet": "artifact", "value": "tests", "confidence": 0.4, "evidence": "agrees to create a separate PR for similar test-file cleanups"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1106169819, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.4, "evidence": "defers similar fixes to a separate PR"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1106173054, "facet": "artifact", "value": "docs", "confidence": 0.6, "evidence": "agrees docs should clarify array results is a beta feature"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1106173054, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "notes the TEP itself may need clarification on whether the flag is the same across v1/v1beta1"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1106173054, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive doc/TEP clarity request"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1106173054, "facet": "principle", "value": "feature-graduation", "confidence": 0.8, "evidence": "beta-feature clarity across API versions"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1106173054, "facet": "principle", "value": "crd-version-policy", "confidence": 0.6, "evidence": "asks whether the feature flag should be identical across CRD API versions"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1106176224, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "suggests cleaning up propagated workspaces to reuse this function, notes it's unrelated to this PR"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1106176224, "facet": "nature", "value": "cohesion", "confidence": 0.6, "evidence": "explicitly \"not related to this PR\""}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1106181506, "facet": "artifact", "value": "code", "confidence": 0.4, "evidence": "agrees to open a follow-up issue to stay consistent"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1106181506, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.5, "evidence": "wants consistency across related feature-flag checks"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1106182503, "facet": "artifact", "value": "docs", "confidence": 0.6, "evidence": "asks how propagated-workspace beta status was documented, wants consistency across features"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1106182503, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive doc-consistency question"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1106182503, "facet": "principle", "value": "feature-graduation", "confidence": 0.6, "evidence": "asks about beta-status documentation precedent"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1106182503, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.5, "evidence": "wants consistency across how features document beta status"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1106190346, "facet": "artifact", "value": "docs", "confidence": 0.6, "evidence": "finds no specific guidelines beyond alpha->beta text replacement, notes v1beta1 docs are confusing"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1106190346, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive doc-gap finding"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1106190346, "facet": "principle", "value": "feature-graduation", "confidence": 0.6, "evidence": "notes ambiguity in beta-graduation doc guidance for v1beta1 API users"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1106955483, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "clarifies default-case semantics and proposes an explicit success/fail alternative for follow-up"}
+{"repo": "pipeline", "pr_number": 6103, "comment_id": 1106955483, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive design clarification"}
+{"repo": "pipeline", "pr_number": 7542, "comment_id": 1455867822, "facet": "artifact", "value": "docs", "confidence": 0.6, "evidence": "reports broken formatting in the preview"}
+{"repo": "pipeline", "pr_number": 7542, "comment_id": 1455867822, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "doc rendering/formatting issue"}
+{"repo": "community", "pr_number": 477, "comment_id": 690587481, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "confirms validating array size at runtime and potentially failing the pipeline"}
+{"repo": "community", "pr_number": 477, "comment_id": 690587481, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive runtime-validation point"}
+{"repo": "community", "pr_number": 477, "comment_id": 690587481, "facet": "principle", "value": "authoring-vs-runtime", "confidence": 0.5, "evidence": "discusses runtime validation approach"}
+{"repo": "community", "pr_number": 477, "comment_id": 690588085, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "advocates supporting indexing directly in the Tekton API for more use cases"}
+{"repo": "community", "pr_number": 477, "comment_id": 690588085, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive scope argument"}
+{"repo": "community", "pr_number": 477, "comment_id": 690588085, "facet": "principle", "value": "reusability", "confidence": 0.5, "evidence": "argues for core-API support over relying on workarounds"}
+{"repo": "community", "pr_number": 477, "comment_id": 690591843, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "reframes the requirement as needing both consume and produce of array results for looping"}
+{"repo": "community", "pr_number": 477, "comment_id": 690591843, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive reframing of a design point"}
+{"repo": "community", "pr_number": 477, "comment_id": 690778924, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "in favor of looping but wants use cases/alternatives explored first"}
+{"repo": "community", "pr_number": 477, "comment_id": 690778924, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive scoping caveat"}
+{"repo": "community", "pr_number": 477, "comment_id": 690778924, "facet": "principle", "value": "feature-justification", "confidence": 0.5, "evidence": "wants use cases and alternatives explored before committing to looping scope"}
+{"repo": "community", "pr_number": 477, "comment_id": 690779989, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "flags the 4096-byte termination-message truncation constraint as a design concern to mention in the TEP"}
+{"repo": "community", "pr_number": 477, "comment_id": 690779989, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive technical constraint affecting the design"}
+{"repo": "community", "pr_number": 477, "comment_id": 691425903, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "explains bailing out of json evaluation on schema mismatch, ties to notes/caveats section"}
+{"repo": "community", "pr_number": 477, "comment_id": 691425903, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive design explanation"}
+{"repo": "community", "pr_number": 477, "comment_id": 691442386, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "commits to covering deeply-nested-dictionary complexity in the testing section"}
+{"repo": "community", "pr_number": 477, "comment_id": 691442386, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive testing-section content addition"}
+{"repo": "community", "pr_number": 477, "comment_id": 691445711, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "self-notes the TEP is missing a basic example of specifying a result with the new type"}
+{"repo": "community", "pr_number": 477, "comment_id": 691445711, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "flags a completeness gap in the proposal"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 855474387, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "notes this mutates the Task similarly to param defaulting, will document in trusted-task design"}
+{"repo": "pipeline", "pr_number": 4779, "comment_id": 855474387, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive design note about mutation/defaulting behavior"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 865254457, "facet": "artifact", "value": "code", "confidence": 0.4, "evidence": "suggests adding a new field description in swagger.json"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 877602340, "facet": "artifact", "value": "code", "confidence": 0.4, "evidence": "answers with a link to the specific validation check for empty params"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 877602340, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "concrete answer pointing at the validation code path"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 878549079, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.4, "evidence": "notes the Pipelinerun result type also needs the same change, planned for a following PR"}
+{"repo": "pipeline", "pr_number": 4920, "comment_id": 907336755, "facet": "artifact", "value": "code", "confidence": 0.4, "evidence": "points to the specific function/location where the validation should be bypassed"}
+{"repo": "community", "pr_number": 477, "comment_id": 683563609, "facet": "principle", "value": "security", "confidence": 0.4, "evidence": "\"Any possible problem if the arrays is huge... a 10M array json file\" - unbounded result size raises a resource-exhaustion/threat-model concern the first pass tagged only as generic tep-body/content", "source_pass": "audit"}
+{"repo": "community", "pr_number": 477, "comment_id": 798843479, "facet": "principle", "value": "tekton-api-conventions", "confidence": 0.4, "evidence": "\"this 'type: array' is in conflict with 'type: object'\" is also a structural-shape concern about the new field following Tekton's own idiom, not just cross-TEP consistency", "source_pass": "audit"}
+{"repo": "community", "pr_number": 477, "comment_id": 762412789, "facet": "principle", "value": "reusability", "confidence": 0.4, "evidence": "argues a dedicated controller/CRD (TEP-0044) could handle looping instead of building it into the core pipeline API - an existing/alternative-solution argument, not just tep-body content", "source_pass": "audit"}
+{"repo": "community", "pr_number": 477, "comment_id": 683584812, "facet": "principle", "value": "flexibility", "confidence": 0.4, "evidence": "\"it could be a custom tasks but I think this is such a powerful feature that it deserves to be in the core API\" directly weighs the CustomTask plugin mechanism against new core-API surface, in addition to the reusability angle already tagged", "source_pass": "audit"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 864200038, "facet": "nature", "value": "self-containedness", "confidence": 0.4, "evidence": "\"we definitely are blocked by the design about whether we want to have a brand new struct on this or just rename StringOrArray\" - this PR's progress depends on an unresolved decision elsewhere, mirroring the self-containedness tag already applied to the reply beneath it", "source_pass": "audit"}
+{"repo": "pipeline", "pr_number": 4818, "comment_id": 878430687, "facet": "principle", "value": "authoring-vs-runtime", "confidence": 0.5, "evidence": "\"we have validated in admission webhook, but I feel like it is no wrong to add more checks in reconciler code\" - explicitly weighs admission-time (authoring) vs reconciler-time (runtime) validation, same tradeoff as the feature-graduation-tagged reply further down thread", "source_pass": "audit"}
