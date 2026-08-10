@@ -128,3 +128,126 @@
 {"repo": "community", "pr_number": 380, "comment_id": 601830677, "facet": "principle", "value": "crd-version-policy", "confidence": 0.3, "evidence": "\"no impact on the existing alpha version\" - weak but real reference to version impact", "source_pass": "audit"}
 {"repo": "community", "pr_number": 380, "comment_id": 601841038, "facet": "principle", "value": "feature-graduation", "confidence": 0.5, "evidence": "table is entirely about the alpha/beta/GA feature-stability compatibility matrix", "source_pass": "audit"}
 {"repo": "community", "pr_number": 380, "comment_id": 603450969, "facet": "principle", "value": "feature-graduation", "confidence": 0.5, "evidence": "corrects the same alpha/beta/GA compatibility table for the pre-v1 state", "source_pass": "audit"}
+{"repo": "community", "pr_number": 260, "comment_id": 532675056, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "brief agreement extending scope to params/results"}
+{"repo": "community", "pr_number": 260, "comment_id": 532675056, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "short but substantive"}
+{"repo": "community", "pr_number": 260, "comment_id": 532675919, "facet": "artifact", "value": "tep-body", "confidence": 0.85, "evidence": "identifies a new potential drawback/risk"}
+{"repo": "community", "pr_number": 260, "comment_id": 532675919, "facet": "nature", "value": "content", "confidence": 0.8, "evidence": "substantive risk analysis"}
+{"repo": "community", "pr_number": 260, "comment_id": 532677965, "facet": "artifact", "value": "tep-body", "confidence": 0.85, "evidence": "abstraction-layer design discussion"}
+{"repo": "community", "pr_number": 260, "comment_id": 532677965, "facet": "nature", "value": "content", "confidence": 0.8, "evidence": "substantive architecture reasoning"}
+{"repo": "community", "pr_number": 260, "comment_id": 555219643, "facet": "artifact", "value": "tep-body", "confidence": 0.85, "evidence": "flags a breaking API change concern"}
+{"repo": "community", "pr_number": 260, "comment_id": 555219643, "facet": "nature", "value": "content", "confidence": 0.8, "evidence": "substantive compatibility concern"}
+{"repo": "community", "pr_number": 260, "comment_id": 555219643, "facet": "principle", "value": "api-compatibility", "confidence": 0.75, "evidence": "explicit: \"breaking API change of sorts\""}
+{"repo": "community", "pr_number": 260, "comment_id": 555220606, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "repeats the same breaking-change concern on a related section"}
+{"repo": "community", "pr_number": 260, "comment_id": 555220606, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "community", "pr_number": 260, "comment_id": 555220606, "facet": "principle", "value": "api-compatibility", "confidence": 0.5, "evidence": "same breaking-change concern"}
+{"repo": "community", "pr_number": 260, "comment_id": 555236958, "facet": "artifact", "value": "tep-body", "confidence": 0.85, "evidence": "directly rebuts the breaking-change concern"}
+{"repo": "community", "pr_number": 260, "comment_id": 555236958, "facet": "nature", "value": "content", "confidence": 0.8, "evidence": "substantive rebuttal"}
+{"repo": "community", "pr_number": 260, "comment_id": 555236958, "facet": "principle", "value": "api-compatibility", "confidence": 0.75, "evidence": "\"It's definitely not a breaking API change because...\""}
+{"repo": "community", "pr_number": 260, "comment_id": 555237137, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "commits to clarifying the wording"}
+{"repo": "community", "pr_number": 260, "comment_id": 555237137, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "wording clarity commitment"}
+{"repo": "community", "pr_number": 260, "comment_id": 555249952, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "suggests presenting before/after examples together"}
+{"repo": "community", "pr_number": 260, "comment_id": 555249952, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "example presentation format suggestion"}
+{"repo": "community", "pr_number": 260, "comment_id": 555249952, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "clarity of the substantive explanation"}
+{"repo": "community", "pr_number": 260, "comment_id": 555285357, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "reports adding the before/after example"}
+{"repo": "community", "pr_number": 260, "comment_id": 555285357, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "example added per the suggestion above"}
+{"repo": "community", "pr_number": 260, "comment_id": 555324710, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "confirms the verbiage is now clear"}
+{"repo": "community", "pr_number": 260, "comment_id": 555324710, "facet": "artifact", "value": "approval-process", "confidence": 0.55, "evidence": "explicit: \"multi-company\" sign off"}
+{"repo": "community", "pr_number": 260, "comment_id": 555324710, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive confirmation"}
+{"repo": "community", "pr_number": 260, "comment_id": 555887235, "facet": "artifact", "value": "approval-process", "confidence": 0.35, "evidence": "coordination about who reviews/LGTMs next"}
+{"repo": "community", "pr_number": 260, "comment_id": 555892886, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "asks whether the example workspace name is required or illustrative"}
+{"repo": "community", "pr_number": 260, "comment_id": 555892886, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive clarifying question"}
+{"repo": "community", "pr_number": 260, "comment_id": 555894484, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "asks about specifying mountPath in an additional location"}
+{"repo": "community", "pr_number": 260, "comment_id": 555894484, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive design question"}
+{"repo": "community", "pr_number": 260, "comment_id": 555894881, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "explains the rationale for per-step mountPath override"}
+{"repo": "community", "pr_number": 260, "comment_id": 555894881, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive rationale"}
+{"repo": "community", "pr_number": 260, "comment_id": 555906761, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "commits to updating the TEP to include the requested feature"}
+{"repo": "community", "pr_number": 260, "comment_id": 555906761, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief commitment"}
+{"repo": "community", "pr_number": 260, "comment_id": 555916723, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "reports the proposal was updated"}
+{"repo": "community", "pr_number": 260, "comment_id": 555916723, "facet": "nature", "value": "structure", "confidence": 0.35, "evidence": "editorial update note"}
+{"repo": "community", "pr_number": 260, "comment_id": 555919218, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "flags a design-details section missing the mountPath field"}
+{"repo": "community", "pr_number": 260, "comment_id": 555919218, "facet": "nature", "value": "structure", "confidence": 0.7, "evidence": "explicit \"nit\", consistency of a section with recent updates"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 569624151, "facet": "artifact", "value": "docs", "confidence": 0.6, "evidence": "suggests linking to the relevant example section"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 569624151, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "cross-reference/navigation suggestion"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 569624777, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "asks whether isolation is scoped to just the step/sidecar"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 569624777, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive behavior question"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 569626304, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "suggests adding explanatory code comments in the sidecar loop"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 569626304, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive readability suggestion"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 569626816, "facet": "artifact", "value": "docs", "confidence": 0.65, "evidence": "suggests updating DEVELOPMENT.md for a missed workflow step"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 569648603, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "confirms isolation behavior"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 569648603, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive confirmation"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 569651481, "facet": "artifact", "value": "docs", "confidence": 0.3, "evidence": "reports adding the requested link"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 569651994, "facet": "artifact", "value": "code", "confidence": 0.35, "evidence": "reports adding loop-timeout comments"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 569652193, "facet": "artifact", "value": "docs", "confidence": 0.35, "evidence": "reports updating DEVELOPMENT.md"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 570503465, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "suggests explaining the mountPath override behavior in a code comment"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 570503465, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive readability suggestion"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 570504457, "facet": "artifact", "value": "docs", "confidence": 0.6, "evidence": "suggests a more complex example matching the TEP's own"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 570504457, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive documentation suggestion"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 570508117, "facet": "artifact", "value": "tests", "confidence": 0.7, "evidence": "explicit nit about brittle error-message assertions, proposes alternatives"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 570508117, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "test-assertion style, not correctness"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 570508117, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive testing-practice suggestion"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 570514124, "facet": "artifact", "value": "tests", "confidence": 0.75, "evidence": "flags mountPath-override logic missing explicit test cases"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 570514124, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive coverage gap"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 570514667, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "cites the coverage report as supporting the gap"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 570514667, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "supporting evidence for the coverage concern"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 570517509, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "suggests the mountPath logic belongs in the workspaces package"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 570517509, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "code-organization/package-placement suggestion"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 570536952, "facet": "artifact", "value": "code", "confidence": 0.3, "evidence": "reports updating a code comment"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 570537049, "facet": "artifact", "value": "docs", "confidence": 0.35, "evidence": "reports updating the example"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 570543389, "facet": "artifact", "value": "tests", "confidence": 0.4, "evidence": "reports removing a brittle string-based error check"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 570543571, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "reports adding unit test coverage for custom mountPath"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 570543571, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "coverage addition"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 570554348, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "explains why mountPath choice and substitution logic are entangled (order-dependent)"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 570554348, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive implementation explanation"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 572429278, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "asks whether the step workspace name must match the pipeline-level workspace name"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 572429278, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive question - later confirmed to catch a real bug"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 572442874, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "explicit nit: step names are missing from an example"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 572442874, "facet": "nature", "value": "structure", "confidence": 0.7, "evidence": "explicit nit"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 572504010, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "asks what \"override\" means given files remain visible across the shared workspace"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 572504010, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive behavior clarification"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 572589599, "facet": "artifact", "value": "docs", "confidence": 0.55, "evidence": "suggests documenting the observed cross-step file visibility behavior"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 572589599, "facet": "artifact", "value": "tests", "confidence": 0.3, "evidence": "verified the behavior by manually running a pipeline"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 572589599, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive, based on manual verification"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 572891091, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "confirms a real naming bug and commits to a fix plus validation"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 572891091, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive bug confirmation"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 626030125, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "questions why changes from a previous, already-merged PR reappear here"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 626030125, "facet": "nature", "value": "self-containedness", "confidence": 0.4, "evidence": "PR appears to include content that shouldn't be there / already landed elsewhere"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 626030385, "facet": "artifact", "value": "code", "confidence": 0.4, "evidence": "confirms the earlier PR was already merged"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 626030385, "facet": "nature", "value": "self-containedness", "confidence": 0.35, "evidence": "same duplicate-content concern"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 626032378, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "explicit nit correcting a doc-comment's accuracy about error behavior"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 626032378, "facet": "artifact", "value": "docs", "confidence": 0.5, "evidence": "same - a code-comment/doc accuracy issue"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 626032378, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "correction to stated behavior in a comment"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 626044841, "facet": "artifact", "value": "docs", "confidence": 0.65, "evidence": "explicit nit: two notes in the same section contradict each other"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 626044841, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "internal consistency of documentation"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 626086890, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "confirms a bad-merge artifact caused the contradiction"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 626086890, "facet": "nature", "value": "self-containedness", "confidence": 0.35, "evidence": "bad merge introduced unintended content"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 626088300, "facet": "artifact", "value": "docs", "confidence": 0.55, "evidence": "removes confusing alpha-api mention per the feedback"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 626088300, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "clarity fix"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 626187280, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "asks about validation-error behavior when a feature gate isn't set to alpha"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 626187280, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive validation-design question"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 626187280, "facet": "principle", "value": "feature-graduation", "confidence": 0.5, "evidence": "about feature-gate validation behavior"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 626454605, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "explains the decision to keep accumulating validation errors"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 626454605, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive design decision"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 626825373, "facet": "artifact", "value": "code", "confidence": 0.8, "evidence": "typo nit: acess -> access"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 626825373, "facet": "nature", "value": "structure", "confidence": 0.85, "evidence": "explicit NIT typo fix"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 626828825, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "nit: use config.AlphaAPIFields instead of a string literal"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 626828825, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "code style: avoid magic strings"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 626871327, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "notes this will go away once the feature is promoted to stable"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 626871327, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 626871327, "facet": "principle", "value": "feature-graduation", "confidence": 0.6, "evidence": "\"once this feature is promoted to stable\""}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 626880691, "facet": "artifact", "value": "tests", "confidence": 0.75, "evidence": "explicit nit suggesting an additional test combining step- and sidecar-isolated workspaces"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 626880691, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive coverage suggestion"}
+{"repo": "pipeline", "pr_number": 6922, "comment_id": 1269491193, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "questions whether this breaks users with alpha fields enabled, and whether gating implementation (not just validation) on stability level makes sense"}
+{"repo": "pipeline", "pr_number": 6922, "comment_id": 1269491193, "facet": "nature", "value": "content", "confidence": 0.8, "evidence": "substantive feature-gating design concern"}
+{"repo": "pipeline", "pr_number": 6922, "comment_id": 1269491193, "facet": "principle", "value": "feature-graduation", "confidence": 0.8, "evidence": "directly about alpha/beta/stable gating behavior"}
+{"repo": "pipeline", "pr_number": 6922, "comment_id": 1269491193, "facet": "principle", "value": "api-compatibility", "confidence": 0.5, "evidence": "\"will stop working for users\" - compatibility concern"}
+{"repo": "pipeline", "pr_number": 6922, "comment_id": 1269493094, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "nit: a switch statement would be clearer"}
+{"repo": "pipeline", "pr_number": 6922, "comment_id": 1269493094, "facet": "nature", "value": "structure", "confidence": 0.7, "evidence": "code style/readability nit"}
+{"repo": "pipeline", "pr_number": 6922, "comment_id": 1269493335, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "literal suggested comment explaining beta/v1 timing"}
+{"repo": "pipeline", "pr_number": 6922, "comment_id": 1269493335, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "adds an explanatory code comment"}
+{"repo": "pipeline", "pr_number": 6922, "comment_id": 1269493335, "facet": "principle", "value": "feature-graduation", "confidence": 0.45, "evidence": "documents when the feature reached beta relative to the v1 API"}
+{"repo": "pipeline", "pr_number": 6922, "comment_id": 1270447761, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "agrees with both points, reflects on the unusual gating pattern used"}
+{"repo": "pipeline", "pr_number": 6922, "comment_id": 1270447761, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive reflection"}
+{"repo": "pipeline", "pr_number": 6922, "comment_id": 1270447761, "facet": "principle", "value": "feature-graduation", "confidence": 0.6, "evidence": "\"we usually only gate features at validation\" - states the normal convention"}
+{"repo": "community", "pr_number": 260, "comment_id": 532677965, "facet": "principle", "value": "flexibility", "confidence": 0.4, "evidence": "deciding which underlying Kubernetes VolumeMount fields to expose/support is a coupling/opinionation choice", "source_pass": "audit"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 626032378, "facet": "principle", "value": "feature-graduation", "confidence": 0.4, "evidence": "about validation behavior for the \"stable\" and \"alpha\" stability-level values specifically", "source_pass": "audit"}
+{"repo": "pipeline", "pr_number": 3700, "comment_id": 626044841, "facet": "principle", "value": "feature-graduation", "confidence": 0.35, "evidence": "discusses the behavioral difference between alpha-API and stable-API workspace availability", "source_pass": "audit"}
