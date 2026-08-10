@@ -47,6 +47,8 @@ afrittoli/tep-mining/
 │
 ├── prompts/
 │   ├── extract_seed_taxonomy.md    # AI reads documented sources -> conventions/seed-taxonomy.yaml (Sub-Task 8)
+│   ├── classify_review_comments.md # AI classifies one TEP's comments against seed-taxonomy.yaml (Sub-Task 8)
+│   ├── audit_classification_coverage.md # AI re-reads already-classified comments for missed matches (Sub-Task 8)
 │   └── author_fallback_discovery.md # prompt template for AI-assisted impl-PR fallback discovery
 │
 ├── raw/                            # JSONL, git-tracked, append-only
@@ -59,7 +61,8 @@ afrittoli/tep-mining/
 ├── processed/
 │   ├── latest -> YYYY-MM-DD/       # symlink to most recent run
 │   └── YYYY-MM-DD/
-│       └── per_tep_records.json
+│       ├── per_tep_records.json
+│       └── comment_classifications.jsonl # Sub-Task 8 output: one row per (comment, facet, value) match
 │
 ├── overrides/                      # human-edited JSONL, git-tracked (git history is the audit trail)
 │   ├── section_overrides.jsonl
@@ -68,6 +71,7 @@ afrittoli/tep-mining/
 │
 └── conventions/                    # human-annotated YAML
     ├── seed-taxonomy.yaml          # human-reviewed input (not a candidate awaiting decision) - Sub-Task 8
+    ├── classification_cost_log.md  # per-TEP comment volume, as a proxy for classification cost - Sub-Task 8
     └── review-taxonomy.yaml        # Sub-Task 8
 ```
 
