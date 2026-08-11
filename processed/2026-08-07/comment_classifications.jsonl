@@ -3517,3 +3517,680 @@
 {"repo": "community", "pr_number": 1065, "comment_id": 1346058871, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "IMO, this is a 'nice to have' feature but is not necessarily a requirement \u2014 the same could be done with a param giving the path", "source_pass": "audit"}
 {"repo": "community", "pr_number": 1065, "comment_id": 1346058871, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "design judgment: result-reference sugar is optional; file-path approach would suffice", "source_pass": "audit"}
 {"repo": "community", "pr_number": 1065, "comment_id": 1346058871, "facet": "principle", "value": "simplicity", "confidence": 0.6, "evidence": "questions whether step result references are a necessary feature or avoidable complexity", "source_pass": "audit"}
+{"repo": "community", "pr_number": 754, "comment_id": 919837920, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "clarifies the scope of what needs removing from v1alpha1"}
+{"repo": "community", "pr_number": 754, "comment_id": 919837920, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "community", "pr_number": 754, "comment_id": 919837920, "facet": "principle", "value": "deprecation-handling", "confidence": 0.4, "evidence": "clarifying which deprecated objects actually need removal"}
+{"repo": "community", "pr_number": 754, "comment_id": 919837920, "facet": "principle", "value": "crd-version-policy", "confidence": 0.35, "evidence": "cross-version object lifecycle discussion"}
+{"repo": "community", "pr_number": 754, "comment_id": 921208411, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "proposes an alternative ref shape since Run.Spec.Ref already carries apiVersion/Kind"}
+{"repo": "community", "pr_number": 754, "comment_id": 921208411, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive design alternative"}
+{"repo": "community", "pr_number": 754, "comment_id": 921214011, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "asks whether custom tasks should be gated behind enable-api-fields: beta"}
+{"repo": "community", "pr_number": 754, "comment_id": 921214011, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "community", "pr_number": 754, "comment_id": 921214011, "facet": "principle", "value": "feature-graduation", "confidence": 0.5, "evidence": "explicit beta feature-flag gating question"}
+{"repo": "community", "pr_number": 754, "comment_id": 921216065, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "requests explanation for why CustomRuns aren't meant as a TaskRun/PipelineRun interface"}
+{"repo": "community", "pr_number": 754, "comment_id": 921216065, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "community", "pr_number": 754, "comment_id": 921216065, "facet": "nature", "value": "structure", "confidence": 0.3, "evidence": "doc-completeness request"}
+{"repo": "community", "pr_number": 754, "comment_id": 921264116, "facet": "artifact", "value": "tep-body", "confidence": 0.65, "evidence": "clarifies this is in scope for a different TEP given no v1/beta gating yet"}
+{"repo": "community", "pr_number": 754, "comment_id": 921264116, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "community", "pr_number": 754, "comment_id": 921264116, "facet": "principle", "value": "feature-graduation", "confidence": 0.4, "evidence": "no beta gating exists yet at this point"}
+{"repo": "community", "pr_number": 754, "comment_id": 921272266, "facet": "artifact", "value": "tep-body", "confidence": 0.55, "evidence": "responds to the ref-shape alternative"}
+{"repo": "community", "pr_number": 754, "comment_id": 921272266, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "community", "pr_number": 754, "comment_id": 921292469, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "adds the rename rationale to the TEP"}
+{"repo": "community", "pr_number": 754, "comment_id": 921292469, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief"}
+{"repo": "community", "pr_number": 754, "comment_id": 921292811, "facet": "artifact", "value": "tep-body", "confidence": 0.45, "evidence": "adds a note per feedback"}
+{"repo": "community", "pr_number": 754, "comment_id": 921292811, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "brief"}
+{"repo": "community", "pr_number": 754, "comment_id": 921356155, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "asks whether custom tasks will release as V1 or stay in v1beta1"}
+{"repo": "community", "pr_number": 754, "comment_id": 921356155, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "community", "pr_number": 754, "comment_id": 921356155, "facet": "principle", "value": "crd-version-policy", "confidence": 0.5, "evidence": "explicit CRD-version-lifecycle question"}
+{"repo": "community", "pr_number": 754, "comment_id": 921424245, "facet": "artifact", "value": "tep-body", "confidence": 0.8, "evidence": "flags the proposed ref shape doesn't align with TaskRun/PipelineRun"}
+{"repo": "community", "pr_number": 754, "comment_id": 921424245, "facet": "nature", "value": "content", "confidence": 0.7, "evidence": "substantive"}
+{"repo": "community", "pr_number": 754, "comment_id": 921424245, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.5, "evidence": "explicit misalignment with existing ref shapes"}
+{"repo": "community", "pr_number": 754, "comment_id": 921424245, "facet": "principle", "value": "tekton-api-conventions", "confidence": 0.4, "evidence": "ref shape convention mismatch"}
+{"repo": "community", "pr_number": 754, "comment_id": 921429161, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "points to a related tracking issue"}
+{"repo": "community", "pr_number": 754, "comment_id": 921429161, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "community", "pr_number": 754, "comment_id": 921429589, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "confirms this will be the beta API version"}
+{"repo": "community", "pr_number": 754, "comment_id": 921429589, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief"}
+{"repo": "community", "pr_number": 754, "comment_id": 921429589, "facet": "principle", "value": "feature-graduation", "confidence": 0.3, "evidence": "beta API version confirmation"}
+{"repo": "community", "pr_number": 754, "comment_id": 921430081, "facet": "artifact", "value": "tep-body", "confidence": 0.55, "evidence": "terminology correction: Run -> CustomRun"}
+{"repo": "community", "pr_number": 754, "comment_id": 921430081, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "terminology correction"}
+{"repo": "community", "pr_number": 754, "comment_id": 921443832, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "terminology correction: Run -> CustomRun"}
+{"repo": "community", "pr_number": 754, "comment_id": 921443832, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "terminology correction"}
+{"repo": "community", "pr_number": 754, "comment_id": 921447571, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "wording correction"}
+{"repo": "community", "pr_number": 754, "comment_id": 921447571, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "wording correction"}
+{"repo": "community", "pr_number": 754, "comment_id": 921448120, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "terminology correction: Tasks/Pipelines -> TaskRun/PipelineRun"}
+{"repo": "community", "pr_number": 754, "comment_id": 921448120, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "terminology correction"}
+{"repo": "community", "pr_number": 754, "comment_id": 921449810, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "shares a naming/example preference"}
+{"repo": "community", "pr_number": 754, "comment_id": 921449810, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief"}
+{"repo": "community", "pr_number": 754, "comment_id": 921453714, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "agrees not to lump metadata with spec, citing API inconsistency"}
+{"repo": "community", "pr_number": 754, "comment_id": 921453714, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "community", "pr_number": 754, "comment_id": 921453714, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.4, "evidence": "explicit \"inconsistent with the rest of our API\""}
+{"repo": "community", "pr_number": 754, "comment_id": 921457513, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "adds an option, defers the choice to implementation details"}
+{"repo": "community", "pr_number": 754, "comment_id": 921457513, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "community", "pr_number": 754, "comment_id": 921457513, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.3, "evidence": "deferred to implementation"}
+{"repo": "community", "pr_number": 754, "comment_id": 921459138, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "updates the suggestion to a different approach"}
+{"repo": "community", "pr_number": 754, "comment_id": 921459138, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief"}
+{"repo": "community", "pr_number": 754, "comment_id": 921501877, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "asks whether a standard installable interface is needed for custom task releases"}
+{"repo": "community", "pr_number": 754, "comment_id": 921501877, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive design question"}
+{"repo": "community", "pr_number": 754, "comment_id": 922202813, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "explains CustomRun could stay v1beta1 while referenced by a v1 PipelineRun, each CRD having its own lifecycle"}
+{"repo": "community", "pr_number": 754, "comment_id": 922202813, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "community", "pr_number": 754, "comment_id": 922202813, "facet": "principle", "value": "crd-version-policy", "confidence": 0.5, "evidence": "explicit independent-CRD-version-lifecycle point"}
+{"repo": "community", "pr_number": 754, "comment_id": 922205113, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "raises what \"custom task\" means for hub/catalog shipping"}
+{"repo": "community", "pr_number": 754, "comment_id": 922205113, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "community", "pr_number": 754, "comment_id": 922238999, "facet": "artifact", "value": "tep-body", "confidence": 0.65, "evidence": "proposes shipping custom task controllers via the operator, deferring details"}
+{"repo": "community", "pr_number": 754, "comment_id": 922238999, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "community", "pr_number": 754, "comment_id": 922245902, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "agrees hub/catalog integration is out of scope for this TEP"}
+{"repo": "community", "pr_number": 754, "comment_id": 922245902, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive scope decision"}
+{"repo": "community", "pr_number": 754, "comment_id": 922245902, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.4, "evidence": "explicit out-of-scope deferral"}
+{"repo": "community", "pr_number": 867, "comment_id": 1031562170, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "asks whether the default-switch timing should be documented"}
+{"repo": "community", "pr_number": 867, "comment_id": 1031562170, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "community", "pr_number": 867, "comment_id": 1031562170, "facet": "principle", "value": "feature-graduation", "confidence": 0.45, "evidence": "default-switch timing across the migration"}
+{"repo": "community", "pr_number": 867, "comment_id": 1031562170, "facet": "principle", "value": "deprecation-handling", "confidence": 0.4, "evidence": "timeline for switching the default away from the old version"}
+{"repo": "community", "pr_number": 867, "comment_id": 1031607023, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "adds a version-switch timeline per feedback"}
+{"repo": "community", "pr_number": 867, "comment_id": 1031607023, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "community", "pr_number": 881, "comment_id": 1024155862, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "wording suggestion for the newly-required cancellation behavior"}
+{"repo": "community", "pr_number": 881, "comment_id": 1024155862, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "wording suggestion"}
+{"repo": "community", "pr_number": 881, "comment_id": 1024155862, "facet": "principle", "value": "api-compatibility", "confidence": 0.3, "evidence": "documents a requirement change from optional to required"}
+{"repo": "community", "pr_number": 881, "comment_id": 1024169941, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "flags TEP-0002 never explicitly specified status/message signaling"}
+{"repo": "community", "pr_number": 881, "comment_id": 1024169941, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive gap analysis"}
+{"repo": "community", "pr_number": 881, "comment_id": 1024702613, "facet": "artifact", "value": "tep-body", "confidence": 0.55, "evidence": "asks for clarification of \"properly\""}
+{"repo": "community", "pr_number": 881, "comment_id": 1024702613, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "brief"}
+{"repo": "community", "pr_number": 881, "comment_id": 1024710577, "facet": "artifact", "value": "tep-body", "confidence": 0.7, "evidence": "asks when the controller sets cancellation status, for which cancellation types"}
+{"repo": "community", "pr_number": 881, "comment_id": 1024710577, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive"}
+{"repo": "community", "pr_number": 881, "comment_id": 1024711015, "facet": "artifact", "value": "tep-body", "confidence": 0.5, "evidence": "typo nit"}
+{"repo": "community", "pr_number": 881, "comment_id": 1024711015, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "typo nit"}
+{"repo": "community", "pr_number": 881, "comment_id": 1024834168, "facet": "artifact", "value": "tep-body", "confidence": 0.75, "evidence": "asks whether required cancellation gets real validation or is just a doc change"}
+{"repo": "community", "pr_number": 881, "comment_id": 1024834168, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "community", "pr_number": 881, "comment_id": 1024834168, "facet": "principle", "value": "api-compatibility", "confidence": 0.35, "evidence": "validation vs. documentation-only requirement"}
+{"repo": "community", "pr_number": 881, "comment_id": 1025200743, "facet": "artifact", "value": "tep-body", "confidence": 0.65, "evidence": "explains the hard dependency the PipelineRun controller has on CustomRun status"}
+{"repo": "community", "pr_number": 881, "comment_id": 1025200743, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "community", "pr_number": 881, "comment_id": 1025236155, "facet": "artifact", "value": "tep-body", "confidence": 0.6, "evidence": "answers which cancellation types are covered"}
+{"repo": "community", "pr_number": 881, "comment_id": 1025236155, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 947218053, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "asks to remove a release-oriented folder from an experimental test task"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 947218053, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 947218551, "facet": "artifact", "value": "docs", "confidence": 0.6, "evidence": "requests the README clarify this custom task is testing-only"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 947218551, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 947233903, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "asks for clarification of what to remove"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 947233903, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 948064050, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "questions a redundant LICENSE file"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 948064050, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "redundancy nit"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 948292993, "facet": "artifact", "value": "tests", "confidence": 0.7, "evidence": "requests asserting the resolved run matches the expected run"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 948292993, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive test-coverage request"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950277789, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "suggests moving a helper to the top level for reuse in other e2e tests"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950277789, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "reuse suggestion"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950277789, "facet": "principle", "value": "reusability", "confidence": 0.4, "evidence": "explicit cross-test reuse suggestion"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950279581, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "suggests updating other simulated-run tests to use the real wait custom task, notes it can be a follow-up"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950279581, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950279581, "facet": "nature", "value": "cohesion", "confidence": 0.35, "evidence": "explicitly can be a follow-up PR"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950279798, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "naming suggestion for a test function"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950279798, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "naming nit"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950282441, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "suggests reusing an existing status string to avoid modifying a shared function"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950282441, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950282441, "facet": "principle", "value": "reusability", "confidence": 0.4, "evidence": "avoids modifying a function used by other types"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950283255, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "same reuse rationale applied to a sibling file"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950283255, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950283255, "facet": "principle", "value": "reusability", "confidence": 0.35, "evidence": "avoids changing a shared function"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950321681, "facet": "artifact", "value": "pr-size", "confidence": 0.4, "evidence": "plans to split follow-up work into two separate PRs"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950321681, "facet": "nature", "value": "cohesion", "confidence": 0.4, "evidence": "explicit two-PR split plan"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950321681, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950342015, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "suggests a more descriptive placeholder API group than example.dev"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950342015, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "naming suggestion"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950342916, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "notes the naming would help future additional test custom tasks"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950342916, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950342916, "facet": "principle", "value": "reusability", "confidence": 0.3, "evidence": "naming that generalizes to future custom tasks"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950347256, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "questions the scope of the naming concern given a single controller"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950347256, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950362979, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "argues descriptive naming still matters even if scope may grow"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950362979, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950418098, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "settles on a naming convention for test-only resources after offline discussion"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950418098, "facet": "nature", "value": "structure", "confidence": 0.45, "evidence": "naming convention decision"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950418098, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950418983, "facet": "artifact", "value": "code", "confidence": 0.45, "evidence": "asks where to document the new naming convention"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950418983, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950426279, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "explains following an existing declare-at-first-use convention"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950426279, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "code convention"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950426279, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.3, "evidence": "follows a cited external convention"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950446262, "facet": "artifact", "value": "code", "confidence": 0.4, "evidence": "defers a naming-convention discussion to the WG, notes it's not a blocker since it's non-user-facing"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950446262, "facet": "nature", "value": "cohesion", "confidence": 0.35, "evidence": "explicitly not a blocker for this PR"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950446262, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950448676, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "suggests using existing yaml helpers instead of hand-built structs"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950448676, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "test-style suggestion"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950448676, "facet": "principle", "value": "reusability", "confidence": 0.35, "evidence": "reuse existing yaml helpers"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950452643, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "asks whether reusing helpers requires copying them into this module"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950452643, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950453480, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "agrees not to copy-paste the helper"}
+{"repo": "pipeline", "pr_number": 5332, "comment_id": 950453480, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5356, "comment_id": 953879601, "facet": "artifact", "value": "tests", "confidence": 0.65, "evidence": "questions why known fields (Kind/APIVersion) are filtered alongside random ones"}
+{"repo": "pipeline", "pr_number": 5356, "comment_id": 953879601, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5356, "comment_id": 953894766, "facet": "artifact", "value": "tests", "confidence": 0.55, "evidence": "explains the API server doesn't return those fields, proposes an alternative"}
+{"repo": "pipeline", "pr_number": 5356, "comment_id": 953894766, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5356, "comment_id": 953903658, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "confirms other tests follow the same pattern"}
+{"repo": "pipeline", "pr_number": 5356, "comment_id": 953903658, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5356, "comment_id": 953903658, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.3, "evidence": "matches existing test pattern"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 958543140, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "wording suggestion for a log line"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 958543140, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "wording nit"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 958544969, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "points to an existing equivalent function elsewhere"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 958544969, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 958544969, "facet": "principle", "value": "reusability", "confidence": 0.4, "evidence": "existing function could be reused"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 958546592, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "argues status messages shouldn't propagate up through pipelinerun-specific concepts"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 958546592, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 958548548, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "notes an existing function already handles defaults"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 958548548, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 958548548, "facet": "principle", "value": "reusability", "confidence": 0.3, "evidence": "existing function already handles this"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 958550681, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "suggests validating timeout isn't equal to duration"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 958550681, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive edge case"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 958551670, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "suggests using Clock like other reconcilers, for fake-clock testability"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 958551670, "facet": "artifact", "value": "reconciler-pattern", "confidence": 0.4, "evidence": "matches an existing reconciler convention"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 958551670, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 958551670, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.4, "evidence": "matches how other reconcilers handle time"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 958735692, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "prefers reusing the existing helper over duplicate code, since this reconciler isn't independently installable"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 958735692, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 958735692, "facet": "principle", "value": "reusability", "confidence": 0.4, "evidence": "explicit preference for reuse over duplication"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 958733768, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "asks whether decoupling the test module from the main package is preferable"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 958733768, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 959898892, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "code suggestion fixing a status-marking helper"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 959898892, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "code fix"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 959901485, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "code suggestion questioning reason-vs-message field usage, cites TaskRun reconciler for comparison"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 959901485, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 959901485, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.35, "evidence": "checks against the TaskRun reconciler's convention"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 959933074, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "clarifies StatusMessage semantics, asks whether distinguishing cancellation reasons is useful"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 959933074, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 959935020, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "proposes a concrete fix for the reason/message usage"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 959935020, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 963805214, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "naming nit citing a Go style guide rule about descriptive names for far-from-declaration usage"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 963805214, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "naming convention nit"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 963805214, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.3, "evidence": "cites an external Go naming convention"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 963805361, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "same naming convention nit for another variable"}
+{"repo": "pipeline", "pr_number": 5389, "comment_id": 963805361, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "naming convention nit"}
+{"repo": "pipeline", "pr_number": 5390, "comment_id": 958510157, "facet": "artifact", "value": "docs", "confidence": 0.6, "evidence": "flags broken links"}
+{"repo": "pipeline", "pr_number": 5390, "comment_id": 958510157, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "broken-link nit"}
+{"repo": "pipeline", "pr_number": 5390, "comment_id": 958510642, "facet": "artifact", "value": "docs", "confidence": 0.55, "evidence": "wording suggestion for a doc link"}
+{"repo": "pipeline", "pr_number": 5390, "comment_id": 958510642, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "wording fix"}
+{"repo": "pipeline", "pr_number": 5393, "comment_id": 958697361, "facet": "artifact", "value": "docs", "confidence": 0.6, "evidence": "wording suggestion clarifying timeout-vs-retries behavior"}
+{"repo": "pipeline", "pr_number": 5393, "comment_id": 958697361, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "wording fix"}
+{"repo": "pipeline", "pr_number": 5393, "comment_id": 958697361, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 960774532, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "questions whether pod template makes sense for custom tasks, pings core maintainers"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 960774532, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive design pushback"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 961798431, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "agrees the field doesn't belong on CustomRun since a Pod isn't guaranteed"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 961798431, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 961848744, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "agrees and removes PodTemplate from the spec"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 961848744, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 961882569, "facet": "artifact", "value": "pr-size", "confidence": 0.4, "evidence": "notes the TEP itself needs updating for this change, asks for a follow-up PR"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 961882569, "facet": "nature", "value": "cohesion", "confidence": 0.4, "evidence": "change needs a separate TEP-update PR"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 961882569, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964100824, "facet": "artifact", "value": "pr-size", "confidence": 0.45, "evidence": "suggests waiting for the TEP change before merging, or reverting with a TODO in the meantime"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964100824, "facet": "nature", "value": "cohesion", "confidence": 0.45, "evidence": "explicit PR-sequencing decision"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964100824, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964108687, "facet": "artifact", "value": "pr-size", "confidence": 0.4, "evidence": "argues against reverting since the decision is already agreed, prefers delaying the PR instead"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964108687, "facet": "nature", "value": "cohesion", "confidence": 0.4, "evidence": "explicit PR-sequencing preference"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964108687, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964117347, "facet": "artifact", "value": "pr-size", "confidence": 0.3, "evidence": "defers to whichever sequencing is easier"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964117347, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964856398, "facet": "artifact", "value": "tests", "confidence": 0.55, "evidence": "asks why a message field is compared in this test"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964856398, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964858558, "facet": "artifact", "value": "tests", "confidence": 0.55, "evidence": "questions an unnecessary line, suggests a more precise variable name"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964858558, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "test clarity"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964858558, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964860085, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "flags a comment that doesn't match the function name"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964860085, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "comment/name mismatch"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964873713, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "suggests Fatal is sufficient and reusing an existing diff-printing helper more broadly"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964873713, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "test-quality suggestion"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964873713, "facet": "principle", "value": "reusability", "confidence": 0.3, "evidence": "reuse an existing helper more broadly"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964874121, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "naming nit: CustomRun"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964874121, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "naming nit"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964885437, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "naming nit for two fields"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964885437, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "naming nit"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964886492, "facet": "artifact", "value": "code", "confidence": 0.45, "evidence": "repeats the field-naming nit elsewhere"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964886492, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "naming nit"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964888758, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "naming suggestion for a test function"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964888758, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "naming nit"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964890045, "facet": "artifact", "value": "tests", "confidence": 0.4, "evidence": "repeats the field-naming nit in tests"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964890045, "facet": "nature", "value": "structure", "confidence": 0.45, "evidence": "naming nit"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964898608, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "naming nit: Invalid CustomRun"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964898608, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "naming nit"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964900708, "facet": "artifact", "value": "code", "confidence": 0.45, "evidence": "asks whether a generated file entry is correct"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964900708, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964902300, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "questions a possibly-incorrect generated type reference"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964902300, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964904567, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "flags a confusing comment, asks for elaboration"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964904567, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "comment clarity"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964913339, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "questions whether a function's scope is really PipelineRun-only"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964913339, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964936081, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "notes the same issue exists in a sibling v1alpha1 file, offers to fix separately"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964936081, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964936081, "facet": "nature", "value": "cohesion", "confidence": 0.3, "evidence": "fix planned for another PR"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964938364, "facet": "artifact", "value": "code", "confidence": 0.4, "evidence": "confirms fix and cross-references the sibling issue"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964938364, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964960275, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "flags multiple test cases sharing the same \"unnamed\" name"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964960275, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "test-naming defect"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964965585, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "answers why customRef reuses TaskRef"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964965585, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964967670, "facet": "artifact", "value": "code", "confidence": 0.45, "evidence": "confirms the generated type reference is correct, notes it's autogenerated"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964967670, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964979465, "facet": "artifact", "value": "code", "confidence": 0.45, "evidence": "confirms a comment fix"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964979465, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "comment fix confirmed"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964980825, "facet": "artifact", "value": "code", "confidence": 0.45, "evidence": "confirms the function's actual scope"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964980825, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964997944, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "questions reusing TaskRef instead of defining a dedicated CustomRunRef for consistency"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964997944, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964997944, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.35, "evidence": "prefers a type-specific name over a reused one"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964998598, "facet": "artifact", "value": "code", "confidence": 0.4, "evidence": "repeats the same reuse-naming question elsewhere"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964998598, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 965002420, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "clarifies the function isn't PipelineRun-only, proposes a comment fix"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 965002420, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 965020205, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "questions an unnecessary comparison, citing a similar existing test"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 965020205, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 965020205, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.3, "evidence": "compares to an existing test's pattern"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 966004449, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "flags now-dead code following the pod-template removal"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 966004449, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 966104197, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "explains reusing TaskRef avoids a duplicate type, cross-references a broader ref-reuse discussion"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 966104197, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 966104197, "facet": "principle", "value": "reusability", "confidence": 0.4, "evidence": "avoiding a duplicate type by reusing TaskRef"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 966104197, "facet": "principle", "value": "simplicity", "confidence": 0.3, "evidence": "avoids an unnecessary duplicate type"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 966107329, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "confirms a copy-paste naming mistake carried over from v1alpha1"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 966107329, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive bug confirmation"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 964011592, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "code suggestion fixing a comment"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 964011592, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "comment fix"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 964026935, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "suggests a more descriptive, less duplicated comment"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 964026935, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "comment clarity"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 964030409, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "asks whether dev-only code should be removed"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 964030409, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 964110873, "facet": "artifact", "value": "code", "confidence": 0.75, "evidence": "raises a design fork question: one reconciler for both v1alpha1 and v1beta1, or just the new one"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 964110873, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "substantive design question"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 964110873, "facet": "principle", "value": "crd-version-policy", "confidence": 0.35, "evidence": "reconciler support across two API versions during migration"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 964113450, "facet": "artifact", "value": "tests", "confidence": 0.7, "evidence": "questions test design that hides reconcile behavior, prefers dependency injection"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 964113450, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive test-design concern"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 964132632, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "explains the test's actual intent, proposes deferring the broader fix to another PR"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 964132632, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 964132632, "facet": "nature", "value": "cohesion", "confidence": 0.4, "evidence": "explicit deferral to a separate PR"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 964140250, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "agrees on a better test approach, agrees it belongs in a separate PR"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 964140250, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 964140250, "facet": "nature", "value": "cohesion", "confidence": 0.4, "evidence": "agrees the fix belongs in a separate PR"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 964160769, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "settles on one reconciler for v1beta1 only, opens a tracking issue"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 964160769, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive design decision"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 964161591, "facet": "artifact", "value": "tests", "confidence": 0.4, "evidence": "confirms the test case will be covered in the follow-up PR"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 964161591, "facet": "nature", "value": "cohesion", "confidence": 0.3, "evidence": "coverage deferred to follow-up PR"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 966002360, "facet": "artifact", "value": "pr-size", "confidence": 0.4, "evidence": "asks for a PR or tracking issue to fix existing test cases before merging"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 966002360, "facet": "nature", "value": "cohesion", "confidence": 0.4, "evidence": "requests separating a fix into its own PR/issue"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 966002360, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 966010477, "facet": "artifact", "value": "pr-size", "confidence": 0.35, "evidence": "creates a tracking issue per the request"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 966010477, "facet": "nature", "value": "cohesion", "confidence": 0.35, "evidence": "confirms the separate-tracking approach"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 966016952, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "questions whether a diff already covers this case"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 966016952, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 966017714, "facet": "artifact", "value": "code", "confidence": 0.45, "evidence": "requests a TODO comment referencing the tracking issue"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 966017714, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "TODO/reference request"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 966019671, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "argues cancellation behavior shouldn't depend on the cancellation reason"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 966019671, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive design principle"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 966035384, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "clarifies an existing helper already provides the requested diff output"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 966035384, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 966038043, "facet": "artifact", "value": "tests", "confidence": 0.4, "evidence": "confirms a rename per feedback"}
+{"repo": "pipeline", "pr_number": 5435, "comment_id": 966038043, "facet": "nature", "value": "structure", "confidence": 0.35, "evidence": "rename confirmed"}
+{"repo": "pipeline", "pr_number": 5462, "comment_id": 967293993, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "asks for a comment explaining why requeue errors are ignored"}
+{"repo": "pipeline", "pr_number": 5462, "comment_id": 967293993, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5462, "comment_id": 967293993, "facet": "nature", "value": "structure", "confidence": 0.3, "evidence": "missing explanatory comment"}
+{"repo": "pipeline", "pr_number": 5462, "comment_id": 967320875, "facet": "artifact", "value": "tests", "confidence": 0.65, "evidence": "questions whether treating a requeue error the same as success is correct in tests"}
+{"repo": "pipeline", "pr_number": 5462, "comment_id": 967320875, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5462, "comment_id": 967321225, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "explains the single-reconciliation-round test rationale for ignoring requeue errors"}
+{"repo": "pipeline", "pr_number": 5462, "comment_id": 967321225, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5462, "comment_id": 967323654, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "confirms understanding that requeue implies no runtime error"}
+{"repo": "pipeline", "pr_number": 5462, "comment_id": 967323654, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5462, "comment_id": 967327358, "facet": "artifact", "value": "tests", "confidence": 0.55, "evidence": "points to a similar existing test pattern elsewhere in the codebase"}
+{"repo": "pipeline", "pr_number": 5462, "comment_id": 967327358, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5462, "comment_id": 967327358, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.35, "evidence": "matches an existing test pattern elsewhere"}
+{"repo": "pipeline", "pr_number": 5523, "comment_id": 975537056, "facet": "artifact", "value": "tests", "confidence": 0.65, "evidence": "suggests a single wantStatus struct instead of many separate expected outputs"}
+{"repo": "pipeline", "pr_number": 5523, "comment_id": 975537056, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "test-structure suggestion"}
+{"repo": "pipeline", "pr_number": 5523, "comment_id": 975537056, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5523, "comment_id": 975541773, "facet": "artifact", "value": "tests", "confidence": 0.65, "evidence": "questions building expected strings by hand instead of using go structs directly"}
+{"repo": "pipeline", "pr_number": 5523, "comment_id": 975541773, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive maintainability concern"}
+{"repo": "pipeline", "pr_number": 5523, "comment_id": 975712769, "facet": "artifact", "value": "tests", "confidence": 0.55, "evidence": "explains the status format varies with feature flags, requiring runtime composition"}
+{"repo": "pipeline", "pr_number": 5523, "comment_id": 975712769, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5523, "comment_id": 975721425, "facet": "artifact", "value": "tests", "confidence": 0.55, "evidence": "clarifies the test composes rather than reads status, adds comments, explains YAML preference"}
+{"repo": "pipeline", "pr_number": 5523, "comment_id": 975721425, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5523, "comment_id": 977858522, "facet": "artifact", "value": "tests", "confidence": 0.55, "evidence": "suggests the feature flag value should itself be a test input"}
+{"repo": "pipeline", "pr_number": 5523, "comment_id": 977858522, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5523, "comment_id": 977867277, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "clarifies the maintainability concern is about status structure, notes hard-to-read manually-composed inputs"}
+{"repo": "pipeline", "pr_number": 5523, "comment_id": 977867277, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5523, "comment_id": 977867277, "facet": "nature", "value": "structure", "confidence": 0.3, "evidence": "test readability"}
+{"repo": "pipeline", "pr_number": 5523, "comment_id": 978871144, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "updates per offline discussion to prioritize readability/debuggability"}
+{"repo": "pipeline", "pr_number": 5523, "comment_id": 978871144, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5523, "comment_id": 978872855, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "groups related fields into a named struct as suggested"}
+{"repo": "pipeline", "pr_number": 5523, "comment_id": 978872855, "facet": "nature", "value": "structure", "confidence": 0.45, "evidence": "test-structure grouping"}
+{"repo": "pipeline", "pr_number": 5658, "comment_id": 1000621285, "facet": "artifact", "value": "tests", "confidence": 0.55, "evidence": "questions a confusing empty-patch-operation test setup"}
+{"repo": "pipeline", "pr_number": 5658, "comment_id": 1000621285, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5658, "comment_id": 1004447083, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "asks whether an unused constant can be removed"}
+{"repo": "pipeline", "pr_number": 5658, "comment_id": 1004447083, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5658, "comment_id": 1004490771, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "notes a related constant may also need updating for consistency"}
+{"repo": "pipeline", "pr_number": 5658, "comment_id": 1004490771, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5658, "comment_id": 1004490771, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.3, "evidence": "keeping related constants consistent"}
+{"repo": "pipeline", "pr_number": 5658, "comment_id": 1004526157, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "clarifies which constant should be removed"}
+{"repo": "pipeline", "pr_number": 5658, "comment_id": 1004526157, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5658, "comment_id": 1004736944, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "agrees, references a tracking issue for the broader v1alpha1-to-v1beta1 usage migration"}
+{"repo": "pipeline", "pr_number": 5658, "comment_id": 1004736944, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5658, "comment_id": 1004736944, "facet": "principle", "value": "deprecation-handling", "confidence": 0.3, "evidence": "tracks migrating usages off the deprecated v1alpha1 type"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999787797, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "code suggestion renaming a parameter for clarity"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999787797, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "naming fix"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999787945, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "code suggestion updating a log message"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999787945, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "wording fix"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999788199, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "code suggestion renaming a variable"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999788199, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "naming fix"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999788632, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "naming suggestion for a test helper function"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999788632, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "naming fix"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999789307, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "naming suggestion for a test helper"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999789307, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "naming fix"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999790140, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "adds a docstring and renames a test helper"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999790140, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "doc/naming fix"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999790590, "facet": "artifact", "value": "tests", "confidence": 0.45, "evidence": "test-name wording fix"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999790590, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "wording fix"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999790721, "facet": "artifact", "value": "tests", "confidence": 0.45, "evidence": "test-name wording fix"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999790721, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "wording fix"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999791336, "facet": "artifact", "value": "tests", "confidence": 0.45, "evidence": "test-name wording fix"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999791336, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "wording fix"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999791485, "facet": "artifact", "value": "tests", "confidence": 0.45, "evidence": "test-name wording fix"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999791485, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "wording fix"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999795546, "facet": "artifact", "value": "tests", "confidence": 0.55, "evidence": "code suggestion fixing an event-matching pattern"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999795546, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "test fix"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999798841, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "questions why a TaskRun-specific reason constant is reused instead of a CustomRun-specific one"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999798841, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999798841, "facet": "principle", "value": "tekton-api-conventions", "confidence": 0.35, "evidence": "type-specific constant convention"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999800781, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "same reason-constant reuse question for another case, flags inconsistent pattern"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999800781, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999800781, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.35, "evidence": "flags inconsistent reason-constant usage"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999866677, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "explains keeping the same event base for CustomRuns, open to changing it"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999866677, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999891513, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "prefers the more explicit event naming"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999891513, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999899221, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "proposes defining dedicated CustomRunReason constants"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999899221, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive design proposal"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999899221, "facet": "principle", "value": "tekton-api-conventions", "confidence": 0.4, "evidence": "dedicated type-specific reason constants"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999901024, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "questions whether the redefined constants could be shared/reused instead"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999901024, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 999901024, "facet": "principle", "value": "reusability", "confidence": 0.4, "evidence": "avoid redefining the same constants per type"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1000611861, "facet": "artifact", "value": "code", "confidence": 0.65, "evidence": "questions serving this CRD before open retry/retriesStatus questions are resolved"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1000611861, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive scope/sequencing question"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1000612298, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "suggests adding a CRD shortname"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1000612298, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1000614505, "facet": "artifact", "value": "pr-size", "confidence": 0.35, "evidence": "flags a config choice as out of scope for this PR, likely per-custom-task instead of per-installation"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1000614505, "facet": "nature", "value": "cohesion", "confidence": 0.35, "evidence": "explicit out-of-scope framing"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1000614505, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1000621962, "facet": "artifact", "value": "code", "confidence": 0.45, "evidence": "agrees to change a CRD serving default"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1000621962, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1000622534, "facet": "artifact", "value": "code", "confidence": 0.45, "evidence": "proposes a specific shortname"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1000622534, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1000637801, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "investigates shortname collision behavior, proposes alternatives"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1000637801, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1000669921, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "shares a real cross-project naming collision precedent, proposes a collision-free shortname"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1000669921, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1000919736, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "defers the shortname decision pending consensus, notes a version-removal dependency"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1000919736, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1000919736, "facet": "principle", "value": "deprecation-handling", "confidence": 0.3, "evidence": "shortname choice depends on prior version removal"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1000964967, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "proposes dropping retry support from the initial release pending a separate TEP decision"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1000964967, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive scope proposal"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1000964967, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.45, "evidence": "explicit scope-trim for initial release"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1000993188, "facet": "artifact", "value": "code", "confidence": 0.45, "evidence": "links the TEP update tracking the retry-scope change"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1000993188, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1001891430, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "naming consistency nit for a loop variable"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1001891430, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "naming consistency nit"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1001904922, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "flags a duplicated link"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1001904922, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "duplication nit"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1004238788, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "suggests deferring the shortname decision entirely for now"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1004238788, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1004238788, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.3, "evidence": "defers a non-essential decision"}
+{"repo": "pipeline", "pr_number": 5765, "comment_id": 1026566026, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "asks why an unrelated lint failure appeared in this PR"}
+{"repo": "pipeline", "pr_number": 5765, "comment_id": 1026566026, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5765, "comment_id": 1026572985, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "explains a YAML-indentation parsing bug and its fix"}
+{"repo": "pipeline", "pr_number": 5765, "comment_id": 1026572985, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5765, "comment_id": 1026698129, "facet": "artifact", "value": "tests", "confidence": 0.45, "evidence": "confirms the old value was indeed improperly indented"}
+{"repo": "pipeline", "pr_number": 5765, "comment_id": 1026698129, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5815, "comment_id": 1036810186, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "code suggestion for a function signature type"}
+{"repo": "pipeline", "pr_number": 5815, "comment_id": 1036810186, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "signature fix"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1003609518, "facet": "artifact", "value": "docs", "confidence": 0.6, "evidence": "requests a section showing custom tasks can support podtemplate themselves"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1003609518, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1003609518, "facet": "nature", "value": "structure", "confidence": 0.3, "evidence": "missing doc section"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1003611725, "facet": "artifact", "value": "docs", "confidence": 0.5, "evidence": "flags a broken cross-doc link needing a rename"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1003611725, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "broken-link nit"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1003612613, "facet": "artifact", "value": "docs", "confidence": 0.55, "evidence": "suggests encouraging custom task implementors to add themselves to the table"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1003612613, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1005695982, "facet": "artifact", "value": "docs", "confidence": 0.55, "evidence": "notes an example is now less relevant given matrix support"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1005695982, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1005697650, "facet": "artifact", "value": "docs", "confidence": 0.6, "evidence": "suggests splitting old-vs-new custom task sections for clarity"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1005697650, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "doc organization suggestion"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1024235916, "facet": "artifact", "value": "docs", "confidence": 0.55, "evidence": "questions why two items are grouped, suggests separate sections"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1024235916, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "doc organization"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1024236536, "facet": "artifact", "value": "docs", "confidence": 0.5, "evidence": "requests clarifying that all retries must complete"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1024236536, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1024342207, "facet": "artifact", "value": "docs", "confidence": 0.55, "evidence": "suggests a reference implementation example in docs, notes it can be a separate change"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1024342207, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1024342207, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.35, "evidence": "explicit deferral to a separate change"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026672451, "facet": "artifact", "value": "docs", "confidence": 0.45, "evidence": "asks whether an example is up to date"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026672451, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026673854, "facet": "artifact", "value": "docs", "confidence": 0.5, "evidence": "naming nit for a doc example"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026673854, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "naming nit"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026860718, "facet": "artifact", "value": "docs", "confidence": 0.7, "evidence": "questions implementation-detail-focused wording for TaskRun-vs-CustomRun guidance"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026860718, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026861349, "facet": "artifact", "value": "docs", "confidence": 0.55, "evidence": "code suggestion for an API-version doc line"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026861349, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "wording fix"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026861912, "facet": "artifact", "value": "docs", "confidence": 0.55, "evidence": "code suggestion for a retries doc line"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026861912, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "wording fix"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026862521, "facet": "artifact", "value": "docs", "confidence": 0.6, "evidence": "suggests removing an inaccurate claim about custom credentials"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026862521, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive accuracy fix"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026864568, "facet": "artifact", "value": "docs", "confidence": 0.65, "evidence": "requests more realistic examples, notes correct apiVersion/kind should be shown"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026864568, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026865872, "facet": "artifact", "value": "docs", "confidence": 0.6, "evidence": "flags misleading wording implying Tekton directly executes a customrun"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026865872, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive accuracy fix"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026866830, "facet": "artifact", "value": "docs", "confidence": 0.5, "evidence": "suggests splitting out a developer-guide subsection"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026866830, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "doc organization suggestion"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026867371, "facet": "artifact", "value": "docs", "confidence": 0.6, "evidence": "code suggestion strengthening the cancellation-required wording"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026867371, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "wording fix"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026867371, "facet": "principle", "value": "api-compatibility", "confidence": 0.3, "evidence": "documents a required (not optional) behavior"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026868393, "facet": "artifact", "value": "docs", "confidence": 0.55, "evidence": "suggests adding background on status-reporting expectations, citing an existing TEP"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026868393, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "doc-completeness suggestion"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026868393, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.3, "evidence": "reuse content from an existing TEP"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026868825, "facet": "artifact", "value": "docs", "confidence": 0.55, "evidence": "flags confusing wording about which side owns status vs. spec changes"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026868825, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026869391, "facet": "artifact", "value": "docs", "confidence": 0.5, "evidence": "flags an implementation detail controllers don't need to know"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026869391, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026870173, "facet": "artifact", "value": "docs", "confidence": 0.6, "evidence": "questions whether a status message field is really part of the API contract for controllers"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026870173, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026886864, "facet": "artifact", "value": "docs", "confidence": 0.5, "evidence": "proposes clearer wording for what custom tasks implement"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026886864, "facet": "nature", "value": "structure", "confidence": 0.45, "evidence": "wording revision"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026917699, "facet": "artifact", "value": "docs", "confidence": 0.5, "evidence": "agrees and tracks doc-audience separation in a follow-up issue"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026917699, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026917699, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.3, "evidence": "tracked as a follow-up"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026923136, "facet": "artifact", "value": "docs", "confidence": 0.65, "evidence": "clarifies StatusMessage is API but intended for pipeline controller, not custom task controllers"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026923136, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive API-contract clarification"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028138744, "facet": "artifact", "value": "docs", "confidence": 0.4, "evidence": "agrees with a suggestion"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028138744, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028139994, "facet": "artifact", "value": "pr-size", "confidence": 0.4, "evidence": "prefers doing a doc addition in this PR since docs are newly introduced here"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028139994, "facet": "nature", "value": "cohesion", "confidence": 0.4, "evidence": "explicit in-this-PR-vs-follow-up preference"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028139994, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028141264, "facet": "artifact", "value": "pr-size", "confidence": 0.4, "evidence": "prefers adding status background in this PR for coherence"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028141264, "facet": "nature", "value": "cohesion", "confidence": 0.4, "evidence": "explicit in-this-PR preference"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028141264, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028143302, "facet": "artifact", "value": "docs", "confidence": 0.6, "evidence": "clarifies StatusMessage is part of the API but without a stability guarantee, proposes wording"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028143302, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028143302, "facet": "principle", "value": "api-compatibility", "confidence": 0.35, "evidence": "clarifies the stability guarantee (or lack thereof) of a field"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028154595, "facet": "artifact", "value": "docs", "confidence": 0.65, "evidence": "works through example-authoring tradeoffs to avoid misleadingly-copyable examples"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028154595, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028156673, "facet": "artifact", "value": "docs", "confidence": 0.5, "evidence": "confirms docs are needed before a specific release per WG discussion"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028156673, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028158783, "facet": "artifact", "value": "pr-size", "confidence": 0.35, "evidence": "weighs whether the doc separation can land before the release deadline"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028158783, "facet": "nature", "value": "cohesion", "confidence": 0.35, "evidence": "timeline-driven scope judgment"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028158783, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028185225, "facet": "artifact", "value": "pr-size", "confidence": 0.4, "evidence": "clarifies release scope (CustomRun released but not yet supported in Pipelines), leaves the doc-split judgment call to the author"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028185225, "facet": "nature", "value": "cohesion", "confidence": 0.35, "evidence": "release-scope clarification affecting PR scope"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028185225, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028270021, "facet": "artifact", "value": "docs", "confidence": 0.65, "evidence": "walks through the actual benefit of unnamed CustomRun for custom task authors vs. end users"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028270021, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive design/UX reasoning"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028281304, "facet": "artifact", "value": "docs", "confidence": 0.5, "evidence": "agrees CustomRun controllers shouldn't rely on StatusMessage, removes the bulletpoint"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028281304, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028298897, "facet": "artifact", "value": "docs", "confidence": 0.5, "evidence": "scopes remaining doc-audience clarifications into the tracked follow-up issue"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028298897, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028298897, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.3, "evidence": "tracked as a follow-up"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028314126, "facet": "artifact", "value": "pr-size", "confidence": 0.4, "evidence": "prefers incremental doc updates over blocking this PR on a full rewrite"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028314126, "facet": "nature", "value": "cohesion", "confidence": 0.4, "evidence": "explicit preference for incremental scope"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028314126, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028387221, "facet": "artifact", "value": "docs", "confidence": 0.4, "evidence": "confirms an update was made"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1028387221, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5822, "comment_id": 1037453987, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "code suggestion fixing a comment"}
+{"repo": "pipeline", "pr_number": 5822, "comment_id": 1037453987, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "comment fix"}
+{"repo": "pipeline", "pr_number": 5822, "comment_id": 1037454634, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "code suggestion fixing a comment"}
+{"repo": "pipeline", "pr_number": 5822, "comment_id": 1037454634, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "comment fix"}
+{"repo": "pipeline", "pr_number": 5822, "comment_id": 1037455687, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "naming nit for a test fixture"}
+{"repo": "pipeline", "pr_number": 5822, "comment_id": 1037455687, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "naming nit"}
+{"repo": "pipeline", "pr_number": 5822, "comment_id": 1037455819, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "naming nit for a test fixture"}
+{"repo": "pipeline", "pr_number": 5822, "comment_id": 1037455819, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "naming nit"}
+{"repo": "pipeline", "pr_number": 5822, "comment_id": 1037470436, "facet": "artifact", "value": "tests", "confidence": 0.45, "evidence": "naming nit (repeat)"}
+{"repo": "pipeline", "pr_number": 5822, "comment_id": 1037470436, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "naming nit"}
+{"repo": "pipeline", "pr_number": 5822, "comment_id": 1037470654, "facet": "artifact", "value": "tests", "confidence": 0.45, "evidence": "naming nit (repeat)"}
+{"repo": "pipeline", "pr_number": 5822, "comment_id": 1037470654, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "naming nit"}
+{"repo": "pipeline", "pr_number": 5822, "comment_id": 1037470944, "facet": "artifact", "value": "tests", "confidence": 0.45, "evidence": "naming nit (repeat)"}
+{"repo": "pipeline", "pr_number": 5822, "comment_id": 1037470944, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "naming nit"}
+{"repo": "pipeline", "pr_number": 5822, "comment_id": 1037471062, "facet": "artifact", "value": "tests", "confidence": 0.45, "evidence": "naming nit (repeat)"}
+{"repo": "pipeline", "pr_number": 5822, "comment_id": 1037471062, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "naming nit"}
+{"repo": "pipeline", "pr_number": 5822, "comment_id": 1037473724, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "comment fix clarifying a test case's intent"}
+{"repo": "pipeline", "pr_number": 5822, "comment_id": 1037473724, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "comment fix"}
+{"repo": "pipeline", "pr_number": 5822, "comment_id": 1037474113, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "comment fix clarifying a test case's intent"}
+{"repo": "pipeline", "pr_number": 5822, "comment_id": 1037474113, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "comment fix"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1039633766, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "explains a dependency-pinning constraint blocking full adoption of a merged change"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1039633766, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1039850392, "facet": "artifact", "value": "docs", "confidence": 0.5, "evidence": "flags an install doc also needing updates"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1039850392, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1039866421, "facet": "artifact", "value": "feature-gate-registration", "confidence": 0.55, "evidence": "proposes a concrete rollout schedule for the new feature flag's default/removal, citing the TEP"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1039866421, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1039866421, "facet": "principle", "value": "feature-graduation", "confidence": 0.5, "evidence": "explicit multi-release default-switch and flag-removal schedule"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1039887293, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "naming nit"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1039887293, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "naming nit"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1039891304, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "confirms understanding that CustomRun can be defined without CustomRef/CustomSpec"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1039891304, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1039903770, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "explains code was copy-pasted from an existing file"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1039903770, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1040117053, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "typo nit"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1040117053, "facet": "nature", "value": "structure", "confidence": 0.6, "evidence": "typo nit"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1040120948, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "questions a redundant parameter given an existing default constant"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1040120948, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1040120948, "facet": "principle", "value": "simplicity", "confidence": 0.35, "evidence": "avoid a redundant parameter"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1040125409, "facet": "artifact", "value": "code", "confidence": 0.45, "evidence": "naming nit"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1040125409, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "naming nit"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1041108398, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "explains keeping a pattern consistent with other setters"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1041108398, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1041108398, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.35, "evidence": "matches other setters' pattern"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1041124198, "facet": "artifact", "value": "docs", "confidence": 0.6, "evidence": "rewrites feature-flag documentation for clarity, citing the CustomRun/Run distinction"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1041124198, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "doc wording rewrite"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1041124198, "facet": "principle", "value": "feature-graduation", "confidence": 0.35, "evidence": "documents the feature-flag values and default"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1041127140, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "code suggestion fixing a test's default value reference"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1041127140, "facet": "nature", "value": "structure", "confidence": 0.45, "evidence": "test fix"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1041130231, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "requests a test for an invalid feature-flag value"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1041130231, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1041135452, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "requests unit tests for a function"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1041135452, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1041135576, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "requests unit tests for a function"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1041135576, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1041136790, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "code suggestion fixing a comment for a shared status type"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1041136790, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "comment fix"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1041155376, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "corrects comments to reflect the type now applies to both CustomRun and Run"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1041155376, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "comment correction"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1041276858, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "suggests using an existing constant instead of a literal string"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1041276858, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1041276858, "facet": "principle", "value": "reusability", "confidence": 0.3, "evidence": "reuse an existing constant"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1041289570, "facet": "artifact", "value": "code", "confidence": 0.4, "evidence": "confirms the fix"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1041289570, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1042744078, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "asks which release should switch a default value"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1042744078, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1042744078, "facet": "principle", "value": "feature-graduation", "confidence": 0.35, "evidence": "default-switch release timing"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1043134817, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "answers with a specific release and tracking issue"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1043134817, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1043134817, "facet": "principle", "value": "feature-graduation", "confidence": 0.35, "evidence": "confirms the default-switch release"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1043147181, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "code suggestion fixing a test's TypeMeta"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1043147181, "facet": "nature", "value": "structure", "confidence": 0.45, "evidence": "test fix"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1043148544, "facet": "artifact", "value": "tests", "confidence": 0.6, "evidence": "requests adding CustomRun coverage to an existing cancel test"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1043148544, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1043349841, "facet": "artifact", "value": "tests", "confidence": 0.4, "evidence": "confirms the requested test coverage was added"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1043349841, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044180247, "facet": "artifact", "value": "tests", "confidence": 0.65, "evidence": "flags missing tests for an exported status-type function"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044180247, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive coverage gap"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044184119, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "renaming suggestion to clarify a type covers both Run and CustomRun"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044184119, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "naming clarity"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044184286, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "renaming suggestion (repeat pattern)"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044184286, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "naming clarity"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044184560, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "renaming suggestion (repeat pattern)"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044184560, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "naming clarity"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044184808, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "renaming suggestion (repeat pattern)"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044184808, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "naming clarity"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044186848, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "code suggestion applying the naming rename"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044186848, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "naming fix"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044186999, "facet": "artifact", "value": "code", "confidence": 0.45, "evidence": "code suggestion applying the naming rename"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044186999, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "naming fix"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044187187, "facet": "artifact", "value": "code", "confidence": 0.45, "evidence": "code suggestion applying the naming rename"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044187187, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "naming fix"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044187902, "facet": "artifact", "value": "code", "confidence": 0.45, "evidence": "code suggestion applying the naming rename"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044187902, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "naming fix"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044188470, "facet": "artifact", "value": "code", "confidence": 0.45, "evidence": "code suggestion applying the naming rename"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044188470, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "naming fix"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044188990, "facet": "artifact", "value": "code", "confidence": 0.4, "evidence": "code suggestion applying the naming rename"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044188990, "facet": "nature", "value": "structure", "confidence": 0.45, "evidence": "naming fix"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044513034, "facet": "artifact", "value": "code", "confidence": 0.4, "evidence": "code suggestion applying the naming rename"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044513034, "facet": "nature", "value": "structure", "confidence": 0.45, "evidence": "naming fix"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044513192, "facet": "artifact", "value": "code", "confidence": 0.4, "evidence": "code suggestion applying the naming rename"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044513192, "facet": "nature", "value": "structure", "confidence": 0.45, "evidence": "naming fix"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044513386, "facet": "artifact", "value": "code", "confidence": 0.4, "evidence": "code suggestion applying the naming rename"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044513386, "facet": "nature", "value": "structure", "confidence": 0.45, "evidence": "naming fix"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044514089, "facet": "artifact", "value": "code", "confidence": 0.4, "evidence": "code suggestion applying the naming rename"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044514089, "facet": "nature", "value": "structure", "confidence": 0.45, "evidence": "naming fix"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044515785, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "flags an unrelated-seeming change"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044515785, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044515927, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "flags an unrelated-seeming change (repeat)"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044515927, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044516911, "facet": "artifact", "value": "code", "confidence": 0.4, "evidence": "code suggestion applying the naming rename"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044516911, "facet": "nature", "value": "structure", "confidence": 0.45, "evidence": "naming fix"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044548309, "facet": "artifact", "value": "pr-size", "confidence": 0.4, "evidence": "explains an unrelated cleanup was included opportunistically while already touching the area"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044548309, "facet": "nature", "value": "cohesion", "confidence": 0.45, "evidence": "acknowledges bundling an unrelated fix into this PR"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044548309, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044577070, "facet": "artifact", "value": "tests", "confidence": 0.4, "evidence": "confirms the requested tests were added"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1044577070, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5850, "comment_id": 1045503992, "facet": "artifact", "value": "docs", "confidence": 0.6, "evidence": "code suggestion clarifying done/retries interaction in migration guidance"}
+{"repo": "pipeline", "pr_number": 5850, "comment_id": 1045503992, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "wording fix"}
+{"repo": "pipeline", "pr_number": 5850, "comment_id": 1045503992, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5850, "comment_id": 1045504731, "facet": "artifact", "value": "docs", "confidence": 0.55, "evidence": "code suggestion clarifying the MUST/ONLY semantics for reporting Done"}
+{"repo": "pipeline", "pr_number": 5850, "comment_id": 1045504731, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "wording fix"}
+{"repo": "pipeline", "pr_number": 5850, "comment_id": 1045505542, "facet": "artifact", "value": "docs", "confidence": 0.6, "evidence": "code suggestion clarifying per-retry timeout and retry-continuation guidance"}
+{"repo": "pipeline", "pr_number": 5850, "comment_id": 1045505542, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "wording fix"}
+{"repo": "pipeline", "pr_number": 5850, "comment_id": 1045505542, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 5850, "comment_id": 1045505994, "facet": "artifact", "value": "docs", "confidence": 0.55, "evidence": "code suggestion recommending Retries/RetriesStatus fields for implementors"}
+{"repo": "pipeline", "pr_number": 5850, "comment_id": 1045505994, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "wording fix"}
+{"repo": "pipeline", "pr_number": 5850, "comment_id": 1045507499, "facet": "artifact", "value": "docs", "confidence": 0.55, "evidence": "code suggestion clarifying the custom-task-version feature-flag values"}
+{"repo": "pipeline", "pr_number": 5850, "comment_id": 1045507499, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "wording fix"}
+{"repo": "pipeline", "pr_number": 5850, "comment_id": 1045507499, "facet": "principle", "value": "feature-graduation", "confidence": 0.3, "evidence": "documents the feature-flag's supported values"}
+{"repo": "pipeline", "pr_number": 6040, "comment_id": 1086729676, "facet": "artifact", "value": "release-notes", "confidence": 0.5, "evidence": "asks whether a go.mod change belongs in the release note"}
+{"repo": "pipeline", "pr_number": 6040, "comment_id": 1086729676, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 6040, "comment_id": 1086731395, "facet": "artifact", "value": "release-notes", "confidence": 0.45, "evidence": "clarifies this internal-only change isn't user-facing"}
+{"repo": "pipeline", "pr_number": 6040, "comment_id": 1086731395, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 6040, "comment_id": 1086792555, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "asks whether a referenced TODO was actually addressed"}
+{"repo": "pipeline", "pr_number": 6040, "comment_id": 1086792555, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 6040, "comment_id": 1086798691, "facet": "artifact", "value": "tests", "confidence": 0.4, "evidence": "confirms the referenced helper is already in use"}
+{"repo": "pipeline", "pr_number": 6040, "comment_id": 1086798691, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 6499, "comment_id": 1160100604, "facet": "artifact", "value": "docs", "confidence": 0.5, "evidence": "flags a sentence needing an update"}
+{"repo": "pipeline", "pr_number": 6499, "comment_id": 1160100604, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "brief"}
+{"repo": "pipeline", "pr_number": 6508, "comment_id": 1161816019, "facet": "artifact", "value": "docs", "confidence": 0.55, "evidence": "code suggestion clarifying migration guidance wording"}
+{"repo": "pipeline", "pr_number": 6508, "comment_id": 1161816019, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "wording fix"}
+{"repo": "pipeline", "pr_number": 6508, "comment_id": 1161818513, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "code suggestion renaming a test variable for clarity"}
+{"repo": "pipeline", "pr_number": 6508, "comment_id": 1161818513, "facet": "nature", "value": "structure", "confidence": 0.55, "evidence": "naming fix"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964895200, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "naming nit: CustomRun - missed on first pass, same pattern as sibling naming nits in this file", "source_pass": "audit"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964895200, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "naming nit - missed on first pass", "source_pass": "audit"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964931977, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "explains the rationale for asserting StatusMessage is empty in this test case - missed on first pass", "source_pass": "audit"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 964931977, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive - missed on first pass", "source_pass": "audit"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 966151106, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "identifies another reusable-metadata-type case, explicitly scopes the rename out of this change - missed on first pass", "source_pass": "audit"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 966151106, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive - missed on first pass", "source_pass": "audit"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 966151106, "facet": "nature", "value": "cohesion", "confidence": 0.4, "evidence": "explicit \"would rather leave it out of scope for this change\" - missed on first pass", "source_pass": "audit"}
+{"repo": "pipeline", "pr_number": 5403, "comment_id": 966151106, "facet": "principle", "value": "reusability", "confidence": 0.3, "evidence": "identifies a type being reused across contexts - missed on first pass", "source_pass": "audit"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1000626943, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "elaborates on why the cr shortname specifically collides with an existing cert-manager CRD - missed on first pass", "source_pass": "audit"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1000626943, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive - missed on first pass", "source_pass": "audit"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1001010484, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "explains a served:false change broke all e2e tests, motivating the sequencing decision - missed on first pass", "source_pass": "audit"}
+{"repo": "pipeline", "pr_number": 5662, "comment_id": 1001010484, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive - missed on first pass", "source_pass": "audit"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1024343794, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.4, "evidence": "creates a tracking issue for a deferred example-controller implementation - missed on first pass", "source_pass": "audit"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1024343794, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief - missed on first pass", "source_pass": "audit"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026927942, "facet": "artifact", "value": "docs", "confidence": 0.5, "evidence": "asks for concrete real-world example inputs to improve the docs - missed on first pass", "source_pass": "audit"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026927942, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive - missed on first pass", "source_pass": "audit"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026932877, "facet": "artifact", "value": "pr-size", "confidence": 0.4, "evidence": "weighs merging now for momentum vs. doing the doc split in this PR - missed on first pass", "source_pass": "audit"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026932877, "facet": "nature", "value": "cohesion", "confidence": 0.4, "evidence": "explicit in-this-PR-vs-tracked-follow-up judgment - missed on first pass", "source_pass": "audit"}
+{"repo": "pipeline", "pr_number": 5677, "comment_id": 1026932877, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive - missed on first pass", "source_pass": "audit"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1040117053, "facet": "artifact", "value": "feature-gate-registration", "confidence": 0.45, "evidence": "typo fix in the feature flag's configMap entry (config-feature-flags.yaml) - one of the concrete registration steps", "source_pass": "audit"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1040120948, "facet": "artifact", "value": "feature-gate-registration", "confidence": 0.4, "evidence": "questions the default-value wiring for the new feature flag in feature_flags.go", "source_pass": "audit"}
+{"repo": "pipeline", "pr_number": 5832, "comment_id": 1041130231, "facet": "artifact", "value": "feature-gate-registration", "confidence": 0.45, "evidence": "requests a test for an invalid feature-flag value - part of the registration checklist's test coverage", "source_pass": "audit"}
