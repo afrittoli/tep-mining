@@ -20,3 +20,4 @@ Log starts at TEP-84; TEP-33 and TEP-29 predate this tracking and aren't backfil
 | TEP-26 | triggers | 123 | 107 | 267 | 0 | 26,762 | first-pass + audit | - |
 | TEP-76 | pipeline | 431 | 331 | 745 | 6 | 67,526 | first-pass + audit | - |
 | TEP-75 | pipeline | 406 | 311 | 787 | 5 | 109,358 | first-pass + audit | - |
+| TEP-142 | pipeline+community | 414 | 186 | 451 | 15 | 71,869 | first-pass + targeted audit | - |
