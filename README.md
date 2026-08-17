@@ -87,6 +87,11 @@ make apply-pr-overrides  # Optional: fetch metadata for a manually-"included" PR
 make apply-export FILE=path/to/export.jsonl  # Merge an explorer-exported corrections file into overrides/
 make query           # Ad-hoc: launch DuckDB session over every raw/processed JSONL file
 
+# Sub-Task 8 classification, parallel-friendly (see "Parallel classification" below)
+make permissions MODE=parallel  # pre-approve the classify workflow's operations, no-op if already set
+make worktree-classify TEP=76   # isolated worktree + classify/tep76 branch for one TEP
+make worktree-remove TEP=76     # clean up after that branch is merged
+
 # 4. Sub-Task 8: review-comment taxonomy - step 1 done (seed taxonomy extracted and
 #    human-reviewed), step 2 (classification) pending - see data-collection-plan.md for the full flow
 #   [AI agent] run prompts/extract_seed_taxonomy.md -> conventions/seed-taxonomy.yaml (draft)  # done
@@ -161,6 +166,30 @@ conventions nobody documented (the stated goal of this sub-task). A third facet,
 what the classification pass finds. Scoped to the Pass-1 sample for now, not the full 12,779
 comments corpus-wide — full coverage would need batch LLM-API-calling infrastructure this
 pipeline doesn't have yet, deferred unless Sub-Task 9's interview shows the sample isn't enough.
+
+## Parallel classification
+
+Sub-Task 8's classification step (`prompts/classify_review_comments.md`) can be run by several
+agents at once — any mix of tools, e.g. Claude Code on one TEP and Bob Shell on another — without
+them conflicting. See `parallel-classify-plan.md` for the full design; the short version:
+
+1. **Classify** — each agent runs `make worktree-classify TEP=<N>` to get an isolated git
+   worktree and a `classify/tep<N>` branch, then follows `prompts/classify_review_comments.md`,
+   writing only to `processed/tep<N>/` inside that worktree (never the shared
+   `comment_classifications.jsonl`, `classification_cost_log.md`, or `reports/explorer.html`).
+   It ends by pushing its branch.
+2. **Review** — a human reviews the pushed branch (the "Human review checkpoint" section at the
+   end of `classify_review_comments.md` says exactly what to check, including a scoped
+   per-TEP `explorer.html` the agent builds for this purpose).
+3. **Integrate** — once one or more branches are approved, `prompts/integrate_classifications.md`
+   is the single process that merges them and updates the three shared files. Running it is what
+   makes the classified data visible in the main explorer and cost log; it can batch several
+   approved branches into one integration commit.
+
+`make permissions MODE=parallel` pre-approves the shell/file operations this workflow needs for
+both Claude Code and Bob Shell, so a run doesn't stop for permission prompts; `make permissions
+MODE=safe` (or no `MODE` at all) restores the locked-down default. `make permissions` with no
+`MODE` also just prints the current state of both without changing anything.
 
 ## Detailed Plan
 

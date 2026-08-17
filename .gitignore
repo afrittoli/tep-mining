@@ -7,3 +7,6 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 .venv/
+
+# per-TEP scratch dirs; committed only on classify/* branches, not on main
+processed/tep*/
