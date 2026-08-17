@@ -300,9 +300,14 @@ gap is visible rather than silently assumed away.
 
 Once both `classify.jsonl` and `audit.jsonl` validate clean, build a scoped review report — the
 same explorer used throughout this pipeline, fed only this TEP's data so a human reviewer sees
-full comment text and classification badges without wading through everything else:
+full comment text and classification badges without wading through everything else.
+`build_explorer.py --classifications` takes exactly one path, so combine first-pass and audit
+rows into one file before building — otherwise audit rows (and their `[found on audit pass]`
+badge) silently never show up in the report:
 
 ```bash
+cat processed/tep<N>/classify.jsonl processed/tep<N>/audit.jsonl \
+    > processed/tep<N>/all_rows.jsonl  # combined input for the explorer only
 uv run python3 - <<'EOF'
 import json
 from pathlib import Path
@@ -313,15 +318,55 @@ Path(f'processed/tep{TEP_NUMBER}/records_slice.json').write_text(json.dumps([rec
 EOF
 uv run scripts/build_explorer.py \
     --records processed/tep<N>/records_slice.json \
-    --classifications processed/tep<N>/classify.jsonl \
+    --classifications processed/tep<N>/all_rows.jsonl \
     --out processed/tep<N>/explorer.html
-rm processed/tep<N>/records_slice.json  # throwaway intermediate - don't commit it
+rm processed/tep<N>/records_slice.json processed/tep<N>/all_rows.jsonl  # throwaway - don't commit
 ```
 
 `build_explorer.py` doesn't filter by TEP number internally — it just embeds whatever records
-it's given — so no script changes were needed to support this. `records_slice.json` is only
-there to satisfy `--records`' expected shape (a JSON list of records); it's redundant with
-`per_tep_records.json` and gets deleted immediately after the build, so it never ends up staged.
+it's given — so no script changes were needed to support this. Both `records_slice.json` and
+`all_rows.jsonl` are only there to satisfy the script's expected inputs; they're redundant with
+files that already exist (`per_tep_records.json`, and `classify.jsonl`/`audit.jsonl` separately)
+and get deleted immediately after the build, so neither ends up staged.
+
+## Update the cost log fragment
+
+Write `processed/tep<N>/cost.md` — one Markdown table row, in the same column order as the
+existing table in `conventions/classification_cost_log.md` (the integration step appends this
+row verbatim, so it must match: TEP, repo, comments total, comments classified, first-pass rows,
+audit rows, comment-body chars, passes, session $):
+
+```bash
+uv run python3 - <<'EOF'
+import json
+TEP_NUMBER = 76    # <- set this
+REPO = "pipeline"  # <- set this to the TEP's implementation repo
+
+records = json.load(open('processed/latest/per_tep_records.json'))
+rec = next(r for r in records if r['tep_number'] == TEP_NUMBER)
+chars, total = 0, 0
+for c in rec['proposal_pr']['comments']:
+    chars += len(c['body']); total += 1
+for pr in rec['impl_prs']['items']:
+    for c in pr['comments']:
+        chars += len(c['body']); total += 1
+
+classify_rows = [json.loads(l) for l in open(f'processed/tep{TEP_NUMBER}/classify.jsonl')]
+audit_rows = [json.loads(l) for l in open(f'processed/tep{TEP_NUMBER}/audit.jsonl')]
+classified = len(set((r['repo'], r['pr_number'], r['comment_id'])
+                      for r in classify_rows + audit_rows))
+
+row = (f"| TEP-{TEP_NUMBER} | {REPO} | {total} | {classified} | {len(classify_rows)} | "
+       f"{len(audit_rows)} | {chars:,} | first-pass + audit | - |\n")
+with open(f'processed/tep{TEP_NUMBER}/cost.md', 'w') as f:
+    f.write(row)
+print(row)
+EOF
+```
+
+If you used the targeted-audit shortcut rather than an exhaustive re-read (see "Scoping the
+audit at scale"), change `"first-pass + audit"` in the row above to `"first-pass + targeted
+audit"`, matching how earlier TEPs recorded the same distinction.
 
 ## Commit and push
 
