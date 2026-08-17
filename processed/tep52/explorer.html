@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TEP Explorer</title>
+<style>
+  :root {
+    --ink: #1f2328; --ink-dim: #57606a; --rule: #e5e7eb; --bg: #ffffff; --bg-alt: #f7f8fa;
+    --link: #3b82d4; --good: #15803d; --good-bg: #f0fdf4; --bad: #b91c1c; --bad-bg: #fef2f2;
+    --warn: #97621c; --warn-bg: #f1e6d2; --accent: #3b82d4;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "Segoe UI", system-ui, sans-serif; font-size: 14px;
+    line-height: 1.55; color: var(--ink); background: var(--bg);
+  }
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.92em;
+    background: var(--bg-alt); border: 1px solid var(--rule); border-radius: 3px; padding: 0 4px; }
+
+  header { padding: 18px 24px; border-bottom: 1px solid var(--rule); display: flex;
+    align-items: baseline; gap: 20px; flex-wrap: wrap; }
+  header h1 { font-size: 18px; font-weight: 600; margin: 0; }
+  header .subtitle { color: var(--ink-dim); font-size: 12.5px; }
+  header .stats { margin-left: auto; display: flex; gap: 16px; font-size: 12.5px; color: var(--ink-dim); }
+  header .stats b { color: var(--ink); }
+
+  #view-list, #view-detail { padding: 18px 24px; }
+  .hidden { display: none !important; }
+
+  .toolbar { display: flex; gap: 10px; align-items: center; margin-bottom: 14px; flex-wrap: wrap; }
+  .toolbar input[type=text] {
+    flex: 1 1 240px; padding: 7px 10px; border: 1px solid var(--rule); border-radius: 6px;
+    font-size: 13px; min-width: 180px;
+  }
+  .toolbar select { padding: 7px 10px; border: 1px solid var(--rule); border-radius: 6px; font-size: 13px; }
+  .toolbar .count { color: var(--ink-dim); font-size: 12.5px; white-space: nowrap; }
+  .toolbar .exclude-toggle { display: flex; align-items: center; gap: 4px; font-size: 12.5px;
+    color: var(--ink-dim); white-space: nowrap; cursor: pointer; user-select: none; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead th {
+    position: sticky; top: 0; background: var(--bg-alt); text-align: left; padding: 7px 10px;
+    font-weight: 600; border-bottom: 2px solid var(--rule); color: var(--ink-dim); font-size: 11.5px;
+    text-transform: uppercase; letter-spacing: .03em; cursor: pointer; white-space: nowrap;
+  }
+  thead th:hover { color: var(--ink); }
+  thead th.sorted::after { content: " " attr(data-dir); font-size: 10px; }
+  tbody tr { cursor: pointer; }
+  tbody tr:hover { background: var(--bg-alt); }
+  tbody tr:nth-child(even) { background: #fbfbfc; }
+  tbody tr:nth-child(even):hover { background: var(--bg-alt); }
+  tbody td { padding: 6px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+  .badge { display: inline-block; font-size: 10.5px; padding: 1px 7px; border-radius: 9px;
+    font-weight: 500; white-space: nowrap; border: 1px solid transparent; }
+  .badge-approved  { background: var(--good-bg); color: var(--good); border-color: #bbf7d0; }
+  .badge-changes   { background: var(--bad-bg); color: var(--bad); border-color: #fecaca; }
+  .badge-commented { background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; }
+  .badge-skipped   { background: var(--bg-alt); color: var(--ink-dim); border-color: var(--rule); }
+  .badge-warn      { background: var(--warn-bg); color: var(--warn); border-color: #f1d9a8; }
+  .badge-override  { background: #f5f3ff; color: #6d28d9; border-color: #ddd6fe; }
+  .badge-classification { background: #ecfeff; color: #0e7490; border-color: #a5f3fc; cursor: help; }
+  .badge-classification-audit { background: #fff7ed; color: #c2410c; border-color: #fed7aa; cursor: help; }
+
+  .classification-badges { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+
+  .back-link { display: inline-block; margin-bottom: 12px; font-size: 13px; }
+  .detail-header { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+  .detail-header h2 { font-size: 20px; margin: 0; }
+  .detail-meta { color: var(--ink-dim); font-size: 12.5px; margin-bottom: 18px; }
+  .detail-meta a { color: var(--link); }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px;
+    margin-bottom: 20px; }
+  .stat { background: var(--bg-alt); border: 1px solid var(--rule); border-radius: 6px; padding: 10px 12px; }
+  .stat .num { font-size: 20px; font-weight: 700; }
+  .stat .label { font-size: 11px; color: var(--ink-dim); text-transform: uppercase; letter-spacing: .03em; }
+
+  section.block { margin-bottom: 26px; }
+  section.block h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .04em;
+    color: var(--ink-dim); border-bottom: 1px solid var(--rule); padding-bottom: 6px; margin: 0 0 12px; }
+
+  ul.plain { margin: 0; padding-left: 1.1em; }
+  ul.plain li { margin-bottom: 4px; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 720px) { .two-col { grid-template-columns: 1fr; } }
+
+  .pr-row { display: flex; align-items: center; gap: 8px; padding: 5px 0; border-bottom: 1px dashed var(--rule);
+    flex-wrap: wrap; }
+  .pr-row:last-child { border-bottom: none; }
+  .pr-row .repo { font-family: ui-monospace, monospace; font-size: 11.5px; color: var(--ink-dim);
+    background: var(--bg-alt); border: 1px solid var(--rule); border-radius: 4px; padding: 0 5px; }
+  .pr-row .title { flex: 1; }
+  .pr-row .size { color: var(--ink-dim); font-size: 11.5px; white-space: nowrap; }
+  .pr-row .why { color: var(--ink-dim); font-size: 11.5px; }
+  .pr-row.pending-exclude { opacity: 0.55; }
+  .pr-row.excluded { opacity: 0.7; }
+  .pr-row.candidate { border-left: 2px solid var(--warn); padding-left: 8px; }
+  .mini-btn { font-size: 11px; padding: 2px 8px; border: 1px solid var(--rule); border-radius: 10px;
+    background: var(--bg-alt); color: var(--ink-dim); cursor: pointer; white-space: nowrap; }
+  .mini-btn:hover { background: var(--rule); color: var(--ink); }
+
+  details.self-comments, details.impl-comments, details.review-comments { margin-top: 10px;
+    border: 1px solid var(--rule); border-radius: 6px; width: 100%; }
+  details.self-comments summary, details.impl-comments summary, details.review-comments summary {
+    cursor: pointer; padding: 8px 10px; font-size: 12.5px; color: var(--ink-dim); list-style: none; }
+  details.self-comments summary::-webkit-details-marker, details.impl-comments summary::-webkit-details-marker,
+    details.review-comments summary::-webkit-details-marker { display: none; }
+  details.self-comments summary::before, details.impl-comments summary::before,
+    details.review-comments summary::before { content: "▸ "; }
+  details.self-comments[open] summary::before, details.impl-comments[open] summary::before,
+    details.review-comments[open] summary::before { content: "▾ "; }
+  details.self-comments .comment, details.impl-comments .comment, details.review-comments .comment {
+    margin: 0 10px 8px; }
+  details.self-comments .comment:first-of-type, details.impl-comments .comment:first-of-type,
+    details.review-comments .comment:first-of-type { margin-top: 0; }
+  details.review-comments details.self-comments { margin: 0 10px 8px; }
+  details.impl-comments details.self-comments { margin: 0 10px 8px; }
+
+  .comment { border: 1px solid var(--rule); border-radius: 6px; padding: 8px 10px; margin-bottom: 8px; }
+  .comment .meta { display: flex; gap: 8px; align-items: center; margin-bottom: 4px; font-size: 11.5px;
+    color: var(--ink-dim); flex-wrap: wrap; }
+  .comment .body { font-size: 13px; white-space: pre-wrap; max-height: 5.5em; overflow-y: auto; }
+  .comment select { font-size: 11.5px; padding: 1px 4px; border: 1px solid var(--rule); border-radius: 4px; }
+  .comment.unmapped { opacity: 0.7; }
+
+  .corrections-bar { position: sticky; bottom: 0; background: var(--bg); border-top: 1px solid var(--rule);
+    padding: 10px 24px; display: flex; align-items: center; gap: 12px; font-size: 12.5px; flex-wrap: wrap; }
+  .corrections-bar button { font-size: 12.5px; padding: 5px 12px; border: 1px solid var(--rule);
+    border-radius: 6px; background: var(--bg-alt); cursor: pointer; }
+  .corrections-bar button:hover { background: var(--rule); }
+  .corrections-bar .sep { border-left: 1px solid var(--rule); align-self: stretch; }
+  #export-box, #pr-export-box { width: 100%; max-width: 900px; font-family: ui-monospace, monospace;
+    font-size: 11.5px; padding: 8px; border: 1px solid var(--rule); border-radius: 6px; }
+
+  footer { padding: 16px 24px; text-align: center; font-size: 12px; color: var(--ink-dim);
+    border-top: 1px solid var(--rule); }
+</style>
+</head>
+<body>
+<header>
+  <h1>TEP Explorer</h1>
+  <span class="subtitle">Generated 2026-08-17 14:59 UTC &mdash; source: processed/latest/per_tep_records.json</span>
+  <div class="stats">
+    <span><b>1</b> TEPs</span>
+    <span><b>2</b> implementation PRs</span>
+    <span><b>46</b> review comments</span>
+    <span><b>100%</b> under-linking rate</span>
+    <span><b>124</b> comment classifications (Sub-Task 8 pilot)</span>
+  </div>
+</header>
+
+<div id="view-list">
+  <div class="toolbar">
+    <input type="text" id="search" placeholder="Search title, author, or TEP number&hellip;">
+    <select id="status-filter">
+      <option value="">All statuses</option>
+      <option value="__flagged__">&#9888; Flagged for review</option>
+      <option value="implementable">implementable</option>
+    </select>
+    <label class="exclude-toggle"><input type="checkbox" id="status-exclude"> exclude</label>
+    <span class="count" id="row-count"></span>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th class="num" data-key="tep_number">TEP</th>
+        <th data-key="title">Title</th>
+        <th data-key="status">Status</th>
+        <th data-key="authors">Authors</th>
+        <th class="num" data-key="age_days">Age (d)</th>
+        <th class="num" data-key="linked_count">Linked</th>
+        <th class="num" data-key="discovered_count">Discovered</th>
+        <th class="num" data-key="impl_sum">Total</th>
+        <th class="num" data-key="under_linking">Under-linked</th>
+        <th class="num" data-key="review_comments">Reviews</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+</div>
+
+<div id="view-detail" class="hidden"></div>
+
+<div class="corrections-bar hidden" id="corrections-bar">
+  <span><b id="corrections-count">0</b> pending section correction(s)</span>
+  <button id="export-btn">Export sections as JSONL</button>
+  <button id="clear-btn">Clear</button>
+  <span class="sep"></span>
+  <span><b id="pr-corrections-count">0</b> pending PR/commit correction(s)</span>
+  <button id="export-pr-btn">Export PR/commit corrections as JSONL</button>
+  <button id="clear-pr-btn">Clear</button>
+  <textarea id="export-box" class="hidden" rows="4" readonly
+    placeholder="Downloaded as section_overrides.export.jsonl — merge it with: uv run scripts/apply_export.py <file>"></textarea>
+  <textarea id="pr-export-box" class="hidden" rows="4" readonly
+    placeholder="Downloaded as pr_attribution_overrides.export.jsonl — may include known-commit entries too, apply_export.py splits them correctly. Merge it with: uv run scripts/apply_export.py <file>"></textarea>
+</div>
+
+<footer>
+  Corrections are stored locally in your browser only. Exporting also downloads a JSONL file &mdash;
+  merge it into <code>overrides/</code> with <code>uv run scripts/apply_export.py &lt;downloaded file&gt;</code>,
+  then commit for synthesize.py to pick up on the next run. That commit is the audit trail.
+  &middot; Made with IBM Bob
+</footer>
+
+<script type="application/json" id="tep-data">[{"age_days": 39, "authors": ["@wlynch"], "collaborators": [], "coverage": null, "creation_date": "2021-02-11", "divergences_from_template": {"extra_in_tep": ["### Use Cases (optional)", "## Requirements", "### Delete Runs when complete", "### Grace Period", "### Notes/Caveats (optional)", "### User Experience (optional)", "### Performance (optional)", "## Test Plan", "### Decouple Cleanup from Watcher", "### Count based deletion", "### Event based deletion"], "missing_from_tep": ["### Use Cases", "### Requirements", "### Notes and Caveats", "## Design Details", "### Reusability", "### Simplicity", "### Flexibility", "### Conformance", "### User Experience", "### Performance", "### Drawbacks", "## Implementation Plan", "### Test Plan", "### Infrastructure Needed", "### Upgrade and Migration Strategy", "### Implementation Pull Requests", "## References"]}, "flags": [], "gap": null, "impl_prs": {"bot_filtered_count": 0, "by_repo": {"community": 1, "results": 1}, "candidate_count": 0, "candidates": [], "discovered_count": 2, "excluded": [], "items": [{"additions": 2, "attribution_source": "search", "comments": [], "deletions": 2, "discovered_via": "search", "evidence": "TEP-0052: Automated RunResource Cleanup - Mark proposal as implement\u2026", "files_changed": 2, "merged_at": null, "pr_number": 355, "repo": "community", "review_comment_count": 0, "review_decision": "COMMENTED", "state": "closed", "status": null, "title": "TEP-0052: Automated RunResource Cleanup - Mark proposal as implementable"}, {"additions": 310, "attribution_source": "search", "comments": [{"author": null, "body": "I'm not clear why the extra buffer is required - did you experience the test racing before this addition?", "comment_id": 605640819, "created_at": "2021-04-01T13:04:03Z", "is_self_comment": false, "line": null, "path": "pkg/watcher/reconciler/taskrun/taskrun_test.go"}, {"author": null, "body": "FWIW not a major concern. But wondering if a buffer size of a minute might have potential to mask future timing bugs that could otherwise be caught?", "comment_id": 605642470, "created_at": "2021-04-01T13:06:29Z", "is_self_comment": false, "line": null, "path": "pkg/watcher/reconciler/taskrun/taskrun_test.go"}, {"author": null, "body": "I am wondering if this and the Infof message on line 93 might be better suited to a `Debugf` level instead?  I'm not totally sure if someone administering a large CI/CD cluster will get a ton of benefit from messages like this one at the default log level.\r\n\r\nCan definitely see keeping the message on line 97 though, since it indicates an impending modification to the cluster.", "comment_id": 605652374, "created_at": "2021-04-01T13:20:59Z", "is_self_comment": false, "line": null, "path": "pkg/watcher/reconciler/pipelinerun/pipelinerun.go"}, {"author": "imjasonh", "body": "Just to confirm: do we expect this to re-enqueue the item in the workqueue so we'll retry with backoff?", "comment_id": 605674920, "created_at": "2021-04-01T13:51:27Z", "is_self_comment": false, "line": null, "path": "pkg/watcher/reconciler/pipelinerun/pipelinerun.go"}, {"author": "imjasonh", "body": "Any reason to prefer `EnqueueKeyAfter` instead of `EnqueueAfter` which can just take the whole object?", "comment_id": 605675061, "created_at": "2021-04-01T13:51:37Z", "is_self_comment": false, "line": null, "path": "pkg/watcher/reconciler/pipelinerun/controller.go"}, {"author": "imjasonh", "body": "This should handle `k8serrors.IsNotFound` as a no-op, in case we have dueling deletes.", "comment_id": 605675529, "created_at": "2021-04-01T13:52:19Z", "is_self_comment": false, "line": null, "path": "pkg/watcher/reconciler/pipelinerun/pipelinerun.go"}, {"author": "imjasonh", "body": "wdyt about setting [`DeleteOptions.Preconditions.UID`](https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#DeleteOptions) to avoid possible mixups if two runs end up having the same name?\r\n\r\nIt'd be extra confusing to debug this since the previous line logs \"deleting UID X\" and might end up deleting something else under the wrong circumstances.", "comment_id": 605677533, "created_at": "2021-04-01T13:55:05Z", "is_self_comment": false, "line": null, "path": "pkg/watcher/reconciler/pipelinerun/pipelinerun.go"}, {"author": "imjasonh", "body": "This change seems unrelated to deleting completed runs, was this intentional?", "comment_id": 605678387, "created_at": "2021-04-01T13:56:08Z", "is_self_comment": false, "line": 124, "path": "pkg/watcher/results/results.go"}, {"author": "wlynch", "body": "Don't think so. Done!", "comment_id": 605868342, "created_at": "2021-04-01T18:38:21Z", "is_self_comment": true, "line": null, "path": "pkg/watcher/reconciler/pipelinerun/controller.go"}, {"author": "wlynch", "body": "Done. Also moved another log below to debug.", "comment_id": 605868777, "created_at": "2021-04-01T18:39:09Z", "is_self_comment": true, "line": null, "path": "pkg/watcher/reconciler/pipelinerun/pipelinerun.go"}, {"author": "wlynch", "body": "Done.", "comment_id": 605869381, "created_at": "2021-04-01T18:40:08Z", "is_self_comment": true, "line": null, "path": "pkg/watcher/reconciler/pipelinerun/pipelinerun.go"}, {"author": "wlynch", "body": "Great idea! Done.", "comment_id": 605869928, "created_at": "2021-04-01T18:41:12Z", "is_self_comment": true, "line": null, "path": "pkg/watcher/reconciler/pipelinerun/pipelinerun.go"}, {"author": "wlynch", "body": "Yes it is! I should update the commit message to reflect why we're making this change.\r\n\r\nBefore we were updating the Record on every reconcile event - this was fine because we were generally only reconciling on object updates which required us to update the Record. Now that we're doing retries of \"not ready to be deleted yet\" objects, we need to make sure we only update the Record when we need to, since doing extra updates will push the grace period window since we calculate the grace period w.r.t. to the Record last update time. \r\n\r\nThis change just checks if there's a diff in the Record, and only updates if there's data that needs to be changed.\r\n\r\nEven if we change this to be more pipeline resource specific (e.g. use .status.completionTime instead of the Record last update time), I think we still want something like this in place to avoid making duplicate write calls for data we know is identical.", "comment_id": 605935472, "created_at": "2021-04-01T20:44:34Z", "is_self_comment": true, "line": 124, "path": "pkg/watcher/results/results.go"}, {"author": "wlynch", "body": "Yeah, it's because we calculate the grace period w.r.t. the Record's last update time, and since this package is external to the Result API, we don't have the same control over the API server's internal wall clock that we do in the API Server unit tests to fake things out to be deterministic.\r\n\r\nBecause we're mixing real clocks and fake clocks, we need to make sure that we're not stuck in the past when we try and compute the grace period during reconcile.\r\nInstead this takes advantage of our control of the watcher's internal wall clock, fast forwarding to a time in the future that we can guarantee is 1) not before the record last update time and 2) past the grace period for grace period values > 0.\r\n\r\nI think you're right that this still has a risk of racing if the time taken until this point is more than a minute (unlikely, but possible), so I added an extra bit to make sure the advancement is w.r.t. the current wall clock - it's now basically a sleep that happens instantaneously. \r\nAs an alternative we could fast forward the clock w.r.t. the Record timestamp, but this probably isn't necessary since all the operations here are synchronous, so time.Now() works as an approximation.\r\n\r\ntl;dr we're time traveling \ud83e\uddd9\u200d\u2642\ufe0f", "comment_id": 605951716, "created_at": "2021-04-01T21:18:11Z", "is_self_comment": true, "line": null, "path": "pkg/watcher/reconciler/taskrun/taskrun_test.go"}, {"author": "wlynch", "body": "Yes. See https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/reconcile#Reconciler\r\n\r\n[knative/pkg follows similar behavior](https://github.com/knative/pkg/blob/87426b54db6f1200e2cb9086055fdf7fe90307dc/controller/controller.go#L395), requiring you to wrap the error in [NewPermanentError](https://pkg.go.dev/github.com/knative/pkg/controller#NewPermanentError) to stop the key from being re-enqueued.", "comment_id": 605960822, "created_at": "2021-04-01T21:38:58Z", "is_self_comment": true, "line": null, "path": "pkg/watcher/reconciler/pipelinerun/pipelinerun.go"}, {"author": "imjasonh", "body": "Nice, thanks for that explanation! Agree about putting this context into the PR description, and probably in a doc comment in here too.", "comment_id": 606010890, "created_at": "2021-04-02T00:16:06Z", "is_self_comment": false, "line": 124, "path": "pkg/watcher/results/results.go"}], "deletions": 199, "discovered_via": "search", "evidence": "\u2026for deleting resources on completed Runs. This implements TEP-0052, adding flag gated support for automatically cleaning up T\u2026", "files_changed": 14, "merged_at": "2021-04-26T20:39:09Z", "pr_number": 103, "repo": "results", "review_comment_count": 16, "review_decision": "APPROVED", "state": "closed", "status": null, "title": "Add support for deleting resources on completed Runs."}], "linked_count": 0, "manual_count": 0, "review_comment_count": 16, "total_count": 2}, "known_commits": [], "last_updated": "2021-03-22", "proposal_pr": {"comments": [{"author": "bobcatfish", "body": "maybe a silly question, but why is the controller continuing to be informed about objects which have been completed?\r\n\r\n(i think if the controller was restarted it would try to re-process _all_ of them which would be terrible, but wondering if this problem only impacts the controller on restart or at other times too)", "comment_id": 581412143, "created_at": "2021-02-23T21:46:15Z", "heuristic_section": "## Motivation", "is_override": false, "is_self_comment": false, "line": 53, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 347, "section": "## Motivation"}, {"author": "bobcatfish", "body": "note that the other thing you lose is the pod - and the logs associated with it (if you havent configured something to offload logs) - which i think both the dashboard and cli depend on, maybe something to include in caveats", "comment_id": 581413422, "created_at": "2021-02-23T21:48:18Z", "heuristic_section": "## Motivation", "is_override": false, "is_self_comment": false, "line": 59, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 347, "section": "## Motivation"}, {"author": "bobcatfish", "body": "interesting that we're referring here to strain on etcd and in motivation to a strain on the controller - maybe there's a bit to flesh out about etcd as well? (e.g. i imagine it fills up? any idea how big it usually is for a k8s cluster? does it slow down as well?)", "comment_id": 581414267, "created_at": "2021-02-23T21:49:45Z", "heuristic_section": "### Goals", "is_override": false, "is_self_comment": false, "line": 88, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 347, "section": "### Goals"}, {"author": "bobcatfish", "body": "confirming: when you say \"metadata\" i think you mean the complete spec and status?", "comment_id": 581414554, "created_at": "2021-02-23T21:50:13Z", "heuristic_section": "### Goals", "is_override": false, "is_self_comment": false, "line": 92, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 347, "section": "### Goals"}, {"author": "bobcatfish", "body": "can you explain a bit more about what you mean by \"the grace period has not been met yet\"?", "comment_id": 581415266, "created_at": "2021-02-23T21:51:30Z", "heuristic_section": "### Use Cases (optional)", "is_override": false, "is_self_comment": false, "line": 123, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 347, "section": "### Use Cases (optional)"}, {"author": "bobcatfish", "body": "maybe a caveat about how this will allow for the re-creation of a taskrun/pipelinerun with the same name?\r\n\r\nand maybe something about the underlying pod being deleted too? (tho we already do that when you cancel \ud83d\ude05 )", "comment_id": 581415762, "created_at": "2021-02-23T21:52:20Z", "heuristic_section": "## Requirements", "is_override": false, "is_self_comment": false, "line": 132, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 347, "section": "## Requirements"}, {"author": "bobcatfish", "body": "i could imagine someone wanting this grace period to be something like a day (or even a week or more) - does this solution also support configuring the grace period to be on the order of hours or even days?\r\n\r\nas a possible reason, i could imagine folks might be using other tools that might integrate with the k8s API and it might not be reasonable to expect they can update those tools to use the Result API as the source of truth", "comment_id": 581417527, "created_at": "2021-02-23T21:55:25Z", "heuristic_section": "### Delete Runs when complete", "is_override": false, "is_self_comment": false, "line": 151, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 347, "section": "### Delete Runs when complete"}, {"author": "bobcatfish", "body": "how will this actually work? will the controller re-queue the runs to be re-reconciled after the grace period?", "comment_id": 581419594, "created_at": "2021-02-23T21:58:51Z", "heuristic_section": "### Use Cases (optional)", "is_override": false, "is_self_comment": false, "line": 110, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 347, "section": "### Use Cases (optional)"}, {"author": "wlynch", "body": "See response on performance above. I've also tried tweaking the proposal to be less performance focused, and lay out a better argument for separation of concerns for runtime vs historical lookup. Let me know what you think!", "comment_id": 581443645, "created_at": "2021-02-23T22:43:17Z", "heuristic_section": "### Goals", "is_override": false, "is_self_comment": true, "line": 88, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 347, "section": "### Goals"}, {"author": "wlynch", "body": "Did some more digging here - I don't think the issue is that the controller is being re-informed of objects.\r\n\r\nThis was based somewhat anecdotally on clusters we ran where automatic probes created TaskRuns, and the cluster locked up after O(thousands) of TaskRuns were created (suspiciously near the ~3000 pod-per-namespace mark documented here - https://github.com/kubernetes/community/blob/master/sig-scalability/configs-and-limits/thresholds.md). The leading theory was the # of objects was causing issues with etcd leader election and resulting in the Kubernetes API to be unavailable.\r\nIt's entirely possible that these issues were unrelated - I've started subjecting a test cluster to a load test with a minimal TaskRun to try and recreate this.\r\n\r\nWe're at ~10k TaskRuns with the most noticeable effect being the slow down of `kubectl get` calls (which is expected (taking O(seconds)). I noticed there are several instances of `List` calls that are made in the Task/PipelineRun controllers that might be affected, but nothing too severe so far.", "comment_id": 581510744, "created_at": "2021-02-24T01:02:04Z", "heuristic_section": "## Motivation", "is_override": false, "is_self_comment": true, "line": 53, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 347, "section": "## Motivation"}, {"author": "wlynch", "body": "Added a section! Also did a bunch of investigation into completed Pod GC, which exposes users to a similar set of problems today.", "comment_id": 581515158, "created_at": "2021-02-24T01:12:44Z", "heuristic_section": "## Motivation", "is_override": false, "is_self_comment": true, "line": 59, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 347, "section": "## Motivation"}, {"author": "wlynch", "body": "We're currently storing a proto-ized version of the CRD, which also includes TypeMeta and ObjectMeta as well. We have the flexibility to change this - this just happened to be the most convenient form have a general sense of parity.", "comment_id": 581516149, "created_at": "2021-02-24T01:14:32Z", "heuristic_section": "### Goals", "is_override": false, "is_self_comment": true, "line": 92, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 347, "section": "### Goals"}, {"author": "wlynch", "body": "Yup! That's the tentative plan. Added a note in the grace period section below.", "comment_id": 581518878, "created_at": "2021-02-24T01:20:22Z", "heuristic_section": "### Use Cases (optional)", "is_override": false, "is_self_comment": true, "line": 110, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 347, "section": "### Use Cases (optional)"}, {"author": "wlynch", "body": "Reworded. The intent was \"duration elapsed since the Record's last update time has not exceeded the configured grace period\". \r\n\r\nin pseudocode:\r\n```\r\nif time.Now() - record.last_update_time > grace_period {\r\n  // delete\r\n}\r\n```\r\n\r\nLet me know if this looks good!", "comment_id": 581519773, "created_at": "2021-02-24T01:23:06Z", "heuristic_section": "### Use Cases (optional)", "is_override": false, "is_self_comment": true, "line": 123, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 347, "section": "### Use Cases (optional)"}, {"author": "wlynch", "body": "Run recreation resulting in independent Results is something that's supported independent of Run cleanup (e.g. you can create/delete/create today and get different results), so I'm not 100% certain if it makes sense w.r.t. this proposal. If you think it's still worth including though, let me know and I'll add a section!\r\n\r\nAdded a section for loss of pod logs.\r\n\r\nRe pod deletion - is your concern we're no longer preserving pod metadata stored as well? That might be an interesting FR (and one that shouldn't be too hard to add)!", "comment_id": 581521108, "created_at": "2021-02-24T01:26:45Z", "heuristic_section": "## Requirements", "is_override": false, "is_self_comment": true, "line": 132, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 347, "section": "## Requirements"}, {"author": "wlynch", "body": "Poking at the Knative code, it looks like it [asynchronously inspects the events](https://github.com/knative/pkg/blob/a02dcff9ee2694ab9bbc694bddbd95d3aaae615b/vendor/k8s.io/client-go/util/workqueue/delaying_queue.go#L177) and sees [whether it is past the requested time](https://github.com/knative/pkg/blob/a02dcff9ee2694ab9bbc694bddbd95d3aaae615b/vendor/k8s.io/client-go/util/workqueue/delaying_queue.go#L242) so we're primarily limited by what [time.Duration](https://pkg.go.dev/time#Duration) can support (so don't try to schedule deletion 300 years in the future and we should be good \ud83d\ude05)\r\n\r\nIn the case of reconciler failure / crash / restart, my understanding is that everything will be resynced. This will cause the Watcher to go through the same checks to verify if we should delete or reenqueue again. It should be safe to call the same key multiple times.", "comment_id": 581525457, "created_at": "2021-02-24T01:31:55Z", "heuristic_section": "### Delete Runs when complete", "is_override": false, "is_self_comment": true, "line": 151, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 347, "section": "### Delete Runs when complete"}, {"author": "bobcatfish", "body": "nice!! thanks for doing the additional investigation", "comment_id": 583775911, "created_at": "2021-02-26T16:50:20Z", "heuristic_section": "## Motivation", "is_override": false, "is_self_comment": false, "line": 53, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 347, "section": "## Motivation"}, {"author": "bobcatfish", "body": "ah okay so the ENTIRE object - just (pedantically) checking that we're not leaving some of the content out", "comment_id": 583776938, "created_at": "2021-02-26T16:51:55Z", "heuristic_section": "### Goals", "is_override": false, "is_self_comment": false, "line": 92, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 347, "section": "### Goals"}, {"author": "bobcatfish", "body": "> Run recreation resulting in independent Results is something that's supported independent of Run cleanup (e.g. you can create/delete/create today and get different results), so I'm not 100% certain if it makes sense w.r.t. this propos\r\n\r\nAh I see what you mean: without this proposal, if you delete a run and recreate it, you get duplicate results, so this proposal isnt introducing the possibility of duplicate results, it's already there.\r\n\r\nI think what this proposal IS adding is that if folks were never doing any kind of cleanup on their own (maybe even were preventing it?) they would never see that possibility - but if they enable the functionality described here, they would. I think it might be worth mentioning but maybe not that important given what you pointed out!\r\n\r\n> Re pod deletion - is your concern we're no longer preserving pod metadata stored as well? That might be an interesting FR (and one that shouldn't be too hard to add)!\r\n\r\nOh I hadn't thought of that, that's a good point!\r\n\r\nI was just thinking that the pod seems like a pretty fundamental type for k8s and i could see a lot of tools being used to investigating pods; if we delete them then they can't (I dont have any actual examples of this, just waving my hands...) (maybe one - not very good - example is even in the GCP console you can view pods - tho actually im not sure you can view pods that arent running so this example is quickly falling apart...)", "comment_id": 583781491, "created_at": "2021-02-26T16:58:59Z", "heuristic_section": "## Requirements", "is_override": false, "is_self_comment": false, "line": 132, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 347, "section": "## Requirements"}, {"author": "bobcatfish", "body": "> so don't try to schedule deletion 300 years in the future and we should be good \r\n\r\nlolololol\r\n\r\ni wonder how big that queue can get \ud83e\udd14  anyway sounds like we're covered :D", "comment_id": 583781866, "created_at": "2021-02-26T16:59:30Z", "heuristic_section": "### Delete Runs when complete", "is_override": false, "is_self_comment": false, "line": 151, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 347, "section": "### Delete Runs when complete"}, {"author": "bobcatfish", "body": "apologies i think i'm nitpicking \ud83d\ude4f  but when you say \"automated nature of runs being created\" are you specifically talking about having them created by a triggering system?", "comment_id": 586701259, "created_at": "2021-03-03T19:03:36Z", "heuristic_section": null, "is_override": false, "is_self_comment": false, "line": null, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 357, "section": null}, {"author": "bobcatfish", "body": "hmmm this actually makes me wonder if we should be looking for another way of doing this? what do you think about opening an issue in pipelines around this? if this is actually bottleneck, we could optimize it (e.g. embedding info in statuses that prevents us from having to do that lookup)", "comment_id": 586702303, "created_at": "2021-03-03T19:05:14Z", "heuristic_section": null, "is_override": false, "is_self_comment": false, "line": null, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 357, "section": null}, {"author": "bobcatfish", "body": "did you also observe the results if the taskruns were deleted after they completed?", "comment_id": 588555581, "created_at": "2021-03-05T18:23:03Z", "heuristic_section": null, "is_override": false, "is_self_comment": false, "line": null, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 357, "section": null}, {"author": "bobcatfish", "body": "we have some user profiles (https://github.com/tektoncd/community/blob/main/user-profiles.md) which might help, this sounds like it might be \"Pipeline and Task Users\" i.e. folks how are running stuff and want to see what happened", "comment_id": 588556534, "created_at": "2021-03-05T18:24:08Z", "heuristic_section": "### Use Cases (optional)", "is_override": false, "is_self_comment": false, "line": 112, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 357, "section": "### Use Cases (optional)"}, {"author": "bobcatfish", "body": "i mentioned this in a comment above but i think we should do this regardless of this proposal (if it is actually a problem)", "comment_id": 588557694, "created_at": "2021-03-05T18:25:23Z", "heuristic_section": null, "is_override": false, "is_self_comment": false, "line": null, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 357, "section": null}, {"author": "wlynch", "body": "Yup! Added a note.", "comment_id": 588654863, "created_at": "2021-03-05T20:10:36Z", "heuristic_section": null, "is_override": false, "is_self_comment": true, "line": null, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 357, "section": null}, {"author": "wlynch", "body": "Yeah I can file an issue. \r\n\r\nFunny enough, embedding status info is why these queries are being done in the first place - it's a mechanism to prevent double scheduling if a Run resource is interrupted without the status info being written back (i.e. query for things with the parent label, if it already exists use that, else create what is missing).\r\nWe might be able to avoid some of the query lookups with some journaling, but this will likely expose us to different complexity (I'm primarily worried about name collisions). \ud83d\ude2c ", "comment_id": 588666500, "created_at": "2021-03-05T20:23:57Z", "heuristic_section": null, "is_override": false, "is_self_comment": true, "line": null, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 357, "section": null}, {"author": "wlynch", "body": "I haven't deleted them yet so I can keep the TaskRuns around for more testing if needed \ud83e\udd23  If you have ideas for how we can synthetically create tons of completed TaskRuns w/o pods, let me know! (I wasn't sure if you can just create completed TaskRuns or something similar)\r\n\r\nAnecdotally, in a cluster of mine running automated probes that experienced problems, `kubectl delete tr --all` returned the cluster to normal (this was why we originally suspected this was load related).", "comment_id": 588673495, "created_at": "2021-03-05T20:30:50Z", "heuristic_section": null, "is_override": false, "is_self_comment": true, "line": null, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 357, "section": null}, {"author": "wlynch", "body": "Nice! I didn't know we had those- that will be useful in the future!\r\n\r\nI think we still want custom users here, since many of those users would still fit into different roles depending on their use case.\r\n\r\n- `Pipeline and Task Users` would generally fall under Historians, but there might be certain use cases (e.g. debugging a misbehaving pipeline) where it might be useful to dig into the currently running data plane.\r\n- `Platform builders` / `Supporting tool developers` would need to be aware of both to know which API to integrate with based on their needs.", "comment_id": 588680760, "created_at": "2021-03-05T20:38:34Z", "heuristic_section": "### Use Cases (optional)", "is_override": false, "is_self_comment": true, "line": 112, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 357, "section": "### Use Cases (optional)"}, {"author": null, "body": "I wonder if this kind of signal (\"Run XYZ Persisted!\") would be useful to many different kinds of systems, not just deletion.  Are there plans in the works already for Results to emit events like this for consumption by other services?", "comment_id": 590386873, "created_at": "2021-03-09T13:53:24Z", "heuristic_section": "## Requirements", "is_override": false, "is_self_comment": false, "line": 131, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 357, "section": "## Requirements"}, {"author": "wlynch", "body": "No solid plans at the moment, but I think that's a discussion worth having w.r.t. [TEP-0032: Tekton Notifications](https://github.com/tektoncd/community/blob/main/teps/0032-tekton-notifications.md).", "comment_id": 590439436, "created_at": "2021-03-09T14:53:25Z", "heuristic_section": "## Requirements", "is_override": false, "is_self_comment": true, "line": 131, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 357, "section": "## Requirements"}, {"author": "wlynch", "body": "https://github.com/tektoncd/pipeline/issues/3812", "comment_id": 590626331, "created_at": "2021-03-09T18:42:39Z", "heuristic_section": null, "is_override": false, "is_self_comment": true, "line": null, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 357, "section": null}, {"author": "bobcatfish", "body": "i think if there are roles we are missing it'd be great to update https://github.com/tektoncd/community/blob/main/user-profiles.md with those roles vs. inventing new roles in each TEP - but i also dont think it's important enough to block this on", "comment_id": 592476515, "created_at": "2021-03-11T15:49:38Z", "heuristic_section": "### Use Cases (optional)", "is_override": false, "is_self_comment": false, "line": 112, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 357, "section": "### Use Cases (optional)"}, {"author": "bobcatfish", "body": "> it's a mechanism to prevent double scheduling if a Run resource is interrupted without the status info being written back (i.e. query for things with the parent label, if it already exists use that, else create what is missing)\r\n\r\nah okay, so this is because for all of these cases there are (at least) 2 things that have to be done:\r\n\r\n1. create the resource (taskrun/pod/run)\r\n2. update the status of the pipelinerun/task run with that resource\r\n\r\nand there's no guarantee (2) will always happen if (1) happened.\r\n\r\ni see what you mean - probably not something we can fix then X'D\r\n\r\nsounds pretty solid! but last question: can you confirm that list calls to the API server grow in time when more objects exist in the cluster, even when they are being filtered by label? (this is something that could probably be proven without needing to use any controllers, etc., you could make a script that creates + lists objects - or just point to a blog where someone already does this XD)", "comment_id": 592483331, "created_at": "2021-03-11T15:57:01Z", "heuristic_section": null, "is_override": false, "is_self_comment": false, "line": null, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 357, "section": null}, {"author": "bobcatfish", "body": "> If you have ideas for how we can synthetically create tons of completed TaskRuns w/o pods, let me know!\r\n\r\nI don't totally understand what you mean - i think you're saying that creating the test conditions takes a long time so you don't want to have to recreate it? you could update the tekton controller to not create the pods; i.e. just test the behavior of the CRDs alone", "comment_id": 592484640, "created_at": "2021-03-11T15:58:26Z", "heuristic_section": null, "is_override": false, "is_self_comment": false, "line": null, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 357, "section": null}, {"author": "wlynch", "body": "Here's some initial data!\r\n\r\nTook your advice and used a new CRD. Code can be found here: https://github.com/wlynch/experimental/blob/crd-loadtest/crd-loadtest/main.go\r\n\r\n### User latency\r\n\r\nThis is pretty noticeable. With ~7k objects we were reaching ~2s list latencies using a label selection query that should return 1 object:\r\n\r\n![image](https://user-images.githubusercontent.com/1844673/110865282-63226780-8291-11eb-9e94-454ba57ade5c.png)\r\n\r\n### Controller latency\r\n\r\nIt's also worth looking at what lister performance looks like, to simulate the object caching that's done on controllers. \r\nResults look promising, but keep in mind these results are showing cached responses - a cache miss would likely be subject to the same latencies as we see above. This probably means we don't need to worry controller performance for now, even if the non-cached flow most humans experience is degraded.\r\n\r\n![image](https://user-images.githubusercontent.com/1844673/110869208-fc547c80-8297-11eb-81cb-0aab3b3aa9ab.png)\r\n\r\n", "comment_id": 592806756, "created_at": "2021-03-11T23:49:32Z", "heuristic_section": null, "is_override": false, "is_self_comment": true, "line": null, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 357, "section": null}, {"author": "wlynch", "body": "I can look into adding these in another PR!", "comment_id": 592815845, "created_at": "2021-03-12T00:00:44Z", "heuristic_section": "### Use Cases (optional)", "is_override": false, "is_self_comment": true, "line": 112, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 357, "section": "### Use Cases (optional)"}, {"author": "wlynch", "body": "Data I pulled so far suggests this isn't that big of an issue for controllers since most of the data is cached. Not sure if this would differ with real CRD types (e.g. would we start getting memory constrained?) We can follow up on this in the other issue.", "comment_id": 592816408, "created_at": "2021-03-12T00:02:18Z", "heuristic_section": null, "is_override": false, "is_self_comment": true, "line": null, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 357, "section": null}, {"author": "wlynch", "body": "I haven't tried it yet, but I'm curious if the controller would let me create Runs in a completed state as is. \ud83e\udd14 \r\n\r\nThough worst case, +1 to your suggesting for running a modified controller.", "comment_id": 592817017, "created_at": "2021-03-12T00:04:02Z", "heuristic_section": null, "is_override": false, "is_self_comment": true, "line": null, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 357, "section": null}, {"author": "bobcatfish", "body": "@wlynch what would you think about including a requirement to emit a cloudevents during the results lifecycle? (or maybe even as part of the results TEP?) i think @sbwsg makes a great point", "comment_id": 595484848, "created_at": "2021-03-16T19:36:48Z", "heuristic_section": "## Requirements", "is_override": false, "is_self_comment": false, "line": 131, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 357, "section": "## Requirements"}, {"author": "bobcatfish", "body": "Nice, thanks for doing this investigation!\r\n\r\nI'm not seeing an update in the TEP itself, am I missing something? i.e. the TEP still talks about controller list latencies, and has a section on \"Be smarter about how Tekton Controllers query resources\"", "comment_id": 595486499, "created_at": "2021-03-16T19:39:23Z", "heuristic_section": null, "is_override": false, "is_self_comment": false, "line": null, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 357, "section": null}, {"author": "bobcatfish", "body": "(ps thanks for your patience @wlynch  as when i demanded that you file an issue for something that in the end made no sense and then gradually came around to seeing this clearly \ud83d\ude4f \ud83e\udd23 )", "comment_id": 596106074, "created_at": "2021-03-17T15:06:44Z", "heuristic_section": null, "is_override": false, "is_self_comment": false, "line": null, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 357, "section": null}, {"author": "wlynch", "body": "I do want to explore this further, but I think this probably deserves its own TEP (or we co-opt the existing Tekton Notifications TEP)\r\n\r\n/cc @afrittoli ", "comment_id": 596256707, "created_at": "2021-03-17T17:52:54Z", "heuristic_section": "## Requirements", "is_override": false, "is_self_comment": true, "line": 131, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 357, "section": "## Requirements"}, {"author": "wlynch", "body": "Updated! PTAL.", "comment_id": 596257432, "created_at": "2021-03-17T17:53:52Z", "heuristic_section": null, "is_override": false, "is_self_comment": true, "line": null, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 357, "section": null}, {"author": "bobcatfish", "body": "i think this is intended to be a link but it no workie", "comment_id": 597043983, "created_at": "2021-03-18T16:27:11Z", "heuristic_section": null, "is_override": false, "is_self_comment": false, "line": null, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 357, "section": null}, {"author": "wlynch", "body": "Fixed!", "comment_id": 597801750, "created_at": "2021-03-19T16:08:49Z", "heuristic_section": null, "is_override": false, "is_self_comment": true, "line": null, "path": "teps/0052-tekton-results-automated-run-resource-cleanup.md", "pr_number": 357, "section": null}], "comments_by_section": {"## Motivation": 5, "## Requirements": 7, "### Delete Runs when complete": 3, "### Goals": 5, "### Use Cases (optional)": 8}, "comments_unmapped": 18, "pr_numbers": [347, 357, 387], "prs": [{"created_at": "2021-02-11T19:06:35Z", "merged_at": "2021-02-23T18:22:43Z", "pr_number": 347, "review_decision": "COMMENTED", "reviewer_logins": ["bobcatfish", "wlynch"], "state": "closed", "title": "TEP-0052: Tekton Results: Automated Run Resource Cleanup"}, {"created_at": "2021-02-24T19:57:28Z", "merged_at": "2021-03-22T19:28:46Z", "pr_number": 357, "review_decision": "APPROVED", "reviewer_logins": ["bobcatfish", "wlynch"], "state": "closed", "title": "TEP-0052: Update proposal to be less etcd/performance focused."}, {"created_at": "2021-03-22T20:11:58Z", "merged_at": "2021-03-23T18:36:46Z", "pr_number": 387, "review_decision": "COMMENTED", "reviewer_logins": ["imjasonh"], "state": "closed", "title": "TEP-0052: Automated RunResource Cleanup - Mark proposal as implementable"}], "review_comment_count": 46, "review_rounds_approx": 12, "reviewer_logins": ["bobcatfish", "imjasonh", "wlynch"]}, "sections_present": ["## Summary", "## Motivation", "### Goals", "### Non-Goals", "### Use Cases (optional)", "## Requirements", "## Proposal", "### Delete Runs when complete", "### Grace Period", "### Notes/Caveats (optional)", "### Risks and Mitigations", "### User Experience (optional)", "### Performance (optional)", "## Test Plan", "## Design Evaluation", "## Alternatives", "### Decouple Cleanup from Watcher", "### Count based deletion", "### Event based deletion"], "source_file": "0052-tekton-results-automated-run-resource-cleanup.md", "status": "implementable", "stub": false, "tep_number": 52, "title": "Tekton Results: Automated Run Resource Cleanup"}]</script>
+<script type="application/json" id="classification-data">[{"comment_id": 581412143, "confidence": 0.55, "evidence": "asks why the controller continues to be informed about completed objects and whether restart would reprocess all of them", "facet": "artifact", "pr_number": 347, "repo": "community", "value": "tep-body"}, {"comment_id": 581412143, "confidence": 0.5, "evidence": "substantive clarifying question about Motivation's problem framing", "facet": "nature", "pr_number": 347, "repo": "community", "value": "content"}, {"comment_id": 581413422, "confidence": 0.6, "evidence": "flags that pod logs are lost too and suggests adding this as a caveat", "facet": "artifact", "pr_number": 347, "repo": "community", "value": "tep-body"}, {"comment_id": 581413422, "confidence": 0.55, "evidence": "asks for an additional caveat about log loss impacting dashboard/cli", "facet": "nature", "pr_number": 347, "repo": "community", "value": "content"}, {"comment_id": 581414267, "confidence": 0.5, "evidence": "asks to flesh out etcd strain the way controller strain was described", "facet": "artifact", "pr_number": 347, "repo": "community", "value": "tep-body"}, {"comment_id": 581414267, "confidence": 0.45, "evidence": "requests more substantive detail on etcd scaling impact", "facet": "nature", "pr_number": 347, "repo": "community", "value": "content"}, {"comment_id": 581414554, "confidence": 0.4, "evidence": "clarifying whether 'metadata' means the complete spec and status", "facet": "artifact", "pr_number": 347, "repo": "community", "value": "tep-body"}, {"comment_id": 581414554, "confidence": 0.35, "evidence": "low-stakes terminology clarification", "facet": "nature", "pr_number": 347, "repo": "community", "value": "content"}, {"comment_id": 581415266, "confidence": 0.4, "evidence": "asks for more explanation of 'the grace period has not been met yet'", "facet": "artifact", "pr_number": 347, "repo": "community", "value": "tep-body"}, {"comment_id": 581415266, "confidence": 0.35, "evidence": "clarifying question on Use Cases wording", "facet": "nature", "pr_number": 347, "repo": "community", "value": "content"}, {"comment_id": 581415762, "confidence": 0.65, "evidence": "asks for a caveat about re-creating a taskrun/pipelinerun with the same name after cleanup, and pod deletion", "facet": "artifact", "pr_number": 347, "repo": "community", "value": "tep-body"}, {"comment_id": 581415762, "confidence": 0.6, "evidence": "substantive edge-case the TEP should call out", "facet": "nature", "pr_number": 347, "repo": "community", "value": "content"}, {"comment_id": 581417527, "confidence": 0.6, "evidence": "asks whether grace period can be configured to hours/days, and raises compatibility with external tools relying on k8s API as source of truth", "facet": "artifact", "pr_number": 347, "repo": "community", "value": "tep-body"}, {"comment_id": 581417527, "confidence": 0.6, "evidence": "two substantive design questions about configurability and external-tool impact", "facet": "nature", "pr_number": 347, "repo": "community", "value": "content"}, {"comment_id": 581419594, "confidence": 0.5, "evidence": "asks how re-queueing after grace period would actually work", "facet": "artifact", "pr_number": 347, "repo": "community", "value": "tep-body"}, {"comment_id": 581419594, "confidence": 0.45, "evidence": "clarifying question on mechanism design", "facet": "nature", "pr_number": 347, "repo": "community", "value": "content"}, {"comment_id": 581443645, "confidence": 0.45, "evidence": "describes reworking the proposal's performance framing and separation-of-concerns argument", "facet": "artifact", "pr_number": 347, "repo": "community", "value": "tep-body"}, {"comment_id": 581443645, "confidence": 0.4, "evidence": "author revising substantive design argument in Goals", "facet": "nature", "pr_number": 347, "repo": "community", "value": "content"}, {"comment_id": 581510744, "confidence": 0.6, "evidence": "presents cluster load-test data (etcd/API slowdowns near 10k TaskRuns) as evidence the cleanup feature is needed", "facet": "principle", "pr_number": 347, "repo": "community", "value": "feature-justification"}, {"comment_id": 581510744, "confidence": 0.55, "evidence": "substantiates the Motivation section with concrete investigation results", "facet": "artifact", "pr_number": 347, "repo": "community", "value": "tep-body"}, {"comment_id": 581510744, "confidence": 0.55, "evidence": "detailed empirical follow-up to a motivation question", "facet": "nature", "pr_number": 347, "repo": "community", "value": "content"}, {"comment_id": 581515158, "confidence": 0.55, "evidence": "added a new Motivation section covering Pod GC precedent", "facet": "artifact", "pr_number": 347, "repo": "community", "value": "tep-body"}, {"comment_id": 581515158, "confidence": 0.5, "evidence": "substantive addition explaining existing Pod GC exposes similar problems", "facet": "nature", "pr_number": 347, "repo": "community", "value": "content"}, {"comment_id": 581516149, "confidence": 0.45, "evidence": "clarifies that stored metadata is the full proto-ized CRD including TypeMeta/ObjectMeta", "facet": "artifact", "pr_number": 347, "repo": "community", "value": "tep-body"}, {"comment_id": 581516149, "confidence": 0.4, "evidence": "answers the earlier metadata-scope question", "facet": "nature", "pr_number": 347, "repo": "community", "value": "content"}, {"comment_id": 581518878, "confidence": 0.3, "evidence": "confirms the tentative grace-period design and notes a note was added", "facet": "artifact", "pr_number": 347, "repo": "community", "value": "tep-body"}, {"comment_id": 581518878, "confidence": 0.3, "evidence": "brief but substantive confirmation of design intent", "facet": "nature", "pr_number": 347, "repo": "community", "value": "content"}, {"comment_id": 581519773, "confidence": 0.55, "evidence": "rewords grace-period definition with pseudocode for clarity", "facet": "artifact", "pr_number": 347, "repo": "community", "value": "tep-body"}, {"comment_id": 581519773, "confidence": 0.5, "evidence": "substantive redefinition of grace-period semantics", "facet": "nature", "pr_number": 347, "repo": "community", "value": "content"}, {"comment_id": 581521108, "confidence": 0.6, "evidence": "discusses run-recreation duplicate-results edge case, adds a new section on pod-log loss, and floats a new FR for preserving pod metadata", "facet": "artifact", "pr_number": 347, "repo": "community", "value": "tep-body"}, {"comment_id": 581521108, "confidence": 0.55, "evidence": "substantive design discussion and content addition", "facet": "nature", "pr_number": 347, "repo": "community", "value": "content"}, {"comment_id": 581525457, "confidence": 0.55, "evidence": "explains async deletion scheduling mechanics and reconciler-restart safety (idempotent re-processing)", "facet": "artifact", "pr_number": 347, "repo": "community", "value": "tep-body"}, {"comment_id": 581525457, "confidence": 0.5, "evidence": "detailed mechanism explanation added to the proposal discussion", "facet": "nature", "pr_number": 347, "repo": "community", "value": "content"}, {"comment_id": 583781491, "confidence": 0.55, "evidence": "works through whether duplicate Results from run recreation is a new risk this proposal introduces, concludes it's pre-existing but worth mentioning", "facet": "artifact", "pr_number": 347, "repo": "community", "value": "tep-body"}, {"comment_id": 583781491, "confidence": 0.5, "evidence": "substantive risk-analysis discussion", "facet": "nature", "pr_number": 347, "repo": "community", "value": "content"}, {"comment_id": 586701259, "confidence": 0.4, "evidence": "asks whether 'automated nature of runs being created' specifically means triggering-system-created runs", "facet": "artifact", "pr_number": 357, "repo": "community", "value": "tep-body"}, {"comment_id": 586701259, "confidence": 0.35, "evidence": "terminology clarification", "facet": "nature", "pr_number": 357, "repo": "community", "value": "content"}, {"comment_id": 586702303, "confidence": 0.4, "evidence": "suggests deferring an optimization to a separate pipelines issue rather than solving it in this proposal", "facet": "principle", "pr_number": 357, "repo": "community", "value": "simplicity"}, {"comment_id": 586702303, "confidence": 0.5, "evidence": "questions whether the lookup approach should be reconsidered or handled via a follow-up issue", "facet": "artifact", "pr_number": 357, "repo": "community", "value": "tep-body"}, {"comment_id": 586702303, "confidence": 0.45, "evidence": "substantive suggestion to scope out an optimization concern", "facet": "nature", "pr_number": 357, "repo": "community", "value": "content"}, {"comment_id": 588555581, "confidence": 0.4, "evidence": "asks whether results were observed for taskruns deleted after completion", "facet": "artifact", "pr_number": 357, "repo": "community", "value": "tep-body"}, {"comment_id": 588555581, "confidence": 0.35, "evidence": "clarifying question about test observations backing the proposal", "facet": "nature", "pr_number": 357, "repo": "community", "value": "content"}, {"comment_id": 588556534, "confidence": 0.5, "evidence": "points to the existing user-profiles.md doc and suggests reusing its 'Pipeline and Task Users' category instead of a new one", "facet": "principle", "pr_number": 357, "repo": "community", "value": "consistency-with-existing"}, {"comment_id": 588556534, "confidence": 0.5, "evidence": "suggests aligning Use Cases terminology with the existing user-profiles doc", "facet": "artifact", "pr_number": 357, "repo": "community", "value": "tep-body"}, {"comment_id": 588556534, "confidence": 0.45, "evidence": "substantive suggestion to reuse existing categorization", "facet": "nature", "pr_number": 357, "repo": "community", "value": "content"}, {"comment_id": 588557694, "confidence": 0.35, "evidence": "reiterates that the lookup-optimization concern should be handled independent of this proposal", "facet": "principle", "pr_number": 357, "repo": "community", "value": "simplicity"}, {"comment_id": 588557694, "confidence": 0.4, "evidence": "reiterates scoping the optimization question out of this TEP", "facet": "artifact", "pr_number": 357, "repo": "community", "value": "tep-body"}, {"comment_id": 588557694, "confidence": 0.35, "evidence": "repeats/reinforces the scope-deferral point", "facet": "nature", "pr_number": 357, "repo": "community", "value": "content"}, {"comment_id": 588666500, "confidence": 0.55, "evidence": "weighs journaling as an alternative to the label-lookup mechanism but flags it would trade for different complexity, particularly name-collision risk", "facet": "principle", "pr_number": 357, "repo": "community", "value": "simplicity"}, {"comment_id": 588666500, "confidence": 0.5, "evidence": "explains why the current label-based lookup mechanism exists", "facet": "artifact", "pr_number": 357, "repo": "community", "value": "tep-body"}, {"comment_id": 588666500, "confidence": 0.5, "evidence": "substantive design tradeoff discussion", "facet": "nature", "pr_number": 357, "repo": "community", "value": "content"}, {"comment_id": 588673495, "confidence": 0.5, "evidence": "anecdotal evidence that 'kubectl delete tr --all' fixed a cluster experiencing load problems, supporting the need for cleanup", "facet": "principle", "pr_number": 357, "repo": "community", "value": "feature-justification"}, {"comment_id": 588673495, "confidence": 0.5, "evidence": "provides further empirical support and discusses methodology for testing", "facet": "artifact", "pr_number": 357, "repo": "community", "value": "tep-body"}, {"comment_id": 588673495, "confidence": 0.45, "evidence": "substantive supporting evidence and methodology discussion", "facet": "nature", "pr_number": 357, "repo": "community", "value": "content"}, {"comment_id": 588680760, "confidence": 0.5, "evidence": "weighs reusing the existing user-profiles.md categories against keeping custom roles that map to multiple existing profiles", "facet": "principle", "pr_number": 357, "repo": "community", "value": "consistency-with-existing"}, {"comment_id": 588680760, "confidence": 0.55, "evidence": "elaborates why custom user categories are still useful alongside the existing doc", "facet": "artifact", "pr_number": 357, "repo": "community", "value": "tep-body"}, {"comment_id": 588680760, "confidence": 0.5, "evidence": "substantive counter-argument in the consistency discussion", "facet": "nature", "pr_number": 357, "repo": "community", "value": "content"}, {"comment_id": 590386873, "confidence": 0.5, "evidence": "asks whether the persistence signal should be generalized for use by other systems beyond deletion", "facet": "principle", "pr_number": 357, "repo": "community", "value": "reusability"}, {"comment_id": 590386873, "confidence": 0.5, "evidence": "raises whether Results should emit broader lifecycle events", "facet": "artifact", "pr_number": 357, "repo": "community", "value": "tep-body"}, {"comment_id": 590386873, "confidence": 0.5, "evidence": "substantive suggestion to broaden the feature's applicability", "facet": "nature", "pr_number": 357, "repo": "community", "value": "content"}, {"comment_id": 590439436, "confidence": 0.4, "evidence": "points to TEP-0032 Tekton Notifications as the place this cross-cutting concern belongs", "facet": "principle", "pr_number": 357, "repo": "community", "value": "consistency-with-existing"}, {"comment_id": 590439436, "confidence": 0.4, "evidence": "defers the broader event-emission idea to a related TEP", "facet": "artifact", "pr_number": 357, "repo": "community", "value": "tep-body"}, {"comment_id": 590439436, "confidence": 0.35, "evidence": "brief but substantive scoping response", "facet": "nature", "pr_number": 357, "repo": "community", "value": "content"}, {"comment_id": 592476515, "confidence": 0.6, "evidence": "explicitly argues missing roles should be added to the shared user-profiles.md rather than invented per-TEP", "facet": "principle", "pr_number": 357, "repo": "community", "value": "consistency-with-existing"}, {"comment_id": 592476515, "confidence": 0.5, "evidence": "raises whether Use Cases roles should live in the shared doc instead", "facet": "artifact", "pr_number": 357, "repo": "community", "value": "tep-body"}, {"comment_id": 592476515, "confidence": 0.45, "evidence": "substantive process suggestion, though explicitly non-blocking", "facet": "nature", "pr_number": 357, "repo": "community", "value": "content"}, {"comment_id": 592483331, "confidence": 0.5, "evidence": "asks for confirmation that list-call latency actually grows with object count even under label filtering, to substantiate the scaling claim", "facet": "principle", "pr_number": 357, "repo": "community", "value": "feature-justification"}, {"comment_id": 592483331, "confidence": 0.5, "evidence": "works through and asks to confirm the double-write mechanism underlying the motivation", "facet": "artifact", "pr_number": 357, "repo": "community", "value": "tep-body"}, {"comment_id": 592483331, "confidence": 0.5, "evidence": "substantive follow-up validating the performance claim", "facet": "nature", "pr_number": 357, "repo": "community", "value": "content"}, {"comment_id": 592484640, "confidence": 0.4, "evidence": "clarifies/suggests a load-test methodology (bypass pod creation to isolate CRD behavior)", "facet": "artifact", "pr_number": 357, "repo": "community", "value": "tep-body"}, {"comment_id": 592484640, "confidence": 0.35, "evidence": "methodology suggestion for the investigation backing the proposal", "facet": "nature", "pr_number": 357, "repo": "community", "value": "content"}, {"comment_id": 592806756, "confidence": 0.65, "evidence": "presents concrete load-test data showing ~2s list latencies at ~7k objects, directly substantiating the performance motivation", "facet": "principle", "pr_number": 357, "repo": "community", "value": "feature-justification"}, {"comment_id": 592806756, "confidence": 0.6, "evidence": "adds concrete data to support the Motivation section's scaling claims", "facet": "artifact", "pr_number": 357, "repo": "community", "value": "tep-body"}, {"comment_id": 592806756, "confidence": 0.55, "evidence": "detailed empirical results shared in the thread", "facet": "nature", "pr_number": 357, "repo": "community", "value": "content"}, {"comment_id": 592815845, "confidence": 0.3, "evidence": "notes plan to add missing use-case roles in a follow-up PR", "facet": "artifact", "pr_number": 357, "repo": "community", "value": "tep-body"}, {"comment_id": 592815845, "confidence": 0.3, "evidence": "brief scope note", "facet": "nature", "pr_number": 357, "repo": "community", "value": "content"}, {"comment_id": 592816408, "confidence": 0.45, "evidence": "qualifies that controller-side latency is less concerning than client list latency since data is cached, refining the performance justification", "facet": "principle", "pr_number": 357, "repo": "community", "value": "feature-justification"}, {"comment_id": 592816408, "confidence": 0.5, "evidence": "adds nuance to the performance investigation results", "facet": "artifact", "pr_number": 357, "repo": "community", "value": "tep-body"}, {"comment_id": 592816408, "confidence": 0.45, "evidence": "substantive qualification of prior data", "facet": "nature", "pr_number": 357, "repo": "community", "value": "content"}, {"comment_id": 592817017, "confidence": 0.35, "evidence": "discusses whether the controller could create Runs directly in a completed state for test purposes", "facet": "artifact", "pr_number": 357, "repo": "community", "value": "tep-body"}, {"comment_id": 592817017, "confidence": 0.3, "evidence": "methodology follow-up", "facet": "nature", "pr_number": 357, "repo": "community", "value": "content"}, {"comment_id": 595484848, "confidence": 0.5, "evidence": "proposes adding a requirement to emit cloudevents during the Results lifecycle so other systems could consume it, not just deletion", "facet": "principle", "pr_number": 357, "repo": "community", "value": "reusability"}, {"comment_id": 595484848, "confidence": 0.55, "evidence": "proposes a new Requirements-section item", "facet": "artifact", "pr_number": 357, "repo": "community", "value": "tep-body"}, {"comment_id": 595484848, "confidence": 0.5, "evidence": "substantive scope-expansion proposal", "facet": "nature", "pr_number": 357, "repo": "community", "value": "content"}, {"comment_id": 595486499, "confidence": 0.6, "evidence": "points out the TEP text still describes the old controller-list-latency framing and hasn't been updated to reflect the newer investigation", "facet": "artifact", "pr_number": 357, "repo": "community", "value": "tep-body"}, {"comment_id": 595486499, "confidence": 0.55, "evidence": "flags the TEP document is out of sync with subsequent findings", "facet": "nature", "pr_number": 357, "repo": "community", "value": "content"}, {"comment_id": 596256707, "confidence": 0.55, "evidence": "decides the cloudevents idea deserves its own TEP rather than being bundled into this one", "facet": "nature", "pr_number": 357, "repo": "community", "value": "cohesion"}, {"comment_id": 596256707, "confidence": 0.45, "evidence": "keeps the Requirements section scoped, deferring the broader event idea", "facet": "artifact", "pr_number": 357, "repo": "community", "value": "tep-body"}, {"comment_id": 596256707, "confidence": 0.4, "evidence": "keeps this proposal to its narrower scope instead of also solving the cloudevents case", "facet": "principle", "pr_number": 357, "repo": "community", "value": "simplicity"}, {"comment_id": 597043983, "confidence": 0.5, "evidence": "flags a broken markdown link in the TEP", "facet": "artifact", "pr_number": 357, "repo": "community", "value": "tep-body"}, {"comment_id": 597043983, "confidence": 0.55, "evidence": "a formatting defect (broken link), not a substance issue", "facet": "nature", "pr_number": 357, "repo": "community", "value": "structure"}, {"comment_id": 605640819, "confidence": 0.55, "evidence": "asks why the extra buffer was added and whether it was fixing an observed test race", "facet": "artifact", "pr_number": 103, "repo": "results", "value": "tests"}, {"comment_id": 605640819, "confidence": 0.45, "evidence": "substantive question about test correctness rationale", "facet": "nature", "pr_number": 103, "repo": "results", "value": "content"}, {"comment_id": 605642470, "confidence": 0.55, "evidence": "flags that a minute-long buffer might mask future timing bugs the test should otherwise catch", "facet": "artifact", "pr_number": 103, "repo": "results", "value": "tests"}, {"comment_id": 605642470, "confidence": 0.5, "evidence": "substantive concern about test effectiveness", "facet": "nature", "pr_number": 103, "repo": "results", "value": "content"}, {"comment_id": 605652374, "confidence": 0.55, "evidence": "suggests two Infof log lines would be better as Debugf given expected audience/verbosity", "facet": "artifact", "pr_number": 103, "repo": "results", "value": "code"}, {"comment_id": 605652374, "confidence": 0.4, "evidence": "log-level/verbosity convention suggestion rather than a substance change", "facet": "nature", "pr_number": 103, "repo": "results", "value": "structure"}, {"comment_id": 605674920, "confidence": 0.55, "evidence": "asks whether the error path re-enqueues the item in the workqueue with backoff", "facet": "artifact", "pr_number": 103, "repo": "results", "value": "reconciler-pattern"}, {"comment_id": 605674920, "confidence": 0.45, "evidence": "substantive question about reconciler retry behavior", "facet": "nature", "pr_number": 103, "repo": "results", "value": "content"}, {"comment_id": 605675061, "confidence": 0.5, "evidence": "asks why EnqueueKeyAfter was used instead of EnqueueAfter", "facet": "artifact", "pr_number": 103, "repo": "results", "value": "reconciler-pattern"}, {"comment_id": 605675061, "confidence": 0.4, "evidence": "substantive API-usage question in reconciler/controller code", "facet": "nature", "pr_number": 103, "repo": "results", "value": "content"}, {"comment_id": 605675529, "confidence": 0.6, "evidence": "suggests handling k8serrors.IsNotFound as a no-op for the dueling-deletes case", "facet": "artifact", "pr_number": 103, "repo": "results", "value": "reconciler-pattern"}, {"comment_id": 605675529, "confidence": 0.5, "evidence": "a correctness fix to the deletion error-handling code", "facet": "artifact", "pr_number": 103, "repo": "results", "value": "code"}, {"comment_id": 605675529, "confidence": 0.55, "evidence": "substantive correctness suggestion, not a style nit", "facet": "nature", "pr_number": 103, "repo": "results", "value": "content"}, {"comment_id": 605677533, "confidence": 0.6, "evidence": "suggests setting DeleteOptions.Preconditions.UID to avoid deleting the wrong object if two runs share a name", "facet": "artifact", "pr_number": 103, "repo": "results", "value": "code"}, {"comment_id": 605677533, "confidence": 0.5, "evidence": "a correctness safeguard for the reconciler's delete call", "facet": "artifact", "pr_number": 103, "repo": "results", "value": "reconciler-pattern"}, {"comment_id": 605677533, "confidence": 0.55, "evidence": "substantive race-condition/correctness concern", "facet": "nature", "pr_number": 103, "repo": "results", "value": "content"}, {"comment_id": 605678387, "confidence": 0.55, "evidence": "asks whether an unrelated-looking change belongs in this PR", "facet": "artifact", "pr_number": 103, "repo": "results", "value": "pr-size"}, {"comment_id": 605678387, "confidence": 0.65, "evidence": "directly questions whether the PR is bundling in something unrelated to deleting completed runs", "facet": "nature", "pr_number": 103, "repo": "results", "value": "cohesion"}, {"comment_id": 605868777, "confidence": 0.35, "evidence": "notes moving another log line to debug level, following up on the earlier log-level suggestion", "facet": "artifact", "pr_number": 103, "repo": "results", "value": "code"}, {"comment_id": 605868777, "confidence": 0.3, "evidence": "minor logging-verbosity fix", "facet": "nature", "pr_number": 103, "repo": "results", "value": "structure"}, {"comment_id": 605935472, "confidence": 0.55, "evidence": "author flags the commit message doesn't yet explain why the change was made and plans to update it", "facet": "artifact", "pr_number": 103, "repo": "results", "value": "commit-message"}, {"comment_id": 605935472, "confidence": 0.55, "evidence": "explains why Record updates need to be conditional now that 'not ready yet' retries happen", "facet": "artifact", "pr_number": 103, "repo": "results", "value": "reconciler-pattern"}, {"comment_id": 605935472, "confidence": 0.55, "evidence": "substantive explanation of reconciler update behavior and its rationale", "facet": "nature", "pr_number": 103, "repo": "results", "value": "content"}, {"comment_id": 605951716, "confidence": 0.55, "evidence": "explains the real/fake clock mixing issue the buffer addresses and how the fix avoids masking timing bugs", "facet": "artifact", "pr_number": 103, "repo": "results", "value": "tests"}, {"comment_id": 605951716, "confidence": 0.55, "evidence": "detailed rationale answering the earlier test-buffer concern", "facet": "nature", "pr_number": 103, "repo": "results", "value": "content"}, {"comment_id": 605960822, "confidence": 0.6, "evidence": "cites controller-runtime's Reconciler docs and knative/pkg's matching behavior for stopping re-enqueue via a permanent error", "facet": "artifact", "pr_number": 103, "repo": "results", "value": "reconciler-pattern"}, {"comment_id": 605960822, "confidence": 0.45, "evidence": "aligns the error-handling approach with how knative/pkg does the same thing", "facet": "principle", "pr_number": 103, "repo": "results", "value": "consistency-with-existing"}, {"comment_id": 605960822, "confidence": 0.5, "evidence": "substantive answer grounded in upstream conventions", "facet": "nature", "pr_number": 103, "repo": "results", "value": "content"}, {"comment_id": 606010890, "confidence": 0.6, "evidence": "agrees the rationale should be captured in the PR description", "facet": "artifact", "pr_number": 103, "repo": "results", "value": "pr-description"}, {"comment_id": 606010890, "confidence": 0.5, "evidence": "agrees a doc comment should also capture this context", "facet": "artifact", "pr_number": 103, "repo": "results", "value": "docs"}, {"comment_id": 606010890, "confidence": 0.5, "evidence": "explicit ask to document the explanation in two places", "facet": "nature", "pr_number": 103, "repo": "results", "value": "content"}, {"comment_id": 581417527, "confidence": 0.5, "evidence": "raises that external tools integrating via the k8s API may not be able to switch to the Results API as source of truth once completed Runs are deleted - a backward-compatibility concern for existing consumers", "facet": "principle", "pr_number": 347, "repo": "community", "source_pass": "audit", "value": "api-compatibility"}, {"comment_id": 605675061, "confidence": 0.45, "evidence": "questions why the more roundabout EnqueueKeyAfter was used instead of EnqueueAfter, which 'can just take the whole object' directly", "facet": "principle", "pr_number": 103, "repo": "results", "source_pass": "audit", "value": "simplicity"}]</script>
+<script>
+const DATA = JSON.parse(document.getElementById('tep-data').textContent);
+const BY_NUMBER = new Map(DATA.map(r => [r.tep_number, r]));
+
+// Sub-Task 8 pilot: comment classifications, keyed by repo|pr_number|comment_id -> matches.
+// Absent entirely (no comments classified yet) is the normal case for most of the corpus —
+// classificationsFor() returns [] and every call site below renders nothing extra.
+const CLASSIFICATIONS = JSON.parse(document.getElementById('classification-data').textContent);
+const CLASSIFICATION_INDEX = new Map();
+for (const c of CLASSIFICATIONS) {
+  const key = `${c.repo}|${c.pr_number}|${c.comment_id}`;
+  if (!CLASSIFICATION_INDEX.has(key)) CLASSIFICATION_INDEX.set(key, []);
+  CLASSIFICATION_INDEX.get(key).push(c);
+}
+function classificationsFor(repo, prNumber, commentId) {
+  return CLASSIFICATION_INDEX.get(`${repo}|${prNumber}|${commentId}`) || [];
+}
+function classificationBadgesHtml(repo, prNumber, commentId) {
+  const matches = classificationsFor(repo, prNumber, commentId);
+  if (!matches.length) return '';
+  return `<div class="classification-badges">${matches.map(m => {
+    const audit = m.source_pass === 'audit';
+    const cls = audit ? 'badge-classification-audit' : 'badge-classification';
+    const title = audit ? `[found on audit pass] ${m.evidence}` : m.evidence;
+    return `<span class="badge ${cls}" title="${esc(title)}">${esc(m.facet)}:${esc(m.value)} (${m.confidence})</span>`;
+  }).join('')}</div>`;
+}
+
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, c => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+  ));
+}
+function downloadText(filename, text) {
+  // Real file download instead of copy-paste from the textarea — feeds straight into
+  // `uv run scripts/apply_export.py <downloaded file>`, which merges it into the right
+  // overrides/*.jsonl without any manual copy-paste.
+  const blob = new Blob([text], { type: 'application/x-jsonlines' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+function mergeStateBadge(it) {
+  // Not review_decision: that's "did any reviewer, ever, leave this state" (fixed priority),
+  // which goes stale the moment a reviewer changes their mind after re-reviewing (confirmed on
+  // real data — chains#590/#599 both got re-approved by the same reviewer who'd first requested
+  // changes, yet kept showing "changes requested" forever). Actual PR disposition is a much
+  // more stable, honest signal to show instead.
+  if (it.merged_at) return '<span class="badge badge-approved">merged</span>';
+  if (it.state === 'closed') return '<span class="badge badge-changes">closed, not merged</span>';
+  if (it.state === 'open') return '<span class="badge badge-commented">open</span>';
+  return '';
+}
+function underLinkingRate(r) {
+  const total = r.impl_prs.total_count;
+  if (!total) return null;
+  return (r.impl_prs.discovered_count / total) * 100;
+}
+
+// ---------------------------------------------------------------------------
+// Corrections (in-browser, exportable — see overrides/section_overrides.jsonl)
+// ---------------------------------------------------------------------------
+
+const STORAGE_KEY = 'tep-explorer-corrections-v1';
+function loadCorrections() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; }
+}
+function saveCorrections(c) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(c));
+}
+let corrections = loadCorrections();
+
+function correctionKey(prNumber, commentId) { return `${prNumber}:${commentId}`; }
+
+function setCorrection(prNumber, commentId, section) {
+  corrections[correctionKey(prNumber, commentId)] = {
+    repo: 'community', pr_number: prNumber, comment_id: commentId,
+    override_section: section, created_at: new Date().toISOString(),
+  };
+  saveCorrections(corrections);
+  renderCorrectionsBar();
+}
+
+function renderCorrectionsBar() {
+  const n = Object.keys(corrections).length;
+  const m = Object.keys(prCorrections).length;
+  const bar = document.getElementById('corrections-bar');
+  document.getElementById('corrections-count').textContent = n;
+  document.getElementById('pr-corrections-count').textContent = m;
+  bar.classList.toggle('hidden', n === 0 && m === 0);
+}
+
+function exportCorrections() {
+  const lines = Object.values(corrections).map(c => JSON.stringify(c));
+  const box = document.getElementById('export-box');
+  box.value = lines.join('\n') + (lines.length ? '\n' : '');
+  box.classList.remove('hidden');
+  box.select();
+  if (lines.length) downloadText('section_overrides.export.jsonl', box.value);
+}
+
+function clearCorrections() {
+  if (!confirm('Clear all ' + Object.keys(corrections).length + ' pending section corrections? This does not affect anything already exported.')) return;
+  corrections = {};
+  saveCorrections(corrections);
+  renderCorrectionsBar();
+  document.getElementById('export-box').classList.add('hidden');
+  if (location.hash) render();
+}
+
+// ---------------------------------------------------------------------------
+// PR attribution corrections (in-browser, exportable — see
+// overrides/pr_attribution_overrides.jsonl). Answers "why was this PR picked"
+// via evidence display in renderImplPrList, and lets a human exclude a
+// wrongly-attributed PR or include a missing one.
+// ---------------------------------------------------------------------------
+
+const PR_STORAGE_KEY = 'tep-explorer-pr-corrections-v1';
+function loadPrCorrections() {
+  try { return JSON.parse(localStorage.getItem(PR_STORAGE_KEY)) || {}; } catch { return {}; }
+}
+function savePrCorrections(c) {
+  localStorage.setItem(PR_STORAGE_KEY, JSON.stringify(c));
+}
+let prCorrections = loadPrCorrections();
+
+function prCorrectionKey(tepNumber, repo, prNumber) { return `${tepNumber}:${repo}:${prNumber}`; }
+
+function recordPrCorrection(tepNumber, repo, prNumber, action, reason) {
+  prCorrections[prCorrectionKey(tepNumber, repo, prNumber)] = {
+    tep_number: tepNumber, repo, pr_number: prNumber, action, reason: reason || '',
+    created_at: new Date().toISOString(),
+  };
+  savePrCorrections(prCorrections);
+  renderCorrectionsBar();
+}
+
+function promptExclude(tepNumber, repo, prNumber) {
+  const reason = prompt(`Why is ${repo}#${prNumber} not relevant to TEP-${tepNumber}?`, '');
+  if (reason === null) return;
+  recordPrCorrection(tepNumber, repo, prNumber, 'exclude', reason);
+  render();
+}
+
+function parseGithubUrl(url) {
+  const prMatch = url.match(/^https:\/\/github\.com\/tektoncd\/([^/\s]+)\/pull\/(\d+)/);
+  if (prMatch) return { kind: 'pr', repo: prMatch[1], pr_number: parseInt(prMatch[2], 10) };
+  const commitMatch = url.match(/^https:\/\/github\.com\/tektoncd\/([^/\s]+)\/commit\/([0-9a-f]{7,40})/i);
+  if (commitMatch) return { kind: 'commit', repo: commitMatch[1], commit_sha: commitMatch[2] };
+  return null;
+}
+
+function commitCorrectionKey(tepNumber, repo, commitSha) { return `commit:${tepNumber}:${repo}:${commitSha}`; }
+
+function recordCommitCorrection(tepNumber, repo, commitSha, note) {
+  prCorrections[commitCorrectionKey(tepNumber, repo, commitSha)] = {
+    tep_number: tepNumber, repo, commit_sha: commitSha, note: note || '',
+    created_at: new Date().toISOString(),
+  };
+  savePrCorrections(prCorrections);
+  renderCorrectionsBar();
+}
+
+function promptInclude(tepNumber) {
+  const url = (prompt('GitHub URL for the missing implementation (PR or commit)?', '') || '').trim();
+  if (!url) return;
+  const parsed = parseGithubUrl(url);
+  if (!parsed) {
+    alert('Could not parse that as a tektoncd PR or commit URL. Expected e.g.\n'
+      + 'https://github.com/tektoncd/pipeline/pull/1234\n'
+      + 'or\n'
+      + 'https://github.com/tektoncd/pipeline/commit/abcdef0123...');
+    return;
+  }
+  const reason = prompt(`Why is this relevant to TEP-${tepNumber}?`, '');
+  if (reason === null) return;
+  if (parsed.kind === 'pr') {
+    recordPrCorrection(tepNumber, parsed.repo, parsed.pr_number, 'include', reason);
+  } else {
+    recordCommitCorrection(tepNumber, parsed.repo, parsed.commit_sha, reason);
+  }
+  render();
+}
+
+function exportPrCorrections() {
+  const lines = Object.values(prCorrections).map(c => JSON.stringify(c));
+  const box = document.getElementById('pr-export-box');
+  box.value = lines.join('\n') + (lines.length ? '\n' : '');
+  box.classList.remove('hidden');
+  box.select();
+  if (lines.length) downloadText('pr_attribution_overrides.export.jsonl', box.value);
+}
+
+function clearPrCorrections() {
+  if (!confirm('Clear all ' + Object.keys(prCorrections).length + ' pending corrections? This does not affect anything already exported.')) return;
+  prCorrections = {};
+  savePrCorrections(prCorrections);
+  renderCorrectionsBar();
+  document.getElementById('pr-export-box').classList.add('hidden');
+  if (location.hash) render();
+}
+
+// ---------------------------------------------------------------------------
+// Master table
+// ---------------------------------------------------------------------------
+
+let sortKey = 'tep_number';
+let sortDir = 1;
+let filterText = '';
+let filterStatus = '';
+let filterStatusExclude = false;
+
+function filteredSorted() {
+  let rows = DATA.filter(r => {
+    if (filterStatus) {
+      const matches = filterStatus === '__flagged__' ? (r.flags || []).length > 0 : r.status === filterStatus;
+      if (filterStatusExclude ? matches : !matches) return false;
+    }
+    if (filterText) {
+      const hay = (r.title + ' ' + (r.authors || []).join(' ') + ' TEP-' + r.tep_number).toLowerCase();
+      if (!hay.includes(filterText.toLowerCase())) return false;
+    }
+    return true;
+  });
+  const key = sortKey;
+  rows.sort((a, b) => {
+    let av, bv;
+    if (key === 'under_linking') { av = underLinkingRate(a) ?? -1; bv = underLinkingRate(b) ?? -1; }
+    else if (key === 'linked_count') { av = a.impl_prs.linked_count; bv = b.impl_prs.linked_count; }
+    else if (key === 'discovered_count') { av = a.impl_prs.discovered_count; bv = b.impl_prs.discovered_count; }
+    else if (key === 'impl_sum') { av = a.impl_prs.linked_count + a.impl_prs.discovered_count; bv = b.impl_prs.linked_count + b.impl_prs.discovered_count; }
+    else if (key === 'review_comments') { av = a.proposal_pr.review_comment_count; bv = b.proposal_pr.review_comment_count; }
+    else if (key === 'authors') { av = (a.authors || []).join(','); bv = (b.authors || []).join(','); }
+    else { av = a[key]; bv = b[key]; }
+    if (av == null) av = '';
+    if (bv == null) bv = '';
+    if (av < bv) return -1 * sortDir;
+    if (av > bv) return 1 * sortDir;
+    return 0;
+  });
+  return rows;
+}
+
+function gapBadge(r) {
+  if (!r.gap) return '';
+  const label = { open_pr: 'open', conflict: 'conflict', closed_no_merge: 'closed',
+    never_assigned: 'unassigned', renumbered: 'renumbered' }[r.gap.fate] || r.gap.fate;
+  return `<span class="badge badge-warn">${esc(label)}</span>`;
+}
+
+function flagsBadge(r) {
+  if (!(r.flags || []).length) return '';
+  const title = r.flags.map(f => f.message).join(' \u2014 ');
+  return `<span class="badge badge-warn" title="${esc(title)}">\u26a0 review</span>`;
+}
+
+function renderTable() {
+  const rows = filteredSorted();
+  document.getElementById('row-count').textContent = `${rows.length} of ${DATA.length} TEPs`;
+  const body = rows.map(r => {
+    const rate = underLinkingRate(r);
+    const rateStr = rate == null ? '—' : rate.toFixed(0) + '%';
+    return `<tr onclick="location.hash='tep-${r.tep_number}'">
+      <td class="num">${r.tep_number}</td>
+      <td>${esc(r.title)} ${gapBadge(r)} ${flagsBadge(r)}</td>
+      <td>${esc(r.status || '')}</td>
+      <td>${esc((r.authors || []).join(', '))}</td>
+      <td class="num">${r.age_days ?? '—'}</td>
+      <td class="num">${r.impl_prs.linked_count}</td>
+      <td class="num">${r.impl_prs.discovered_count}</td>
+      <td class="num">${r.impl_prs.linked_count + r.impl_prs.discovered_count}</td>
+      <td class="num">${rateStr}</td>
+      <td class="num">${r.proposal_pr.review_comment_count}</td>
+    </tr>`;
+  }).join('');
+  document.getElementById('tbody').innerHTML = body;
+
+  document.querySelectorAll('thead th[data-key]').forEach(th => {
+    th.classList.toggle('sorted', th.dataset.key === sortKey);
+    th.dataset.dir = sortDir === 1 ? '\u2191' : '\u2193';
+  });
+}
+
+// ---------------------------------------------------------------------------
+// Detail view
+// ---------------------------------------------------------------------------
+
+function sectionOptions(record, selected) {
+  const opts = new Set(record.sections_present || []);
+  (record.divergences_from_template ? record.divergences_from_template.missing_from_tep : []).forEach(s => opts.add(s));
+  opts.add(selected || '');
+  return [...opts].filter(Boolean).sort().map(s =>
+    `<option value="${esc(s)}" ${s === selected ? 'selected' : ''}>${esc(s)}</option>`
+  ).join('');
+}
+
+function renderComment(record, c) {
+  const overrideKey = correctionKey(c.pr_number, c.comment_id);
+  const pending = corrections[overrideKey];
+  const currentSection = pending ? pending.override_section : c.section;
+  const tag = pending ? '<span class="badge badge-override">pending override</span>'
+    : c.is_override ? '<span class="badge badge-override">override</span>'
+    : currentSection ? '' : '<span class="badge badge-skipped">unmapped</span>';
+  return `<div class="comment ${currentSection ? '' : 'unmapped'}">
+    <div class="meta">
+      <b>${esc(c.author || 'unknown')}</b>
+      <span>${esc((c.created_at || '').slice(0, 10))}</span>
+      ${tag}
+      <span style="margin-left:auto">section:
+        <select onchange="setCorrection(${c.pr_number}, ${c.comment_id}, this.value); render()">
+          <option value="">(unmapped)</option>
+          ${sectionOptions(record, currentSection)}
+        </select>
+      </span>
+    </div>
+    <div class="body">${esc(c.body)}</div>
+    ${classificationBadgesHtml('community', c.pr_number, c.comment_id)}
+  </div>`;
+}
+
+function renderProposalPrList(prs) {
+  if (!prs.length) return `<p style="color:var(--ink-dim)">None found in raw/tep_pr_map.json.</p>`;
+  return prs.map(p => `<div class="pr-row">
+      <span class="repo">community</span>
+      <a class="title" href="https://github.com/tektoncd/community/pull/${p.pr_number}" target="_blank" rel="noopener">
+        #${p.pr_number} ${esc(p.title)}
+      </a>
+      ${mergeStateBadge(p)}
+      <span class="size">${esc((p.reviewer_logins || []).join(', ')) || 'no reviewers recorded'}</span>
+    </div>`).join('');
+}
+
+function evidenceHtml(it) {
+  if (it.attribution_source === 'tep_file_link') {
+    const url = it.evidence && it.evidence.url;
+    const format = it.evidence && it.evidence.format;
+    return url ? `linked (${esc(format || '?')}): <a href="${esc(url)}" target="_blank" rel="noopener">${esc(url)}</a>` : 'linked (no URL recorded)';
+  }
+  if (it.attribution_source === 'search') {
+    return it.evidence ? `matched: &ldquo;${esc(it.evidence)}&rdquo;` : 'discovered by search (no snippet captured)';
+  }
+  if (it.attribution_source === 'manual_include') {
+    return it.evidence ? `manually included: ${esc(it.evidence)}` : 'manually included (no reason given)';
+  }
+  return '';
+}
+
+function renderImplComment(c, repo, prNumber) {
+  const where = c.path ? `<span class="badge badge-skipped">${esc(c.path)}${c.line != null ? ':' + c.line : ''}</span>` : '';
+  return `<div class="comment">
+    <div class="meta">
+      <b>${esc(c.author || 'unknown')}</b>
+      <span>${esc((c.created_at || '').slice(0, 10))}</span>
+      ${where}
+    </div>
+    <div class="body">${esc(c.body)}</div>
+    ${classificationBadgesHtml(repo, prNumber, c.comment_id)}
+  </div>`;
+}
+
+function implCommentsToggle(it) {
+  if (!it.comments || !it.comments.length) return '';
+  const other = it.comments.filter(c => !c.is_self_comment);
+  const self = it.comments.filter(c => c.is_self_comment);
+  const otherHtml = other.length ? other.map(c => renderImplComment(c, it.repo, it.pr_number)).join('')
+    : '<p style="color:var(--ink-dim)">No review comments from others.</p>';
+  const selfHtml = self.length ? `<details class="self-comments">
+    <summary>${self.length} self-review comment${self.length === 1 ? '' : 's'} from the PR's own author</summary>
+    ${self.map(c => renderImplComment(c, it.repo, it.pr_number)).join('')}
+  </details>` : '';
+  return `<details class="impl-comments" style="flex-basis:100%">
+    <summary>${it.review_comment_count} review comment${it.review_comment_count === 1 ? '' : 's'}</summary>
+    ${otherHtml}${selfHtml}
+  </details>`;
+}
+
+function renderImplPrList(tepNumber, items) {
+  if (!items.length) return `<p style="color:var(--ink-dim)">None.</p>`;
+  return items.map(it => {
+    const key = prCorrectionKey(tepNumber, it.repo, it.pr_number);
+    const excludePending = prCorrections[key];
+    const rowClass = excludePending ? 'pr-row pending-exclude' : 'pr-row';
+    if (it.status === 'not_found' || it.status === 'pending_fetch') {
+      const label = it.status === 'not_found' ? '404 not found' : 'not yet fetched — run make apply-pr-overrides';
+      return `<div class="${rowClass}">
+        <span class="repo">${esc(it.repo)}</span>
+        <span class="title">#${it.pr_number} <span class="badge badge-skipped">${label}</span>
+          <div class="why">${evidenceHtml(it)}</div>
+        </span>
+        ${excludeControl(tepNumber, it, excludePending)}
+      </div>`;
+    }
+    return `<div class="${rowClass}">
+      <span class="repo">${esc(it.repo)}</span>
+      <a class="title" href="https://github.com/tektoncd/${esc(it.repo)}/pull/${it.pr_number}" target="_blank" rel="noopener">
+        #${it.pr_number} ${esc(it.title)}
+      </a>
+      ${mergeStateBadge(it)}
+      <span class="size">+${it.additions ?? 0}/-${it.deletions ?? 0} (${it.files_changed ?? 0} files)</span>
+      ${excludeControl(tepNumber, it, excludePending)}
+      <div class="why" style="flex-basis:100%">${evidenceHtml(it)}</div>
+      ${implCommentsToggle(it)}
+    </div>`;
+  }).join('');
+}
+
+function excludeControl(tepNumber, it, pending) {
+  if (pending) return `<span class="badge badge-override">pending exclude</span>`;
+  return `<button class="mini-btn" onclick="promptExclude(${tepNumber}, '${esc(it.repo)}', ${it.pr_number})">not relevant?</button>`;
+}
+
+function renderCandidateList(tepNumber, candidates) {
+  if (!candidates.length) return `<p style="color:var(--ink-dim)">None.</p>`;
+  return candidates.map(c => {
+    const key = prCorrectionKey(tepNumber, c.repo, c.pr_number);
+    const pending = prCorrections[key];
+    const pendingBadge = pending
+      ? `<span class="badge badge-override">pending ${pending.action === 'include' ? 'confirm' : 'dismiss'}</span>`
+      : '';
+    const titleText = c.status === 'not_found' ? `<span class="badge badge-skipped">404 not found</span>`
+      : c.status === 'pending_fetch' ? `<span class="badge badge-skipped">not yet fetched</span>`
+      : `${esc(c.title || '')} ${c.author ? `<span class="badge badge-skipped">by ${esc(c.author)}</span>` : ''} ${mergeStateBadge(c)}`;
+    const actions = pending ? '' : `
+        <button class="mini-btn" onclick="promptConfirmCandidate(${tepNumber}, '${esc(c.repo)}', ${c.pr_number})">confirm relevant</button>
+        <button class="mini-btn" onclick="promptExclude(${tepNumber}, '${esc(c.repo)}', ${c.pr_number})">dismiss</button>`;
+    return `<div class="pr-row candidate ${pending ? 'pending-exclude' : ''}">
+      <span class="repo">${esc(c.repo)}</span>
+      <a class="title" href="https://github.com/tektoncd/${esc(c.repo)}/pull/${c.pr_number}" target="_blank" rel="noopener">#${c.pr_number}</a>
+      ${titleText} ${pendingBadge}
+      ${actions}
+      <div class="why" style="flex-basis:100%">${esc(c.why_candidate)}${c.evidence ? ' — matched: “' + esc(c.evidence) + '”' : ''}</div>
+    </div>`;
+  }).join('');
+}
+
+function promptConfirmCandidate(tepNumber, repo, prNumber) {
+  const reason = prompt(`Why is ${repo}#${prNumber} confirmed as relevant to TEP-${tepNumber}?`, '');
+  if (reason === null) return;
+  recordPrCorrection(tepNumber, repo, prNumber, 'include', reason);
+  render();
+}
+
+function renderExcludedList(tepNumber, excluded) {
+  if (!excluded.length) return '';
+  const rows = excluded.map(e => `<div class="pr-row excluded">
+    <span class="repo">${esc(e.repo)}</span>
+    <span class="title">#${e.pr_number} <span class="badge badge-skipped">excluded</span>
+      <div class="why">was: ${esc(e.was_attribution_source)}${e.reason ? ' &mdash; ' + esc(e.reason) : ''}</div>
+    </span>
+  </div>`).join('');
+  return `<section class="block"><h3>Excluded by manual override (${excluded.length})</h3>${rows}</section>`;
+}
+
+function renderKnownCommitsList(knownCommits) {
+  if (!knownCommits.length) return '';
+  const rows = knownCommits.map(k => `<div class="pr-row">
+    <span class="repo">${esc(k.repo)}</span>
+    <a class="title" href="https://github.com/tektoncd/${esc(k.repo)}/commit/${esc(k.commit_sha)}" target="_blank" rel="noopener">${esc(k.commit_sha)}</a>
+    <span class="badge badge-skipped">no PR available</span>
+    <div class="why" style="flex-basis:100%">${esc(k.note || '')}</div>
+  </div>`).join('');
+  return `<section class="block"><h3>Known implementation commits &mdash; no retrievable PR (${knownCommits.length})</h3>
+    <p style="color:var(--ink-dim);font-size:12.5px;margin-bottom:8px">Recorded manually in <code>overrides/known_commits.jsonl</code> — these don't count toward impl PR totals or candidates, since there's no PR (and so no review comments) to collect.</p>
+    ${rows}</section>`;
+}
+
+function renderDetail(tepNumber) {
+  const r = BY_NUMBER.get(tepNumber);
+  const container = document.getElementById('view-detail');
+  if (!r) { container.innerHTML = '<p>TEP not found.</p>'; return; }
+
+  const linked = r.impl_prs.items.filter(i => i.attribution_source === 'tep_file_link');
+  const discovered = r.impl_prs.items.filter(i => i.attribution_source === 'search');
+  const manual = r.impl_prs.items.filter(i => i.attribution_source === 'manual_include');
+  const rate = underLinkingRate(r);
+
+  const divergences = r.divergences_from_template;
+  const divergenceHtml = !divergences ? '<p style="color:var(--ink-dim)">No section data (stub TEP).</p>' : `
+    <div class="two-col">
+      <div>
+        <b>Missing from template</b>
+        <ul class="plain">${divergences.missing_from_tep.map(s => `<li>${esc(s)}</li>`).join('') || '<li style="color:var(--ink-dim)">None</li>'}</ul>
+      </div>
+      <div>
+        <b>Extra, not in template</b>
+        <ul class="plain">${divergences.extra_in_tep.map(s => `<li>${esc(s)}</li>`).join('') || '<li style="color:var(--ink-dim)">None</li>'}</ul>
+      </div>
+    </div>`;
+
+  const gapHtml = r.gap ? `<section class="block"><h3>Gap status</h3>
+    <p><span class="badge badge-warn">${esc(r.gap.fate)}</span>
+    ${r.gap.renamed_from ? ` renamed from TEP-${String(r.gap.renamed_from).padStart(4,'0')}` : ''}</p></section>` : '';
+
+  const flagsHtml = (r.flags || []).length ? `<section class="block"><h3>Flagged for review</h3>
+    ${r.flags.map(f => `<p><span class="badge badge-warn">\u26a0 ${esc(f.code)}</span> ${esc(f.message)}</p>`).join('')}
+    </section>` : '';
+
+  const sourceLink = r.source_file
+    ? `<a href="https://github.com/tektoncd/community/blob/main/teps/${esc(r.source_file)}" target="_blank" rel="noopener">${esc(r.source_file)}</a>`
+    : '(no merged file)';
+
+  const commentsSorted = [...r.proposal_pr.comments].sort((a, b) => (a.created_at || '').localeCompare(b.created_at || ''));
+  const otherComments = commentsSorted.filter(c => !c.is_self_comment);
+  const selfComments = commentsSorted.filter(c => c.is_self_comment);
+
+  container.innerHTML = `
+    <a class="back-link" href="#">&larr; Back to all TEPs</a>
+    <div class="detail-header">
+      <h2>TEP-${String(r.tep_number).padStart(4, '0')}: ${esc(r.title)}</h2>
+      <span class="badge badge-commented">${esc(r.status || '')}</span>
+    </div>
+    <div class="detail-meta">
+      ${esc((r.authors || []).join(', '))} &middot; ${sourceLink} &middot;
+      created ${esc(r.creation_date || '?')}, updated ${esc(r.last_updated || '?')}
+      ${r.stub ? ' &middot; <span class="badge badge-skipped">stub (no merged file)</span>' : ''}
+    </div>
+
+    <div class="grid">
+      <div class="stat"><div class="num">${r.impl_prs.linked_count}</div><div class="label">Linked impl PRs</div></div>
+      <div class="stat"><div class="num">${r.impl_prs.discovered_count}</div><div class="label">Discovered impl PRs</div></div>
+      <div class="stat"><div class="num">${rate == null ? '—' : rate.toFixed(0) + '%'}</div><div class="label">Under-linking rate</div></div>
+      <div class="stat"><div class="num">${r.proposal_pr.review_comment_count}</div><div class="label">Proposal review comments</div></div>
+      <div class="stat"><div class="num">${r.proposal_pr.review_rounds_approx}</div><div class="label">Review rounds (approx)</div></div>
+      <div class="stat"><div class="num">${r.impl_prs.candidate_count}</div><div class="label">Candidates pending review</div></div>
+    </div>
+
+    ${flagsHtml}
+    ${gapHtml}
+
+    <section class="block">
+      <h3>Divergence from template</h3>
+      ${divergenceHtml}
+    </section>
+
+    <section class="block">
+      <h3>Proposal PR${r.proposal_pr.pr_numbers.length === 1 ? '' : 's'}</h3>
+      ${renderProposalPrList(r.proposal_pr.prs)}
+    </section>
+
+    <section class="block">
+      <h3>Review comments by section</h3>
+      <details class="review-comments">
+        <summary>${r.proposal_pr.comments.length} total, ${r.proposal_pr.comments_unmapped} unmapped</summary>
+        ${otherComments.length ? otherComments.map(c => renderComment(r, c)).join('') : '<p style="color:var(--ink-dim)">No review comments from others captured.</p>'}
+        ${selfComments.length ? `<details class="self-comments">
+          <summary>${selfComments.length} self-review comment${selfComments.length === 1 ? '' : 's'} from the PR's own author (usually just note-to-self, hidden by default)</summary>
+          ${selfComments.map(c => renderComment(r, c)).join('')}
+        </details>` : ''}
+      </details>
+    </section>
+
+    <section class="block">
+      <h3>Candidates &mdash; found by search, not yet confirmed relevant (${r.impl_prs.candidate_count})</h3>
+      ${r.impl_prs.bot_filtered_count ? `<p style="color:var(--ink-dim);font-size:12.5px;margin-bottom:8px">(${r.impl_prs.bot_filtered_count} bot-authored PR${r.impl_prs.bot_filtered_count === 1 ? '' : 's'} auto-filtered, not shown here or anywhere)</p>` : ''}
+      ${renderCandidateList(r.tep_number, r.impl_prs.candidates)}
+    </section>
+
+    <section class="block">
+      <h3>Implementation PRs &mdash; linked by the TEP author (${linked.length})</h3>
+      ${renderImplPrList(r.tep_number, linked)}
+    </section>
+
+    <section class="block">
+      <h3>Implementation PRs &mdash; discovered by cross-repo search (${discovered.length})</h3>
+      ${renderImplPrList(r.tep_number, discovered)}
+    </section>
+
+    <section class="block">
+      <h3>Implementation PRs &mdash; manually included (${manual.length})</h3>
+      ${renderImplPrList(r.tep_number, manual)}
+      <button class="mini-btn" onclick="promptInclude(${r.tep_number})" style="margin-top:8px">+ tag a missing PR or commit as relevant</button>
+    </section>
+
+    ${renderExcludedList(r.tep_number, r.impl_prs.excluded || [])}
+    ${renderKnownCommitsList(r.known_commits || [])}
+  `;
+}
+
+// ---------------------------------------------------------------------------
+// Routing
+// ---------------------------------------------------------------------------
+
+function render() {
+  const hash = location.hash.replace('#', '');
+  const listView = document.getElementById('view-list');
+  const detailView = document.getElementById('view-detail');
+  if (hash.startsWith('tep-')) {
+    const n = parseInt(hash.slice(4), 10);
+    listView.classList.add('hidden');
+    detailView.classList.remove('hidden');
+    renderDetail(n);
+  } else {
+    detailView.classList.add('hidden');
+    listView.classList.remove('hidden');
+    renderTable();
+  }
+  window.scrollTo(0, 0);
+}
+
+window.addEventListener('hashchange', render);
+window.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('search').addEventListener('input', e => { filterText = e.target.value; renderTable(); });
+  document.getElementById('status-filter').addEventListener('change', e => { filterStatus = e.target.value; renderTable(); });
+  document.getElementById('status-exclude').addEventListener('change', e => { filterStatusExclude = e.target.checked; renderTable(); });
+  document.querySelectorAll('thead th[data-key]').forEach(th => {
+    th.addEventListener('click', () => {
+      const key = th.dataset.key;
+      if (sortKey === key) sortDir *= -1; else { sortKey = key; sortDir = 1; }
+      renderTable();
+    });
+  });
+  document.getElementById('export-btn').addEventListener('click', exportCorrections);
+  document.getElementById('clear-btn').addEventListener('click', clearCorrections);
+  document.getElementById('export-pr-btn').addEventListener('click', exportPrCorrections);
+  document.getElementById('clear-pr-btn').addEventListener('click', clearPrCorrections);
+  renderCorrectionsBar();
+  render();
+});
+</script>
+</body>
+</html>
