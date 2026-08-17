@@ -1,0 +1,99 @@
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1132879361, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "questions how indexing into a string param passes validation"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1132879361, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "validation-correctness concern about test data"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1132879522, "facet": "artifact", "value": "tests", "confidence": 0.55, "evidence": "asks whether existing tests cover this functionality and a related test case"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1132881007, "facet": "artifact", "value": "tests", "confidence": 0.45, "evidence": "asks if this test case differs from the previous one"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1132881007, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "redundant-test question"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1132881359, "facet": "artifact", "value": "tests", "confidence": 0.55, "evidence": "suggests testing a case where defaults are overridden"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1132881761, "facet": "artifact", "value": "tests", "confidence": 0.55, "evidence": "suggests separate tests for string, object, and array param replacement"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1132881761, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "test organization by kind"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1132883884, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "asks why array and object replacements aren't supported here, suggests adding a comment"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1132883884, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "missing explanation for a design limitation"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1134130024, "facet": "artifact", "value": "tests", "confidence": 0.35, "evidence": "explains which Apply* functions already have matrix test coverage and which don't"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1134209688, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "explains array/object results aren't yet supported in matrix.params by design, and matrix.include.params should only get string results, citing the TEP's API-change spec"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1134209688, "facet": "artifact", "value": "tep-body", "confidence": 0.3, "evidence": "cites the TEP's own API-change section as the source of the string-only constraint"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1134209688, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive design-constraint explanation"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1134579128, "facet": "principle", "value": "feature-graduation", "confidence": 0.6, "evidence": "questions why beta API fields are being enabled in a test for an alpha feature"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1134579128, "facet": "artifact", "value": "tests", "confidence": 0.4, "evidence": "incorrect feature-gate level used in a test"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1134615825, "facet": "principle", "value": "feature-graduation", "confidence": 0.3, "evidence": "confirms the copy-paste error enabling beta was fixed to enable alpha instead"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1135702134, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "asks whether this example demonstrates object or string replacements, tracing through the replacement code"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1135702134, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "semantics clarity of a test example"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1135706123, "facet": "artifact", "value": "code", "confidence": 0.6, "evidence": "proposes exact semantics: matrix.params gets string or array replacements, matrix.include.params gets string replacements only, with a concrete code suggestion"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1135706123, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive correctness suggestion about which replacement types apply where"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1135754026, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "asks to keep this test case but clarify it tests string replacements from object params"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1135754026, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "test naming/clarity"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1135760869, "facet": "artifact", "value": "tests", "confidence": 0.55, "evidence": "asks to restore a removed test, calling it useful and confirming understanding of replacements"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1135808160, "facet": "artifact", "value": "docs", "confidence": 0.55, "evidence": "asks for examples demonstrating this substitution, suggests its own subsection"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1135808160, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "doc completeness/organization"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136059777, "facet": "artifact", "value": "docs", "confidence": 0.45, "evidence": "suggested wording covering array replacements from param values"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136059777, "facet": "nature", "value": "structure", "confidence": 0.35, "evidence": "doc wording suggestion"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136063106, "facet": "artifact", "value": "docs", "confidence": 0.55, "evidence": "suggested full example distinguishing whole-array vs. indexed replacement"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136063106, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "concrete example addition"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136072753, "facet": "artifact", "value": "docs", "confidence": 0.55, "evidence": "suggested full PipelineRun example demonstrating string replacement in matrix.include"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136072753, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "concrete example addition"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136219710, "facet": "artifact", "value": "code", "confidence": 0.45, "evidence": "non-blocking suggestion to use an exported config helper instead of ad hoc setup, notes attempt to export it elsewhere - code-level DRY, not the Tekton reusability design principle"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136229098, "facet": "artifact", "value": "tests", "confidence": 0.4, "evidence": "asks what 'override default' means in this test case"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136229098, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "test clarity question"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136232590, "facet": "artifact", "value": "tests", "confidence": 0.45, "evidence": "test values 'param!' and 'param!!' are hard to visually distinguish, suggests clearer values"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136232590, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "test data readability"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136236471, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "detailed question about whether object result values are supported for string replacement, and which combinations are actually tested"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136236471, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive coverage/design question about supported replacement sources"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136275631, "facet": "artifact", "value": "docs", "confidence": 0.4, "evidence": "suggested wording introducing the two Matrix parameter sections"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136275631, "facet": "nature", "value": "structure", "confidence": 0.3, "evidence": "doc wording suggestion"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136307389, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "suggests the Finally section handle replacements the same way as the Tasks section above, with a code suggestion"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136307389, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.4, "evidence": "Finally should behave consistently with Tasks for the same replacement logic"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136999471, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "suggested comment and code documenting that only string replacements are supported now, with array replacement planned (#5925)"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136999471, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.3, "evidence": "documents a planned future increment"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136999471, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "clarifying current vs. planned replacement support"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1137325975, "facet": "artifact", "value": "tests", "confidence": 0.4, "evidence": "suggested test value using results indexing for clarity"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1137325975, "facet": "nature", "value": "structure", "confidence": 0.3, "evidence": "test data suggestion"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1137326830, "facet": "artifact", "value": "tests", "confidence": 0.4, "evidence": "suggests simplifying test values to short strings"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1137326830, "facet": "principle", "value": "simplicity", "confidence": 0.3, "evidence": "simpler test data"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1137326830, "facet": "nature", "value": "structure", "confidence": 0.35, "evidence": "test data simplification"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1137327313, "facet": "artifact", "value": "tests", "confidence": 0.35, "evidence": "same test-value simplification applied to another case"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1137327313, "facet": "nature", "value": "structure", "confidence": 0.3, "evidence": "test data simplification"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1137328141, "facet": "artifact", "value": "tests", "confidence": 0.35, "evidence": "same test-value simplification applied again"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1137328141, "facet": "nature", "value": "structure", "confidence": 0.3, "evidence": "test data simplification"}
+{"repo": "pipeline", "pr_number": 6346, "comment_id": 1132764644, "facet": "artifact", "value": "code", "confidence": 0.45, "evidence": "suggested code using the loop index for the conversion below"}
+{"repo": "pipeline", "pr_number": 6346, "comment_id": 1132764644, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "code-shape suggestion"}
+{"repo": "pipeline", "pr_number": 6346, "comment_id": 1132766986, "facet": "artifact", "value": "code", "confidence": 0.45, "evidence": "suggested code appending via the corrected index"}
+{"repo": "pipeline", "pr_number": 6346, "comment_id": 1132766986, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "code-shape suggestion"}
+{"repo": "pipeline", "pr_number": 6346, "comment_id": 1132809741, "facet": "artifact", "value": "code", "confidence": 0.4, "evidence": "confirms the indexing fix suggested elsewhere should also apply here"}
+{"repo": "pipeline", "pr_number": 6348, "comment_id": 1134638221, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "asks to keep existing tests unchanged and add include-related cases after, with specific naming"}
+{"repo": "pipeline", "pr_number": 6348, "comment_id": 1134638221, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "test organization/ordering"}
+{"repo": "pipeline", "pr_number": 6349, "comment_id": 1134332154, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "asks if matrix parameter names are fetched elsewhere and suggests a reusable matrix.getParamNames() helper - code-level DRY, not the Tekton reusability design principle"}
+{"repo": "pipeline", "pr_number": 6349, "comment_id": 1134335776, "facet": "artifact", "value": "tests", "confidence": 0.4, "evidence": "suggested test-name rename for clarity"}
+{"repo": "pipeline", "pr_number": 6349, "comment_id": 1134335776, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "test naming"}
+{"repo": "pipeline", "pr_number": 6349, "comment_id": 1134336242, "facet": "artifact", "value": "tests", "confidence": 0.4, "evidence": "suggested test-name rename for clarity"}
+{"repo": "pipeline", "pr_number": 6349, "comment_id": 1134336242, "facet": "nature", "value": "structure", "confidence": 0.4, "evidence": "test naming"}
+{"repo": "pipeline", "pr_number": 6349, "comment_id": 1134487816, "facet": "artifact", "value": "code", "confidence": 0.3, "evidence": "adds matrix.getParamNames() and params.getNames() helper functions for future use, even though not yet used elsewhere"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146289578, "facet": "artifact", "value": "tests", "confidence": 0.65, "evidence": "notes the test for m.Params was removed while adding m.Include.Params; asks that both be covered"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146289578, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "test-coverage regression concern"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146512416, "facet": "artifact", "value": "code", "confidence": 0.45, "evidence": "nit that matrixAllParams is redundant/awkward naming, suggests matrixParams plus a docstring"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146512416, "facet": "nature", "value": "structure", "confidence": 0.5, "evidence": "naming and missing-docstring nit"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146519673, "facet": "artifact", "value": "code", "confidence": 0.55, "evidence": "asks the author to double check this function doesn't mutate its inputs"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146519673, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "mutation/side-effect correctness concern"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146521155, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "asks for docstrings on the modified functions"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146521155, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "missing docstrings"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146523497, "facet": "artifact", "value": "code", "confidence": 0.45, "evidence": "asks to update the docstring for this function"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146523497, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "stale docstring"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146538207, "facet": "nature", "value": "cohesion", "confidence": 0.55, "evidence": "this test case tries to test many different things at once; asks to refactor into one-thing-at-a-time cases"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146538207, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "notes missing coverage for an extra object param case"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146543767, "facet": "artifact", "value": "tests", "confidence": 0.55, "evidence": "asks for table-driven testing with descriptive names since these tests cover multiple things"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146543767, "facet": "nature", "value": "cohesion", "confidence": 0.4, "evidence": "multiple concerns tested in one case"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146807761, "facet": "artifact", "value": "code", "confidence": 0.45, "evidence": "suggested docstring content for validateParams"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146807761, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "docstring content"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146810975, "facet": "artifact", "value": "code", "confidence": 0.45, "evidence": "suggested docstring content for missingParamsNames"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146810975, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "docstring content"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146824211, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "asks for more detail on what 'matching the taskrun' means, notes stale reference to removed Task inputs/outputs"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146824211, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "docstring completeness and a stale concept reference"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146826026, "facet": "artifact", "value": "tests", "confidence": 0.4, "evidence": "asks why the test switched to t.Fatalf"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146826026, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "test-assertion style question"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146830846, "facet": "artifact", "value": "tests", "confidence": 0.55, "evidence": "not seeing what happened to the tests for invalid params"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146830846, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "possible test-coverage regression"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1147604270, "facet": "artifact", "value": "tests", "confidence": 0.45, "evidence": "nit that a pointer to an empty matrix is unnecessary; nil should work fine"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1147604270, "facet": "nature", "value": "structure", "confidence": 0.45, "evidence": "test code simplification/idiom"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1147608937, "facet": "artifact", "value": "code", "confidence": 0.5, "evidence": "suggests including the received vs. specified type in the error message, links a related issue"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1147608937, "facet": "artifact", "value": "incremental-delivery", "confidence": 0.3, "evidence": "notes this might be better addressed in a separate PR"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1147608937, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "error message clarity improvement"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1147611422, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "asks whether two test cases cover anything not already covered by existing 'extra params' and 'invalid types' cases"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1147611422, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "redundant-test justification"}
