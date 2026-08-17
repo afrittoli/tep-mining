@@ -33,9 +33,12 @@ Scripts and data live in a new repository **`afrittoli/tep-mining`** (or a branc
 ```
 afrittoli/tep-mining/
 ├── README.md
-├── Makefile                        # targets: fetch, parse, process, query
+├── parallel-classify-plan.md       # parallel-execution design for Sub-Task 8 classification (see below)
+├── Makefile                        # targets: fetch, parse, process, query, permissions, worktree-classify/-remove
 ├── pyproject.toml                  # uv-managed: requests, ruamel.yaml, jinja2
 ├── .env.example                    # GITHUB_TOKEN=, COMMUNITY_REPO_PATH=
+├── .claude/settings.json           # Claude Code pre-approvals, safe (empty) by default - Sub-Task 8
+├── .bob/settings.json              # Bob Shell pre-approvals, safe (empty) by default - Sub-Task 8
 │
 ├── scripts/
 │   ├── parse_teps.py               # offline: TEP .md -> raw/teps.jsonl
@@ -43,12 +46,14 @@ afrittoli/tep-mining/
 │   ├── fetch_impl_prs.py           # API: impl PR metadata + reviews -> impl_prs.jsonl, impl_pr_reviews.jsonl
 │   ├── cross_repo_search.py        # API: GH search for uncited TEP references
 │   ├── synthesize.py               # joins raw/ -> processed/YYYY-MM-DD/per_tep_records.json
-│   └── validate_conventions.py     # mechanical check: conventions/review-taxonomy.yaml traces back to real comment text (Sub-Task 8)
+│   ├── validate_conventions.py     # mechanical check: conventions/review-taxonomy.yaml traces back to real comment text (Sub-Task 8)
+│   └── manage_permissions.py       # writes .claude/settings.json + .bob/settings.json together, parallel|safe|status (Sub-Task 8)
 │
 ├── prompts/
 │   ├── extract_seed_taxonomy.md    # AI reads documented sources -> conventions/seed-taxonomy.yaml (Sub-Task 8)
-│   ├── classify_review_comments.md # AI classifies one TEP's comments against seed-taxonomy.yaml (Sub-Task 8)
+│   ├── classify_review_comments.md # AI classifies one TEP's comments, in its own worktree -> processed/tep<N>/ (Sub-Task 8)
 │   ├── audit_classification_coverage.md # AI re-reads already-classified comments for missed matches (Sub-Task 8)
+│   ├── integrate_classifications.md # merges reviewed classify/tep<N> branches into the shared files (Sub-Task 8)
 │   └── author_fallback_discovery.md # prompt template for AI-assisted impl-PR fallback discovery
 │
 ├── raw/                            # JSONL, git-tracked, append-only
@@ -60,9 +65,14 @@ afrittoli/tep-mining/
 │
 ├── processed/
 │   ├── latest -> YYYY-MM-DD/       # symlink to most recent run
-│   └── YYYY-MM-DD/
-│       ├── per_tep_records.json
-│       └── comment_classifications.jsonl # Sub-Task 8 output: one row per (comment, facet, value) match
+│   ├── YYYY-MM-DD/
+│   │   ├── per_tep_records.json
+│   │   └── comment_classifications.jsonl # Sub-Task 8 output: one row per (comment, facet, value) match
+│   └── tep<N>/                     # one classifying agent's scratch + output for TEP N - classify.jsonl,
+│                                    # audit.jsonl, cost.md, explorer.html, notes.md, script files. Gitignored
+│                                    # on main; exists only on that TEP's classify/tep<N> branch until a human
+│                                    # approves it and prompts/integrate_classifications.md merges it in
+│                                    # (Sub-Task 8; see parallel-classify-plan.md)
 │
 ├── overrides/                      # human-edited JSONL, git-tracked (git history is the audit trail)
 │   ├── section_overrides.jsonl
@@ -571,8 +581,17 @@ evidence for or against a convention rather than left as unstructured text.
 2. Classify review comments against the reviewed vocabulary, across the full corpus rather
    than a fixed curated sample — approached iteratively (pilot on a handful of TEPs first,
    review the results, refine, then expand) across repeated agent-driven runs, not a single
-   pass, and not new batch-API infrastructure.
-3. Aggregate the classification into the result set.
+   pass, and not new batch-API infrastructure. Each TEP is classified by one agent in its own
+   isolated git worktree (`make worktree-classify TEP=<N>`), writing only to
+   `processed/tep<N>/` — never touching the shared classification file directly — so multiple
+   agents (any mix of tools) can classify different TEPs at the same time without conflicting.
+   See `parallel-classify-plan.md` for the full design and `prompts/classify_review_comments.md`
+   for the procedure.
+3. A human reviews each `classify/tep<N>` branch, then a separate, mandatory integration step
+   (`prompts/integrate_classifications.md`) merges it into the shared `comment_classifications.jsonl`,
+   rebuilds the explorer, and updates the cost log — the only process that ever writes to those
+   shared files, which is what keeps parallel runs conflict-free. This step applies regardless of
+   whether one TEP or several were classified in a batch.
 4. Verify every reported count traces back to real comment text.
 
 **Relevant Context**:
@@ -582,6 +601,10 @@ evidence for or against a convention rather than left as unstructured text.
 - This sub-task exists because reviewing comment *content* for recurring feedback is explicitly
   part of TEP-0173's corpus-mining goal, and nothing else in this pipeline captures it — Sub-Task
   7 deliberately limited itself to comment counts, not content.
+- `parallel-classify-plan.md` documents why the classify/review/integrate split exists: the first
+  parallel run (classifying multiple TEPs at once across different agents) produced real merge
+  conflicts on the shared files and scattered scratch files outside any predictable location.
+  The per-TEP worktree + mandatory integration design is the fix, not a preemptive one.
 
 **Status**: [ ] pending
 
@@ -678,13 +701,15 @@ flowchart TD
     start["Per-TEP records<br/>review comments, from corpus mining"]
     seed(["Extract seed taxonomy<br/>read documented standards → seed vocabulary"]):::aiNode
     reviewseed{"Review seed taxonomy"}:::humanNode
-    classify(["Classify comments<br/>match to taxonomy, multi-label, confidence-scored"]):::aiNode
+    classify(["Classify comments<br/>one TEP per isolated worktree branch → classify.jsonl + audit.jsonl"]):::aiNode
+    reviewbranch{"Review classify/tep-N branch"}:::humanNode
+    integrate(["Integrate<br/>merge branch(es), append to shared files, rebuild explorer"]):::aiNode
     validate["Aggregate + validate<br/>every count traces to real comment text"]:::scriptNode
     out["review-taxonomy.yaml<br/>decision: blank"]
     interview{"Human interview<br/>keep / drop / modify each candidate"}:::humanNode
     freeze["Convention Freeze<br/>input to Phase 1: Author the Skills"]
 
-    start --> seed --> reviewseed --> classify --> validate --> out --> interview --> freeze
+    start --> seed --> reviewseed --> classify --> reviewbranch --> integrate --> validate --> out --> interview --> freeze
 ```
 
 ---

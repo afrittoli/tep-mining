@@ -1,4 +1,4 @@
-.PHONY: help lint type-check test check parse scan-gaps gap-report mine-pr-cache map-prs pr-map-report fetch-tep-prs fetch-impl-prs report-index search synthesize query explorer apply-pr-overrides apply-export validate-conventions
+.PHONY: help lint type-check test check parse scan-gaps gap-report mine-pr-cache map-prs pr-map-report fetch-tep-prs fetch-impl-prs report-index search synthesize query explorer apply-pr-overrides apply-export validate-conventions permissions worktree-classify worktree-remove
 
 # Load .env if it exists
 -include .env
@@ -123,3 +123,26 @@ explorer: ## Build the interactive TEP data explorer (run after synthesize) → 
 
 query: ## Launch an interactive DuckDB session over every raw/processed JSONL file
 	uv run scripts/query_console.py
+
+# --- Parallel classification (Sub-Task 8, see parallel-classify-plan.md) ---
+
+permissions: ## Manage agent permissions. MODE=parallel (classify) | MODE=safe (locked down) | no MODE (status)
+	uv run scripts/manage_permissions.py --mode $(if $(MODE),$(MODE),status)
+
+worktree-classify: ## Create an isolated worktree for classifying one TEP. Usage: make worktree-classify TEP=76
+ifndef TEP
+	$(error TEP is not set. Usage: make worktree-classify TEP=<N>)
+endif
+	@if [ -d ../tep-mining-tep$(TEP) ]; then \
+		echo "cd ../tep-mining-tep$(TEP)"; \
+	else \
+		git worktree add ../tep-mining-tep$(TEP) -b classify/tep$(TEP) >&2 && \
+		echo "cd ../tep-mining-tep$(TEP)"; \
+	fi
+
+worktree-remove: ## Remove a per-TEP worktree and its branch after its commit is merged. Usage: make worktree-remove TEP=76
+ifndef TEP
+	$(error TEP is not set. Usage: make worktree-remove TEP=<N>)
+endif
+	git worktree remove ../tep-mining-tep$(TEP) --force
+	git branch -d classify/tep$(TEP)
