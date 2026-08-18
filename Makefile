@@ -133,6 +133,12 @@ worktree-classify: ## Create an isolated worktree for classifying one TEP. Usage
 ifndef TEP
 	$(error TEP is not set. Usage: make worktree-classify TEP=<N>)
 endif
+	@if ! git show HEAD:.claude/settings.json | uv run python3 -c 'import json,sys; d=json.load(sys.stdin); sys.exit(0 if d["permissions"]["allow"] else 1)'; then \
+		echo "Permissions are not in parallel mode as of HEAD (.claude/settings.json has an empty allow list)." >&2; \
+		echo "A new worktree checks out whatever is COMMITTED, not uncommitted changes in this checkout." >&2; \
+		echo "Run 'make permissions MODE=parallel', commit .claude/settings.json and .bob/settings.json on main, then retry." >&2; \
+		exit 1; \
+	fi
 	@if [ -d ../tep-mining-tep$(TEP) ]; then \
 		echo "cd ../tep-mining-tep$(TEP)"; \
 	else \

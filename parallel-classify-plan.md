@@ -54,8 +54,12 @@ should be easy to restore maximum-safety defaults. A `make permissions` target m
 config files together, ensuring they stay in sync and neither tool is accidentally left open.
 
 **Expected Outcomes**:
-- `.claude/settings.json` and `.bob/settings.json` exist in the repo, committed to `main`,
-  present in every worktree from the moment it is created (worktrees share the working tree).
+- `.claude/settings.json` and `.bob/settings.json` exist in the repo. A new worktree checks
+  out whatever is **committed** at its branch point — not uncommitted changes sitting in the
+  main checkout — so `make permissions MODE=parallel` must be run *and committed* on `main`
+  before `make worktree-classify` is run, or the new worktree inherits the locked-down
+  baseline instead. `worktree-classify` refuses to create a worktree unless this is already
+  true (see Sub-Task 2).
 - `make permissions MODE=parallel` writes both files with the full set of pre-approved
   operations needed for classification, so agents run without any permission prompts.
 - `make permissions MODE=safe` writes both files in locked-down state: no pre-approved
@@ -167,9 +171,16 @@ pattern (`tep-mining-classify-tep142` alongside the main checkout) and survived 
    - Run `git branch -d classify/tep$(TEP)`.
 
 **Relevant Context**:
-- Git worktrees share the object store and working tree; `.bob/settings.json` and
-  `.claude/settings.json` committed to `main` are present in the worktree immediately,
-  so permission pre-approvals take effect without any extra setup step.
+- Git worktrees share the object store but each has its **own independent working directory**.
+  A worktree created with `git worktree add` checks out the files as committed at its branch
+  point — it does not see uncommitted changes in the main checkout. `.bob/settings.json` and
+  `.claude/settings.json` only take effect in a new worktree if `make permissions MODE=parallel`
+  was already run *and committed* on `main` first. `worktree-classify` enforces this: it reads
+  `.claude/settings.json` at `HEAD` (not the working tree) and refuses to create a worktree if
+  the allow list there is empty, printing the exact remediation command. This guard exists
+  because the first real run of this plan skipped the commit step, so every classify worktree
+  silently inherited the locked-down baseline and every tool call prompted for approval —
+  the mechanism was built but never switched on.
 - The `classify/tep<N>` branch naming convention is already in use (the past conflict was on
   `classify/tep142`).
 

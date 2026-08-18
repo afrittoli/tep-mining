@@ -1,5 +1,15 @@
 {
   "permissions": {
-    "allow": []
+    "allow": [
+      "Bash(uv run python3 *)",
+      "Bash(bash *)",
+      "Bash(git *)",
+      "Bash(make *)",
+      "Bash(wc -l *)",
+      "Bash(cat *)",
+      "Bash(mkdir -p *)",
+      "Read(*)",
+      "Write(processed/tep*/**)"
+    ]
   }
 }
