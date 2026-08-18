@@ -227,6 +227,9 @@ the one TEP being reviewed. The global explorer is rebuilt only at integration t
 - Every file a per-TEP agent produces lives under `processed/tep<N>/` in its worktree:
   - `processed/tep<N>/classify.jsonl` — first-pass classification rows
   - `processed/tep<N>/audit.jsonl` — audit-pass rows (empty file if no findings, never absent)
+  - `processed/tep<N>/taxonomy_proposals.jsonl` — candidate new taxonomy values found during
+    the audit pass, for comment fragments nothing in `seed-taxonomy.yaml` covers (empty file
+    if no findings, never absent — see `prompts/audit_classification_coverage.md`)
   - `processed/tep<N>/cost.md` — one Markdown table row for the cost log
   - `processed/tep<N>/notes.md` — free-text notes on suspected misattributions or other
     issues for the human reviewer; omitted if nothing to flag
@@ -322,6 +325,8 @@ integration process.
 2. Add a "Human review checkpoint" section at the end of the prompt. The reviewer checks:
    - All staged files are under `processed/tep<N>/` — nothing else.
    - `classify.jsonl` is non-empty.
+   - `taxonomy_proposals.jsonl` is present (empty is fine, missing is not); if non-empty, read
+     every row before approving.
    - Validation outputs (taxonomy membership, no duplicates, untagged check) were clean.
    - `cost.md` row is present.
    - `explorer.html` renders correctly (open in browser; verify classification badges appear).

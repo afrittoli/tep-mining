@@ -21,12 +21,12 @@ have you pre-approved for the operations below; if not, expect normal permission
 ## Inputs
 
 - One or more approved `classify/tep<N>` branches, each containing exactly one commit's worth of
-  `processed/tep<N>/` files (`classify.jsonl`, `audit.jsonl`, `cost.md`, `explorer.html`,
-  optionally `notes.md`, plus the script files).
+  `processed/tep<N>/` files (`classify.jsonl`, `audit.jsonl`, `taxonomy_proposals.jsonl`,
+  `cost.md`, `explorer.html`, optionally `notes.md`, plus the script files).
 - The current state of `main` (or whatever branch you're integrating into) — this process reads
   and appends to files already there; it doesn't build anything from scratch.
 
-## Before you start: apply any flagged overrides
+## Before you start: apply any flagged overrides and taxonomy proposals
 
 If any branch being integrated has a `processed/tep<N>/notes.md`, read it now, before doing
 anything else below. It's a per-TEP agent's flag of something it noticed but wasn't scoped to
@@ -34,6 +34,16 @@ decide on its own — typically a suspected PR misattribution. Decide whether
 `overrides/pr_attribution_overrides.jsonl` needs a new `exclude` entry, and commit it to `main`
 **before** step 1. Doing this first means the classification data you're about to merge in is
 being judged against already-correct attribution, not retrofitted afterward.
+
+Also check each branch's `processed/tep<N>/taxonomy_proposals.jsonl`. If it's non-empty, read
+every row — each one is real comment text the agent found nothing in `seed-taxonomy.yaml` to
+tag it with. For each, decide whether it earns a new value: add it directly to
+`conventions/seed-taxonomy.yaml` (`provenance: suggested`, or `discovered` if the evidence is
+strong — see the file's own `semantics` block for the distinction) and commit that to `main`.
+This has no strict ordering dependency on step 1 the way overrides do (proposals don't affect
+which rows get merged), but review it here anyway so it doesn't get skipped: this file is the
+entire reason `prompts/audit_classification_coverage.md`'s second finding type exists, and it
+has a documented history of being silently ignored when nothing forces a look at it.
 
 ## Procedure
 
