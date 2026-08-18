@@ -77,7 +77,7 @@ config files together, ensuring they stay in sync and neither tool is accidental
 | Row-count checks | `Bash(wc -l *)` | `run_shell_command(wc)` |
 | Concatenate files | `Bash(cat *)` | `run_shell_command(cat)` |
 | Create directories | `Bash(mkdir -p *)` | `run_shell_command(mkdir)` |
-| Read any file | `Read(*)` | _(reads don't require shell; no entry needed)_ |
+| Read any file | `Read(*)` | *(reads don't require shell; no entry needed)* |
 | Write per-TEP files | `Write(processed/tep*/**)` | `write_to_file(processed/tep*)` |
 
 *`safe` mode* — removes all pre-approvals; both files contain empty allowed lists. Every
@@ -102,10 +102,12 @@ creation to the per-TEP output directory only.
      print "already up to date" and skip the write (idempotent).
    - Print a clear one-line confirmation for each file written or skipped.
 2. Add a `permissions` target to `Makefile`:
+
    ```makefile
    permissions: ## Manage agent permissions. MODE=parallel (classify) | MODE=safe (locked down) | no MODE (status)
        uv run scripts/manage_permissions.py --mode $(if $(MODE),$(MODE),status)
    ```
+
 3. Commit the initial state of both settings files (written by `make permissions MODE=safe`
    as the safe baseline) to `main`.
 
@@ -236,6 +238,7 @@ the one TEP being reviewed. The global explorer is rebuilt only at integration t
    - State explicitly that `processed/tep<N>/audit.jsonl` must be created even when the audit
      finds nothing (write an empty file; its absence is an error in the integration step).
    - Add a step to generate the per-TEP explorer report after validation passes:
+
      ```bash
      uv run python3 - <<'EOF'
      import json; from pathlib import Path
@@ -249,6 +252,7 @@ the one TEP being reviewed. The global explorer is rebuilt only at integration t
          --classifications processed/tep<N>/classify.jsonl \
          --out processed/tep<N>/explorer.html
      ```
+
    - Instruct the agent to write `processed/tep<N>/notes.md` with any suspected
      misattributions or data issues found during classification. The agent flags, never
      decides — the override decision belongs to the human reviewer.
@@ -296,12 +300,14 @@ integration process.
 **Todo List**:
 1. Replace the existing "Merging, building, verifying" and commit sections in
    `prompts/classify_review_comments.md` with a new "Commit and push" section:
+
    ```bash
    git add -f processed/tep<N>/
    git status --short   # confirm only processed/tep<N>/ files are staged
    git commit -m "Classify + audit TEP-<N> (<short title>)"
    git push origin classify/tep<N>
    ```
+
 2. Add a "Human review checkpoint" section at the end of the prompt. The reviewer checks:
    - All staged files are under `processed/tep<N>/` — nothing else.
    - `classify.jsonl` is non-empty.
@@ -351,6 +357,7 @@ impossible.
 1. For each `classify/tep<N>` branch to integrate:
    `git merge --no-ff classify/tep<N>` from `main`.
 2. Resolve the symlink and append per-TEP data to the real dated file:
+
    ```bash
    REAL_DIR=$(readlink processed/latest)
    TARGET="processed/${REAL_DIR}/comment_classifications.jsonl"
@@ -358,21 +365,26 @@ impossible.
    cat processed/tep<N>/classify.jsonl processed/tep<N>/audit.jsonl >> "$TARGET"
    wc -l "$TARGET"   # count after — delta must equal classify rows + audit rows
    ```
+
 3. Validate the combined file (taxonomy membership + no duplicates) — same inline scripts
    as in `prompts/classify_review_comments.md`, run now on the full file as a
    defence-in-depth check.
 4. Append the cost log fragment:
+
    ```bash
    cat processed/tep<N>/cost.md >> conventions/classification_cost_log.md
    ```
+
 5. Run `make explorer` to rebuild `reports/explorer.html` with all new data.
 6. Verify the explorer ("N comment classifications loaded" matches new total).
 7. Commit the three shared files together:
+
    ```bash
    git add "processed/${REAL_DIR}/comment_classifications.jsonl" \
        reports/explorer.html conventions/classification_cost_log.md
    git commit -m "Integrate classifications: TEP-<list>"
    ```
+
 8. Clean up: `make worktree-remove TEP=<N>` for each merged branch.
 
 **Todo List**:
