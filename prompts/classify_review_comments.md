@@ -236,15 +236,24 @@ go back and add the row you meant to write.
 
 Once first-pass classification validates clean, run a **separate** pass per
 `prompts/audit_classification_coverage.md` — re-reading each already-classified comment fresh
-against the full taxonomy to catch matches the first pass missed. Write findings the same way as
-first pass — same `add(comment_id, repo, pr_number, tags)` shape, so the two scripts are
-copy-pasteable from each other — but stamp `"source_pass": "audit"` on every row:
+against the full taxonomy to catch matches the first pass missed. For each real gap found,
+that prompt distinguishes two cases, and they go to **two different files**:
+
+1. **An existing taxonomy value fits, but wasn't applied.** Write it the same way as first
+   pass — same `add(comment_id, repo, pr_number, tags)` shape, so the two scripts are
+   copy-pasteable from each other — but stamp `"source_pass": "audit"` on every row.
+2. **Nothing in the current taxonomy covers it.** Don't force the nearest existing value onto
+   it. Write a candidate instead, with `add_candidate(...)`. This is the case that's easy to
+   let slide — a comment raising something genuinely new *feels* like it should get tagged with
+   whatever's closest, and the taxonomy quietly never grows. Actively ask yourself this
+   question for each gap, don't just default to case 1.
 
 ```python
 # processed/tep<N>/audit.py
 import json
 
 rows = []
+candidates = []
 
 def add(comment_id, repo, pr_number, tags):
     """tags: list of (facet, value, confidence, evidence) - same shape as classify.py"""
@@ -255,25 +264,52 @@ def add(comment_id, repo, pr_number, tags):
             "evidence": evidence, "source_pass": "audit",
         })
 
+def add_candidate(comment_id, repo, pr_number, fragment, candidate_facet, candidate_value,
+                   candidate_description):
+    """A comment fragment nothing in seed-taxonomy.yaml covers - a proposal, not a tag."""
+    candidates.append({
+        "repo": repo, "pr_number": pr_number, "comment_id": comment_id, "fragment": fragment,
+        "candidate_facet": candidate_facet, "candidate_value": candidate_value,
+        "candidate_description": candidate_description,
+    })
+
 # one add() call per comment with a missed match found on re-read, e.g.:
 add(123456789, "community", 148, [
     ("principle", "feature-justification", 0.45, "explicitly frames Motivation/Goals as ..."),
 ])
+
+# one add_candidate() call per comment fragment that no existing value covers, e.g.:
+add_candidate(123456790, "pipeline", 6790,
+    fragment="this changes on-disk step-state format, which breaks rollback to an older version "
+             "mid-run - that's a real compatibility class we don't have a value for",
+    candidate_facet="principle", candidate_value="on-disk-format-compatibility",
+    candidate_description="A change to a persisted on-disk format (not the API) that breaks "
+        "rollback or forward-compat for in-flight runs.")
 
 out_path = "processed/tep<N>/audit.jsonl"  # <- set <N>
 with open(out_path, "w") as f:
     for r in rows:
         f.write(json.dumps(r) + "\n")
 print(f"wrote {len(rows)} audit rows")
+
+candidates_path = "processed/tep<N>/taxonomy_proposals.jsonl"  # <- set <N>
+with open(candidates_path, "w") as f:
+    for c in candidates:
+        f.write(json.dumps(c) + "\n")
+print(f"wrote {len(candidates)} taxonomy proposal(s)")
 ```
 
-**Write `processed/tep<N>/audit.jsonl` even when the audit finds nothing** — an empty file (zero
-lines) is a required, expected output, not an absence. The integration step treats a *missing*
-`audit.jsonl` as an error, not as "no findings," precisely so a genuine zero-finding audit can't
-be mistaken for an audit that was never run.
+**Write `processed/tep<N>/audit.jsonl` and `processed/tep<N>/taxonomy_proposals.jsonl` even when
+they find nothing** — an empty file (zero lines) is a required, expected output for both, not an
+absence. The integration step treats either file being *missing* as an error, not as "no
+findings," precisely so a genuine zero-finding audit can't be mistaken for an audit that was
+never run, and a genuine zero-proposals TEP can't be mistaken for a pass that never looked for
+new taxonomy elements at all.
 
 Validate `processed/tep<N>/audit.jsonl` with the same taxonomy-membership check as first pass
-before it's part of your commit.
+before it's part of your commit. `taxonomy_proposals.jsonl` rows use `candidate_facet` /
+`candidate_value`, not `facet` / `value` — they're deliberately not run through that check, since
+the entire point is that they *don't* exist in `seed-taxonomy.yaml` yet.
 
 Also worth a deliberate re-read for: principle/artifact/nature values that have zero or very few
 real examples anywhere in the corpus so far —
@@ -397,6 +433,13 @@ A human reviews the pushed branch's diff before it's integrated. What to check:
 - `classify.jsonl` is non-empty.
 - `audit.jsonl` is present — even an empty file is correct; its *absence* is the red flag, not
   its emptiness.
+- `taxonomy_proposals.jsonl` is present — same rule, empty is fine, missing is not. If it's
+  **non-empty**, this is the most important thing in the review: each row is a candidate new
+  `seed-taxonomy.yaml` value the agent found real comment text for but had no existing value to
+  tag it with. Read every one. Decide whether it earns a new entry in
+  `conventions/seed-taxonomy.yaml` (`provenance: suggested`, or `discovered` if the evidence is
+  strong) and commit that directly on `main` — see `prompts/integrate_classifications.md`'s
+  "Before you start."
 - `cost.md` contains one data row, matching the existing `classification_cost_log.md` table's
   columns.
 - `explorer.html` opens in a browser and renders: comment text, classification badges, and — if
@@ -420,6 +463,14 @@ worktree.
 
 ## Known gotchas (each has actually happened in this pipeline)
 
+- **A genuinely new taxonomy element has nowhere to go if you don't deliberately look for it.**
+  `prompts/audit_classification_coverage.md` has always distinguished "existing value that was
+  missed" from "nothing in the taxonomy covers this" — but for a stretch of this pipeline's
+  history, only the first case had an actual output file, so every finding of the second kind
+  (across ten-plus classified TEPs) was silently dropped, defeating a stated purpose of this
+  whole exercise. `taxonomy_proposals.jsonl` exists so this can't recur — but the file only
+  fills up if you actually ask "does anything here need a value that doesn't exist yet" for each
+  gap, not just "which existing value is closest."
 - **A row you meant to write silently doesn't exist.** Writing many `add(...)` calls by hand,
   it's easy to fully reason through a comment's classification and then never actually call
   `add()` for it. The untagged-comment cross-check above is what catches this — it has caught a

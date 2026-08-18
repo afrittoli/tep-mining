@@ -18,7 +18,10 @@ second, separate agent pass instead.
 
 - The full comment body (not a snippet).
 - Every classification row already recorded for that comment (`facet`, `value`, `confidence`,
-  `evidence`) from `processed/latest/comment_classifications.jsonl`.
+  `evidence`) — from this TEP's own `processed/tep<N>/classify.jsonl` if it hasn't been
+  integrated into the shared corpus yet (the normal case: the audit pass runs right after
+  first-pass, inside the same worktree, before any integration), or from
+  `processed/latest/comment_classifications.jsonl` if you're auditing already-integrated data.
 - The full `conventions/seed-taxonomy.yaml` — not just the values already applied to this
   comment; a missed match is by definition a value that *wasn't* applied.
 
@@ -46,14 +49,20 @@ For each comment:
 ## Output
 
 Two kinds of finding, kept distinct from first-pass classification rather than blended in
-invisibly:
+invisibly, and written to two separate files so one can't crowd out the other:
 
-- **Missed existing match** — a normal `comment_classifications.jsonl` row (`repo`,
-  `pr_number`, `comment_id`, `facet`, `value`, `confidence`, `evidence`), plus `source_pass:
-  "audit"` so the record of which pass actually found it doesn't get lost.
+- **Missed existing match** — a normal classification row (`repo`, `pr_number`, `comment_id`,
+  `facet`, `value`, `confidence`, `evidence`), plus `source_pass: "audit"` so the record of
+  which pass actually found it doesn't get lost. Written to `processed/tep<N>/audit.jsonl`.
 - **Uncovered fragment** — `{repo, pr_number, comment_id, fragment, candidate_facet,
   candidate_value, candidate_description}`, a proposal for a human to review before it becomes
-  a real `suggested` taxonomy value.
+  a real `suggested` (or `discovered`, if strongly backed by example evidence) taxonomy value.
+  Written to `processed/tep<N>/taxonomy_proposals.jsonl` — **required to exist even when
+  empty**, the same discipline as `audit.jsonl`, so a genuine zero-finding pass can't be
+  mistaken for a pass that never looked for this case at all. (An earlier version of this
+  workflow never gave this finding type a durable output — every candidate it produced across
+  ten-plus classified TEPs had nowhere to land and was lost. This file exists so that can't
+  happen again.)
 
 ## Known limits
 
