@@ -1,0 +1,8 @@
+{"repo": "community", "pr_number": 428, "comment_id": 651202105, "facet": "nature", "value": "structure", "confidence": 0.8, "evidence": "`pkg is` -> `pkg's`"}
+{"repo": "community", "pr_number": 428, "comment_id": 655524534, "facet": "principle", "value": "reusability", "confidence": 0.5, "evidence": "I think it would be really beneficial if we were able to keep the data currently collected in the dogfooding cluster."}
+{"repo": "community", "pr_number": 428, "comment_id": 655524534, "facet": "artifact", "value": "pr-description", "confidence": 0.5, "evidence": "None: tiny nit: `pkg is` -> `pkg's`"}
+{"repo": "community", "pr_number": 428, "comment_id": 655524534, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "I think it would be really beneficial if we were able to keep the data currently collected in the dogfooding cluster."}
+{"repo": "community", "pr_number": 428, "comment_id": 655526299, "facet": "principle", "value": "reusability", "confidence": 0.5, "evidence": "We could backup the data in `dogfooding` and test the migration there."}
+{"repo": "community", "pr_number": 428, "comment_id": 655526299, "facet": "artifact", "value": "tests", "confidence": 0.5, "evidence": "We could backup the data in `dogfooding` and test the migration there."}
+{"repo": "community", "pr_number": 428, "comment_id": 655526299, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "We could backup the data in `dogfooding` and test the migration there."}
+{"repo": "community", "pr_number": 428, "comment_id": 655529678, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "I will need some more time to dig into this."}

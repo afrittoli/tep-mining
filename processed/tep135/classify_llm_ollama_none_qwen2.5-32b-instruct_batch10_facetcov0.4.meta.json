@@ -1,0 +1,253 @@
+{
+  "backend": "ollama",
+  "model": "qwen2.5:32b-instruct",
+  "tep": 135,
+  "context": "none",
+  "batch_size": 10,
+  "num_batches": 33,
+  "num_batches_completed": 33,
+  "interrupted": false,
+  "facet_coverage_threshold": 0.4,
+  "num_ctx": null,
+  "temperature": null,
+  "num_comments": 330,
+  "num_rows": 473,
+  "num_candidates": 2,
+  "missing_comment_ids": [],
+  "num_calls": 33,
+  "calls": [
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 65834,
+      "eval_count": 810,
+      "prompt_eval_count": 2664
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 100320,
+      "eval_count": 1551,
+      "prompt_eval_count": 2678
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 103915,
+      "eval_count": 1245,
+      "prompt_eval_count": 3534
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 49975,
+      "eval_count": 599,
+      "prompt_eval_count": 2874
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 76967,
+      "eval_count": 1008,
+      "prompt_eval_count": 2648
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 76620,
+      "eval_count": 1012,
+      "prompt_eval_count": 2728
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 67545,
+      "eval_count": 893,
+      "prompt_eval_count": 2749
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 45136,
+      "eval_count": 584,
+      "prompt_eval_count": 2692
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 77075,
+      "eval_count": 1030,
+      "prompt_eval_count": 2700
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 63669,
+      "eval_count": 832,
+      "prompt_eval_count": 2794
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 128472,
+      "eval_count": 1666,
+      "prompt_eval_count": 3304
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 89215,
+      "eval_count": 1187,
+      "prompt_eval_count": 2824
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 88278,
+      "eval_count": 1168,
+      "prompt_eval_count": 2898
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 73638,
+      "eval_count": 965,
+      "prompt_eval_count": 2885
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 98935,
+      "eval_count": 1309,
+      "prompt_eval_count": 2920
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 55776,
+      "eval_count": 718,
+      "prompt_eval_count": 2813
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 57883,
+      "eval_count": 768,
+      "prompt_eval_count": 2596
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 108482,
+      "eval_count": 1462,
+      "prompt_eval_count": 2704
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 131544,
+      "eval_count": 1767,
+      "prompt_eval_count": 2885
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 90942,
+      "eval_count": 1201,
+      "prompt_eval_count": 2908
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 114302,
+      "eval_count": 1529,
+      "prompt_eval_count": 2864
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 75105,
+      "eval_count": 959,
+      "prompt_eval_count": 3063
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 92818,
+      "eval_count": 1231,
+      "prompt_eval_count": 2802
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 99972,
+      "eval_count": 1331,
+      "prompt_eval_count": 2769
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 85426,
+      "eval_count": 1119,
+      "prompt_eval_count": 2887
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 55457,
+      "eval_count": 713,
+      "prompt_eval_count": 2765
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 70866,
+      "eval_count": 916,
+      "prompt_eval_count": 2845
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 66718,
+      "eval_count": 851,
+      "prompt_eval_count": 2909
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 120140,
+      "eval_count": 1571,
+      "prompt_eval_count": 3019
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 105331,
+      "eval_count": 1394,
+      "prompt_eval_count": 2872
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 66207,
+      "eval_count": 871,
+      "prompt_eval_count": 2726
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 57450,
+      "eval_count": 742,
+      "prompt_eval_count": 2731
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 72058,
+      "eval_count": 942,
+      "prompt_eval_count": 2603
+    }
+  ],
+  "total_cost_usd": null,
+  "total_duration_ms": 2732071
+}

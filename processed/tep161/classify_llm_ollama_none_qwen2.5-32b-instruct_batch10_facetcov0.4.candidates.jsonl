@@ -1,0 +1,1 @@
+{"repo": "community", "pr_number": 1207, "comment_id": 2178321161, "fragment": "HTTP servers rarely rate limit in the same way as registries and git forges", "candidate_facet": "principle", "candidate_value": "rate-limit-awareness", "candidate_description": "Feedback on the awareness of rate limits in different environments when considering feature necessity."}
