@@ -10,9 +10,11 @@ the shared `comment_classifications.jsonl`, `classification_cost_log.md`, or
 
 ## Scripts
 
-- [`scripts/classify_llm.py`](scripts/classify_llm.py) — the classification driver (Ollama or
-  `claude-cli` backend). Full usage, every flag, and the design rationale are in its own module
-  docstring — read that, or run `uv run scripts/classify_llm.py --help`.
+- [`scripts/classify_llm.py`](scripts/classify_llm.py) — the classification driver (`ollama`,
+  `mellea` or `claude-cli` backend). Full usage, every flag, and the design rationale are in its
+  own module docstring — read that, or run `uv run scripts/classify_llm.py --help`. Why the
+  `mellea` backend exists and what it replaces is in
+  [mellea-adoption.md](mellea-adoption.md).
 - [`scripts/compare_classifications.py`](scripts/compare_classifications.py) — scores a
   candidate output file against a ground-truth file. Same story: see its module docstring or
   `--help`.
