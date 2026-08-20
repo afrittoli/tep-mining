@@ -7,6 +7,17 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 .venv/
+.coverage
 
 # per-TEP scratch dirs; committed only on classify/* branches, not on main
 processed/tep*/
+
+# personal backups and editor/tool-local state, never shared
+processed/Backup/
+community.code-workspace
+logs/
+.bob/artifacts/
+
+# turn-based agent discussion transcript, kept locally only - see git log for
+# "Untrack the discussion transcript again"
+parallel-classify-plan-discussion.md

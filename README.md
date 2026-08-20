@@ -191,6 +191,12 @@ both Claude Code and Bob Shell, so a run doesn't stop for permission prompts; `m
 MODE=safe` (or no `MODE` at all) restores the locked-down default. `make permissions` with no
 `MODE` also just prints the current state of both without changing anything.
 
+## Local LLM classification tooling
+
+A separate benchmarking harness compares local (Ollama) or scripted-API classification against
+the agent-produced ground truth above — not part of this pipeline, doesn't touch its shared
+files. See [local-llm-classification.md](local-llm-classification.md).
+
 ## Detailed Plan
 
 See [data-collection-plan.md](data-collection-plan.md) for the full sub-task breakdown,
