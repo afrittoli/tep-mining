@@ -8,6 +8,7 @@ Comment: "This should handle `k8serrors.IsNotFound` as a no-op, in case we have 
 deletes."
 
 Good output:
+
 ```json
 {"comment_id": 605675529, "matches": [
   {"facet": "artifact", "value": "reconciler-pattern", "confidence": 0.6,
@@ -18,6 +19,7 @@ Good output:
    "evidence": "substantive correctness suggestion, not a style nit"}
 ]}
 ```
+
 Bad output (do not do this): `evidence: "This should handle k8serrors.IsNotFound as a no-op,
 in case we have dueling deletes."` - this is the comment, not an analysis of it.
 
@@ -27,9 +29,11 @@ comments, not a failure to find something:
 Comment: "lgtm, thanks!"
 
 Good output:
+
 ```json
 {"comment_id": 999999001, "matches": []}
 ```
+
 Do not invent a match just to produce output - an empty matches list is a complete,
 correct answer here.
 
@@ -40,6 +44,7 @@ Comment: "wdyt about setting DeleteOptions.Preconditions.UID to avoid possible m
 two runs end up having the same name?"
 
 Good output:
+
 ```json
 {"results": [{"comment_id": 999999002, "matches": [
     {"facet": "artifact", "value": "code", "confidence": 0.6,
@@ -51,5 +56,6 @@ Good output:
     "candidate_value": "concurrency-safety",
     "candidate_description": "Whether code defends against races between concurrent operations rather than assuming single-actor execution."}]}
 ```
+
 Note this comment gets BOTH a normal match (the code-level suggestion) AND a candidate
 (the underlying principle nothing in the taxonomy names yet) - the two are not exclusive.
