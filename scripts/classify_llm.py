@@ -46,6 +46,11 @@ Usage:
     # itself is suppressing recall (each batch retries independently for dropped comment_ids):
     uv run scripts/classify_llm.py --tep 52 --backend ollama --model qwen2.5:32b-instruct \
         --context none --batch-size 10
+
+    # diagnostic: score every taxonomy value's relevance per comment instead of just selecting
+    # matches, on a small slice of comments (batch-size 5, first batch only):
+    uv run scripts/classify_llm.py --tep 52 --backend ollama --model granite4:small-h \
+        --context none --task score --batch-size 5 --max-batches 1
 """
 
 import argparse
@@ -163,6 +168,64 @@ def _build_result_schema(taxonomy: dict, facet_scope: str | None = None) -> dict
     }
 
 
+def _build_score_schema(taxonomy: dict, facet_scope: str | None = None) -> dict:
+    """--task score's schema: instead of selecting matches, the model rates every taxonomy
+    value's relevance to each comment on a 0.0-1.0 scale. Diagnostic tool for telling apart "the
+    model ranks correctly but --facet-coverage-threshold (or its own judgment) draws the line in
+    the wrong place" from "the model can't discriminate relevant from irrelevant values at all" -
+    a distinction --task classify's top-picks-only output can't show.
+
+    minItems/maxItems on `scores` both equal the total number of taxonomy values (or one facet's
+    values, under --facet-split) so the model is structurally required to score every value, not
+    just the ones it would normally tag - schema-constrained decoding enforces the count even if
+    the prompt's wording doesn't land.
+    """
+    if facet_scope:
+        facet_names = [facet_scope]
+        all_values = sorted(v["value"] for v in taxonomy["facets"][facet_scope].get("values") or [])
+    else:
+        facet_names = list(taxonomy["facets"].keys())
+        all_values = sorted(
+            {
+                v["value"]
+                for facet in taxonomy["facets"].values()
+                for v in (facet.get("values") or [])
+            }
+        )
+    total_values = len(all_values)
+
+    return {
+        "type": "object",
+        "properties": {
+            "results": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "comment_id": {"type": "integer"},
+                        "scores": {
+                            "type": "array",
+                            "minItems": total_values,
+                            "maxItems": total_values,
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "facet": {"type": "string", "enum": facet_names},
+                                    "value": {"type": "string", "enum": all_values},
+                                    "score": {"type": "number"},
+                                },
+                                "required": ["facet", "value", "score"],
+                            },
+                        },
+                    },
+                    "required": ["comment_id", "scores"],
+                },
+            },
+        },
+        "required": ["results"],
+    }
+
+
 def _load_taxonomy(path: Path = TAXONOMY_PATH) -> dict:
     yaml = YAML(typ="safe")
     return yaml.load(path.read_text(encoding="utf-8"))
@@ -238,12 +301,15 @@ def _build_system_prompt(
     facet_coverage_threshold: float | None = None,
     examples_block: str | None = None,
     facet_scope: str | None = None,
+    template_path: Path | None = None,
 ) -> str:
-    """Renders templates/system_prompt.md.j2 - everything that doesn't change per batch: task
-    framing, taxonomy, optional TEP body, optional facet-coverage nudge, optional worked
-    examples. Kept separate from the comments themselves (see _build_user_prompt) since some
-    models (observed: granite4) are trained around a real system/user split and behave more
-    generically when everything is crammed into one user turn.
+    """Renders templates/system_prompt.md.j2 (or `template_path`, for testing prompt-wording
+    variants without editing the canonical template in place - must accept the same variables
+    this function passes to render()) - everything that doesn't change per batch: task framing,
+    taxonomy, optional TEP body, optional facet-coverage nudge, optional worked examples. Kept
+    separate from the comments themselves (see _build_user_prompt) since some models (observed:
+    granite4) are trained around a real system/user split and behave more generically when
+    everything is crammed into one user turn.
 
     `facet_scope` narrows the prompt to describe one facet only, for --facet-split mode; see
     _build_result_schema for why that's paired with a required `reasoning` field."""
@@ -255,7 +321,10 @@ def _build_system_prompt(
             {"value": v["value"], "description": v["description"].strip()}
             for v in taxonomy["facets"][facet_scope].get("values") or []
         ]
-    template = _jinja_env.get_template("system_prompt.md.j2")
+    if template_path:
+        template = Environment().from_string(template_path.read_text(encoding="utf-8"))
+    else:
+        template = _jinja_env.get_template("system_prompt.md.j2")
     return template.render(
         facet_scope=facet_scope,
         facet_description=facet_description,
@@ -328,7 +397,17 @@ def _call_ollama(
     schema: dict,
     num_ctx: int | None,
     temperature: float | None,
+    ollama_format: str = "schema",
 ) -> tuple[dict, dict]:
+    """`ollama_format` picks Ollama's structured-output mode: 'schema' (default) sends the full
+    JSON schema as `format`, grammar-constraining decoding so every token is forced onto a
+    schema-valid path. 'json' sends the literal string 'json' instead - only syntactically valid
+    JSON is enforced, no schema/vocabulary constraint - so the model reasons and picks its own
+    JSON shape/values freely, guided by the prompt text alone. Added to test a specific
+    hypothesis on granite4 (a hybrid Mamba-transformer architecture): that grammar-constrained
+    decoding, developed and tuned mostly against pure-transformer models, may itself be
+    responsible for the degenerate/bucketed --task score output observed under 'schema' mode,
+    rather than the model's underlying judgment being that poor."""
     start = time.time()
     options: dict[str, int | float] = {}
     if num_ctx:
@@ -342,7 +421,7 @@ def _call_ollama(
     payload = {
         "model": model,
         "messages": messages,
-        "format": schema,
+        "format": schema if ollama_format == "schema" else "json",
         "stream": False,
     }
     if options:
@@ -376,34 +455,77 @@ def _call_ollama(
 
 def _extract_results(
     parsed: dict, by_id: dict[int, dict]
-) -> tuple[list[dict], list[dict], set[int]]:
+) -> tuple[list[dict], list[dict], list[dict], set[int]]:
+    """Returns (rows, candidates, reasoning_log, seen_ids). `reasoning_log` has one entry per
+    comment that carried a `reasoning` field (--facet-split mode only), regardless of whether
+    it produced any matches - otherwise a zero-match comment's reasoning is generated and then
+    silently thrown away, which is exactly the case most worth seeing when debugging why a
+    comment got nothing."""
     seen_ids: set[int] = set()
     rows = []
+    reasoning_log = []
     for entry in parsed.get("results", []):
-        cid = entry["comment_id"]
+        if not isinstance(entry, dict):
+            # Only reachable with --ollama-format json - a model free to pick its own JSON
+            # shape can put a bare string/number in `results` instead of an object.
+            print(f"WARNING: result entry isn't an object, dropping: {entry!r}", file=sys.stderr)
+            continue
+        cid = entry.get("comment_id")
+        if cid is None:
+            print(f"WARNING: result entry missing comment_id, dropping: {entry}", file=sys.stderr)
+            continue
         seen_ids.add(cid)
         c = by_id.get(cid)
         if c is None:
             print(f"WARNING: model returned unknown comment_id {cid}, dropping", file=sys.stderr)
             continue
         reasoning = entry.get("reasoning")
-        for m in entry.get("matches", []):
-            row = {
-                "repo": c["repo"],
-                "pr_number": c["pr_number"],
-                "comment_id": cid,
-                "facet": m["facet"],
-                "value": m["value"],
-                "confidence": m["confidence"],
-                "evidence": m["evidence"],
-            }
+        matches = entry.get("matches", [])
+        if reasoning is not None:
+            reasoning_log.append(
+                {
+                    "repo": c["repo"],
+                    "pr_number": c["pr_number"],
+                    "comment_id": cid,
+                    "reasoning": reasoning,
+                    "num_matches": len(matches),
+                }
+            )
+        for m in matches:
+            if not isinstance(m, dict):
+                print(f"WARNING: match entry isn't an object, dropping: {m!r}", file=sys.stderr)
+                continue
+            try:
+                row = {
+                    "repo": c["repo"],
+                    "pr_number": c["pr_number"],
+                    "comment_id": cid,
+                    "facet": m["facet"],
+                    "value": m["value"],
+                    "confidence": m["confidence"],
+                    "evidence": m["evidence"],
+                }
+            except (KeyError, TypeError) as exc:
+                # Only reachable with --ollama-format json (schema mode structurally guarantees
+                # these fields) - a model free to pick its own JSON shape can omit/misname one.
+                print(
+                    f"WARNING: match for comment_id {cid} missing field ({exc}), dropping: {m}",
+                    file=sys.stderr,
+                )
+                continue
             if reasoning is not None:
                 row["reasoning"] = reasoning
             rows.append(row)
 
     candidates = []
     for cand in parsed.get("candidates", []):
-        cid = cand["comment_id"]
+        if not isinstance(cand, dict):
+            print(f"WARNING: candidate isn't an object, dropping: {cand!r}", file=sys.stderr)
+            continue
+        cid = cand.get("comment_id")
+        if cid is None:
+            print(f"WARNING: candidate missing comment_id, dropping: {cand}", file=sys.stderr)
+            continue
         c = by_id.get(cid)
         if c is None:
             print(
@@ -411,19 +533,74 @@ def _extract_results(
                 file=sys.stderr,
             )
             continue
-        candidates.append(
-            {
-                "repo": c["repo"],
-                "pr_number": c["pr_number"],
-                "comment_id": cid,
-                "fragment": cand["fragment"],
-                "candidate_facet": cand["candidate_facet"],
-                "candidate_value": cand["candidate_value"],
-                "candidate_description": cand["candidate_description"],
-            }
-        )
+        try:
+            candidates.append(
+                {
+                    "repo": c["repo"],
+                    "pr_number": c["pr_number"],
+                    "comment_id": cid,
+                    "fragment": cand["fragment"],
+                    "candidate_facet": cand["candidate_facet"],
+                    "candidate_value": cand["candidate_value"],
+                    "candidate_description": cand["candidate_description"],
+                }
+            )
+        except (KeyError, TypeError) as exc:
+            print(
+                f"WARNING: candidate for comment_id {cid} missing field ({exc}), dropping: "
+                f"{cand}",
+                file=sys.stderr,
+            )
 
-    return rows, candidates, seen_ids
+    return rows, candidates, reasoning_log, seen_ids
+
+
+def _extract_score_results(
+    parsed: dict, by_id: dict[int, dict]
+) -> tuple[list[dict], list[dict], list[dict], set[int]]:
+    """--task score's counterpart to _extract_results - same return shape (rows, candidates,
+    reasoning_log, seen_ids) so _classify_one_pass/_classify_batch stay task-agnostic; candidates
+    and reasoning_log are always empty here since --task score has neither concept."""
+    seen_ids: set[int] = set()
+    rows = []
+    for entry in parsed.get("results", []):
+        if not isinstance(entry, dict):
+            # Only reachable with --ollama-format json - a model free to pick its own JSON
+            # shape can put a bare string/number in `results` instead of an object.
+            print(f"WARNING: result entry isn't an object, dropping: {entry!r}", file=sys.stderr)
+            continue
+        cid = entry.get("comment_id")
+        if cid is None:
+            print(f"WARNING: result entry missing comment_id, dropping: {entry}", file=sys.stderr)
+            continue
+        seen_ids.add(cid)
+        c = by_id.get(cid)
+        if c is None:
+            print(f"WARNING: model returned unknown comment_id {cid}, dropping", file=sys.stderr)
+            continue
+        for s in entry.get("scores", []):
+            if not isinstance(s, dict):
+                print(f"WARNING: score entry isn't an object, dropping: {s!r}", file=sys.stderr)
+                continue
+            try:
+                rows.append(
+                    {
+                        "repo": c["repo"],
+                        "pr_number": c["pr_number"],
+                        "comment_id": cid,
+                        "facet": s["facet"],
+                        "value": s["value"],
+                        "score": s["score"],
+                    }
+                )
+            except (KeyError, TypeError) as exc:
+                # Only reachable with --ollama-format json (schema mode structurally guarantees
+                # these fields) - a model free to pick its own JSON shape can omit/misname one.
+                print(
+                    f"WARNING: score for comment_id {cid} missing field ({exc}), dropping: {s}",
+                    file=sys.stderr,
+                )
+    return rows, [], [], seen_ids
 
 
 def _use_system_user_split(model: str) -> bool:
@@ -447,15 +624,18 @@ def _classify_one_pass(
     system_prompt: str,
     schema: dict,
     call_fn,
+    extract_fn,
     max_retries: int,
-) -> tuple[list[dict], list[dict], list[int], list[dict]]:
+) -> tuple[list[dict], list[dict], list[dict], list[int], list[dict]]:
     """One (system_prompt, schema) pass against one batch, retrying only for comment_ids it
-    drops. Returns (rows, candidates, still-missing comment_ids, list of per-call metadata -
-    primary call first, then retries). Used once per facet in --facet-split mode, or once
-    overall otherwise - see _classify_batch."""
+    drops. Returns (rows, candidates, reasoning_log, still-missing comment_ids, list of per-call
+    metadata - primary call first, then retries). Used once per facet in --facet-split mode, or
+    once overall otherwise - see _classify_batch. `extract_fn` is _extract_results or (--task
+    score) _extract_score_results - both share the (parsed, by_id) -> (rows, candidates,
+    reasoning_log, seen_ids) shape, so this function doesn't need to know which task is running."""
     user_prompt = _build_user_prompt(batch)
     parsed, meta = call_fn(system_prompt, user_prompt, schema)
-    rows, candidates, seen_ids = _extract_results(parsed, by_id)
+    rows, candidates, reasoning_log, seen_ids = extract_fn(parsed, by_id)
     batch_ids = {c["comment_id"] for c in batch}
     missing = sorted(batch_ids - seen_ids)
     metas = [meta]
@@ -471,9 +651,10 @@ def _classify_one_pass(
         retry_user_prompt = _build_user_prompt([by_id[c] for c in missing])
         retry_parsed, retry_meta = call_fn(system_prompt, retry_user_prompt, schema)
         metas.append(retry_meta)
-        new_rows, new_candidates, new_seen = _extract_results(retry_parsed, by_id)
+        new_rows, new_candidates, new_reasoning, new_seen = extract_fn(retry_parsed, by_id)
         rows += new_rows
         candidates += new_candidates
+        reasoning_log += new_reasoning
         seen_ids |= new_seen
         missing = sorted(batch_ids - seen_ids)
 
@@ -483,7 +664,7 @@ def _classify_one_pass(
             f"retr{'y' if attempt == 1 else 'ies'}: {missing}",
             file=sys.stderr,
         )
-    return rows, candidates, missing, metas
+    return rows, candidates, reasoning_log, missing, metas
 
 
 def _classify_batch(
@@ -491,32 +672,48 @@ def _classify_batch(
     by_id: dict[int, dict],
     passes: list[tuple[str, str, dict]],
     call_fn,
+    extract_fn,
     max_retries: int,
-) -> tuple[list[dict], list[dict], list[int], list[dict]]:
+) -> tuple[list[dict], list[dict], list[dict], list[int], list[dict]]:
     """Runs every (label, system_prompt, schema) pass against this batch and merges the
     results - one pass by default, three (one per facet) in --facet-split mode. `passes` is
     precomputed once per run in main(), not rebuilt per batch, since none of it depends on
-    batch content."""
+    batch content. Each reasoning_log entry is tagged with which pass's `label` produced it."""
     all_rows: list[dict] = []
     all_candidates: list[dict] = []
+    all_reasoning: list[dict] = []
     all_missing: set[int] = set()
     all_metas: list[dict] = []
     for label, system_prompt, schema in passes:
         if len(passes) > 1:
             print(f"  [{label}]", file=sys.stderr)
-        rows, candidates, missing, metas = _classify_one_pass(
-            batch, by_id, system_prompt, schema, call_fn, max_retries
+        rows, candidates, reasoning_log, missing, metas = _classify_one_pass(
+            batch, by_id, system_prompt, schema, call_fn, extract_fn, max_retries
         )
+        for r in reasoning_log:
+            r["facet"] = label
         all_rows += rows
         all_candidates += candidates
+        all_reasoning += reasoning_log
         all_missing.update(missing)
         all_metas += metas
-    return all_rows, all_candidates, sorted(all_missing), all_metas
+    return all_rows, all_candidates, all_reasoning, sorted(all_missing), all_metas
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--tep", type=int, required=True)
+    parser.add_argument(
+        "--task",
+        choices=["classify", "score"],
+        default="classify",
+        help="'classify' (default) selects top matches per comment, same as the agent pipeline. "
+        "'score' is a diagnostic pass instead: rate every taxonomy value's relevance to each "
+        "comment 0.0-1.0, to tell apart 'the model ranks correctly but its match threshold is "
+        "off' from 'the model can't discriminate relevant from irrelevant values at all'. Uses "
+        f"{TEMPLATES_DIR / 'taxonomy_score_prompt.md.j2'} by default (override with "
+        "--system-prompt-template); produces no candidates or reasoning log.",
+    )
     parser.add_argument("--backend", choices=["claude-cli", "ollama"], required=True)
     parser.add_argument(
         "--model",
@@ -524,6 +721,16 @@ def main(argv: list[str] | None = None) -> int:
         help="Backend model name (default: 'sonnet' for claude-cli; required for ollama)",
     )
     parser.add_argument("--context", choices=["none", "tep-body"], default="none")
+    parser.add_argument(
+        "--comment-ids",
+        type=int,
+        nargs="+",
+        default=None,
+        help="Only process these specific comment_id(s) (space-separated) instead of the whole "
+        "TEP - e.g. ones you already have manually-audited ground truth for, so a diagnostic "
+        "run can be checked against a known answer instead of an arbitrary file-order slice. "
+        "Filters before batching, so combines normally with --batch-size/--max-batches.",
+    )
     parser.add_argument(
         "--teps-dir",
         default=(os.environ.get("COMMUNITY_REPO_PATH", "") + "/teps") or None,
@@ -548,6 +755,20 @@ def main(argv: list[str] | None = None) -> int:
         "(e.g. 0.1-0.2) push toward more deterministic, less generic output - worth trying on a "
         "model that seems to be giving vague/uniform-confidence answers rather than reasoning "
         "per comment.",
+    )
+    parser.add_argument(
+        "--ollama-format",
+        choices=["schema", "json"],
+        default="schema",
+        help="Ollama's structured-output mode (--backend ollama only, no effect on claude-cli). "
+        "'schema' (default) grammar-constrains decoding to the exact result schema - every "
+        "token forced onto a schema-valid path. 'json' only enforces syntactically valid JSON, "
+        "no schema/vocabulary constraint, so the model reasons and picks its own JSON shape/"
+        "values freely, guided by the prompt text alone. Try this if schema mode's output looks "
+        "degenerate (e.g. --task score producing near-uniform/bucketed scores) to test whether "
+        "the grammar constraint itself - not the model's underlying judgment - is the "
+        "bottleneck, e.g. a hybrid Mamba-transformer architecture not playing well with "
+        "grammar-constrained decoding the way pure-transformer models do.",
     )
     parser.add_argument("--max-budget-usd", type=float, default=2.0)
     parser.add_argument(
@@ -593,6 +814,24 @@ def main(argv: list[str] | None = None) -> int:
         "--facet-coverage-threshold has no effect in this mode - each call already asks about "
         "exactly one facet, so 'check all three' doesn't apply.",
     )
+    parser.add_argument(
+        "--max-batches",
+        type=int,
+        default=None,
+        help="Only run the first N batches instead of the whole TEP. Combine with --batch-size "
+        "to process an exact, small number of comments cheaply for a quick experiment - e.g. "
+        "--batch-size 5 --max-batches 1 processes just the first 5 comments.",
+    )
+    parser.add_argument(
+        "--system-prompt-template",
+        type=Path,
+        default=None,
+        help="Use an alternate system-prompt template instead of "
+        f"{TEMPLATES_DIR / 'system_prompt.md.j2'} - must accept the same template variables "
+        "(facet_scope, facet_description, facet_values, taxonomy_block, tep_body_block, "
+        "examples_block, facet_coverage_threshold). For testing prompt-wording variants "
+        "without editing the canonical template in place.",
+    )
     parser.add_argument("--out-dir", type=Path, default=None)
     args = parser.parse_args(argv)
 
@@ -603,10 +842,21 @@ def main(argv: list[str] | None = None) -> int:
             "WARNING: --temperature has no effect on --backend claude-cli, ignoring",
             file=sys.stderr,
         )
+    if args.backend == "claude-cli" and args.ollama_format != "schema":
+        print(
+            "WARNING: --ollama-format has no effect on --backend claude-cli, ignoring",
+            file=sys.stderr,
+        )
     model = args.model or "sonnet"
 
     record = _load_tep_record(args.tep)
     comments = _comments_for(record)
+    if args.comment_ids:
+        wanted = set(args.comment_ids)
+        comments = [c for c in comments if c["comment_id"] in wanted]
+        not_found = wanted - {c["comment_id"] for c in comments}
+        if not_found:
+            parser.error(f"--comment-ids not found in TEP-{args.tep}: {sorted(not_found)}")
     taxonomy = _load_taxonomy()
     taxonomy_block = _taxonomy_prompt_block(taxonomy)
     tep_body_block = None
@@ -615,6 +865,21 @@ def main(argv: list[str] | None = None) -> int:
             parser.error("--context tep-body needs --teps-dir or COMMUNITY_REPO_PATH set")
         tep_body_block = _tep_body_block(record, Path(args.teps_dir).expanduser().resolve())
     examples_block = _load_few_shot_examples() if args.few_shot else None
+    if args.few_shot and args.task == "score":
+        print(
+            "WARNING: --few-shot's worked examples are written for --task classify's "
+            "matches/candidates shape and aren't referenced by the default --task score "
+            "template - ignoring unless --system-prompt-template points at a template that "
+            "uses examples_block itself",
+            file=sys.stderr,
+        )
+
+    default_score_template = TEMPLATES_DIR / "taxonomy_score_prompt.md.j2"
+    system_prompt_template = args.system_prompt_template or (
+        default_score_template if args.task == "score" else None
+    )
+    schema_fn = _build_score_schema if args.task == "score" else _build_result_schema
+    extract_fn = _extract_score_results if args.task == "score" else _extract_results
 
     # One (label, system_prompt, schema) pass per facet in --facet-split mode, or a single
     # combined pass otherwise - computed once here since none of it depends on batch content.
@@ -629,8 +894,9 @@ def main(argv: list[str] | None = None) -> int:
                 args.facet_coverage_threshold,
                 examples_block,
                 facet_scope,
+                system_prompt_template,
             ),
-            _build_result_schema(taxonomy, facet_scope),
+            schema_fn(taxonomy, facet_scope),
         )
         for facet_scope in facet_scopes
     ]
@@ -651,18 +917,27 @@ def main(argv: list[str] | None = None) -> int:
             schema,
             args.num_ctx,
             args.temperature,
+            args.ollama_format,
         )
 
     by_id = {c["comment_id"]: c for c in comments}
     batches = _chunk(comments, args.batch_size)
+    if args.max_batches:
+        batches = batches[: args.max_batches]
 
     out_dir = args.out_dir or Path(f"processed/tep{args.tep}")
     out_dir.mkdir(parents=True, exist_ok=True)
     tag = f"classify_llm_{args.backend}_{args.context}_{model.replace(':', '-').replace('/', '-')}"
+    if args.task != "classify":
+        tag += f"_task-{args.task}"
+    if args.comment_ids:
+        tag += f"_ids{len(args.comment_ids)}"
     if args.batch_size:
         tag += f"_batch{args.batch_size}"
     if args.facet_coverage_threshold is not None:
         tag += f"_facetcov{args.facet_coverage_threshold}"
+    if args.ollama_format != "schema":
+        tag += f"_fmt-{args.ollama_format}"
     if args.num_ctx:
         tag += f"_numctx{args.num_ctx}"
     if args.temperature is not None:
@@ -671,8 +946,14 @@ def main(argv: list[str] | None = None) -> int:
         tag += "_fewshot"
     if args.facet_split:
         tag += "_facetsplit"
+    if args.max_batches:
+        tag += f"_maxbatches{args.max_batches}"
+    if system_prompt_template:
+        template_name = system_prompt_template.name.removesuffix(".md.j2")
+        tag += f"_tmpl-{template_name}"
     out_path = out_dir / f"{tag}.jsonl"
     candidates_path = out_dir / f"{tag}.candidates.jsonl"
+    reasoning_path = out_dir / f"{tag}.reasoning.jsonl"
     meta_path = out_dir / f"{tag}.meta.json"
 
     def _write_meta(num_batches_done: int, interrupted: bool) -> None:
@@ -680,7 +961,10 @@ def main(argv: list[str] | None = None) -> int:
             "backend": args.backend,
             "model": model,
             "tep": args.tep,
+            "task": args.task,
             "context": args.context,
+            "comment_ids": args.comment_ids,
+            "ollama_format": args.ollama_format,
             "batch_size": args.batch_size or len(comments),
             "num_batches": len(batches),
             "num_batches_completed": num_batches_done,
@@ -690,9 +974,14 @@ def main(argv: list[str] | None = None) -> int:
             "temperature": args.temperature,
             "few_shot": args.few_shot,
             "facet_split": args.facet_split,
+            "max_batches": args.max_batches,
+            "system_prompt_template": (
+                str(system_prompt_template) if system_prompt_template else None
+            ),
             "num_comments": len(comments),
             "num_rows": len(rows),
             "num_candidates": len(candidates),
+            "num_reasoning_entries": len(reasoning_entries),
             "missing_comment_ids": sorted(missing),
             "num_calls": len(all_metas),
             "calls": all_metas,
@@ -705,8 +994,14 @@ def main(argv: list[str] | None = None) -> int:
         }
         meta_path.write_text(json.dumps(meta, indent=2) + "\n")
 
+    comments_in_scope = sum(len(b) for b in batches)
+    scope_note = (
+        f"{comments_in_scope} of {len(comments)} comments (--max-batches {args.max_batches})"
+        if args.max_batches
+        else f"{len(comments)} comments"
+    )
     print(
-        f"TEP-{args.tep}: {len(comments)} comments in {len(batches)} batch(es) of up to "
+        f"TEP-{args.tep}: {scope_note} in {len(batches)} batch(es) of up to "
         f"{args.batch_size or len(comments)}, context={args.context}, backend={args.backend}, "
         f"model={model}\nwriting incrementally to {out_path} as each batch completes - open it "
         f"any time to check progress, or Ctrl-C to stop early and keep what's done so far",
@@ -715,11 +1010,16 @@ def main(argv: list[str] | None = None) -> int:
 
     rows: list[dict] = []
     candidates: list[dict] = []
+    reasoning_entries: list[dict] = []
     missing: list[int] = []
     all_metas: list[dict] = []
     batches_done = 0
     run_start = time.time()
-    with out_path.open("w") as out_f, candidates_path.open("w") as cand_f:
+    with (
+        out_path.open("w") as out_f,
+        candidates_path.open("w") as cand_f,
+        reasoning_path.open("w") as reasoning_f,
+    ):
         try:
             for i, batch in enumerate(batches, 1):
                 batch_start = time.time()
@@ -728,15 +1028,19 @@ def main(argv: list[str] | None = None) -> int:
                     f"[{now_str}] batch {i}/{len(batches)} ({len(batch)} comments)...",
                     file=sys.stderr,
                 )
-                batch_rows, batch_candidates, batch_missing, batch_metas = _classify_batch(
-                    batch,
-                    by_id,
-                    passes,
-                    _call,
-                    args.max_retries,
+                batch_rows, batch_candidates, batch_reasoning, batch_missing, batch_metas = (
+                    _classify_batch(
+                        batch,
+                        by_id,
+                        passes,
+                        _call,
+                        extract_fn,
+                        args.max_retries,
+                    )
                 )
                 rows += batch_rows
                 candidates += batch_candidates
+                reasoning_entries += batch_reasoning
                 missing += batch_missing
                 all_metas += batch_metas
                 batches_done = i
@@ -745,30 +1049,43 @@ def main(argv: list[str] | None = None) -> int:
                     out_f.write(json.dumps(r) + "\n")
                 for c in batch_candidates:
                     cand_f.write(json.dumps(c) + "\n")
+                for rr in batch_reasoning:
+                    reasoning_f.write(json.dumps(rr) + "\n")
                 out_f.flush()
                 cand_f.flush()
+                reasoning_f.flush()
 
                 batch_elapsed = time.time() - batch_start
                 total_elapsed = time.time() - run_start
                 remaining = len(batches) - i
                 eta = (total_elapsed / i) * remaining if i else 0.0
-                facet_counts = Counter(r["facet"] for r in batch_rows)
                 cost = sum(m.get("cost_usd") or 0 for m in batch_metas)
                 cost_str = f", ${cost:.3f}" if args.backend == "claude-cli" else ""
-                print(
-                    f"  -> {len(batch_rows)} tag(s) {dict(facet_counts)}, "
-                    f"{len(batch_candidates)} candidate(s){cost_str} "
-                    f"(running total: {len(rows)} tags, {len(candidates)} candidates) "
-                    f"[batch took {batch_elapsed:.0f}s, elapsed {total_elapsed:.0f}s, "
-                    f"~{eta:.0f}s / {remaining} batch(es) left]",
-                    file=sys.stderr,
-                )
+                if args.task == "score":
+                    print(
+                        f"  -> {len(batch_rows)} score(s) across {len(batch)} comment(s)"
+                        f"{cost_str} (running total: {len(rows)} scores) "
+                        f"[batch took {batch_elapsed:.0f}s, elapsed {total_elapsed:.0f}s, "
+                        f"~{eta:.0f}s / {remaining} batch(es) left]",
+                        file=sys.stderr,
+                    )
+                else:
+                    facet_counts = Counter(r["facet"] for r in batch_rows)
+                    print(
+                        f"  -> {len(batch_rows)} tag(s) {dict(facet_counts)}, "
+                        f"{len(batch_candidates)} candidate(s){cost_str} "
+                        f"(running total: {len(rows)} tags, {len(candidates)} candidates) "
+                        f"[batch took {batch_elapsed:.0f}s, elapsed {total_elapsed:.0f}s, "
+                        f"~{eta:.0f}s / {remaining} batch(es) left]",
+                        file=sys.stderr,
+                    )
         except KeyboardInterrupt:
             _write_meta(batches_done, interrupted=True)
             print(
                 f"\nInterrupted after {batches_done}/{len(batches)} batches. Kept {len(rows)} "
-                f"rows and {len(candidates)} candidates written so far in {out_path} and "
-                f"{candidates_path} (meta.json marked interrupted=true).",
+                f"rows, {len(candidates)} candidates, and {len(reasoning_entries)} reasoning "
+                f"entries written so far in {out_path}, {candidates_path}, and {reasoning_path} "
+                f"(meta.json marked interrupted=true).",
                 file=sys.stderr,
             )
             return 130
@@ -794,6 +1111,7 @@ def main(argv: list[str] | None = None) -> int:
 
     print(f"wrote {len(rows)} rows -> {out_path}", file=sys.stderr)
     print(f"wrote {len(candidates)} candidate(s) -> {candidates_path}", file=sys.stderr)
+    print(f"wrote {len(reasoning_entries)} reasoning entries -> {reasoning_path}", file=sys.stderr)
     print(f"wrote run metadata -> {meta_path}", file=sys.stderr)
     return 0
 
