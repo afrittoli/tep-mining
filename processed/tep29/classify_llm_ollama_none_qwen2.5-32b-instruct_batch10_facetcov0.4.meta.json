@@ -1,0 +1,78 @@
+{
+  "backend": "ollama",
+  "model": "qwen2.5:32b-instruct",
+  "tep": 29,
+  "context": "none",
+  "batch_size": 10,
+  "num_batches": 7,
+  "num_batches_completed": 7,
+  "interrupted": false,
+  "facet_coverage_threshold": 0.4,
+  "num_ctx": null,
+  "temperature": null,
+  "num_comments": 67,
+  "num_rows": 88,
+  "num_candidates": 2,
+  "missing_comment_ids": [],
+  "num_calls": 8,
+  "calls": [
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 86808,
+      "eval_count": 1093,
+      "prompt_eval_count": 3135
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 39699,
+      "eval_count": 575,
+      "prompt_eval_count": 2564
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 68835,
+      "eval_count": 937,
+      "prompt_eval_count": 2578
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 108695,
+      "eval_count": 1296,
+      "prompt_eval_count": 2899
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 80791,
+      "eval_count": 1006,
+      "prompt_eval_count": 2920
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 16409,
+      "eval_count": 216,
+      "prompt_eval_count": 2210
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 62452,
+      "eval_count": 810,
+      "prompt_eval_count": 2712
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 63046,
+      "eval_count": 844,
+      "prompt_eval_count": 2521
+    }
+  ],
+  "total_cost_usd": null,
+  "total_duration_ms": 526735
+}

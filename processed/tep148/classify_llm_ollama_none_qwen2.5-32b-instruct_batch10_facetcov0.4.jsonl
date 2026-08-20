@@ -1,0 +1,15 @@
+{"repo": "community", "pr_number": 1086, "comment_id": 1383329081, "facet": "principle", "value": "reusability", "confidence": 0.6, "evidence": "We can use `google.protobuf.Struct` here."}
+{"repo": "community", "pr_number": 1086, "comment_id": 1383329081, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "We can use `google.protobuf.Struct` here."}
+{"repo": "community", "pr_number": 1086, "comment_id": 1383329081, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "We can use `google.protobuf.Struct` here."}
+{"repo": "community", "pr_number": 1086, "comment_id": 1385198929, "facet": "principle", "value": "reusability", "confidence": 0.6, "evidence": "We don't need to use Aggregations, we can directly have a definition here."}
+{"repo": "community", "pr_number": 1086, "comment_id": 1385198929, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "We don't need to use Aggregations, we can directly have a definition here."}
+{"repo": "community", "pr_number": 1086, "comment_id": 1385198929, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "We don't need to use Aggregations, we can directly have a definition here."}
+{"repo": "community", "pr_number": 1086, "comment_id": 1385200739, "facet": "principle", "value": "reusability", "confidence": 0.6, "evidence": "Instead of map<string, Aggregations>, we can have an array."}
+{"repo": "community", "pr_number": 1086, "comment_id": 1385200739, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "Instead of map<string, Aggregations>, we can have an array."}
+{"repo": "community", "pr_number": 1086, "comment_id": 1385200739, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "Instead of map<string, Aggregations>, we can have an array."}
+{"repo": "community", "pr_number": 1086, "comment_id": 1386004930, "facet": "principle", "value": "reusability", "confidence": 0.6, "evidence": "I don't think array would work because, then we won't be able to use group name."}
+{"repo": "community", "pr_number": 1086, "comment_id": 1386004930, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "I don't think array would work because, then we won't be able to use group name."}
+{"repo": "community", "pr_number": 1086, "comment_id": 1386004930, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "I don't think array would work because, then we won't be able to use group name."}
+{"repo": "community", "pr_number": 1086, "comment_id": 1387620803, "facet": "principle", "value": "reusability", "confidence": 0.6, "evidence": "ok understood, changed"}
+{"repo": "community", "pr_number": 1086, "comment_id": 1387620803, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "ok understood, changed"}
+{"repo": "community", "pr_number": 1086, "comment_id": 1387620803, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "ok understood, changed"}

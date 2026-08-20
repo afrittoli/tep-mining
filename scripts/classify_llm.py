@@ -772,6 +772,23 @@ def main(argv: list[str] | None = None) -> int:
                 file=sys.stderr,
             )
             return 130
+        except Exception:
+            # A user Ctrl-C leaves a self-documenting meta.json (interrupted=true) so a
+            # partial run is never mistaken for a complete one; an unhandled error (timeout,
+            # connection drop, etc. - observed on a real TEP-84 run) used to skip _write_meta
+            # entirely and leave nothing distinguishing it from a complete run except the
+            # missing meta.json file. Write the same marker here before re-raising, so the
+            # traceback still surfaces (the caller/shell loop still sees a non-zero exit) but
+            # the partial output is never silently indistinguishable from a finished one.
+            _write_meta(batches_done, interrupted=True)
+            print(
+                f"\nFailed after {batches_done}/{len(batches)} batches. Kept {len(rows)} rows "
+                f"and {len(candidates)} candidates written so far in {out_path} and "
+                f"{candidates_path} (meta.json marked interrupted=true). Re-run with the same "
+                "args to retry.",
+                file=sys.stderr,
+            )
+            raise
 
     _write_meta(batches_done, interrupted=False)
 

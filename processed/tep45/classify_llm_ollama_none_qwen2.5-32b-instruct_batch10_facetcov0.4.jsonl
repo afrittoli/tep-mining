@@ -1,0 +1,15 @@
+{"repo": "community", "pr_number": 317, "comment_id": 564000649, "facet": "principle", "value": "reusability", "confidence": 0.9, "evidence": "its not just about guarding, its more about reusability of a task in the finally section."}
+{"repo": "community", "pr_number": 317, "comment_id": 564000649, "facet": "artifact", "value": "pr-description", "confidence": 0.8, "evidence": "I would recommend reflecting this in the title as well"}
+{"repo": "community", "pr_number": 317, "comment_id": 564000649, "facet": "nature", "value": "content", "confidence": 0.8, "evidence": "reflecting this in the title as well"}
+{"repo": "community", "pr_number": 317, "comment_id": 564002540, "facet": "principle", "value": "reusability", "confidence": 0.9, "evidence": "I would switch this and make reusability as the primary goal."}
+{"repo": "community", "pr_number": 317, "comment_id": 564002540, "facet": "artifact", "value": "pr-description", "confidence": 0.8, "evidence": "I would switch this and make reusability as the primary goal."}
+{"repo": "community", "pr_number": 317, "comment_id": 564002540, "facet": "nature", "value": "content", "confidence": 0.8, "evidence": "make reusability as the primary goal"}
+{"repo": "community", "pr_number": 317, "comment_id": 564009674, "facet": "principle", "value": "simplicity", "confidence": 0.7, "evidence": "can we change the when expression to switch input with values?"}
+{"repo": "community", "pr_number": 317, "comment_id": 564009674, "facet": "artifact", "value": "code", "confidence": 0.7, "evidence": "can we change the when expression to switch input with values?"}
+{"repo": "community", "pr_number": 317, "comment_id": 564009674, "facet": "nature", "value": "structure", "confidence": 0.7, "evidence": "can we change the when expression to switch input with values?"}
+{"repo": "community", "pr_number": 317, "comment_id": 564016659, "facet": "principle", "value": "reusability", "confidence": 0.8, "evidence": "Reusability and Guarded Execution of Finally Tasks"}
+{"repo": "community", "pr_number": 317, "comment_id": 564016659, "facet": "artifact", "value": "pr-description", "confidence": 0.8, "evidence": "Updated it to `Reusability and Guarded Execution of Finally Tasks`"}
+{"repo": "community", "pr_number": 317, "comment_id": 564016659, "facet": "nature", "value": "content", "confidence": 0.8, "evidence": "Updated it to `Reusability and Guarded Execution of Finally Tasks`"}
+{"repo": "community", "pr_number": 317, "comment_id": 564017104, "facet": "principle", "value": "reusability", "confidence": 0.8, "evidence": "made them 'co-goals', but mentioned reusability first"}
+{"repo": "community", "pr_number": 317, "comment_id": 564017104, "facet": "artifact", "value": "pr-description", "confidence": 0.8, "evidence": "made them 'co-goals', but mentioned reusability first"}
+{"repo": "community", "pr_number": 317, "comment_id": 564017104, "facet": "nature", "value": "content", "confidence": 0.8, "evidence": "made them 'co-goals', but mentioned reusability first"}

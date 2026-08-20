@@ -1,0 +1,192 @@
+{
+  "backend": "ollama",
+  "model": "granite4:small-h",
+  "tep": 29,
+  "context": "none",
+  "batch_size": 10,
+  "num_batches": 7,
+  "num_batches_completed": 7,
+  "interrupted": false,
+  "facet_coverage_threshold": null,
+  "num_ctx": 8192,
+  "temperature": null,
+  "few_shot": true,
+  "facet_split": true,
+  "num_comments": 67,
+  "num_rows": 92,
+  "num_candidates": 0,
+  "missing_comment_ids": [],
+  "num_calls": 24,
+  "calls": [
+    {
+      "backend": "ollama",
+      "model": "granite4:small-h",
+      "duration_ms": 32129,
+      "eval_count": 938,
+      "prompt_eval_count": 2655
+    },
+    {
+      "backend": "ollama",
+      "model": "granite4:small-h",
+      "duration_ms": 5402,
+      "eval_count": 86,
+      "prompt_eval_count": 2536
+    },
+    {
+      "backend": "ollama",
+      "model": "granite4:small-h",
+      "duration_ms": 6130,
+      "eval_count": 109,
+      "prompt_eval_count": 2503
+    },
+    {
+      "backend": "ollama",
+      "model": "granite4:small-h",
+      "duration_ms": 20678,
+      "eval_count": 598,
+      "prompt_eval_count": 2431
+    },
+    {
+      "backend": "ollama",
+      "model": "granite4:small-h",
+      "duration_ms": 27817,
+      "eval_count": 831,
+      "prompt_eval_count": 2300
+    },
+    {
+      "backend": "ollama",
+      "model": "granite4:small-h",
+      "duration_ms": 22719,
+      "eval_count": 707,
+      "prompt_eval_count": 2086
+    },
+    {
+      "backend": "ollama",
+      "model": "granite4:small-h",
+      "duration_ms": 19455,
+      "eval_count": 597,
+      "prompt_eval_count": 1967
+    },
+    {
+      "backend": "ollama",
+      "model": "granite4:small-h",
+      "duration_ms": 20611,
+      "eval_count": 632,
+      "prompt_eval_count": 1731
+    },
+    {
+      "backend": "ollama",
+      "model": "granite4:small-h",
+      "duration_ms": 25664,
+      "eval_count": 791,
+      "prompt_eval_count": 2098
+    },
+    {
+      "backend": "ollama",
+      "model": "granite4:small-h",
+      "duration_ms": 19898,
+      "eval_count": 614,
+      "prompt_eval_count": 1979
+    },
+    {
+      "backend": "ollama",
+      "model": "granite4:small-h",
+      "duration_ms": 27340,
+      "eval_count": 863,
+      "prompt_eval_count": 1743
+    },
+    {
+      "backend": "ollama",
+      "model": "granite4:small-h",
+      "duration_ms": 26982,
+      "eval_count": 804,
+      "prompt_eval_count": 2397
+    },
+    {
+      "backend": "ollama",
+      "model": "granite4:small-h",
+      "duration_ms": 19045,
+      "eval_count": 550,
+      "prompt_eval_count": 2278
+    },
+    {
+      "backend": "ollama",
+      "model": "granite4:small-h",
+      "duration_ms": 24412,
+      "eval_count": 731,
+      "prompt_eval_count": 2042
+    },
+    {
+      "backend": "ollama",
+      "model": "granite4:small-h",
+      "duration_ms": 19613,
+      "eval_count": 569,
+      "prompt_eval_count": 2400
+    },
+    {
+      "backend": "ollama",
+      "model": "granite4:small-h",
+      "duration_ms": 21445,
+      "eval_count": 632,
+      "prompt_eval_count": 2281
+    },
+    {
+      "backend": "ollama",
+      "model": "granite4:small-h",
+      "duration_ms": 8994,
+      "eval_count": 262,
+      "prompt_eval_count": 1889
+    },
+    {
+      "backend": "ollama",
+      "model": "granite4:small-h",
+      "duration_ms": 35472,
+      "eval_count": 1109,
+      "prompt_eval_count": 2045
+    },
+    {
+      "backend": "ollama",
+      "model": "granite4:small-h",
+      "duration_ms": 17792,
+      "eval_count": 528,
+      "prompt_eval_count": 2235
+    },
+    {
+      "backend": "ollama",
+      "model": "granite4:small-h",
+      "duration_ms": 22770,
+      "eval_count": 697,
+      "prompt_eval_count": 2116
+    },
+    {
+      "backend": "ollama",
+      "model": "granite4:small-h",
+      "duration_ms": 25759,
+      "eval_count": 785,
+      "prompt_eval_count": 1880
+    },
+    {
+      "backend": "ollama",
+      "model": "granite4:small-h",
+      "duration_ms": 14356,
+      "eval_count": 427,
+      "prompt_eval_count": 2072
+    },
+    {
+      "backend": "ollama",
+      "model": "granite4:small-h",
+      "duration_ms": 23193,
+      "eval_count": 718,
+      "prompt_eval_count": 1953
+    },
+    {
+      "backend": "ollama",
+      "model": "granite4:small-h",
+      "duration_ms": 11144,
+      "eval_count": 320,
+      "prompt_eval_count": 1717
+    }
+  ],
+  "total_cost_usd": null,
+  "total_duration_ms": 498820
+}

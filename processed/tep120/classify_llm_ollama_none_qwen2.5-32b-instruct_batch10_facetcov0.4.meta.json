@@ -1,0 +1,36 @@
+{
+  "backend": "ollama",
+  "model": "qwen2.5:32b-instruct",
+  "tep": 120,
+  "context": "none",
+  "batch_size": 10,
+  "num_batches": 2,
+  "num_batches_completed": 2,
+  "interrupted": false,
+  "facet_coverage_threshold": 0.4,
+  "num_ctx": null,
+  "temperature": null,
+  "num_comments": 14,
+  "num_rows": 40,
+  "num_candidates": 2,
+  "missing_comment_ids": [],
+  "num_calls": 2,
+  "calls": [
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 153960,
+      "eval_count": 1906,
+      "prompt_eval_count": 2822
+    },
+    {
+      "backend": "ollama",
+      "model": "qwen2.5:32b-instruct",
+      "duration_ms": 65838,
+      "eval_count": 635,
+      "prompt_eval_count": 2321
+    }
+  ],
+  "total_cost_usd": null,
+  "total_duration_ms": 219798
+}
