@@ -1,0 +1,6 @@
+# Comments to classify
+{% for c in comments %}
+[{{ c.comment_id }}] pr#{{ c.pr_number }} {{ c.loc }} {{ c.author }}: {{ c.body }}
+{%- endfor %}
+
+Return one entry per comment_id above, even if matches is an empty list.
