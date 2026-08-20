@@ -36,10 +36,22 @@ autonomous agent happens to notice.
 Deliberately out of scope: worktree/git/commit mechanics, and treating candidates as anything
 but a proposal - this produces a comparison artifact, not a real classify.jsonl to commit.
 
+The "mellea" backend is a third path to the same Ollama server: identical rendered prompts and
+identical retry loop, but the response schema is derived from pydantic models and the response
+is decoded/validated by mellea rather than by this script's hand-rolled guards. It exists to be
+compared against "ollama" on the same TEP - if the two disagree, that's a finding about
+schema-constrained decoding, not about the taxonomy. mellea has no claude-cli equivalent (its
+backends are ollama/hf/openai/watsonx/litellm, and litellm bills the Anthropic API rather than a
+Pro/Max subscription), so --backend claude-cli keeps its own subprocess path.
+
 Usage:
     uv run scripts/classify_llm.py --tep 52 --backend claude-cli --context none
     uv run scripts/classify_llm.py --tep 52 --backend claude-cli --context tep-body
     uv run scripts/classify_llm.py --tep 52 --backend ollama --model qwen2.5:32b-instruct \
+        --context tep-body
+
+    # same call through mellea, for a like-for-like comparison against --backend ollama:
+    uv run scripts/classify_llm.py --tep 52 --backend mellea --model qwen2.5:32b-instruct \
         --context tep-body
 
     # split into smaller calls instead of one call for the whole TEP - test whether batch size
@@ -61,9 +73,13 @@ import sys
 import time
 from collections import Counter
 from pathlib import Path
+from typing import Literal
 
+import mellea
 import requests
 from jinja2 import Environment, FileSystemLoader
+from mellea.backends.model_options import ModelOption
+from pydantic import BaseModel, Field
 from ruamel.yaml import YAML
 
 TAXONOMY_PATH = Path("conventions/seed-taxonomy.yaml")
@@ -74,6 +90,18 @@ TEMPLATES_DIR = Path(__file__).parent / "templates"
 _jinja_env = Environment(
     loader=FileSystemLoader(TEMPLATES_DIR), trim_blocks=True, lstrip_blocks=True
 )
+
+
+def _facet_and_values(taxonomy: dict, facet_scope: str | None) -> tuple[list[str], list[str]]:
+    """The (facet_names, all_values) pair every schema/model builder narrows its enums to -
+    one facet's values under --facet-split, the whole taxonomy otherwise."""
+    if facet_scope:
+        return [facet_scope], sorted(
+            v["value"] for v in taxonomy["facets"][facet_scope].get("values") or []
+        )
+    return list(taxonomy["facets"].keys()), sorted(
+        {v["value"] for facet in taxonomy["facets"].values() for v in (facet.get("values") or [])}
+    )
 
 
 def _build_result_schema(taxonomy: dict, facet_scope: str | None = None) -> dict:
@@ -87,18 +115,7 @@ def _build_result_schema(taxonomy: dict, facet_scope: str | None = None) -> dict
     constrained decoding, property order is generation order, so this forces the model to
     write its analysis before committing to a match rather than justifying one after the fact.
     """
-    if facet_scope:
-        facet_names = [facet_scope]
-        all_values = sorted(v["value"] for v in taxonomy["facets"][facet_scope].get("values") or [])
-    else:
-        facet_names = list(taxonomy["facets"].keys())
-        all_values = sorted(
-            {
-                v["value"]
-                for facet in taxonomy["facets"].values()
-                for v in (facet.get("values") or [])
-            }
-        )
+    facet_names, all_values = _facet_and_values(taxonomy, facet_scope)
 
     result_item_properties: dict = {"comment_id": {"type": "integer"}}
     result_item_required = ["comment_id"]
@@ -180,18 +197,7 @@ def _build_score_schema(taxonomy: dict, facet_scope: str | None = None) -> dict:
     just the ones it would normally tag - schema-constrained decoding enforces the count even if
     the prompt's wording doesn't land.
     """
-    if facet_scope:
-        facet_names = [facet_scope]
-        all_values = sorted(v["value"] for v in taxonomy["facets"][facet_scope].get("values") or [])
-    else:
-        facet_names = list(taxonomy["facets"].keys())
-        all_values = sorted(
-            {
-                v["value"]
-                for facet in taxonomy["facets"].values()
-                for v in (facet.get("values") or [])
-            }
-        )
+    facet_names, all_values = _facet_and_values(taxonomy, facet_scope)
     total_values = len(all_values)
 
     return {
@@ -224,6 +230,89 @@ def _build_score_schema(taxonomy: dict, facet_scope: str | None = None) -> dict:
         },
         "required": ["results"],
     }
+
+
+def _build_result_model(taxonomy: dict, facet_scope: str | None = None) -> type[BaseModel]:
+    """--backend mellea's counterpart to _build_result_schema(): the same enum-narrowed shape,
+    expressed as pydantic types instead of a hand-written JSON-Schema dict, because mellea's
+    `format=` takes a model class and derives the schema itself.
+
+    The reasons behind the shape are unchanged and still load-bearing - see
+    _build_result_schema's docstring for why facet/value are enums rather than free strings,
+    and why `reasoning` is declared *before* `matches` under --facet-split (declaration order
+    is generation order under schema-constrained decoding).
+    """
+    facet_names, all_values = _facet_and_values(taxonomy, facet_scope)
+
+    facet_t = Literal[tuple(facet_names)]  # type: ignore[valid-type]
+    value_t = Literal[tuple(all_values)]  # type: ignore[valid-type]
+
+    class Match(BaseModel):
+        facet: facet_t
+        value: value_t
+        confidence: float
+        evidence: str = Field(
+            description="A quote or tight paraphrase of the specific words in THIS COMMENT "
+            "that justify the match. Never the taxonomy value's own definition, and never "
+            "generic phrasing like 'this touches on X' - name what the comment actually says."
+        )
+
+    if facet_scope:
+
+        class CommentResult(BaseModel):
+            comment_id: int
+            reasoning: str = Field(
+                description="1-2 sentences on what the comment is about and whether it "
+                "plausibly touches this facet - written before matches, to inform the choice."
+            )
+            matches: list[Match]
+
+    else:
+
+        class CommentResult(BaseModel):  # type: ignore[no-redef]
+            comment_id: int
+            matches: list[Match]
+
+    class Candidate(BaseModel):
+        comment_id: int
+        fragment: str
+        candidate_facet: str
+        candidate_value: str
+        candidate_description: str
+
+    class ClassificationBatch(BaseModel):
+        results: list[CommentResult]
+        candidates: list[Candidate] = Field(
+            description="Comment fragments nothing in the taxonomy covers - proposals, not "
+            "tags. See audit_classification_coverage.md's 'uncovered fragment' case."
+        )
+
+    return ClassificationBatch
+
+
+def _build_score_model(taxonomy: dict, facet_scope: str | None = None) -> type[BaseModel]:
+    """--backend mellea's counterpart to _build_score_schema(). min_length/max_length both
+    equal the taxonomy value count for the same reason the JSON-Schema version sets
+    minItems/maxItems: the model must score every value, not just the ones it would tag."""
+    facet_names, all_values = _facet_and_values(taxonomy, facet_scope)
+    total_values = len(all_values)
+
+    facet_t = Literal[tuple(facet_names)]  # type: ignore[valid-type]
+    value_t = Literal[tuple(all_values)]  # type: ignore[valid-type]
+
+    class Score(BaseModel):
+        facet: facet_t
+        value: value_t
+        score: float
+
+    class CommentScores(BaseModel):
+        comment_id: int
+        scores: list[Score] = Field(min_length=total_values, max_length=total_values)
+
+    class ScoreBatch(BaseModel):
+        results: list[CommentScores]
+
+    return ScoreBatch
 
 
 def _load_taxonomy(path: Path = TAXONOMY_PATH) -> dict:
@@ -453,6 +542,57 @@ def _call_ollama(
     return parsed, meta
 
 
+def _call_mellea(
+    system_prompt: str | None,
+    user_prompt: str,
+    session: "mellea.MelleaSession",
+    model: str,
+    output_model: type[BaseModel],
+    num_ctx: int | None,
+    temperature: float | None,
+) -> tuple[dict, dict]:
+    """The mellea equivalent of _call_ollama: same Ollama server, same rendered prompts, but
+    the response is decoded and validated against `output_model` by mellea instead of by hand.
+
+    `strategy=None` is deliberate. mellea's default is RejectionSamplingStrategy, which on a
+    failed requirement regenerates the WHOLE batch; this pipeline instead re-asks only for the
+    comment_ids the model dropped (see _classify_one_pass), which at the default batch size -
+    every comment of a TEP in one call - is dramatically cheaper. Keeping the existing targeted
+    retry loop and disabling mellea's own is the point, not an oversight.
+
+    Unlike _call_ollama, the system prompt is passed as a real system message via
+    ModelOption.SYSTEM_PROMPT rather than being concatenated into the user turn, so
+    _use_system_user_split()'s per-model workaround still applies here unchanged.
+    """
+    start = time.time()
+    model_options: dict = {}
+    if system_prompt is not None:
+        model_options[ModelOption.SYSTEM_PROMPT] = system_prompt
+    if num_ctx:
+        model_options[ModelOption.CONTEXT_WINDOW] = num_ctx
+    if temperature is not None:
+        model_options[ModelOption.TEMPERATURE] = temperature
+
+    result = session.instruct(
+        user_prompt,
+        format=output_model,
+        strategy=None,
+        model_options=model_options or None,
+    )
+    content = result.value
+    meta = {
+        "backend": "mellea",
+        "model": model,
+        "duration_ms": int((time.time() - start) * 1000),
+    }
+    if content is None:
+        raise SystemExit(f"mellea returned no content (error: {result.error})")
+    # mellea guarantees the response parses into output_model, so the isinstance/KeyError
+    # guards _extract_results needs for --ollama-format json can't trigger on this path.
+    # model_dump() hands back the same plain-dict shape the extractors already expect.
+    return output_model.model_validate_json(content).model_dump(), meta
+
+
 def _extract_results(
     parsed: dict, by_id: dict[int, dict]
 ) -> tuple[list[dict], list[dict], list[dict], set[int]]:
@@ -547,8 +687,7 @@ def _extract_results(
             )
         except (KeyError, TypeError) as exc:
             print(
-                f"WARNING: candidate for comment_id {cid} missing field ({exc}), dropping: "
-                f"{cand}",
+                f"WARNING: candidate for comment_id {cid} missing field ({exc}), dropping: {cand}",
                 file=sys.stderr,
             )
 
@@ -714,7 +853,16 @@ def main(argv: list[str] | None = None) -> int:
         f"{TEMPLATES_DIR / 'taxonomy_score_prompt.md.j2'} by default (override with "
         "--system-prompt-template); produces no candidates or reasoning log.",
     )
-    parser.add_argument("--backend", choices=["claude-cli", "ollama"], required=True)
+    parser.add_argument(
+        "--backend",
+        choices=["claude-cli", "ollama", "mellea"],
+        required=True,
+        help="'ollama' calls the Ollama HTTP API directly with a hand-built JSON schema. "
+        "'mellea' talks to the same Ollama server through mellea, deriving the schema from "
+        "pydantic models and validating the response itself - same prompts, same retry loop, "
+        "so its output is directly comparable to 'ollama'. 'claude-cli' shells out to "
+        "`claude -p` (mellea has no equivalent backend; see --backend mellea notes).",
+    )
     parser.add_argument(
         "--model",
         default=None,
@@ -835,16 +983,17 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--out-dir", type=Path, default=None)
     args = parser.parse_args(argv)
 
-    if args.backend == "ollama" and not args.model:
-        parser.error("--model is required for --backend ollama")
+    if args.backend in ("ollama", "mellea") and not args.model:
+        parser.error(f"--model is required for --backend {args.backend}")
     if args.backend == "claude-cli" and args.temperature is not None:
         print(
             "WARNING: --temperature has no effect on --backend claude-cli, ignoring",
             file=sys.stderr,
         )
-    if args.backend == "claude-cli" and args.ollama_format != "schema":
+    if args.backend != "ollama" and args.ollama_format != "schema":
         print(
-            "WARNING: --ollama-format has no effect on --backend claude-cli, ignoring",
+            f"WARNING: --ollama-format has no effect on --backend {args.backend}, ignoring "
+            "(mellea always uses its own schema-constrained decoding path)",
             file=sys.stderr,
         )
     model = args.model or "sonnet"
@@ -878,7 +1027,13 @@ def main(argv: list[str] | None = None) -> int:
     system_prompt_template = args.system_prompt_template or (
         default_score_template if args.task == "score" else None
     )
-    schema_fn = _build_score_schema if args.task == "score" else _build_result_schema
+    # --backend mellea needs a pydantic model where the others need a JSON-Schema dict; both
+    # builders take (taxonomy, facet_scope) and both are opaque to _classify_batch, which just
+    # threads whichever one it gets back into _call.
+    if args.backend == "mellea":
+        schema_fn = _build_score_model if args.task == "score" else _build_result_model
+    else:
+        schema_fn = _build_score_schema if args.task == "score" else _build_result_schema
     extract_fn = _extract_score_results if args.task == "score" else _extract_results
 
     # One (label, system_prompt, schema) pass per facet in --facet-split mode, or a single
@@ -901,7 +1056,19 @@ def main(argv: list[str] | None = None) -> int:
         for facet_scope in facet_scopes
     ]
 
-    def _call(system_prompt: str, user_prompt: str, schema: dict) -> tuple[dict, dict]:
+    # One session for the whole run, not one per call - start_session() pulls the model if it
+    # isn't present locally, which is wasted work on every batch after the first.
+    mellea_session = (
+        mellea.start_session(
+            backend_name="ollama",
+            model_id=model,
+            base_url=args.ollama_host,
+        )
+        if args.backend == "mellea"
+        else None
+    )
+
+    def _call(system_prompt: str, user_prompt: str, schema) -> tuple[dict, dict]:
         sp: str | None = system_prompt
         up = user_prompt
         if not _use_system_user_split(model):
@@ -909,6 +1076,11 @@ def main(argv: list[str] | None = None) -> int:
             up = f"{system_prompt}\n\n{user_prompt}"
         if args.backend == "claude-cli":
             return _call_claude_cli(sp, up, model, args.max_budget_usd, schema)
+        if args.backend == "mellea":
+            assert mellea_session is not None
+            return _call_mellea(
+                sp, up, mellea_session, model, schema, args.num_ctx, args.temperature
+            )
         return _call_ollama(
             sp,
             up,
