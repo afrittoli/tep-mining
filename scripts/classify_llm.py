@@ -40,9 +40,9 @@ The "mellea" backend is a third path to the same Ollama server: identical render
 identical retry loop, but the response schema is derived from pydantic models and the response
 is decoded/validated by mellea rather than by this script's hand-rolled guards. It exists to be
 compared against "ollama" on the same TEP - if the two disagree, that's a finding about
-schema-constrained decoding, not about the taxonomy. mellea has no claude-cli equivalent (its
-backends are ollama/hf/openai/watsonx/litellm, and litellm bills the Anthropic API rather than a
-Pro/Max subscription), so --backend claude-cli keeps its own subprocess path.
+schema-constrained decoding, not about the taxonomy. It only ever covers the Ollama path;
+--backend claude-cli keeps its own subprocess call, since driving Claude through a Pro/Max
+subscription means going through the CLI.
 
 Usage:
     uv run scripts/classify_llm.py --tep 52 --backend claude-cli --context none
@@ -861,7 +861,7 @@ def main(argv: list[str] | None = None) -> int:
         "'mellea' talks to the same Ollama server through mellea, deriving the schema from "
         "pydantic models and validating the response itself - same prompts, same retry loop, "
         "so its output is directly comparable to 'ollama'. 'claude-cli' shells out to "
-        "`claude -p` (mellea has no equivalent backend; see --backend mellea notes).",
+        "`claude -p`, using a Claude Pro/Max subscription's included usage.",
     )
     parser.add_argument(
         "--model",
