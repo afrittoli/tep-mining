@@ -1,11 +1,12 @@
 # mellea in `classify_llm.py`
 
-[mellea](https://github.com/generative-computing/mellea) is IBM Research's library for writing
-LLM calls as typed, validated Python instead of hand-assembled JSON schemas and hand-parsed
-responses. `classify_llm.py` uses it behind two backends: `--backend mellea` (Ollama, mellea's
-own backend) and `--backend mellea-claude-cli` (Claude via `claude -p`, a custom backend built
-for this project — mellea ships no Claude backend that can use a Pro/Max subscription's included
-usage). Both sit alongside the original `--backend ollama` and `--backend claude-cli`.
+[mellea](https://github.com/generative-computing/mellea) is an open-source library, started by
+IBM Research and now growing a wider community, for writing LLM calls as typed, validated Python
+instead of hand-assembled JSON schemas and hand-parsed responses. `classify_llm.py` uses it
+behind two backends: `--backend mellea` (Ollama, mellea's own backend) and `--backend
+mellea-claude-cli` (Claude via `claude -p`, a custom backend built for this project — mellea
+ships no Claude backend that can use a Pro/Max subscription's included usage). Both sit alongside
+the original `--backend ollama` and `--backend claude-cli`.
 
 Each mellea backend is a **directly comparable partner** to one hand-rolled backend, not a
 replacement for it: `mellea` vs `ollama`, `mellea-claude-cli` vs `claude-cli`. Same taxonomy,
@@ -38,12 +39,12 @@ mellea's premise is that a pydantic model carries that contract instead: the sch
 from the type, the response is decoded and validated against it, and the code downstream gets a
 typed object or an exception — never a half-valid dict to pick through.
 
-The second reason is comparability, and it's the more interesting one for this project
-specifically. The open question behind most of this branch's work is how much of `granite4:small-
-h`'s weak result is the *model* and how much is the schema-constrained decoding path around it.
-Having a pair of backends that send identical prompts to the same model but differ only in who
-builds the schema and who parses the response makes that question answerable by running both on
-one TEP — see [Verified so far](#verified-so-far) for a real result from doing exactly that.
+The second reason is comparability. This project already runs the same TEP through multiple
+models and backends to see how results differ; a mellea backend that's a direct, prompt-for-
+prompt partner to its hand-rolled equivalent extends that same comparison to a new axis — how
+much a result depends on the model itself versus the schema-constrained decoding path around it.
+That's a useful distinction to be able to draw for any model this project evaluates, not just one
+— see [Verified so far](#verified-so-far) for a real result from doing exactly that.
 
 ## Design
 
@@ -195,10 +196,10 @@ assumed from the structural checks:
 (`processed/tepNN/agent_classify.jsonl`, `agent_audit.jsonl`) comes from a completely separate
 pipeline (`prompts/classify_review_comments.md`, a real agent session) and has no dependency on
 this script at all. The existing `classify_llm_*.jsonl` comparison artifacts (the qwen2.5
-overnight sweep, the various Granite debugging runs) remain valid records of exactly what they
-say on their filename tag: a specific backend/model/config run at a specific time. Adding two new
-backends doesn't invalidate any of that — it adds more comparison points, it doesn't retroactively
-change what already ran.
+overnight sweep, and the various other model-comparison runs already on disk) remain valid
+records of exactly what they say on their filename tag: a specific backend/model/config run at a
+specific time. Adding two new backends doesn't invalidate any of that — it adds more comparison
+points, it doesn't retroactively change what already ran.
 
 **What's actually missing** is coverage: the `mellea`/`mellea-claude-cli` backends have only been
 run on 3 comments each, as a correctness/plumbing check, not as a real classification pass. Two
@@ -215,13 +216,13 @@ concrete next steps, in order of what the empirical divergence above makes most 
        processed/tep52/classify_llm_ollama_none_qwen2.5-32b-instruct.jsonl \
        processed/tep52/classify_llm_mellea_none_qwen2.5-32b-instruct.jsonl
    ```
-2. **`granite4:small-h` through `mellea`**, since that's the model this whole branch exists to
-   debug, and it hasn't been run through either mellea backend yet:
+2. **`granite4:small-h` through `mellea`**, since it's a model this project has already spent
+   real effort tuning prompts for, and it hasn't been run through either mellea backend yet:
    ```bash
    uv run scripts/classify_llm.py --tep 52 --backend mellea --model granite4:small-h --context none --num-ctx 8192
    ```
    Compare against the existing `--backend ollama --model granite4:small-h` runs already on disk
-   for TEP-52/TEP-76/TEP-84 from the earlier debugging sessions.
+   for TEP-52/TEP-76/TEP-84 from the earlier tuning sessions.
 
 Only after that comparison would there be a reason to *prefer* a mellea backend for real
 classification runs over the hand-rolled ones — and if that happens, it's an explicit decision to
