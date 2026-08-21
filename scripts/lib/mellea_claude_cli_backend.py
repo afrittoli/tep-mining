@@ -39,7 +39,7 @@ Usage (mirrors mellea.start_session, but start_session's backend_name is a close
 doesn't include this backend, so construct it directly and hand it to MelleaSession):
 
     from mellea.stdlib.session import MelleaSession
-    from mellea_claude_cli_backend import ClaudeCLIBackend  # scripts/ is on sys.path[0]
+    from lib.mellea_claude_cli_backend import ClaudeCLIBackend  # scripts/ is on sys.path[0]
 
     session = MelleaSession(ClaudeCLIBackend(model="sonnet", max_budget_usd=2.0))
     result = session.instruct("...", format=SomePydanticModel)

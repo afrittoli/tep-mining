@@ -71,7 +71,7 @@ elif args.backend == "mellea-claude-cli":
 `litellm`) with no Claude-CLI option — `litellm` can reach Claude, but only through Anthropic API
 billing, not a Pro/Max subscription. `MelleaSession(backend: Backend, ...)` itself, though, takes
 any `Backend` instance directly; `start_session()` is just a convenience wrapper around exactly
-that constructor call. So `scripts/mellea_claude_cli_backend.py`'s `ClaudeCLIBackend` is a plain
+that constructor call. So `scripts/lib/mellea_claude_cli_backend.py`'s `ClaudeCLIBackend` is a plain
 `mellea.core.Backend` subclass, built the same way mellea builds its own backends, that shells out
 to `claude -p` — this is a first-class, intended extension point, not a workaround.
 

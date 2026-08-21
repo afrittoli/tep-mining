@@ -78,9 +78,9 @@ from typing import Literal
 import mellea
 import requests
 from jinja2 import Environment, FileSystemLoader
+from lib.mellea_claude_cli_backend import ClaudeCLIBackend
 from mellea.backends.model_options import ModelOption
 from mellea.stdlib.session import MelleaSession
-from mellea_claude_cli_backend import ClaudeCLIBackend
 from pydantic import BaseModel, Field
 from ruamel.yaml import YAML
 
@@ -865,7 +865,7 @@ def main(argv: list[str] | None = None) -> int:
         "so its output is directly comparable to 'ollama'. 'claude-cli' shells out to "
         "`claude -p`, using a Claude Pro/Max subscription's included usage. 'mellea-claude-cli' "
         "drives that same claude-cli subprocess call through mellea's typed format=<pydantic "
-        "model> path (scripts/mellea_claude_cli_backend.py), directly comparable to "
+        "model> path (scripts/lib/mellea_claude_cli_backend.py), directly comparable to "
         "'claude-cli' the same way 'mellea' is comparable to 'ollama'.",
     )
     parser.add_argument(
