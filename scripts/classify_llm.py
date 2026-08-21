@@ -79,6 +79,8 @@ import mellea
 import requests
 from jinja2 import Environment, FileSystemLoader
 from mellea.backends.model_options import ModelOption
+from mellea.stdlib.session import MelleaSession
+from mellea_claude_cli_backend import ClaudeCLIBackend
 from pydantic import BaseModel, Field
 from ruamel.yaml import YAML
 
@@ -855,13 +857,16 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument(
         "--backend",
-        choices=["claude-cli", "ollama", "mellea"],
+        choices=["claude-cli", "ollama", "mellea", "mellea-claude-cli"],
         required=True,
         help="'ollama' calls the Ollama HTTP API directly with a hand-built JSON schema. "
         "'mellea' talks to the same Ollama server through mellea, deriving the schema from "
         "pydantic models and validating the response itself - same prompts, same retry loop, "
         "so its output is directly comparable to 'ollama'. 'claude-cli' shells out to "
-        "`claude -p`, using a Claude Pro/Max subscription's included usage.",
+        "`claude -p`, using a Claude Pro/Max subscription's included usage. 'mellea-claude-cli' "
+        "drives that same claude-cli subprocess call through mellea's typed format=<pydantic "
+        "model> path (scripts/mellea_claude_cli_backend.py), directly comparable to "
+        "'claude-cli' the same way 'mellea' is comparable to 'ollama'.",
     )
     parser.add_argument(
         "--model",
@@ -985,9 +990,9 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.backend in ("ollama", "mellea") and not args.model:
         parser.error(f"--model is required for --backend {args.backend}")
-    if args.backend == "claude-cli" and args.temperature is not None:
+    if args.backend in ("claude-cli", "mellea-claude-cli") and args.temperature is not None:
         print(
-            "WARNING: --temperature has no effect on --backend claude-cli, ignoring",
+            f"WARNING: --temperature has no effect on --backend {args.backend}, ignoring",
             file=sys.stderr,
         )
     if args.backend != "ollama" and args.ollama_format != "schema":
@@ -1027,10 +1032,10 @@ def main(argv: list[str] | None = None) -> int:
     system_prompt_template = args.system_prompt_template or (
         default_score_template if args.task == "score" else None
     )
-    # --backend mellea needs a pydantic model where the others need a JSON-Schema dict; both
-    # builders take (taxonomy, facet_scope) and both are opaque to _classify_batch, which just
-    # threads whichever one it gets back into _call.
-    if args.backend == "mellea":
+    # Both --backend mellea and --backend mellea-claude-cli need a pydantic model where the
+    # others need a JSON-Schema dict; both builders take (taxonomy, facet_scope) and both are
+    # opaque to _classify_batch, which just threads whichever one it gets back into _call.
+    if args.backend in ("mellea", "mellea-claude-cli"):
         schema_fn = _build_score_model if args.task == "score" else _build_result_model
     else:
         schema_fn = _build_score_schema if args.task == "score" else _build_result_schema
@@ -1058,15 +1063,20 @@ def main(argv: list[str] | None = None) -> int:
 
     # One session for the whole run, not one per call - start_session() pulls the model if it
     # isn't present locally, which is wasted work on every batch after the first.
-    mellea_session = (
-        mellea.start_session(
+    mellea_session = None
+    if args.backend == "mellea":
+        mellea_session = mellea.start_session(
             backend_name="ollama",
             model_id=model,
             base_url=args.ollama_host,
         )
-        if args.backend == "mellea"
-        else None
-    )
+    elif args.backend == "mellea-claude-cli":
+        # start_session()'s backend_name is a closed literal (ollama/hf/openai/watsonx/litellm)
+        # with no claude-cli option, so construct the custom Backend directly and hand it to
+        # MelleaSession - the same thing start_session() does internally for its own backends.
+        mellea_session = MelleaSession(
+            ClaudeCLIBackend(model=model, max_budget_usd=args.max_budget_usd)
+        )
 
     def _call(system_prompt: str, user_prompt: str, schema) -> tuple[dict, dict]:
         sp: str | None = system_prompt
@@ -1076,7 +1086,7 @@ def main(argv: list[str] | None = None) -> int:
             up = f"{system_prompt}\n\n{user_prompt}"
         if args.backend == "claude-cli":
             return _call_claude_cli(sp, up, model, args.max_budget_usd, schema)
-        if args.backend == "mellea":
+        if args.backend in ("mellea", "mellea-claude-cli"):
             assert mellea_session is not None
             return _call_mellea(
                 sp, up, mellea_session, model, schema, args.num_ctx, args.temperature
