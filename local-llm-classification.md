@@ -23,8 +23,10 @@ the shared `comment_classifications.jsonl`, `classification_cost_log.md`, or
 
 ## Supporting inputs
 
-- [`scripts/data/few_shot_examples.md`](scripts/data/few_shot_examples.md) — worked examples,
-  included in the prompt only with `--few-shot`.
+- [`scripts/data/few_shot_examples.yaml`](scripts/data/few_shot_examples.yaml) — worked
+  examples, included in the prompt only with `--few-shot`. Each example carries a per-facet
+  view so it renders correctly both combined and under `--facet-split`; see
+  `_few_shot_examples_block` in `classify_llm.py`.
 - [`scripts/templates/`](scripts/templates/) — the Jinja2 system/user prompt templates
   `classify_llm.py` renders.
 
