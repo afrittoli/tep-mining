@@ -63,7 +63,7 @@ from ruamel.yaml import YAML
 
 TAXONOMY_PATH = Path("conventions/seed-taxonomy.yaml")
 RECORDS_PATH = Path("processed/latest/per_tep_records.json")
-FEW_SHOT_EXAMPLES_PATH = Path(__file__).parent / "data" / "few_shot_examples.md"
+FEW_SHOT_EXAMPLES_PATH = Path(__file__).parent / "data" / "few_shot_examples.yaml"
 TEMPLATES_DIR = Path(__file__).parent / "templates"
 
 _jinja_env = Environment(
@@ -227,8 +227,86 @@ def _tep_body_block(record: dict, teps_dir: Path) -> str:
     return tep_path.read_text(encoding="utf-8")
 
 
-def _load_few_shot_examples(path: Path = FEW_SHOT_EXAMPLES_PATH) -> str:
-    return path.read_text(encoding="utf-8")
+def _load_few_shot_examples(path: Path = FEW_SHOT_EXAMPLES_PATH) -> list[dict]:
+    yaml = YAML(typ="safe")
+    return yaml.load(path.read_text(encoding="utf-8"))["examples"]
+
+
+def _few_shot_examples_block(examples: list[dict], facet_scope: str | None = None) -> str:
+    """Projects data/few_shot_examples.yaml's per-facet views into the prose block shown in
+    the prompt.
+
+    Unscoped (`facet_scope=None`): each example shows its full multi-facet `matches` list, no
+    `reasoning` field - matching the unscoped result schema.
+
+    Facet-scoped (--facet-split): each example shows only that facet's slice, with the
+    `reasoning` field the scoped schema requires (see _build_result_schema's docstring for why
+    that's paired with facet-scoping), and only surfaces its `candidates` entries that are gap
+    proposals for this same facet - a facet-scoped call is told to only consider that one
+    facet, so it shouldn't be handed a different facet's gap.
+    """
+    lines = [
+        "# Worked examples",
+        "",
+        "`evidence` is a tight paraphrase of the specific part of the comment that justifies a "
+        "match, never the whole comment copied verbatim. An empty `matches` list is a "
+        "complete, correct answer - most comments legitimately match nothing"
+        + (f" in {facet_scope}" if facet_scope else ", on any facet")
+        + ", do not force one just to produce output.",
+        "",
+    ]
+    for i, ex in enumerate(examples, start=1):
+        comment_id = 900000000 + i
+        if facet_scope:
+            view = ex["facets"][facet_scope]
+            matches = [
+                {"facet": facet_scope, **{k: m[k] for k in ("value", "confidence", "evidence")}}
+                for m in view["matches"]
+            ]
+            item = {"comment_id": comment_id, "reasoning": view["reasoning"], "matches": matches}
+            candidates = [c for c in ex["candidates"] if c["candidate_facet"] == facet_scope]
+        else:
+            matches = [
+                {"facet": facet_name, **{k: m[k] for k in ("value", "confidence", "evidence")}}
+                for facet_name, view in ex["facets"].items()
+                for m in view["matches"]
+            ]
+            item = {"comment_id": comment_id, "matches": matches}
+            candidates = ex["candidates"]
+
+        lines.append(f"Example {i} - {ex['label']}:")
+        lines.append("")
+        lines.append(f'Comment: "{ex["comment"]}"')
+        lines.append("")
+        lines.append("Good output:")
+        lines.append("")
+        lines.append("```json")
+        if candidates:
+            envelope = {
+                "results": [item],
+                "candidates": [
+                    {
+                        "comment_id": comment_id,
+                        "fragment": c["fragment"],
+                        "candidate_facet": c["candidate_facet"],
+                        "candidate_value": c["candidate_value"],
+                        "candidate_description": c["candidate_description"],
+                    }
+                    for c in candidates
+                ],
+            }
+            lines.append(json.dumps(envelope, indent=2))
+        else:
+            lines.append(json.dumps(item, indent=2))
+        lines.append("```")
+        if candidates:
+            lines.append("")
+            lines.append(
+                "This comment gets both a normal match AND a candidate (the gap nothing in "
+                "the taxonomy names yet) - the two are not exclusive."
+            )
+        lines.append("")
+    return "\n".join(lines).rstrip() + "\n"
 
 
 def _build_system_prompt(
@@ -614,10 +692,12 @@ def main(argv: list[str] | None = None) -> int:
         if not args.teps_dir:
             parser.error("--context tep-body needs --teps-dir or COMMUNITY_REPO_PATH set")
         tep_body_block = _tep_body_block(record, Path(args.teps_dir).expanduser().resolve())
-    examples_block = _load_few_shot_examples() if args.few_shot else None
+    few_shot_examples = _load_few_shot_examples() if args.few_shot else None
 
     # One (label, system_prompt, schema) pass per facet in --facet-split mode, or a single
     # combined pass otherwise - computed once here since none of it depends on batch content.
+    # Few-shot examples are re-projected per facet_scope (see _few_shot_examples_block) since a
+    # facet-scoped call needs each example sliced to just that facet, with a `reasoning` field.
     facet_scopes: list[str | None] = list(taxonomy["facets"].keys()) if args.facet_split else [None]
     passes = [
         (
@@ -627,7 +707,7 @@ def main(argv: list[str] | None = None) -> int:
                 taxonomy_block,
                 tep_body_block,
                 args.facet_coverage_threshold,
-                examples_block,
+                _few_shot_examples_block(few_shot_examples, facet_scope) if few_shot_examples else None,
                 facet_scope,
             ),
             _build_result_schema(taxonomy, facet_scope),
