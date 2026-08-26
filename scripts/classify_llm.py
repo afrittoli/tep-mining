@@ -782,16 +782,24 @@ def _low_confidence_ids(rows: list[dict], facet: str, threshold: float) -> set[i
 
 
 def _quote_coverage_flags(
-    rows: list[dict], by_id: dict[int, dict], threshold: float
+    rows: list[dict],
+    by_id: dict[int, dict],
+    threshold: float,
+    exclude_ids: set[int] = frozenset(),
 ) -> dict[int, float]:
     """The plan doc's "catching missed tags on comments that did get tagged" heuristic: for
     every comment with at least one match so far, union its matches' `quote` spans against its
     own text via uncovered_fraction, and flag it if more than `threshold` of the comment's text
     falls outside that union - even though it already had confident matches. Comments with zero
     matches at all aren't in scope here (that's Pass 1's missing-facet and nature:none
-    handling, not this heuristic)."""
+    handling, not this heuristic). `exclude_ids` is meant for nature:none comments: a short
+    acknowledgment's one or two quotes rarely cover 100% of its scaffolding words/punctuation,
+    which would otherwise re-flag a comment Pass 1 already confidently marked insignificant -
+    defeating the point of nature:none skipping further passes at all."""
     quotes_by_comment: dict[int, list[str]] = {}
     for r in rows:
+        if r["comment_id"] in exclude_ids:
+            continue
         quote = r.get("quote")
         if quote:
             quotes_by_comment.setdefault(r["comment_id"], []).append(quote)
@@ -803,6 +811,14 @@ def _quote_coverage_flags(
     return flags
 
 
+PASS2_NOTE = (
+    'Each comment below already has an area/nature tag from an earlier pass, shown as "already '
+    'found" - use it as context for whether a documented principle applies (e.g. a `code` area '
+    "plus a `content` nature is more likely to raise a design-principle concern than a `docs` "
+    "area plus `formatting`), but let the comment's own text decide - don't tag a principle "
+    "just because the area suggests one might apply."
+)
+
 PASS3_NOTE = (
     'Every comment below was already looked at by an earlier, faster pass - shown as "already '
     'found", plus why it was flagged for this closer look (a missing area or nature match, a '
@@ -812,6 +828,26 @@ PASS3_NOTE = (
 )
 
 
+def _tags_context_by_id(rows: list[dict], comment_ids: set[int]) -> dict[int, str]:
+    """A comment's already-tagged (facet/value, confidence) pairs as a one-line display string -
+    the "already found" context shown to Pass 2 (which the plan doc describes as seeing Pass 1's
+    results) and the tag portion of Pass 3's richer per-comment context (see
+    _pass3_context_by_id, which adds the flag reason on top of this)."""
+    by_cid: dict[int, list[dict]] = {}
+    for r in rows:
+        by_cid.setdefault(r["comment_id"], []).append(r)
+    return {
+        cid: (
+            "; ".join(
+                f"{r['facet']}/{r['value']} (confidence {r['confidence']:.2f})"
+                for r in by_cid.get(cid, [])
+            )
+            or "nothing tagged"
+        )
+        for cid in comment_ids
+    }
+
+
 def _pass3_context_by_id(
     rows: list[dict], flag_info: dict[int, dict], comment_ids: set[int]
 ) -> dict[int, str]:
@@ -819,19 +855,9 @@ def _pass3_context_by_id(
     prompt - what Pass 1/2 already tagged, plus why this comment was flagged - so Pass 3 (which
     "sees all of Pass 1 + Pass 2's results as context" per the plan doc) can correct or extend a
     prior judgment instead of starting blind."""
-    by_cid: dict[int, list[dict]] = {}
-    for r in rows:
-        by_cid.setdefault(r["comment_id"], []).append(r)
-
+    tag_strs = _tags_context_by_id(rows, comment_ids)
     out: dict[int, str] = {}
     for cid in comment_ids:
-        tags = by_cid.get(cid, [])
-        tag_str = (
-            "; ".join(
-                f"{r['facet']}/{r['value']} (confidence {r['confidence']:.2f})" for r in tags
-            )
-            or "nothing tagged"
-        )
         info = flag_info.get(cid, {})
         reasons = []
         if info.get("missing_facets"):
@@ -844,7 +870,7 @@ def _pass3_context_by_id(
             reasons.append(
                 f"~{info['uncovered_fraction']:.0%} of the comment's text uncovered by quotes"
             )
-        out[cid] = f"{tag_str} -- flagged because: {', '.join(reasons) or 'unknown'}"
+        out[cid] = f"{tag_strs[cid]} -- flagged because: {', '.join(reasons) or 'unknown'}"
     return out
 
 
@@ -900,15 +926,26 @@ def _run_tiered_batch(
             f"{len(skip_ids)} skipped as nature:none]",
             file=sys.stderr,
         )
+        pass1_context = _tags_context_by_id(
+            rows1, {c["comment_id"] for c in pass2_batch}
+        )
         rows2, candidates2, missing2, metas2 = _classify_one_pass(
-            pass2_batch, by_id, pass2_system_prompt, pass2_schema, call_12, max_retries
+            pass2_batch,
+            by_id,
+            pass2_system_prompt,
+            pass2_schema,
+            call_12,
+            max_retries,
+            build_user_prompt=lambda cs: _build_user_prompt(cs, pass1_context, PASS2_NOTE),
         )
     elif skip_ids:
         print("  [pass 2: skipped entirely - every comment was nature:none]", file=sys.stderr)
 
     low_conf_principle = _low_confidence_ids(rows2, "principle", principle_confidence_threshold)
     pass2_dropped = set(missing2)
-    quote_flags = _quote_coverage_flags(rows1 + rows2, by_id, quote_coverage_threshold)
+    quote_flags = _quote_coverage_flags(
+        rows1 + rows2, by_id, quote_coverage_threshold, exclude_ids=skip_ids
+    )
 
     flag_info: dict[int, dict] = {}
     for cid, missing_names in missing_facets.items():
