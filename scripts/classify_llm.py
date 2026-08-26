@@ -46,6 +46,10 @@ Usage:
     # itself is suppressing recall (each batch retries independently for dropped comment_ids):
     uv run scripts/classify_llm.py --tep 52 --backend ollama --model qwen2.5:32b-instruct \
         --context none --batch-size 10
+
+    # inspect exactly what a run would send, without calling the backend or spending budget:
+    uv run scripts/classify_llm.py --tep 52 --backend ollama --model granite4:small-h \
+        --context tep-body --dry-run
 """
 
 import argparse
@@ -564,6 +568,28 @@ def _classify_one_pass(
     return rows, candidates, missing, metas
 
 
+def _print_dry_run(passes: list[tuple[str, str, dict]], batch: list[dict], model: str) -> None:
+    """Prints exactly what --backend would send for one example batch, without calling it -
+    applies the same system/user split as _call() in main(), so what's printed matches what a
+    real run would send byte-for-byte. One block per pass (just "all" normally, one per facet
+    in --facet-split mode)."""
+    user_prompt = _build_user_prompt(batch)
+    for label, system_prompt, _schema in passes:
+        sp, up = system_prompt, user_prompt
+        if not _use_system_user_split(model):
+            sp, up = None, f"{system_prompt}\n\n{user_prompt}"
+        print(f"===== pass: {label} =====")
+        if sp is not None:
+            print("----- system prompt -----")
+            print(sp)
+            print("----- user prompt -----")
+            print(up)
+        else:
+            print("----- combined prompt (no system/user split for this model) -----")
+            print(up)
+        print()
+
+
 def _classify_batch(
     batch: list[dict],
     by_id: dict[int, dict],
@@ -671,6 +697,13 @@ def main(argv: list[str] | None = None) -> int:
         "--facet-coverage-threshold has no effect in this mode - each call already asks about "
         "exactly one facet, so 'check all three' doesn't apply.",
     )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Print the rendered system and user prompt(s) for one example batch (the first "
+        "one) and exit, without calling the backend or writing any output files - inspect "
+        "exactly what a model would see before spending real budget/time on a full run.",
+    )
     parser.add_argument("--out-dir", type=Path, default=None)
     args = parser.parse_args(argv)
 
@@ -735,6 +768,15 @@ def main(argv: list[str] | None = None) -> int:
 
     by_id = {c["comment_id"]: c for c in comments}
     batches = _chunk(comments, args.batch_size)
+
+    if args.dry_run:
+        print(
+            f"TEP-{args.tep}: dry run, showing pass(es) for batch 1/{len(batches)} "
+            f"({len(batches[0])} of {len(comments)} comments), model={model}\n",
+            file=sys.stderr,
+        )
+        _print_dry_run(passes, batches[0], model)
+        return 0
 
     out_dir = args.out_dir or Path(f"processed/tep{args.tep}")
     out_dir.mkdir(parents=True, exist_ok=True)
