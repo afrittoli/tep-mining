@@ -60,6 +60,7 @@ import subprocess
 import sys
 import time
 from collections import Counter
+from collections.abc import Callable
 from pathlib import Path
 
 import requests
@@ -642,12 +643,16 @@ def _classify_one_pass(
     schema: dict,
     call_fn,
     max_retries: int,
+    build_user_prompt: Callable[[list[dict]], str] = _build_user_prompt,
 ) -> tuple[list[dict], list[dict], list[int], list[dict]]:
     """One (system_prompt, schema) pass against one batch, retrying only for comment_ids it
     drops. Returns (rows, candidates, still-missing comment_ids, list of per-call metadata -
-    primary call first, then retries). Used once per facet in --facet-split mode, or once
-    overall otherwise - see _classify_batch."""
-    user_prompt = _build_user_prompt(batch)
+    primary call first, then retries). Used once per facet in --facet-split mode, once per
+    tiered-pipeline pass (Pass 1/2/3 - see _run_tiered_batch), or once overall in plain
+    single-call legacy mode - see _classify_batch. `build_user_prompt` defaults to the plain
+    comment-list renderer; Pass 3 passes a closure that also attaches each comment's Pass 1/2
+    context and an explanatory note (see _run_tiered_batch)."""
+    user_prompt = build_user_prompt(batch)
     parsed, meta = call_fn(system_prompt, user_prompt, schema)
     rows, candidates, seen_ids = _extract_results(parsed, by_id)
     batch_ids = {c["comment_id"] for c in batch}
@@ -662,7 +667,7 @@ def _classify_one_pass(
             f"comment_id(s): {missing}",
             file=sys.stderr,
         )
-        retry_user_prompt = _build_user_prompt([by_id[c] for c in missing])
+        retry_user_prompt = build_user_prompt([by_id[c] for c in missing])
         retry_parsed, retry_meta = call_fn(system_prompt, retry_user_prompt, schema)
         metas.append(retry_meta)
         new_rows, new_candidates, new_seen = _extract_results(retry_parsed, by_id)
@@ -730,129 +735,271 @@ def _classify_batch(
     return all_rows, all_candidates, sorted(all_missing), all_metas
 
 
-def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("--tep", type=int, required=True)
-    parser.add_argument("--backend", choices=["claude-cli", "ollama"], required=True)
-    parser.add_argument(
-        "--model",
-        default=None,
-        help="Backend model name (default: 'sonnet' for claude-cli; required for ollama)",
-    )
-    parser.add_argument("--context", choices=["none", "tep-body"], default="none")
-    parser.add_argument(
-        "--teps-dir",
-        default=(os.environ.get("COMMUNITY_REPO_PATH", "") + "/teps") or None,
-        help="Path to tektoncd/community/teps/ (only needed for --context tep-body)",
-    )
-    parser.add_argument("--ollama-host", default="http://localhost:11434")
-    parser.add_argument(
-        "--num-ctx",
-        type=int,
-        default=None,
-        help="Cap Ollama's context window (options.num_ctx) instead of using the model's "
-        "default. Some models default to a huge context (e.g. 128K-256K) and Ollama "
-        "pre-allocates KV-cache sized for it regardless of actual prompt size - on memory-"
-        "constrained hardware this can exceed available memory and cause severe slowdowns "
-        "or degraded output. Our prompts are a few thousand tokens; try 8192 or 16384.",
-    )
-    parser.add_argument(
-        "--temperature",
-        type=float,
-        default=None,
-        help="Sampling temperature (Ollama only - no equivalent claude-cli flag). Lower values "
-        "(e.g. 0.1-0.2) push toward more deterministic, less generic output - worth trying on a "
-        "model that seems to be giving vague/uniform-confidence answers rather than reasoning "
-        "per comment.",
-    )
-    parser.add_argument("--max-budget-usd", type=float, default=2.0)
-    parser.add_argument(
-        "--max-retries",
-        type=int,
-        default=2,
-        help="Re-ask, for comment_ids the model dropped from its results array, up to this "
-        "many times before giving up on them",
-    )
-    parser.add_argument(
-        "--batch-size",
-        type=int,
-        default=None,
-        help="Comments per call (default: all of the TEP's comments in one call). Lower this "
-        "toward 1 to test whether batch size itself is suppressing recall - each batch is an "
-        "independent call, so cost/time scale roughly with number of batches, not comments.",
-    )
-    parser.add_argument(
-        "--facet-coverage-threshold",
-        type=float,
-        default=None,
-        help="Nudge the model to actively check all three facets (not just default to one, a "
-        "failure mode observed with granite4/qwen2.5) before concluding a facet has no match - "
-        "but only include a match at or above this confidence. Omit to leave this out of the "
-        "prompt entirely (the pre-existing behavior). Try ~0.4 as a starting point.",
-    )
-    parser.add_argument(
-        "--few-shot",
-        action="store_true",
-        help=f"Include worked examples from {FEW_SHOT_EXAMPLES_PATH} in the system prompt - "
-        "adds ~20%% to a batch=10 prompt. Try this on a model that seems to be pattern-filling "
-        "the schema rather than reasoning (observed: granite4 copying comment text verbatim "
-        "into `evidence`, or giving near-uniform confidence regardless of content).",
-    )
-    parser.add_argument(
-        "--facet-split",
-        action="store_true",
-        help="Ask about each of the three facets in a separate call instead of one combined "
-        "call - narrower scope per call, and each call's schema requires a `reasoning` field "
-        "(written before `matches`, so schema-constrained generation is forced through "
-        "analysis-then-answer rather than answer-first) plus constrains the facet/value enums "
-        "to just that one facet. Roughly 3x the calls per batch, so 3x the cost/time. "
-        "--facet-coverage-threshold has no effect in this mode - each call already asks about "
-        "exactly one facet, so 'check all three' doesn't apply.",
-    )
-    parser.add_argument(
-        "--dry-run",
-        action="store_true",
-        help="Print the rendered system and user prompt(s) for one example batch (the first "
-        "one) and exit, without calling the backend or writing any output files - inspect "
-        "exactly what a model would see before spending real budget/time on a full run.",
-    )
-    parser.add_argument("--out-dir", type=Path, default=None)
-    args = parser.parse_args(argv)
+# --- Tiered pipeline (taxonomy-and-pipeline-plan.md Part 2) -------------------------------
+#
+# Pass 1 (area+nature together) and Pass 2 (principle, skipping nature:none comments) run on a
+# fast model; only comments either pass flagged - or the quote-coverage heuristic flags despite
+# confident matches - go to Pass 3, a slower/thinking model. This is the default pipeline (see
+# --pipeline); the single-call/--facet-split machinery above is kept as --pipeline legacy for a
+# future claude-cli cost comparison, not deleted.
 
-    if args.backend == "ollama" and not args.model:
-        parser.error("--model is required for --backend ollama")
-    if args.backend == "claude-cli" and args.temperature is not None:
+
+def _missing_facet_flags(rows: list[dict], comment_ids: set[int]) -> dict[int, list[str]]:
+    """Pass 1's flagging rule: `area` almost never comes back confidently empty (near-mandatory
+    coverage) and `nature` should always commit to something, including the explicit `none`
+    value - a comment with no area match, or no nature match at all, after Pass 1 is itself a
+    signal something went wrong, not a normal outcome. Returns {comment_id: [missing facet
+    name(s)]} for comments missing at least one of the two - this naturally also covers
+    comments the model dropped entirely (zero rows), which are missing both."""
+    has_area = {r["comment_id"] for r in rows if r["facet"] == "area"}
+    has_nature = {r["comment_id"] for r in rows if r["facet"] == "nature"}
+    flags: dict[int, list[str]] = {}
+    for cid in comment_ids:
+        missing = [
+            name for name, seen in (("area", has_area), ("nature", has_nature)) if cid not in seen
+        ]
+        if missing:
+            flags[cid] = missing
+    return flags
+
+
+def _nature_none_ids(rows: list[dict]) -> set[int]:
+    """Pass 2 skips every comment Pass 1 tagged `nature: none` - the explicit "reviewed,
+    insignificant" signal, so there's nothing for a principle pass to look for."""
+    return {r["comment_id"] for r in rows if r["facet"] == "nature" and r["value"] == "none"}
+
+
+def _low_confidence_ids(rows: list[dict], facet: str, threshold: float) -> set[int]:
+    """Comments with at least one `facet` match below `threshold` - Pass 2's confidence-gated
+    escalation rule (a confident empty result needs no follow-up; a low-confidence match does,
+    per the plan doc: principle isn't assumed rare, but flagging it is gated on confidence, not
+    presence)."""
+    return {
+        r["comment_id"]
+        for r in rows
+        if r["facet"] == facet and r["confidence"] is not None and r["confidence"] < threshold
+    }
+
+
+def _quote_coverage_flags(
+    rows: list[dict], by_id: dict[int, dict], threshold: float
+) -> dict[int, float]:
+    """The plan doc's "catching missed tags on comments that did get tagged" heuristic: for
+    every comment with at least one match so far, union its matches' `quote` spans against its
+    own text via uncovered_fraction, and flag it if more than `threshold` of the comment's text
+    falls outside that union - even though it already had confident matches. Comments with zero
+    matches at all aren't in scope here (that's Pass 1's missing-facet and nature:none
+    handling, not this heuristic)."""
+    quotes_by_comment: dict[int, list[str]] = {}
+    for r in rows:
+        quote = r.get("quote")
+        if quote:
+            quotes_by_comment.setdefault(r["comment_id"], []).append(quote)
+    flags: dict[int, float] = {}
+    for cid, quotes in quotes_by_comment.items():
+        frac = uncovered_fraction(by_id[cid]["body"], quotes)
+        if frac > threshold:
+            flags[cid] = frac
+    return flags
+
+
+PASS3_NOTE = (
+    'Every comment below was already looked at by an earlier, faster pass - shown as "already '
+    'found", plus why it was flagged for this closer look (a missing area or nature match, a '
+    "low-confidence principle match, or matched quotes that didn't account for most of the "
+    "comment's text). Re-evaluate each one across all three facets from scratch: correct, "
+    "extend, or confirm what's already there - don't just repeat it unexamined."
+)
+
+
+def _pass3_context_by_id(
+    rows: list[dict], flag_info: dict[int, dict], comment_ids: set[int]
+) -> dict[int, str]:
+    """Builds the "already found" line shown under each flagged comment in Pass 3's user
+    prompt - what Pass 1/2 already tagged, plus why this comment was flagged - so Pass 3 (which
+    "sees all of Pass 1 + Pass 2's results as context" per the plan doc) can correct or extend a
+    prior judgment instead of starting blind."""
+    by_cid: dict[int, list[dict]] = {}
+    for r in rows:
+        by_cid.setdefault(r["comment_id"], []).append(r)
+
+    out: dict[int, str] = {}
+    for cid in comment_ids:
+        tags = by_cid.get(cid, [])
+        tag_str = (
+            "; ".join(
+                f"{r['facet']}/{r['value']} (confidence {r['confidence']:.2f})" for r in tags
+            )
+            or "nothing tagged"
+        )
+        info = flag_info.get(cid, {})
+        reasons = []
+        if info.get("missing_facets"):
+            reasons.append("missing " + "/".join(info["missing_facets"]))
+        if info.get("principle_pass_dropped"):
+            reasons.append("principle pass never returned this comment")
+        if info.get("low_confidence_principle"):
+            reasons.append("low-confidence principle match")
+        if "uncovered_fraction" in info:
+            reasons.append(
+                f"~{info['uncovered_fraction']:.0%} of the comment's text uncovered by quotes"
+            )
+        out[cid] = f"{tag_str} -- flagged because: {', '.join(reasons) or 'unknown'}"
+    return out
+
+
+def _run_tiered_batch(
+    batch: list[dict],
+    by_id: dict[int, dict],
+    pass1: tuple[str, dict],
+    pass2: tuple[str, dict],
+    pass3: tuple[str, dict],
+    call_12,
+    call_3,
+    max_retries: int,
+    principle_confidence_threshold: float,
+    quote_coverage_threshold: float,
+) -> tuple[list[dict], list[dict], list[int], list[dict], list[dict]]:
+    """Runs the 3-pass tiered pipeline against one batch: Pass 1 (area+nature together), Pass 2
+    (principle, skipping nature:none comments), then Pass 3 (all three facets, thinking model)
+    on only the comments either pass flagged, plus any comment the quote-coverage heuristic
+    flags despite already having confident matches. Pass 3's output fully replaces Pass 1/2's
+    rows for the comments it re-processes - it sees their results as context and is expected to
+    correct or confirm them, not add a second, possibly-conflicting opinion alongside.
+
+    Returns (rows, candidates, missing_comment_ids, call_metas, flag_records) - `flag_records`
+    is one dict per batch comment (not just flagged ones), with the raw signals that did or
+    didn't trigger escalation, meant to be written to `<tag>.flags.jsonl` for future threshold
+    tuning (the plan doc's Open Questions: the cutoffs aren't tuned from real data yet).
+
+    `missing_comment_ids` is exactly Pass 3's own leftover-missing set: every comment_id Pass
+    1/2 fully dropped is, by construction, also flagged (see _missing_facet_flags), so it's
+    already inside escalate_ids and gets one more chance in Pass 3; only a comment Pass 3 also
+    drops counts as still missing overall.
+    """
+    pass1_system_prompt, pass1_schema = pass1
+    pass2_system_prompt, pass2_schema = pass2
+    pass3_system_prompt, pass3_schema = pass3
+    batch_ids = {c["comment_id"] for c in batch}
+
+    print("  [pass 1: area+nature]", file=sys.stderr)
+    rows1, candidates1, missing1, metas1 = _classify_one_pass(
+        batch, by_id, pass1_system_prompt, pass1_schema, call_12, max_retries
+    )
+    missing_facets = _missing_facet_flags(rows1, batch_ids)
+
+    skip_ids = _nature_none_ids(rows1)
+    pass2_batch = [c for c in batch if c["comment_id"] not in skip_ids]
+    rows2: list[dict] = []
+    candidates2: list[dict] = []
+    missing2: list[int] = []
+    metas2: list[dict] = []
+    if pass2_batch:
         print(
-            "WARNING: --temperature has no effect on --backend claude-cli, ignoring",
+            f"  [pass 2: principle, {len(pass2_batch)}/{len(batch)} comments - "
+            f"{len(skip_ids)} skipped as nature:none]",
             file=sys.stderr,
         )
-    model = args.model or "sonnet"
+        rows2, candidates2, missing2, metas2 = _classify_one_pass(
+            pass2_batch, by_id, pass2_system_prompt, pass2_schema, call_12, max_retries
+        )
+    elif skip_ids:
+        print("  [pass 2: skipped entirely - every comment was nature:none]", file=sys.stderr)
 
-    record = _load_tep_record(args.tep)
-    comments = _comments_for(record)
-    taxonomy = _load_taxonomy()
-    taxonomy_block = _taxonomy_prompt_block(taxonomy)
-    tep_body_block = None
-    if args.context == "tep-body":
-        if not args.teps_dir:
-            parser.error("--context tep-body needs --teps-dir or COMMUNITY_REPO_PATH set")
-        tep_body_block = _tep_body_block(record, Path(args.teps_dir).expanduser().resolve())
-    few_shot_examples = _load_few_shot_examples() if args.few_shot else None
+    low_conf_principle = _low_confidence_ids(rows2, "principle", principle_confidence_threshold)
+    pass2_dropped = set(missing2)
+    quote_flags = _quote_coverage_flags(rows1 + rows2, by_id, quote_coverage_threshold)
 
-    # One (label, system_prompt, schema) pass per facet in --facet-split mode, or a single
-    # combined pass otherwise - computed once here since none of it depends on batch content.
-    # Few-shot examples are re-projected per facet_scope (see _few_shot_examples_block) since a
-    # facet-scoped call needs each example sliced to just that facet, with a `reasoning` field.
-    facet_scopes: list[str | None] = list(taxonomy["facets"].keys()) if args.facet_split else [None]
+    flag_info: dict[int, dict] = {}
+    for cid, missing_names in missing_facets.items():
+        flag_info.setdefault(cid, {})["missing_facets"] = missing_names
+    for cid in pass2_dropped:
+        flag_info.setdefault(cid, {})["principle_pass_dropped"] = True
+    for cid in low_conf_principle:
+        flag_info.setdefault(cid, {})["low_confidence_principle"] = True
+    for cid, frac in quote_flags.items():
+        flag_info.setdefault(cid, {})["uncovered_fraction"] = frac
+
+    escalate_ids = sorted(flag_info)
+    flag_records = [
+        {
+            "comment_id": cid,
+            "missing_facets": flag_info.get(cid, {}).get("missing_facets", []),
+            "principle_pass_dropped": flag_info.get(cid, {}).get("principle_pass_dropped", False),
+            "low_confidence_principle": flag_info.get(cid, {}).get(
+                "low_confidence_principle", False
+            ),
+            "uncovered_fraction": flag_info.get(cid, {}).get("uncovered_fraction"),
+            "escalated_to_pass3": cid in flag_info,
+        }
+        for cid in sorted(batch_ids)
+    ]
+
+    rows3: list[dict] = []
+    candidates3: list[dict] = []
+    missing3: list[int] = []
+    metas3: list[dict] = []
+    if escalate_ids:
+        print(
+            f"  [pass 3: thinking model, {len(escalate_ids)}/{len(batch)} comments flagged: "
+            f"{escalate_ids}]",
+            file=sys.stderr,
+        )
+        pass3_batch = [by_id[cid] for cid in escalate_ids]
+        context_by_id = _pass3_context_by_id(rows1 + rows2, flag_info, set(escalate_ids))
+        rows3, candidates3, missing3, metas3 = _classify_one_pass(
+            pass3_batch,
+            by_id,
+            pass3_system_prompt,
+            pass3_schema,
+            call_3,
+            max_retries,
+            build_user_prompt=lambda cs: _build_user_prompt(cs, context_by_id, PASS3_NOTE),
+        )
+    else:
+        print("  [pass 3: skipped - nothing flagged]", file=sys.stderr)
+
+    escalated = set(escalate_ids)
+    rows = [r for r in rows1 + rows2 if r["comment_id"] not in escalated] + rows3
+    candidates = [
+        c for c in candidates1 + candidates2 if c["comment_id"] not in escalated
+    ] + candidates3
+    metas = metas1 + metas2 + metas3
+    return rows, candidates, sorted(missing3), metas, flag_records
+
+
+def _run_legacy(
+    args: argparse.Namespace,
+    taxonomy: dict,
+    taxonomy_block: str,
+    tep_body_block: str | None,
+    few_shot_examples: list[dict] | None,
+    comments: list[dict],
+    by_id: dict[int, dict],
+    batches: list[list[dict]],
+    model: str,
+    call_fn,
+    tag: str,
+    out_dir: Path,
+) -> int:
+    """The original single-call (or --facet-split, one call per facet) pipeline - kept
+    available for a future claude-cli cost comparison per the plan doc's Execution mode &
+    backends section (fewer, larger calls may be meaningfully cheaper there than under Ollama,
+    where call count doesn't cost money the same way). Not the default; see --pipeline."""
+    facet_scopes: list[str | None] = (
+        list(taxonomy["facets"].keys()) if args.facet_split else [None]
+    )
     passes = [
         (
-            facet_scope or "all",
+            facet_scope if isinstance(facet_scope, str) else "all",
             _build_system_prompt(
                 taxonomy,
                 taxonomy_block,
                 tep_body_block,
                 args.facet_coverage_threshold,
-                _few_shot_examples_block(few_shot_examples, facet_scope) if few_shot_examples else None,
+                _few_shot_examples_block(few_shot_examples, facet_scope)
+                if few_shot_examples
+                else None,
                 facet_scope,
             ),
             _build_result_schema(taxonomy, facet_scope),
@@ -860,39 +1007,6 @@ def main(argv: list[str] | None = None) -> int:
         for facet_scope in facet_scopes
     ]
 
-    def _call(system_prompt: str, user_prompt: str, schema: dict) -> tuple[dict, dict]:
-        sp: str | None = system_prompt
-        up = user_prompt
-        if not _use_system_user_split(model):
-            sp = None
-            up = f"{system_prompt}\n\n{user_prompt}"
-        if args.backend == "claude-cli":
-            return _call_claude_cli(sp, up, model, args.max_budget_usd, schema)
-        return _call_ollama(
-            sp,
-            up,
-            model,
-            args.ollama_host,
-            schema,
-            args.num_ctx,
-            args.temperature,
-        )
-
-    by_id = {c["comment_id"]: c for c in comments}
-    batches = _chunk(comments, args.batch_size)
-
-    if args.dry_run:
-        print(
-            f"TEP-{args.tep}: dry run, showing pass(es) for batch 1/{len(batches)} "
-            f"({len(batches[0])} of {len(comments)} comments), model={model}\n",
-            file=sys.stderr,
-        )
-        _print_dry_run(passes, batches[0], model)
-        return 0
-
-    out_dir = args.out_dir or Path(f"processed/tep{args.tep}")
-    out_dir.mkdir(parents=True, exist_ok=True)
-    tag = f"classify_llm_{args.backend}_{args.context}_{model.replace(':', '-').replace('/', '-')}"
     if args.batch_size:
         tag += f"_batch{args.batch_size}"
     if args.facet_coverage_threshold is not None:
@@ -905,12 +1019,23 @@ def main(argv: list[str] | None = None) -> int:
         tag += "_fewshot"
     if args.facet_split:
         tag += "_facetsplit"
+
+    if args.dry_run:
+        print(
+            f"TEP-{args.tep}: dry run (--pipeline legacy), showing pass(es) for batch "
+            f"1/{len(batches)} ({len(batches[0])} of {len(comments)} comments), model={model}\n",
+            file=sys.stderr,
+        )
+        _print_dry_run(passes, batches[0], model)
+        return 0
+
     out_path = out_dir / f"{tag}.jsonl"
     candidates_path = out_dir / f"{tag}.candidates.jsonl"
     meta_path = out_dir / f"{tag}.meta.json"
 
     def _write_meta(num_batches_done: int, interrupted: bool) -> None:
         meta = {
+            "pipeline": "legacy",
             "backend": args.backend,
             "model": model,
             "tep": args.tep,
@@ -942,8 +1067,9 @@ def main(argv: list[str] | None = None) -> int:
     print(
         f"TEP-{args.tep}: {len(comments)} comments in {len(batches)} batch(es) of up to "
         f"{args.batch_size or len(comments)}, context={args.context}, backend={args.backend}, "
-        f"model={model}\nwriting incrementally to {out_path} as each batch completes - open it "
-        f"any time to check progress, or Ctrl-C to stop early and keep what's done so far",
+        f"model={model}, pipeline=legacy\nwriting incrementally to {out_path} as each batch "
+        f"completes - open it any time to check progress, or Ctrl-C to stop early and keep "
+        f"what's done so far",
         file=sys.stderr,
     )
 
@@ -966,7 +1092,7 @@ def main(argv: list[str] | None = None) -> int:
                     batch,
                     by_id,
                     passes,
-                    _call,
+                    call_fn(model, None),
                     args.max_retries,
                 )
                 rows += batch_rows
@@ -1030,6 +1156,512 @@ def main(argv: list[str] | None = None) -> int:
     print(f"wrote {len(candidates)} candidate(s) -> {candidates_path}", file=sys.stderr)
     print(f"wrote run metadata -> {meta_path}", file=sys.stderr)
     return 0
+
+
+def _run_tiered(
+    args: argparse.Namespace,
+    taxonomy: dict,
+    taxonomy_block: str,
+    tep_body_block: str | None,
+    few_shot_examples: list[dict] | None,
+    comments: list[dict],
+    by_id: dict[int, dict],
+    batches: list[list[dict]],
+    model: str,
+    pass3_model: str,
+    think: str | None,
+    pass3_think: str | None,
+    principle_confidence_threshold: float,
+    quote_coverage_threshold: float,
+    call_fn,
+    tag: str,
+    out_dir: Path,
+) -> int:
+    """The default 3-pass pipeline (taxonomy-and-pipeline-plan.md Part 2): Pass 1 (area+nature
+    together, fast model), Pass 2 (principle, same fast model, skipping nature:none comments),
+    Pass 3 (thinking model, only comments either pass flagged or the quote-coverage heuristic
+    flagged). See _run_tiered_batch for the per-batch mechanics."""
+    pass1_scope = ["area", "nature"]
+    pass2_scope = ["principle"]
+    pass3_scope = list(taxonomy["facets"].keys())  # all three, explicitly - see _facet_scope_names
+
+    def _pass(scope: list[str]) -> tuple[str, dict]:
+        system_prompt = _build_system_prompt(
+            taxonomy,
+            taxonomy_block,
+            tep_body_block,
+            None,  # facet_coverage_threshold: legacy-only: each tiered pass is already scoped
+            _few_shot_examples_block(few_shot_examples, scope) if few_shot_examples else None,
+            scope,
+        )
+        return system_prompt, _build_result_schema(taxonomy, scope)
+
+    pass1 = _pass(pass1_scope)
+    pass2 = _pass(pass2_scope)
+    pass3 = _pass(pass3_scope)
+
+    call_12 = call_fn(model, think)
+    call_3 = call_fn(pass3_model, pass3_think)
+
+    pass3_model_slug = pass3_model.replace(":", "-").replace("/", "-")
+    tag += (
+        f"_tiered_pass3-{pass3_model_slug}_think-{think or 'off'}_pass3think-{pass3_think or 'off'}"
+        f"_pconf{principle_confidence_threshold}_qcov{quote_coverage_threshold}"
+    )
+    if args.batch_size:
+        tag += f"_batch{args.batch_size}"
+    if args.num_ctx:
+        tag += f"_numctx{args.num_ctx}"
+    if args.temperature is not None:
+        tag += f"_temp{args.temperature}"
+    if args.few_shot:
+        tag += "_fewshot"
+
+    if args.dry_run:
+        print(
+            f"TEP-{args.tep}: dry run (--pipeline tiered), showing Pass 1/2/3 prompts for batch "
+            f"1/{len(batches)} ({len(batches[0])} of {len(comments)} comments), "
+            f"model={model} (pass 1-2), pass3-model={pass3_model}\nPass 3's real prompt only "
+            "includes comments actually flagged at runtime - shown here against the full "
+            "batch, illustratively, since nothing has run yet.\n",
+            file=sys.stderr,
+        )
+        _print_dry_run(
+            [("pass1-area-nature", pass1[0], pass1[1]), ("pass2-principle", pass2[0], pass2[1])],
+            batches[0],
+            model,
+        )
+        _print_dry_run(
+            [("pass3-thinking (illustrative)", pass3[0], pass3[1])], batches[0], pass3_model
+        )
+        return 0
+
+    out_path = out_dir / f"{tag}.jsonl"
+    candidates_path = out_dir / f"{tag}.candidates.jsonl"
+    flags_path = out_dir / f"{tag}.flags.jsonl"
+    meta_path = out_dir / f"{tag}.meta.json"
+
+    def _write_meta(num_batches_done: int, interrupted: bool) -> None:
+        meta = {
+            "pipeline": "tiered",
+            "backend": args.backend,
+            "model": model,
+            "pass3_model": pass3_model,
+            "think": think,
+            "pass3_think": pass3_think,
+            "principle_confidence_threshold": principle_confidence_threshold,
+            "quote_coverage_threshold": quote_coverage_threshold,
+            "tep": args.tep,
+            "context": args.context,
+            "batch_size": args.batch_size or len(comments),
+            "num_batches": len(batches),
+            "num_batches_completed": num_batches_done,
+            "interrupted": interrupted,
+            "num_ctx": args.num_ctx,
+            "temperature": args.temperature,
+            "few_shot": args.few_shot,
+            "num_comments": len(comments),
+            "num_rows": len(rows),
+            "num_candidates": len(candidates),
+            "num_escalated_to_pass3": sum(1 for f in flag_records if f["escalated_to_pass3"]),
+            "missing_comment_ids": sorted(missing),
+            "num_calls": len(all_metas),
+            "calls": all_metas,
+            "total_cost_usd": (
+                sum(m.get("cost_usd") or 0 for m in all_metas)
+                if args.backend == "claude-cli"
+                else None
+            ),
+            "total_duration_ms": sum(m.get("duration_ms") or 0 for m in all_metas),
+        }
+        meta_path.write_text(json.dumps(meta, indent=2) + "\n")
+
+    print(
+        f"TEP-{args.tep}: {len(comments)} comments in {len(batches)} batch(es) of up to "
+        f"{args.batch_size or len(comments)}, context={args.context}, backend={args.backend}, "
+        f"pipeline=tiered, model={model} (pass 1-2), pass3-model={pass3_model}\nwriting "
+        f"incrementally to {out_path} as each batch completes - open it any time to check "
+        f"progress, or Ctrl-C to stop early and keep what's done so far",
+        file=sys.stderr,
+    )
+
+    rows: list[dict] = []
+    candidates: list[dict] = []
+    missing: list[int] = []
+    all_metas: list[dict] = []
+    flag_records: list[dict] = []
+    batches_done = 0
+    run_start = time.time()
+    with (
+        out_path.open("w") as out_f,
+        candidates_path.open("w") as cand_f,
+        flags_path.open("w") as flags_f,
+    ):
+        try:
+            for i, batch in enumerate(batches, 1):
+                batch_start = time.time()
+                now_str = time.strftime("%H:%M:%S")
+                print(
+                    f"[{now_str}] batch {i}/{len(batches)} ({len(batch)} comments)...",
+                    file=sys.stderr,
+                )
+                batch_rows, batch_candidates, batch_missing, batch_metas, batch_flags = (
+                    _run_tiered_batch(
+                        batch,
+                        by_id,
+                        pass1,
+                        pass2,
+                        pass3,
+                        call_12,
+                        call_3,
+                        args.max_retries,
+                        principle_confidence_threshold,
+                        quote_coverage_threshold,
+                    )
+                )
+                rows += batch_rows
+                candidates += batch_candidates
+                missing += batch_missing
+                all_metas += batch_metas
+                flag_records += batch_flags
+                batches_done = i
+
+                for r in batch_rows:
+                    out_f.write(json.dumps(r) + "\n")
+                for c in batch_candidates:
+                    cand_f.write(json.dumps(c) + "\n")
+                for f in batch_flags:
+                    flags_f.write(json.dumps(f) + "\n")
+                out_f.flush()
+                cand_f.flush()
+                flags_f.flush()
+
+                batch_elapsed = time.time() - batch_start
+                total_elapsed = time.time() - run_start
+                remaining = len(batches) - i
+                eta = (total_elapsed / i) * remaining if i else 0.0
+                facet_counts = Counter(r["facet"] for r in batch_rows)
+                num_escalated = sum(1 for f in batch_flags if f["escalated_to_pass3"])
+                cost = sum(m.get("cost_usd") or 0 for m in batch_metas)
+                cost_str = f", ${cost:.3f}" if args.backend == "claude-cli" else ""
+                print(
+                    f"  -> {len(batch_rows)} tag(s) {dict(facet_counts)}, "
+                    f"{len(batch_candidates)} candidate(s), {num_escalated}/{len(batch)} "
+                    f"escalated to pass 3{cost_str} (running total: {len(rows)} tags, "
+                    f"{len(candidates)} candidates) [batch took {batch_elapsed:.0f}s, elapsed "
+                    f"{total_elapsed:.0f}s, ~{eta:.0f}s / {remaining} batch(es) left]",
+                    file=sys.stderr,
+                )
+        except KeyboardInterrupt:
+            _write_meta(batches_done, interrupted=True)
+            print(
+                f"\nInterrupted after {batches_done}/{len(batches)} batches. Kept {len(rows)} "
+                f"rows and {len(candidates)} candidates written so far in {out_path} and "
+                f"{candidates_path} (meta.json marked interrupted=true).",
+                file=sys.stderr,
+            )
+            return 130
+        except Exception:
+            _write_meta(batches_done, interrupted=True)
+            print(
+                f"\nFailed after {batches_done}/{len(batches)} batches. Kept {len(rows)} rows "
+                f"and {len(candidates)} candidates written so far in {out_path} and "
+                f"{candidates_path} (meta.json marked interrupted=true). Re-run with the same "
+                "args to retry.",
+                file=sys.stderr,
+            )
+            raise
+
+    _write_meta(batches_done, interrupted=False)
+
+    print(f"wrote {len(rows)} rows -> {out_path}", file=sys.stderr)
+    print(f"wrote {len(candidates)} candidate(s) -> {candidates_path}", file=sys.stderr)
+    print(f"wrote {len(flag_records)} flag record(s) -> {flags_path}", file=sys.stderr)
+    print(f"wrote run metadata -> {meta_path}", file=sys.stderr)
+    return 0
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser.add_argument("--tep", type=int, required=True)
+    parser.add_argument("--backend", choices=["claude-cli", "ollama"], required=True)
+    parser.add_argument(
+        "--model",
+        default=None,
+        help="Backend model name. Default: 'sonnet' for claude-cli under --pipeline legacy; "
+        "required for --backend ollama under --pipeline legacy; 'granite4.2:8b' under the "
+        "default --pipeline tiered (Pass 1/2's model - see --pass3-model for Pass 3's).",
+    )
+    parser.add_argument(
+        "--pass3-model",
+        default=None,
+        help="Model for the tiered pipeline's Pass 3 (the thinking-model re-check, run only on "
+        "comments flagged by Pass 1/2 or the quote-coverage heuristic). Default "
+        "'granite4.2:30b'. Only meaningful under --pipeline tiered (the default).",
+    )
+    parser.add_argument("--context", choices=["none", "tep-body"], default="none")
+    parser.add_argument(
+        "--teps-dir",
+        default=(os.environ.get("COMMUNITY_REPO_PATH", "") + "/teps") or None,
+        help="Path to tektoncd/community/teps/ (only needed for --context tep-body)",
+    )
+    parser.add_argument("--ollama-host", default="http://localhost:11434")
+    parser.add_argument(
+        "--num-ctx",
+        type=int,
+        default=None,
+        help="Cap Ollama's context window (options.num_ctx) instead of using the model's "
+        "default. Some models default to a huge context (e.g. 128K-256K) and Ollama "
+        "pre-allocates KV-cache sized for it regardless of actual prompt size - on memory-"
+        "constrained hardware this can exceed available memory and cause severe slowdowns "
+        "or degraded output. Our prompts are a few thousand tokens; try 8192 or 16384.",
+    )
+    parser.add_argument(
+        "--temperature",
+        type=float,
+        default=None,
+        help="Sampling temperature (Ollama only - no equivalent claude-cli flag). Lower values "
+        "(e.g. 0.1-0.2) push toward more deterministic, less generic output - worth trying on a "
+        "model that seems to be giving vague/uniform-confidence answers rather than reasoning "
+        "per comment.",
+    )
+    parser.add_argument("--max-budget-usd", type=float, default=2.0)
+    parser.add_argument(
+        "--max-retries",
+        type=int,
+        default=2,
+        help="Re-ask, for comment_ids the model dropped from its results array, up to this "
+        "many times before giving up on them",
+    )
+    parser.add_argument(
+        "--batch-size",
+        type=int,
+        default=None,
+        help="Comments per call (default: all of the TEP's comments in one call). Lower this "
+        "toward 1 to test whether batch size itself is suppressing recall - each batch is an "
+        "independent call, so cost/time scale roughly with number of batches, not comments.",
+    )
+    parser.add_argument(
+        "--facet-coverage-threshold",
+        type=float,
+        default=None,
+        help="Nudge the model to actively check all three facets (not just default to one, a "
+        "failure mode observed with granite4/qwen2.5) before concluding a facet has no match - "
+        "but only include a match at or above this confidence. Omit to leave this out of the "
+        "prompt entirely (the pre-existing behavior). Try ~0.4 as a starting point.",
+    )
+    parser.add_argument(
+        "--few-shot",
+        action="store_true",
+        help=f"Include worked examples from {FEW_SHOT_EXAMPLES_PATH} in the system prompt - "
+        "adds ~20%% to a batch=10 prompt. Try this on a model that seems to be pattern-filling "
+        "the schema rather than reasoning (observed: granite4 copying comment text verbatim "
+        "into `evidence`, or giving near-uniform confidence regardless of content).",
+    )
+    parser.add_argument(
+        "--facet-split",
+        action="store_true",
+        help="--pipeline legacy only: ask about each of the three facets in a separate call "
+        "instead of one combined call - narrower scope per call, and each call's schema "
+        "requires a `reasoning` field (written before `matches`, so schema-constrained "
+        "generation is forced through analysis-then-answer rather than answer-first) plus "
+        "constrains the facet/value enums to just that one facet. Roughly 3x the calls per "
+        "batch, so 3x the cost/time. --facet-coverage-threshold has no effect in this mode - "
+        "each call already asks about exactly one facet, so 'check all three' doesn't apply. "
+        "An error under --pipeline tiered (the default) - its own 3-pass structure is the "
+        "modern replacement for this.",
+    )
+    parser.add_argument(
+        "--pipeline",
+        choices=["tiered", "legacy"],
+        default="tiered",
+        help="'tiered' (default): the 3-pass pipeline from taxonomy-and-pipeline-plan.md Part "
+        "2 - Pass 1 (area+nature together), Pass 2 (principle, skipping nature:none comments, "
+        "confidence-gated Pass 3 escalation), Pass 3 (thinking model, only comments either "
+        "pass flagged or the quote-coverage heuristic flagged). 'legacy': the original single-"
+        "call (or --facet-split) behavior, kept available for a future claude-cli cost "
+        "comparison - fewer, larger calls may be meaningfully cheaper there than under Ollama, "
+        "where call count doesn't cost money the same way.",
+    )
+    parser.add_argument(
+        "--think",
+        default=None,
+        help="granite4.2's thinking-mode dial (Ollama /api/chat's top-level 'think' field, e.g. "
+        "low/medium/high) for the tiered pipeline's Pass 1/2 calls. Default 'low' under "
+        "--pipeline tiered; has no effect under --pipeline legacy or --backend claude-cli "
+        "(Ollama-only).",
+    )
+    parser.add_argument(
+        "--pass3-think",
+        default=None,
+        help="Same as --think, for the tiered pipeline's Pass 3 call only (typically a higher "
+        "thinking level, since Pass 3's input is already filtered down to flagged comments). "
+        "Default 'high' under --pipeline tiered.",
+    )
+    parser.add_argument(
+        "--principle-confidence-threshold",
+        type=float,
+        default=None,
+        help="--pipeline tiered only: Pass 2 escalates a comment to Pass 3 if it has a "
+        "principle match below this confidence (a confident empty result needs no follow-up). "
+        "Default 0.5 - not yet tuned against real data, see the plan doc's Open Questions.",
+    )
+    parser.add_argument(
+        "--quote-coverage-threshold",
+        type=float,
+        default=None,
+        help="--pipeline tiered only: escalate a comment to Pass 3 if more than this fraction "
+        "of its text falls outside the union of its matches' `quote` spans (see "
+        "uncovered_fraction), even if every match found so far was confident. Default 0.3 - "
+        "not yet tuned against real data.",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Print the rendered system and user prompt(s) for one example batch (the first "
+        "one) and exit, without calling the backend or writing any output files - inspect "
+        "exactly what a model would see before spending real budget/time on a full run.",
+    )
+    parser.add_argument("--out-dir", type=Path, default=None)
+    args = parser.parse_args(argv)
+
+    if args.pipeline == "tiered" and args.facet_split:
+        parser.error(
+            "--facet-split has no meaning under --pipeline tiered (the 3-pass structure "
+            "replaces it) - use --pipeline legacy --facet-split for the old all-three-separate "
+            "behavior"
+        )
+    if args.backend == "claude-cli" and args.temperature is not None:
+        print(
+            "WARNING: --temperature has no effect on --backend claude-cli, ignoring",
+            file=sys.stderr,
+        )
+
+    if args.pipeline == "legacy":
+        if args.backend == "ollama" and not args.model:
+            parser.error("--model is required for --backend ollama --pipeline legacy")
+        model = args.model or "sonnet"
+        pass3_model = ""
+        think = None
+        pass3_think = None
+        principle_confidence_threshold = 0.0
+        quote_coverage_threshold = 0.0
+        if (
+            args.pass3_model
+            or args.think is not None
+            or args.pass3_think is not None
+            or args.principle_confidence_threshold is not None
+            or args.quote_coverage_threshold is not None
+        ):
+            print(
+                "WARNING: --pass3-model/--think/--pass3-think/--principle-confidence-threshold/"
+                "--quote-coverage-threshold only apply to --pipeline tiered, ignoring under "
+                "--pipeline legacy",
+                file=sys.stderr,
+            )
+    else:
+        model = args.model or "granite4.2:8b"
+        pass3_model = args.pass3_model or "granite4.2:30b"
+        think = args.think if args.think is not None else "low"
+        pass3_think = args.pass3_think if args.pass3_think is not None else "high"
+        principle_confidence_threshold = (
+            args.principle_confidence_threshold
+            if args.principle_confidence_threshold is not None
+            else 0.5
+        )
+        quote_coverage_threshold = (
+            args.quote_coverage_threshold if args.quote_coverage_threshold is not None else 0.3
+        )
+        if args.facet_coverage_threshold is not None:
+            print(
+                "WARNING: --facet-coverage-threshold has no effect under --pipeline tiered "
+                "(each pass is already narrowly scoped to specific facets), ignoring",
+                file=sys.stderr,
+            )
+        if args.backend == "claude-cli":
+            print(
+                "WARNING: --think/--pass3-think have no effect on --backend claude-cli "
+                "(Ollama-only), ignoring",
+                file=sys.stderr,
+            )
+            think = None
+            pass3_think = None
+
+    record = _load_tep_record(args.tep)
+    comments = _comments_for(record)
+    taxonomy = _load_taxonomy()
+    taxonomy_block = _taxonomy_prompt_block(taxonomy)
+    tep_body_block = None
+    if args.context == "tep-body":
+        if not args.teps_dir:
+            parser.error("--context tep-body needs --teps-dir or COMMUNITY_REPO_PATH set")
+        tep_body_block = _tep_body_block(record, Path(args.teps_dir).expanduser().resolve())
+    few_shot_examples = _load_few_shot_examples() if args.few_shot else None
+
+    by_id = {c["comment_id"]: c for c in comments}
+    batches = _chunk(comments, args.batch_size)
+
+    def _call(model_name: str, think_level: str | None):
+        def _inner(system_prompt: str, user_prompt: str, schema: dict) -> tuple[dict, dict]:
+            sp: str | None = system_prompt
+            up = user_prompt
+            if not _use_system_user_split(model_name):
+                sp = None
+                up = f"{system_prompt}\n\n{user_prompt}"
+            if args.backend == "claude-cli":
+                return _call_claude_cli(sp, up, model_name, args.max_budget_usd, schema)
+            return _call_ollama(
+                sp,
+                up,
+                model_name,
+                args.ollama_host,
+                schema,
+                args.num_ctx,
+                args.temperature,
+                think_level,
+            )
+
+        return _inner
+
+    out_dir = args.out_dir or Path(f"processed/tep{args.tep}")
+    out_dir.mkdir(parents=True, exist_ok=True)
+    model_slug = model.replace(":", "-").replace("/", "-")
+    tag = f"classify_llm_{args.backend}_{args.context}_{model_slug}"
+
+    if args.pipeline == "tiered":
+        return _run_tiered(
+            args,
+            taxonomy,
+            taxonomy_block,
+            tep_body_block,
+            few_shot_examples,
+            comments,
+            by_id,
+            batches,
+            model,
+            pass3_model,
+            think,
+            pass3_think,
+            principle_confidence_threshold,
+            quote_coverage_threshold,
+            _call,
+            tag,
+            out_dir,
+        )
+    return _run_legacy(
+        args,
+        taxonomy,
+        taxonomy_block,
+        tep_body_block,
+        few_shot_examples,
+        comments,
+        by_id,
+        batches,
+        model,
+        _call,
+        tag,
+        out_dir,
+    )
 
 
 if __name__ == "__main__":
