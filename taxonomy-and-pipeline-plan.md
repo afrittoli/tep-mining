@@ -28,7 +28,7 @@ real comment examples), and a 3-pass pipeline that uses the revised taxonomy's o
 
 ## Part 1: Taxonomy revision
 
-### Design principle
+### Design principle for the taxonomy
 
 **`area` (renamed from `artifact`) + `nature` together identify the object of a comment**, and
 are expected on nearly every substantive comment - they're not independent lenses, `nature`
@@ -108,7 +108,7 @@ reference moves from a fake "location" to where it actually belongs.
 
 ## Part 2: Tiered classification pipeline
 
-### Design principle
+### Design principle for the pipeline
 
 Match model cost to actual uncertainty. Most comments are unambiguous on `area`/`nature` and
 have no `principle` at all - a fast, cheap pass handles those correctly the first time. Only

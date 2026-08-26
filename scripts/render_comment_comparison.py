@@ -78,8 +78,12 @@ def _render_comment_card(cid: int, meta: dict, gt: list[dict], cand: list[dict])
     gt_keys = {(r["facet"], r["value"]) for r in gt}
     cand_keys = {(r["facet"], r["value"]) for r in cand}
 
-    gt_chips = [_tag_chip(r, "match" if (r["facet"], r["value"]) in cand_keys else "missing") for r in gt]
-    cand_chips = [_tag_chip(r, "match" if (r["facet"], r["value"]) in gt_keys else "extra") for r in cand]
+    gt_chips = [
+        _tag_chip(r, "match" if (r["facet"], r["value"]) in cand_keys else "missing") for r in gt
+    ]
+    cand_chips = [
+        _tag_chip(r, "match" if (r["facet"], r["value"]) in gt_keys else "extra") for r in cand
+    ]
 
     body = meta.get("body", "")
     body_html = html.escape(body).replace("\n", "<br>")
@@ -454,7 +458,11 @@ def main(argv: list[str] | None = None) -> int:
     comments_meta = {c["comment_id"]: c for c in _comments_for(record)}
 
     title = args.title or f"TEP-{args.tep}: {args.candidate.stem}"
-    subtitle = args.subtitle or f"vs. {args.ground_truth} (+ {args.include_audit})" if args.include_audit else f"vs. {args.ground_truth}"
+    subtitle = (
+        args.subtitle or f"vs. {args.ground_truth} (+ {args.include_audit})"
+        if args.include_audit
+        else f"vs. {args.ground_truth}"
+    )
 
     html_out = render(args.tep, gt_rows, cand_rows, comments_meta, title, subtitle)
     args.out.parent.mkdir(parents=True, exist_ok=True)

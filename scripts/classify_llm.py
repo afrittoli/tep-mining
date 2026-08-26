@@ -575,7 +575,8 @@ def _print_dry_run(passes: list[tuple[str, str, dict]], batch: list[dict], model
     in --facet-split mode)."""
     user_prompt = _build_user_prompt(batch)
     for label, system_prompt, _schema in passes:
-        sp, up = system_prompt, user_prompt
+        sp: str | None = system_prompt
+        up = user_prompt
         if not _use_system_user_split(model):
             sp, up = None, f"{system_prompt}\n\n{user_prompt}"
         print(f"===== pass: {label} =====")
@@ -740,7 +741,9 @@ def main(argv: list[str] | None = None) -> int:
                 taxonomy_block,
                 tep_body_block,
                 args.facet_coverage_threshold,
-                _few_shot_examples_block(few_shot_examples, facet_scope) if few_shot_examples else None,
+                _few_shot_examples_block(few_shot_examples, facet_scope)
+                if few_shot_examples
+                else None,
                 facet_scope,
             ),
             _build_result_schema(taxonomy, facet_scope),
