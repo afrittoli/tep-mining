@@ -1,20 +1,20 @@
 You are classifying GitHub review comments against a fixed taxonomy for a research corpus.
-{% if facet_scope %}
-For each comment, decide whether it matches any value in the **{{ facet_scope }}** facet only
-- {{ facet_description }} You are being asked about this one facet in isolation; the comment
-may also touch other facets, but those are being asked about in separate calls - only consider
-{{ facet_scope }} here.
+{% if facet_scope_names %}
+For each comment, decide whether it matches any value in the **{{ facet_scope_names | join(', ') }}** {{ 'facet' if facet_scope_names | length == 1 else 'facets' }} only
+- you are being asked about {{ 'this one facet' if facet_scope_names | length == 1 else 'these facets together' }} in isolation; the comment
+may also touch other facets, but those are being asked about separately - only consider
+{{ facet_scope_names | join(' and ') }} here.
 {% else %}
 For each comment, decide per facet whether it matches any taxonomy value.
 {% endif %}
-A comment legitimately matching nothing {% if facet_scope %}in this facet{% else %}on any facet{% endif %} is the normal, expected outcome for most comments (acknowledgments, 'lgtm', 'done', pure logistics) - do not force a match just to raise a count.
-{% if facet_scope %}
+A comment legitimately matching nothing {% if facet_scope_names %}in {{ facet_scope_names | join(' or ') }}{% else %}on any facet{% endif %} is the normal, expected outcome for most comments (acknowledgments, 'lgtm', 'done', pure logistics) - do not force a match just to raise a count.
+{% if facet_scope_names %}
 Before choosing any matches for a comment, write a `reasoning` field first: 1-2 sentences on
-what the comment is substantively about and whether it plausibly touches {{ facet_scope }}'s
-concerns at all. Write this before deciding matches, not after - it exists to inform the
-choice, not to justify one already made. Only tag a real match, with `evidence` that tightly
-paraphrases the specific part of the comment that justifies it - never copy the whole comment
-into `evidence`.
+what the comment is substantively about and whether it plausibly touches
+{{ facet_scope_names | join(' and ') }}'s concerns at all. Write this before deciding matches,
+not after - it exists to inform the choice, not to justify one already made. Only tag a real
+match, with `evidence` that tightly paraphrases the specific part of the comment that justifies
+it - never copy the whole comment into `evidence`.
 {% else %}
 Only tag a real, substantive match, with evidence quoting or tightly paraphrasing the part of
 the comment that justifies it.
@@ -22,6 +22,11 @@ the comment that justifies it.
 
 `facet` and `value` in `results` must be copied exactly from the taxonomy below - never invent
 a new facet or value name there.
+
+Each match also needs a `quote`: an exact, or very-near-exact, literal substring copied directly
+from the comment's own text - not a paraphrase, that's what `evidence` is for. Copy the actual
+words the comment uses; `quote` is checked mechanically afterward against the comment text, so a
+lightly-reworded or invented `quote` won't register as covering anything.
 
 If a comment raises something real that nothing in the taxonomy covers - not "the closest
 existing value is good enough", but genuinely nothing fits - do not force it into `results`.
@@ -31,11 +36,8 @@ and a one-line description. `candidates` must be present even if empty - most co
 need it, but do not skip looking for it.
 
 # Taxonomy
-{% if facet_scope -%}
-## {{ facet_scope }}: {{ facet_description }}
-{% for v in facet_values %}
-- {{ v.value }}: {{ v.description }}
-{% endfor %}
+{% if facet_scope_names -%}
+{{ scoped_taxonomy_block }}
 {% else -%}
 {{ taxonomy_block }}
 {%- endif %}
@@ -46,9 +48,9 @@ need it, but do not skip looking for it.
 {%- if examples_block %}
 {{ examples_block }}
 {% endif %}
-{%- if facet_coverage_threshold is not none and not facet_scope %}
+{%- if facet_coverage_threshold is not none and not facet_scope_names %}
 Before finishing, check each of the three facets separately: have you found at least one
-genuine match in principle, in artifact, and in nature somewhere across this set of comments?
+genuine match in principle, in area, and in nature somewhere across this set of comments?
 Defaulting to only one facet for everything is a known failure mode - if a facet has zero
 matches so far, deliberately re-read the comments with that facet specifically in mind before
 concluding there's really nothing there. Do not lower your standards to force it, though: only

@@ -55,6 +55,7 @@ Usage:
 import argparse
 import json
 import os
+import re
 import subprocess
 import sys
 import time
@@ -75,33 +76,47 @@ _jinja_env = Environment(
 )
 
 
-def _build_result_schema(taxonomy: dict, facet_scope: str | None = None) -> dict:
+def _facet_scope_names(taxonomy: dict, facet_scope: str | list[str] | None) -> list[str]:
+    """Normalizes the three shapes `facet_scope` can take across this module: `None` (legacy
+    unscoped, all facets), a single facet name (legacy --facet-split, one call per facet), or a
+    list of facet names (the tiered pipeline's grouped passes - `["area", "nature"]` for Pass 1,
+    `["principle"]` for Pass 2, all three explicitly for Pass 3). Returns the facet name list to
+    use; callers distinguish "unscoped" from "scoped" via `facet_scope is None`, not via this
+    return value, since a single-facet legacy scope and the unscoped case both need distinct
+    prompt wording (see _build_system_prompt)."""
+    if facet_scope is None:
+        return list(taxonomy["facets"].keys())
+    if isinstance(facet_scope, str):
+        return [facet_scope]
+    return list(facet_scope)
+
+
+def _build_result_schema(taxonomy: dict, facet_scope: str | list[str] | None = None) -> dict:
     """`facet`/`value` are enums of the actual taxonomy, not free strings - otherwise a model
     that ignores the given vocabulary still produces schema-valid JSON, just full of invented
     facet/value names with zero real signal (observed: one model invented a whole new facet,
     another used real values under invented facet names - both pass a plain-string schema).
 
-    `facet_scope` narrows both enums to one facet (used in --facet-split mode) and adds a
-    required `reasoning` field ordered *before* `matches` in the schema - with schema-
-    constrained decoding, property order is generation order, so this forces the model to
-    write its analysis before committing to a match rather than justifying one after the fact.
+    `facet_scope` narrows both enums to one or more facets - a single facet name for legacy
+    --facet-split mode, a list of facet names for the tiered pipeline's grouped passes (Pass 1:
+    area+nature together, Pass 2: principle alone, Pass 3: all three explicitly) - and, whenever
+    scoped (str or non-empty list, i.e. not the bare unscoped `None` case), adds a required
+    `reasoning` field ordered *before* `matches` in the schema - with schema-constrained
+    decoding, property order is generation order, so this forces the model to write its
+    analysis before committing to a match rather than justifying one after the fact.
     """
-    if facet_scope:
-        facet_names = [facet_scope]
-        all_values = sorted(v["value"] for v in taxonomy["facets"][facet_scope].get("values") or [])
-    else:
-        facet_names = list(taxonomy["facets"].keys())
-        all_values = sorted(
-            {
-                v["value"]
-                for facet in taxonomy["facets"].values()
-                for v in (facet.get("values") or [])
-            }
-        )
+    facet_names = _facet_scope_names(taxonomy, facet_scope)
+    all_values = sorted(
+        {
+            v["value"]
+            for name in facet_names
+            for v in (taxonomy["facets"][name].get("values") or [])
+        }
+    )
 
     result_item_properties: dict = {"comment_id": {"type": "integer"}}
     result_item_required = ["comment_id"]
-    if facet_scope:
+    if facet_scope is not None:
         result_item_properties["reasoning"] = {
             "type": "string",
             "description": "1-2 sentences on what the comment is about and whether it "
@@ -123,8 +138,17 @@ def _build_result_schema(taxonomy: dict, facet_scope: str | None = None) -> dict
                     "definition, and never generic phrasing like 'this touches on X' - name "
                     "what the comment actually says.",
                 },
+                "quote": {
+                    "type": "string",
+                    "description": "An exact, or very-near-exact, literal substring copied "
+                    "directly from THIS COMMENT's own text that supports the match - not a "
+                    "paraphrase (that's what `evidence` is for). Used mechanically afterward "
+                    "to measure how much of the comment's text the matches actually account "
+                    "for, so copy real words from the comment rather than lightly rewording "
+                    "them.",
+                },
             },
-            "required": ["facet", "value", "confidence", "evidence"],
+            "required": ["facet", "value", "confidence", "evidence", "quote"],
         },
     }
     result_item_required.append("matches")
@@ -172,11 +196,16 @@ def _load_taxonomy(path: Path = TAXONOMY_PATH) -> dict:
     return yaml.load(path.read_text(encoding="utf-8"))
 
 
-def _taxonomy_prompt_block(taxonomy: dict) -> str:
+def _taxonomy_prompt_block(taxonomy: dict, facet_names: list[str] | None = None) -> str:
     """Facet/value/description text for the prompt - not the whole file; semantics/provenance/
-    parent bookkeeping isn't needed to make a classification call."""
+    parent bookkeeping isn't needed to make a classification call. `facet_names` restricts this
+    to a subset of facets (used for a scoped pass - legacy --facet-split's one facet, or the
+    tiered pipeline's area+nature / principle / all-three groupings); omit for the full,
+    unscoped taxonomy."""
     lines: list[str] = []
-    for facet_name, facet in taxonomy["facets"].items():
+    names = facet_names if facet_names is not None else list(taxonomy["facets"].keys())
+    for facet_name in names:
+        facet = taxonomy["facets"][facet_name]
         lines.append(f"## {facet_name}: {facet['description'].strip()}")
         for v in facet.get("values") or []:
             lines.append(f"- {v['value']}: {v['description'].strip()}")
@@ -236,42 +265,59 @@ def _load_few_shot_examples(path: Path = FEW_SHOT_EXAMPLES_PATH) -> list[dict]:
     return yaml.load(path.read_text(encoding="utf-8"))["examples"]
 
 
-def _few_shot_examples_block(examples: list[dict], facet_scope: str | None = None) -> str:
+def _few_shot_examples_block(
+    examples: list[dict], facet_scope: str | list[str] | None = None
+) -> str:
     """Projects data/few_shot_examples.yaml's per-facet views into the prose block shown in
     the prompt.
 
     Unscoped (`facet_scope=None`): each example shows its full multi-facet `matches` list, no
     `reasoning` field - matching the unscoped result schema.
 
-    Facet-scoped (--facet-split): each example shows only that facet's slice, with the
+    Facet-scoped (a single facet name, legacy --facet-split; or a list of facet names, the
+    tiered pipeline's grouped passes): each example shows only the listed facet(s)' slice(s),
+    combined into one `matches` list (each entry still tagged with its own `facet`), with the
     `reasoning` field the scoped schema requires (see _build_result_schema's docstring for why
-    that's paired with facet-scoping), and only surfaces its `candidates` entries that are gap
-    proposals for this same facet - a facet-scoped call is told to only consider that one
-    facet, so it shouldn't be handed a different facet's gap.
+    that's paired with facet-scoping) - synthesized by joining each scoped facet's own
+    `reasoning` when more than one is in play, since the schema has one `reasoning` string per
+    comment, not one per facet. Only surfaces `candidates` entries that are gap proposals for
+    one of the scoped facets - a scoped call is told to only consider those facets, so it
+    shouldn't be handed a different facet's gap.
     """
+    facet_names = [facet_scope] if isinstance(facet_scope, str) else facet_scope
     lines = [
         "# Worked examples",
         "",
         "`evidence` is a tight paraphrase of the specific part of the comment that justifies a "
-        "match, never the whole comment copied verbatim. An empty `matches` list is a "
-        "complete, correct answer - most comments legitimately match nothing"
-        + (f" in {facet_scope}" if facet_scope else ", on any facet")
+        "match, never the whole comment copied verbatim; `quote` is a separate, exact (or "
+        "very-near-exact) literal substring of the comment - copy real words, don't paraphrase "
+        "them there. An empty `matches` list is a complete, correct answer - most comments "
+        "legitimately match nothing"
+        + (f" in {', '.join(facet_names)}" if facet_names else ", on any facet")
         + ", do not force one just to produce output.",
         "",
     ]
     for i, ex in enumerate(examples, start=1):
         comment_id = 900000000 + i
-        if facet_scope:
-            view = ex["facets"][facet_scope]
+        if facet_names:
+            views = [ex["facets"][f] for f in facet_names]
             matches = [
-                {"facet": facet_scope, **{k: m[k] for k in ("value", "confidence", "evidence")}}
+                {
+                    "facet": f,
+                    **{k: m[k] for k in ("value", "confidence", "evidence", "quote")},
+                }
+                for f, view in zip(facet_names, views)
                 for m in view["matches"]
             ]
-            item = {"comment_id": comment_id, "reasoning": view["reasoning"], "matches": matches}
-            candidates = [c for c in ex["candidates"] if c["candidate_facet"] == facet_scope]
+            reasoning = " ".join(v["reasoning"].strip() for v in views)
+            item = {"comment_id": comment_id, "reasoning": reasoning, "matches": matches}
+            candidates = [c for c in ex["candidates"] if c["candidate_facet"] in facet_names]
         else:
             matches = [
-                {"facet": facet_name, **{k: m[k] for k in ("value", "confidence", "evidence")}}
+                {
+                    "facet": facet_name,
+                    **{k: m[k] for k in ("value", "confidence", "evidence", "quote")},
+                }
                 for facet_name, view in ex["facets"].items()
                 for m in view["matches"]
             ]
@@ -319,7 +365,7 @@ def _build_system_prompt(
     tep_body_block: str | None,
     facet_coverage_threshold: float | None = None,
     examples_block: str | None = None,
-    facet_scope: str | None = None,
+    facet_scope: str | list[str] | None = None,
 ) -> str:
     """Renders templates/system_prompt.md.j2 - everything that doesn't change per batch: task
     framing, taxonomy, optional TEP body, optional facet-coverage nudge, optional worked
@@ -327,21 +373,20 @@ def _build_system_prompt(
     models (observed: granite4) are trained around a real system/user split and behave more
     generically when everything is crammed into one user turn.
 
-    `facet_scope` narrows the prompt to describe one facet only, for --facet-split mode; see
-    _build_result_schema for why that's paired with a required `reasoning` field."""
-    facet_description = None
-    facet_values = None
-    if facet_scope:
-        facet_description = taxonomy["facets"][facet_scope]["description"].strip()
-        facet_values = [
-            {"value": v["value"], "description": v["description"].strip()}
-            for v in taxonomy["facets"][facet_scope].get("values") or []
-        ]
+    `facet_scope` narrows the prompt to describe only the given facet(s) - a single facet name
+    for legacy --facet-split mode, or a list of facet names for the tiered pipeline's grouped
+    passes (Pass 1: area+nature, Pass 2: principle, Pass 3: all three explicitly); see
+    _build_result_schema for why any non-None scope is paired with a required `reasoning`
+    field."""
+    facet_scope_names = None
+    scoped_taxonomy_block = None
+    if facet_scope is not None:
+        facet_scope_names = _facet_scope_names(taxonomy, facet_scope)
+        scoped_taxonomy_block = _taxonomy_prompt_block(taxonomy, facet_scope_names)
     template = _jinja_env.get_template("system_prompt.md.j2")
     return template.render(
-        facet_scope=facet_scope,
-        facet_description=facet_description,
-        facet_values=facet_values,
+        facet_scope_names=facet_scope_names,
+        scoped_taxonomy_block=scoped_taxonomy_block,
         taxonomy_block=taxonomy_block,
         tep_body_block=tep_body_block,
         examples_block=examples_block,
@@ -349,9 +394,19 @@ def _build_system_prompt(
     )
 
 
-def _build_user_prompt(comments: list[dict]) -> str:
+def _build_user_prompt(
+    comments: list[dict],
+    context_by_id: dict[int, str] | None = None,
+    note: str | None = None,
+) -> str:
     """Renders templates/user_prompt.md.j2 - just the comment list, so it's cheap to rebuild
-    per retry without re-rendering the (unchanging) system prompt."""
+    per retry without re-rendering the (unchanging) system prompt.
+
+    `context_by_id` (Pass 3 only) attaches, under each comment, a one-line summary of what
+    Pass 1/2 already found for it - Pass 3 "sees all of Pass 1 + Pass 2's results as context"
+    per the plan doc, so it can correct or extend a prior pass's judgment rather than starting
+    blind. `note` is an optional leading paragraph (also Pass 3: explains why these particular
+    comments were flagged and what's expected of a re-check)."""
     template = _jinja_env.get_template("user_prompt.md.j2")
     rendered = [
         {
@@ -360,10 +415,11 @@ def _build_user_prompt(comments: list[dict]) -> str:
             "loc": c.get("section") or c.get("path") or "",
             "author": c.get("author") or "",
             "body": c["body"],
+            "context": (context_by_id or {}).get(c["comment_id"]),
         }
         for c in comments
     ]
-    return template.render(comments=rendered)
+    return template.render(comments=rendered, note=note)
 
 
 def _call_claude_cli(
@@ -410,7 +466,14 @@ def _call_ollama(
     schema: dict,
     num_ctx: int | None,
     temperature: float | None,
+    think: str | None = None,
 ) -> tuple[dict, dict]:
+    """`think` is granite4.2's built-in thinking-mode dial on Ollama's /api/chat (`think: low`
+    for the tiered pipeline's fast Pass 1/2 calls, `think: high` for Pass 3's expensive
+    re-check on flagged comments only) - a top-level field on the request, not an `options`
+    entry. Passed through as-is (str, e.g. "low"/"medium"/"high", or a bool for models whose
+    Ollama integration only supports on/off); omitted entirely when None, so non-thinking
+    models and the legacy pipeline see byte-identical requests to before this was added."""
     start = time.time()
     options: dict[str, int | float] = {}
     if num_ctx:
@@ -421,7 +484,7 @@ def _call_ollama(
     if system_prompt is not None:
         messages.append({"role": "system", "content": system_prompt})
     messages.append({"role": "user", "content": user_prompt})
-    payload = {
+    payload: dict = {
         "model": model,
         "messages": messages,
         "format": schema,
@@ -429,6 +492,8 @@ def _call_ollama(
     }
     if options:
         payload["options"] = options
+    if think is not None:
+        payload["think"] = think
     resp = requests.post(f"{host}/api/chat", json=payload, timeout=1800)
     resp.raise_for_status()
     data = resp.json()
@@ -436,6 +501,7 @@ def _call_ollama(
     meta = {
         "backend": "ollama",
         "model": model,
+        "think": think,
         "duration_ms": int((time.time() - start) * 1000),
         "eval_count": data.get("eval_count"),
         "prompt_eval_count": data.get("prompt_eval_count"),
@@ -479,6 +545,8 @@ def _extract_results(
                 "confidence": m["confidence"],
                 "evidence": m["evidence"],
             }
+            if "quote" in m:
+                row["quote"] = m["quote"]
             if reasoning is not None:
                 row["reasoning"] = reasoning
             rows.append(row)
@@ -506,6 +574,50 @@ def _extract_results(
         )
 
     return rows, candidates, seen_ids
+
+
+def _find_quote_span(text: str, quote: str) -> tuple[int, int] | None:
+    """Locates `quote` inside `text`, tolerating only whitespace differences (a model
+    re-wrapping a quote across a line break, or collapsing internal spacing) - not fuzzy or
+    approximate matching. Returns the quote's (start, end) character span in `text`'s own
+    coordinates, or None if it isn't grounded in `text` at all - a quote that doesn't even
+    near-exactly match the comment gives no real evidence anything was accounted for, so it's
+    treated as not covering anything, not as "probably fine"."""
+    quote = quote.strip()
+    if not quote:
+        return None
+    idx = text.find(quote)
+    if idx != -1:
+        return idx, idx + len(quote)
+    tokens = quote.split()
+    if not tokens:
+        return None
+    pattern = r"\s+".join(re.escape(tok) for tok in tokens)
+    m = re.search(pattern, text)
+    if m:
+        return m.start(), m.end()
+    return None
+
+
+def uncovered_fraction(comment_body: str, quotes: list[str]) -> float:
+    """Part 2's "catching missed tags on comments that did get tagged" heuristic: union the
+    character spans of `quotes` found (near-exactly, via _find_quote_span) in `comment_body`,
+    and return the fraction of `comment_body`'s characters falling outside that union - pure
+    string math, no model call. A comment with no quotes at all is fully uncovered (1.0); an
+    empty `comment_body` is vacuously fully covered (0.0), since there's no text left over to
+    miss. This is a standalone, model-independent function specifically so it can be sanity-
+    checked with plain inline cases rather than trusted on faith - see
+    tests/test_classify_llm.py."""
+    n = len(comment_body)
+    if n == 0:
+        return 0.0
+    covered = bytearray(n)
+    for q in quotes:
+        span = _find_quote_span(comment_body, q)
+        if span:
+            start, end = span
+            covered[start:end] = b"\x01" * (end - start)
+    return covered.count(0) / n
 
 
 def _use_system_user_split(model: str) -> bool:
