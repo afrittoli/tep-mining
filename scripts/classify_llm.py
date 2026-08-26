@@ -61,6 +61,7 @@ import sys
 import time
 from collections import Counter
 from collections.abc import Callable
+from collections.abc import Set as AbstractSet
 from pathlib import Path
 
 import requests
@@ -785,7 +786,7 @@ def _quote_coverage_flags(
     rows: list[dict],
     by_id: dict[int, dict],
     threshold: float,
-    exclude_ids: set[int] = frozenset(),
+    exclude_ids: AbstractSet[int] = frozenset(),
 ) -> dict[int, float]:
     """The plan doc's "catching missed tags on comments that did get tagged" heuristic: for
     every comment with at least one match so far, union its matches' `quote` spans against its
