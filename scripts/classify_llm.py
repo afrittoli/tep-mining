@@ -109,11 +109,7 @@ def _build_result_schema(taxonomy: dict, facet_scope: str | list[str] | None = N
     """
     facet_names = _facet_scope_names(taxonomy, facet_scope)
     all_values = sorted(
-        {
-            v["value"]
-            for name in facet_names
-            for v in (taxonomy["facets"][name].get("values") or [])
-        }
+        {v["value"] for name in facet_names for v in (taxonomy["facets"][name].get("values") or [])}
     )
 
     result_item_properties: dict = {"comment_id": {"type": "integer"}}
@@ -693,7 +689,8 @@ def _print_dry_run(passes: list[tuple[str, str, dict]], batch: list[dict], model
     in --facet-split mode)."""
     user_prompt = _build_user_prompt(batch)
     for label, system_prompt, _schema in passes:
-        sp, up = system_prompt, user_prompt
+        sp: str | None = system_prompt
+        up = user_prompt
         if not _use_system_user_split(model):
             sp, up = None, f"{system_prompt}\n\n{user_prompt}"
         print(f"===== pass: {label} =====")
@@ -927,9 +924,7 @@ def _run_tiered_batch(
             f"{len(skip_ids)} skipped as nature:none]",
             file=sys.stderr,
         )
-        pass1_context = _tags_context_by_id(
-            rows1, {c["comment_id"] for c in pass2_batch}
-        )
+        pass1_context = _tags_context_by_id(rows1, {c["comment_id"] for c in pass2_batch})
         rows2, candidates2, missing2, metas2 = _classify_one_pass(
             pass2_batch,
             by_id,
@@ -1024,9 +1019,7 @@ def _run_legacy(
     available for a future claude-cli cost comparison per the plan doc's Execution mode &
     backends section (fewer, larger calls may be meaningfully cheaper there than under Ollama,
     where call count doesn't cost money the same way). Not the default; see --pipeline."""
-    facet_scopes: list[str | None] = (
-        list(taxonomy["facets"].keys()) if args.facet_split else [None]
-    )
+    facet_scopes: list[str | None] = list(taxonomy["facets"].keys()) if args.facet_split else [None]
     passes = [
         (
             facet_scope if isinstance(facet_scope, str) else "all",
