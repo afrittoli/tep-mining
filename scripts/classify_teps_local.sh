@@ -19,6 +19,7 @@ for tep in "${teps[@]}"; do
     echo "=== TEP-${tep} (${context}) starting $(date) ===" | tee -a "$log"
     if uv run scripts/classify_llm.py --tep "$tep" --backend ollama --model "$model" \
         --context "$context" --batch-size 10 --facet-coverage-threshold 0.4 \
+        --pipeline legacy \
         >> "$log" 2>&1; then
         echo "=== TEP-${tep} OK $(date) ===" | tee -a "$log"
     else
