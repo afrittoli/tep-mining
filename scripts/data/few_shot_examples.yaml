@@ -1,21 +1,33 @@
 # Worked few-shot examples for classify_llm.py --few-shot.
 #
-# All six comments here are invented for this file, not lifted from any TEP in the corpus -
-# past versions of this file accidentally reused real tep52 comments verbatim (with fake
+# All comments here are invented for this file, not lifted from any TEP in the corpus - past
+# versions of this file accidentally reused real tep52 comments verbatim (with fake
 # comment_ids), which meant the model was shown the answer key for part of the exact TEP later
 # used as ground truth. Keep it that way: never copy a real corpus comment in here, even
-# paraphrased close enough to be recognizable.
+# paraphrased close enough to be recognizable. This also applies to taxonomy-and-pipeline-
+# plan.md's own "worked examples" section - those two comments are real tep52 quotes (verified
+# against processed/latest/per_tep_records.json, comment_ids 605678387 and 605674920), so the
+# cohesion/feature-justification and reconciler-pattern-as-principle examples below are original
+# comments demonstrating the same taxonomy points, not transcriptions of that section.
 #
 # Each example carries a per-facet view (reasoning + matches, possibly empty) so the same data
-# renders correctly both in the combined/unscoped prompt (--facet-split off: show every
+# renders correctly both in the combined/unscoped prompt (no facet grouping: show every
 # example's full multi-facet match list, no `reasoning` field, matching the unscoped schema)
-# and in a single-facet prompt (--facet-split on: show only that facet's slice, with the
-# `reasoning` field the scoped schema requires). See _few_shot_examples_block in
-# classify_llm.py for exactly how this gets projected.
+# and in a facet-scoped prompt - a single facet (legacy --facet-split, one call per facet) or a
+# group of facets (the tiered pipeline's Pass 1 `[area, nature]`, Pass 2 `[principle]`, Pass 3
+# all three): show only the listed facet(s)' slice(s), combined into one `matches` list, with
+# the `reasoning` field the scoped schema requires (joining multiple facets' `reasoning` text
+# together when more than one is in scope). See _few_shot_examples_block in classify_llm.py for
+# exactly how this gets projected.
 #
-# `candidates` on an example is only surfaced in the facet-scoped view whose facet matches its
-# `candidate_facet` - a facet-scoped call is told to only consider that one facet, so it
-# shouldn't be handed a gap proposal for a different one.
+# `candidates` on an example is only surfaced in a facet-scoped view whose scope includes its
+# `candidate_facet` - a facet-scoped call is told to only consider those facets, so it shouldn't
+# be handed a gap proposal for a facet outside its scope.
+#
+# `quote` on a match must be an exact, literal substring of the example's own `comment` text -
+# it's rendered to the model as a demonstration of the mechanical text-coverage heuristic
+# (uncovered_fraction in classify_llm.py), so an invented or paraphrased `quote` here would
+# demonstrate exactly the failure mode that heuristic exists to catch.
 
 examples:
   - id: reuse-poll-loop
@@ -36,7 +48,8 @@ examples:
             evidence: >-
               suggests reusing the existing Reconciler.syncHandler pattern instead of writing a
               new poll loop
-      artifact:
+            quote: "reuse the existing `Reconciler.syncHandler` pattern"
+      area:
         reasoning: >-
           This is about the Go implementation of the reconciler's poll loop itself, not tests,
           docs, or the TEP text.
@@ -45,6 +58,7 @@ examples:
             confidence: 0.6
             evidence: >-
               proposes restructuring the poll loop to reuse an existing reconciler pattern
+            quote: "writing a brand-new poll loop here"
       nature:
         reasoning: >-
           A substantive design suggestion with a concrete rationale (retry/backoff comes for
@@ -54,6 +68,7 @@ examples:
             confidence: 0.55
             evidence: >-
               concrete design suggestion with a stated rationale, not a style nit
+            quote: "that would also mean the retry/backoff behavior it already has for free"
     candidates: []
 
   - id: secret-in-env
@@ -73,20 +88,21 @@ examples:
             evidence: >-
               asks that the registry token go through a Secret reference instead of being
               readable via kubectl get taskrun -o yaml
-      artifact:
+            quote: "can this go through a Secret reference instead?"
+      area:
         reasoning: >-
           The concern is about where a secret value ends up exposed, not a specific code
-          region, test, or doc - nothing in the artifact list names this.
+          region, test, or doc - nothing in the area list names this.
         matches: []
       nature:
         reasoning: >-
-          Nature characterizes how feedback is phrased about a specific artifact; without one
-          identified here, there's nothing to call structural or content-level.
+          Nature characterizes how feedback is phrased about a specific area; without one
+          identified here, there's nothing to call formatting- or content-level.
         matches: []
     candidates: []
 
   - id: timeout-flag-test-gap
-    label: only the artifact facet fires
+    label: only the area facet fires
     comment: >-
       The new `--timeout` flag parsing has no test for a malformed value like `5x` - right now
       it panics instead of returning a validation error.
@@ -96,7 +112,7 @@ examples:
           A missing test case is a completeness gap, not an appeal to any documented design
           principle.
         matches: []
-      artifact:
+      area:
         reasoning: >-
           Entirely about missing test coverage for an edge case in flag parsing.
         matches:
@@ -105,6 +121,7 @@ examples:
             evidence: >-
               notes there's no test for a malformed timeout value and that parsing panics
               instead of validating
+            quote: "no test for a malformed value like `5x`"
       nature:
         reasoning: >-
           Flags a missing test, not the form or substance of something that already exists -
@@ -122,9 +139,9 @@ examples:
         reasoning: >-
           A pure formatting request doesn't invoke a documented design principle.
         matches: []
-      artifact:
+      area:
         reasoning: >-
-          The comment doesn't say which artifact this explanation belongs to (commit message,
+          The comment doesn't say which area this explanation belongs to (commit message,
           doc, TEP section) - too generic to confidently name one.
         matches: []
       nature:
@@ -132,11 +149,12 @@ examples:
           Asks purely for a formatting/organization change to existing prose, not a change to
           what it says.
         matches:
-          - value: structure
+          - value: formatting
             confidence: 0.7
             evidence: >-
               asks for the explanation to be split into short sentences instead of one run-on,
               a formatting request not a content objection
+            quote: "break it into a few short sentences, one idea each"
     candidates: []
 
   - id: flag-toggle-visibility
@@ -150,7 +168,7 @@ examples:
           Nothing in the current principle list names "is a runtime behavior change observable"
           directly - see the candidate below, not an existing value.
         matches: []
-      artifact:
+      area:
         reasoning: >-
           A concrete suggestion about adding logging in the code path that handles the flag
           toggle.
@@ -159,6 +177,7 @@ examples:
             confidence: 0.6
             evidence: >-
               suggests adding a warning log when the flag is toggled at runtime
+            quote: "log a warning when it's toggled at runtime"
       nature:
         reasoning: >-
           This is about whether a behavior change is observable, not a critique of how
@@ -174,16 +193,106 @@ examples:
           log a warning when it's toggled at runtime instead of silently changing behavior
 
   - id: ack-only
-    label: a comment matching nothing at all
+    label: a comment matching nothing substantive - the explicit nature:none case
     comment: "+1, lgtm!"
     facets:
       principle:
         reasoning: A pure acknowledgment with no substantive content - nothing to evaluate.
         matches: []
-      artifact:
-        reasoning: A pure acknowledgment with no substantive content - nothing to evaluate.
+      area:
+        reasoning: >-
+          Not tied to any specific part of the contribution - a pure acknowledgment isn't
+          substantive enough to need a candidate area proposed either.
         matches: []
       nature:
-        reasoning: A pure acknowledgment with no substantive content - nothing to evaluate.
-        matches: []
+        reasoning: >-
+          Reviewed, and insignificant - exactly what the explicit `none` value exists for,
+          rather than leaving nature silently empty.
+        matches:
+          - value: none
+            confidence: 0.95
+            evidence: pure acknowledgment, nothing to classify
+            quote: "+1, lgtm!"
+    candidates: []
+
+  - id: reconciler-status-bypass
+    label: principle:reconciler-pattern (distinct from reusability - a controller-convention concern, not a "reuse this instead" one)
+    comment: >-
+      This calls `clientset.Update()` directly on the TaskRun status from inside the webhook
+      handler - shouldn't status mutations only ever go through the reconciler's own Update
+      call, so a concurrent reconcile loop can't race with this?
+    facets:
+      principle:
+        reasoning: >-
+          Objects to a status mutation happening outside the reconciler's own update path,
+          which is specifically a reconciler/controller convention concern, not a reusability
+          or security one.
+        matches:
+          - value: reconciler-pattern
+            confidence: 0.65
+            evidence: >-
+              questions a status update from the webhook handler bypassing the reconciler's own
+              Update call, risking a race with the reconcile loop
+            quote: "status mutations only ever go through the reconciler's own Update call"
+      area:
+        reasoning: >-
+          About a specific piece of Go implementation (the webhook handler's status update
+          call), not a test, doc, or TEP-text concern.
+        matches:
+          - value: code
+            confidence: 0.6
+            evidence: >-
+              flags a direct clientset.Update() call on TaskRun status from the webhook handler
+            quote: "calls `clientset.Update()` directly on the TaskRun status"
+      nature:
+        reasoning: >-
+          A substantive concurrency/correctness concern about existing code, not a formatting
+          nit.
+        matches:
+          - value: content
+            confidence: 0.55
+            evidence: >-
+              raises a concrete race-condition concern with the current update path
+            quote: "so a concurrent reconcile loop can't race with this"
+    candidates: []
+
+  - id: unrelated-log-level-change
+    label: nature:cohesion plus a weak principle:feature-justification signal
+    comment: >-
+      This PR is about adding the `--dry-run` flag, but this hunk also switches the default log
+      level to debug - was that intentional, or a leftover from local debugging? Doesn't seem
+      like something the TEP asked for.
+    facets:
+      principle:
+        reasoning: >-
+          Weakly questions whether the bundled log-level change was ever part of what the TEP
+          agreed to, distinct from the cohesion objection to it being in this PR at all - a
+          feature-justification concern, held loosely since it may just be leftover debug code
+          rather than a real scope claim.
+        matches:
+          - value: feature-justification
+            confidence: 0.3
+            evidence: >-
+              says the log-level change "doesn't seem like something the TEP asked for"
+            quote: "Doesn't seem like something the TEP asked for"
+      area:
+        reasoning: >-
+          About a specific code change (a default log level) bundled into this PR.
+        matches:
+          - value: code
+            confidence: 0.55
+            evidence: >-
+              flags a default log-level change bundled into the diff
+            quote: "switches the default log level to debug"
+      nature:
+        reasoning: >-
+          Objects to an unrelated change being bundled into a PR about something else entirely
+          - the textbook cohesion case, not a critique of either change's content on its own.
+        matches:
+          - value: cohesion
+            confidence: 0.7
+            evidence: >-
+              this PR is about the --dry-run flag, but also bundles in an unrelated log-level
+              change
+            quote: "this hunk also switches the default log level to debug"
     candidates: []
