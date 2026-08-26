@@ -8,17 +8,20 @@ description: >
   update to your edits.
 
 semantics: >
-  The three facets are independent lenses on the same comment, not a hierarchy and not
-  mutually exclusive - classifying a comment does not combine them into one joint label.
-  Within a facet, a comment may match zero, one, or several values, each with its own
-  confidence; zero is a legitimate, expected outcome (most comments - "can you rebase",
-  "LGTM", "nit: typo" - invoke no documented principle and no specific artifact at all), and
-  a comment may match nothing across all three facets. Forcing at least one match per facet
-  would fabricate signal that isn't there. Classification output (Sub-Task 8, step 2) must be
-  stored per comment - a list of (facet, value, confidence) matches per comment_id - not
-  pre-aggregated into per-value counts; aggregate counts are a derived view, so co-occurrence
-  (e.g. which comments were about both "tests" and "simplicity" at once) stays queryable and
-  every count traces to real comment text by construction, not as a separate check.
+  `area` and `nature` together identify the object of a comment - not two independent lenses,
+  `nature` describes the shape of feedback *about* a specific `area` - and both are expected on
+  nearly every substantive comment: a confident empty `area` match is not a legitimate outcome
+  (see `area`'s near-mandatory coverage note below), and a confident empty `nature` match should
+  itself commit to the explicit `nature: none` value rather than staying silent. `principle` is
+  the independent one: whether it's present is an open empirical question, not assumed rare (or
+  common) going in. Within `principle`, a comment may match zero, one, or several values, each
+  with its own confidence; zero is a legitimate, expected outcome (most comments - "can you
+  rebase", "LGTM", "nit: typo" - invoke no documented principle at all, and get `nature: none`
+  and no `principle` match at all). Classification output (Sub-Task 8, step 2) must be stored
+  per comment - a list of (facet, value, confidence) matches per comment_id - not pre-aggregated
+  into per-value counts; aggregate counts are a derived view, so co-occurrence (e.g. which
+  comments were about both "tests" and "simplicity" at once) stays queryable and every count
+  traces to real comment text by construction, not as a separate check.
 
   Every value carries a `provenance`, independent of which facet it's in - this is a property
   of the value, not of the facet:
@@ -27,10 +30,10 @@ semantics: >
       `source` cites those examples (TEP/PR numbers).
     - suggested: proposed from a person's own review experience - not yet backed by a document
       or by classified examples. `source` records that basis, not a citation.
-  No facet is exclusive to one provenance. `principle` and `artifact` can gain `discovered` or
+  No facet is exclusive to one provenance. `principle` and `area` can gain `discovered` or
   `suggested` values just as `nature` can; `nature` could in principle gain a `seeded` value if
-  something ever documents "kind of fix" categories. `nature` currently has zero values only
-  because nothing documents that axis yet, not because it's structurally reserved for
+  something ever documents "kind of fix" categories. `nature` currently has zero `seeded` values
+  only because nothing documents that axis yet, not because it's structurally reserved for
   non-seeded values.
 
   A value may optionally carry a `parent`, naming another value in the *same* facet that it's a
@@ -101,6 +104,11 @@ facets:
           or expression syntax
         provenance: seeded
         source: "design-principles.md#flexibility"
+      - value: container-image-config
+        description: "Whether a newly-used container image is configurable rather than hardcoded"
+        provenance: seeded
+        source: "standards.md#content"
+        parent: flexibility
       - value: conformance
         description: >
           Whether the feature behaves consistently across environments and avoids
@@ -160,31 +168,10 @@ facets:
           opt-out, a Godoc "Deprecated:" comment, tombstoning before removal
         provenance: seeded
         source: "docs/developers/api-changes.md#deprecations"
-
-  artifact:
-    description: >
-      Where in the contribution the feedback applies: which part of the PR or TEP it's about.
-    values:
-      - value: pr-description
-        description: "The PR description itself: linked issue, TEP reference, checklist, milestones"
+      - value: functionality
+        description: "Whether merging this PR alone would leave the project in a releasable state"
         provenance: seeded
-        source: "standards.md#pull-request-description"
-      - value: release-notes
-        description: "Whether release notes are present, accurate, and appropriately detailed"
-        provenance: seeded
-        source: "standards.md#release-notes"
-      - value: commit-message
-        description: >
-          Commit message content and formatting: explaining what and why, imperative subject
-          line, TEP reference
-        provenance: seeded
-        source: "standards.md#commit-messages"
-      - value: pr-size
-        description: >
-          Whether the PR is small and self-contained, one commit per PR, refactoring separated
-          from feature work
-        provenance: seeded
-        source: "standards.md#small-pull-requests"
+        source: "standards.md#functionality"
       - value: incremental-delivery
         description: >
           Whether a large feature is being split into smaller PRs behind a feature flag, with
@@ -192,28 +179,6 @@ facets:
         provenance: seeded
         source: "standards.md#incremental-feature-development"
         parent: functionality
-      - value: functionality
-        description: "Whether merging this PR alone would leave the project in a releasable state"
-        provenance: seeded
-        source: "standards.md#functionality"
-      - value: docs
-        description: >
-          Markdown documentation updates: spelling, formatting, completeness for user-visible
-          features
-        provenance: seeded
-        source: "standards.md#docs"
-      - value: container-image-config
-        description: "Whether a newly-used container image is configurable rather than hardcoded"
-        provenance: seeded
-        source: "standards.md#content"
-      - value: code
-        description: "Go style and code structure: error handling, package naming, exported API surface"
-        provenance: seeded
-        source: "standards.md#code"
-      - value: tests
-        description: "Unit, example, and end-to-end test coverage and quality"
-        provenance: seeded
-        source: "standards.md#tests"
       - value: reconciler-pattern
         description: "Conventions specific to CRD reconciler/controller code"
         provenance: seeded
@@ -234,6 +199,42 @@ facets:
           AI-assisted authoring context.
         provenance: seeded
         source: "process/tep-process.md#creating-and-merging-teps"
+
+  area:
+    description: >
+      Where in the contribution the feedback applies: which part of the PR or TEP it's about.
+      Near-mandatory coverage: unlike `principle`, an `area` match should be present on
+      essentially every substantive comment - if no existing value fits, propose a candidate
+      `area` (however low the confidence) rather than silently returning empty.
+    values:
+      - value: pr-description
+        description: "The PR description itself: linked issue, TEP reference, checklist, milestones"
+        provenance: seeded
+        source: "standards.md#pull-request-description"
+      - value: release-notes
+        description: "Whether release notes are present, accurate, and appropriately detailed"
+        provenance: seeded
+        source: "standards.md#release-notes"
+      - value: commit-message
+        description: >
+          Commit message content and formatting: explaining what and why, imperative subject
+          line, TEP reference
+        provenance: seeded
+        source: "standards.md#commit-messages"
+      - value: docs
+        description: >
+          Markdown documentation updates: spelling, formatting, completeness for user-visible
+          features
+        provenance: seeded
+        source: "standards.md#docs"
+      - value: code
+        description: "Go style and code structure: error handling, package naming, exported API surface"
+        provenance: seeded
+        source: "standards.md#code"
+      - value: tests
+        description: "Unit, example, and end-to-end test coverage and quality"
+        provenance: seeded
+        source: "standards.md#tests"
       - value: crd-registration
         description: >
           Whether all the steps for adding a new CRD type are complete: config YAML, cluster
@@ -241,6 +242,7 @@ facets:
           known-types registration
         provenance: seeded
         source: "DEVELOPMENT.md#adding-new-crd-types"
+        parent: code
       - value: feature-gate-registration
         description: >
           Whether all the steps for introducing a new per-feature flag are complete: default
@@ -248,21 +250,23 @@ facets:
           Prow environments, configMap entry, docs update
         provenance: seeded
         source: "docs/developers/feature-versioning.md#adding-feature-gated-api-fields-for-api-driven-features"
+        parent: code
       - value: resource-labeling
         description: >
           Whether a new Kubernetes resource carries the standard app.kubernetes.io labels
           (part-of, component, instance, name, version) for cross-application lookup
         provenance: seeded
         source: "docs/developers/resources-labelling.md"
+        parent: code
       - value: tep-body
         description: >
           The TEP document's own substantive content - goals, requirements, design, use cases
           - reviewed inline during proposal review. Distinct from `docs` (documentation for a
           shipped feature) and from `pr-description` (the PR's own meta-fields, not the TEP
-          text). No seed source defines this as its own artifact; it emerged as the single most
+          text). No seed source defines this as its own area; it emerged as the single most
           common thing proposal-PR comments turned out to be about once real classification
           started - most inline feedback on a TEP is on its own prose, not any of the other
-          15 artifact values.
+          area values.
         provenance: discovered
         source: >
           TEP-0033 proposal PR #380 comments, e.g. 528761799 ("typo: similarly"), 553408291
@@ -272,22 +276,31 @@ facets:
 
   nature:
     description: >
-      What kind of fix the feedback is asking for, independent of which artifact it applies
-      to - e.g. "commit-message + structure" (subject/body separation) vs.
-      "commit-message + content" (what/why explanation) are the same artifact, different nature.
-      Nothing documents this axis, so it has no seeded values; it grows the same way the other
-      facets can, via `discovered` (during classification) or `suggested` (from review
-      experience) values.
+      What kind of fix the feedback is asking for, independent of which area it applies
+      to - e.g. "commit-message + formatting" (subject/body separation) vs.
+      "commit-message + content" (what/why explanation) are the same area, different nature.
+      Expected on nearly every substantive comment alongside `area` (see the `area` facet's
+      near-mandatory coverage note) - a comment that's reviewed but insignificant should get
+      the explicit `none` value rather than staying silent. Nothing documents this axis, so it
+      has no seeded values; it grows the same way the other facets can, via `discovered`
+      (during classification) or `suggested` (from review experience) values.
     values:
-      - value: structure
+      - value: none
         description: >
-          The structural or formatting shape of an artifact - e.g. commit subject/body
+          Reviewed, and this comment is insignificant - acknowledgments, "lgtm", pure
+          logistics. An explicit commitment rather than an empty `nature` match, and what
+          Part 2's tiered pipeline uses to decide a comment needs no `principle` pass at all.
+        provenance: suggested
+        source: "Suggested from reviewer experience, not yet backed by a document or classified examples"
+      - value: formatting
+        description: >
+          The structural or formatting shape of an area - e.g. commit subject/body
           separation, line length, imperative mood - rather than its substance
         provenance: suggested
         source: "Suggested from reviewer experience, not yet backed by a document or classified examples"
       - value: content
         description: >
-          The substantive content of an artifact - e.g. what a commit message explains, why a
+          The substantive content of an area - e.g. what a commit message explains, why a
           decision was made - rather than its form
         provenance: suggested
         source: "Suggested from reviewer experience, not yet backed by a document or classified examples"
