@@ -1,0 +1,5205 @@
+{
+  "summary": {
+    "old_total": 452,
+    "new_total": 624,
+    "agree": 423,
+    "clean_agree": 141,
+    "total_comments": 315,
+    "repos": [
+      "pipeline#5383",
+      "pipeline#6177",
+      "pipeline#6188",
+      "pipeline#6219",
+      "pipeline#6229",
+      "pipeline#6230",
+      "pipeline#6235",
+      "pipeline#6237",
+      "pipeline#6238",
+      "pipeline#6248",
+      "pipeline#6341",
+      "pipeline#6345",
+      "pipeline#6346",
+      "pipeline#6348",
+      "pipeline#6349",
+      "pipeline#6418",
+      "community#774",
+      "community#945",
+      "community#1004"
+    ]
+  },
+  "expected": [
+    {
+      "cid": 936933008,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 774,
+        "author": "jerop",
+        "loc": "### Use Cases",
+        "body": "TODO(jerop) add image"
+      }
+    },
+    {
+      "cid": 936933087,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 774,
+        "author": "jerop",
+        "loc": "### Use Cases",
+        "body": "TODO(jerop) add image"
+      }
+    },
+    {
+      "cid": 938226366,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 774,
+        "author": "jerop",
+        "loc": "### Using Object Parameters",
+        "body": "or could you show me an example of what you mean?"
+      }
+    },
+    {
+      "cid": 940400750,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 774,
+        "author": "jerop",
+        "loc": null,
+        "body": "fixed, thanks!"
+      }
+    },
+    {
+      "cid": 940401171,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 774,
+        "author": "jerop",
+        "loc": "### Include specific combinations in the Matrix",
+        "body": "updated the proposal, thanks @pritidesai & @lbernick!"
+      }
+    },
+    {
+      "cid": 940510164,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 774,
+        "author": "lbernick",
+        "loc": "### Include specific combinations in the Matrix",
+        "body": "thanks, this is way better than my browser example lol"
+      }
+    },
+    {
+      "cid": 959123521,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 5383,
+        "author": "chengjoey",
+        "loc": "pkg/apis/pipeline/v1beta1/pipeline_types.go",
+        "body": "thanks @lbernick ,I've added the annotation `// +listType=atomic` for `params` field"
+      }
+    },
+    {
+      "cid": 959128917,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 5383,
+        "author": "chengjoey",
+        "loc": "pkg/apis/pipeline/v1beta1/pipeline_types.go",
+        "body": "ok\uff0cI've removed the `include` and just move existing matrix params under the matrix.params field.\r\n\r\ncommit message/pr description and title are updated"
+      }
+    },
+    {
+      "cid": 964864907,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 5383,
+        "author": "chengjoey",
+        "loc": "pkg/apis/pipeline/v1beta1/pipeline_types_test.go",
+        "body": "thanks @jerop , i've added this test to v1"
+      }
+    },
+    {
+      "cid": 1108706988,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6177,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1beta1/pipeline_types.go",
+        "body": "Thanks for the catch!"
+      }
+    },
+    {
+      "cid": 1109101906,
+      "extra": [
+        [
+          "area",
+          "code"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6177,
+        "author": "pritidesai",
+        "loc": "pkg/apis/pipeline/v1beta1/swagger.json",
+        "body": "Why these changes are part of this PR? \ud83e\udd14 They should not belong here, right?"
+      }
+    },
+    {
+      "cid": 1117422936,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6229,
+        "author": "jerop",
+        "loc": "pkg/apis/pipeline/v1beta1/pipeline_types_test.go",
+        "body": "@EmmaMunley I believe @lbernick is referring to the line:\r\n\r\n``` matrix := tc.arg.Matrix ```"
+      }
+    },
+    {
+      "cid": 1117451929,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6229,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1beta1/pipeline_types_test.go",
+        "body": "Oh I see. Thanks!\r\n"
+      }
+    },
+    {
+      "cid": 1119092190,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6238,
+        "author": "lbernick",
+        "loc": "pkg/apis/pipeline/v1/param_types.go",
+        "body": "Thank you for writing a docstring!"
+      }
+    },
+    {
+      "cid": 1120840457,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6238,
+        "author": "lbernick",
+        "loc": "pkg/apis/pipeline/v1/pipeline_validation_test.go",
+        "body": "@EmmaMunley was this comment addressed?"
+      }
+    },
+    {
+      "cid": 1120861526,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6238,
+        "author": "pritidesai",
+        "loc": "pkg/apis/pipeline/v1/pipeline_validation.go",
+        "body": "Not a blocker for this PR though!"
+      }
+    },
+    {
+      "cid": 1120865475,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6238,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/pipeline_validation_test.go",
+        "body": "Yes it should have been"
+      }
+    },
+    {
+      "cid": 1120935332,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6235,
+        "author": "jerop",
+        "loc": "pkg/apis/pipeline/v1/param_types.go",
+        "body": "ok, will put a hold on this until the other PR is merged\r\n\r\n/hold"
+      }
+    },
+    {
+      "cid": 1122168015,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6235,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/param_types.go",
+        "body": "The tests have been added. \r\n\r\n/hold cancel"
+      }
+    },
+    {
+      "cid": 1122239538,
+      "extra": [
+        [
+          "area",
+          "code"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6248,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/resources/apply.go",
+        "body": "p.Finally\uff1f\r\n\r\nIf this is the case, we probably need a test case to cover it."
+      }
+    },
+    {
+      "cid": 1122286986,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6235,
+        "author": "jerop",
+        "loc": "pkg/apis/pipeline/v1/param_types.go",
+        "body": "/unhold"
+      }
+    },
+    {
+      "cid": 1122503286,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6235,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/param_types.go",
+        "body": "This has been refactored."
+      }
+    },
+    {
+      "cid": 1122503366,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6235,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/pipeline_validation_test.go",
+        "body": "That was accidental."
+      }
+    },
+    {
+      "cid": 1123364131,
+      "extra": [
+        [
+          "area",
+          "tests"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6235,
+        "author": "lbernick",
+        "loc": "pkg/apis/pipeline/v1/pipeline_validation_test.go",
+        "body": "It looks like this might contain unrelated changes from #6238, can you please remove them?"
+      }
+    },
+    {
+      "cid": 1123715252,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6235,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/pipeline_validation_test.go",
+        "body": "This has been updated to [0]matrix.include.params[1]"
+      }
+    },
+    {
+      "cid": 1123737939,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6235,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/pipeline_validation_test.go",
+        "body": "Simplified"
+      }
+    },
+    {
+      "cid": 1123740218,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6235,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/pipeline_validation_test.go",
+        "body": "Updated error messaging"
+      }
+    },
+    {
+      "cid": 1123976062,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6235,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1beta1/pipeline_validation_test.go",
+        "body": "Thanks for the catch! This has been added."
+      }
+    },
+    {
+      "cid": 1127056080,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6237,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/pipeline_types_test.go",
+        "body": "I removed the last test."
+      }
+    },
+    {
+      "cid": 1127086830,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6235,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/param_types.go",
+        "body": "Yes! Moved both matrix functions"
+      }
+    },
+    {
+      "cid": 1127141054,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6237,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/matrix_types.go",
+        "body": "This has been extracted into `countNewCombinationsFromInclude()` function"
+      }
+    },
+    {
+      "cid": 1127143276,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6237,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/matrix_types.go",
+        "body": "This has been extracted into a `countMatrixParamsCombinations` function"
+      }
+    },
+    {
+      "cid": 1127144828,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6237,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/matrix_types.go",
+        "body": "Thanks @pritidesai. I have extracted into  countMatrixParamsCombinations() and countNewCombinationsFromInclude()"
+      }
+    },
+    {
+      "cid": 1127157649,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6235,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/matrix_types.go",
+        "body": "Yes, that is true! Sorry for the confusion, added a comment to specify type required."
+      }
+    },
+    {
+      "cid": 1127954715,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6237,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/matrix_types.go",
+        "body": "Ah I see. I refactored all of these to member functions and will keep this in mind for the implementation as well. Thanks!"
+      }
+    },
+    {
+      "cid": 1127956274,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6237,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/matrix_types.go",
+        "body": "Thanks Priti!"
+      }
+    },
+    {
+      "cid": 1127957238,
+      "extra": [
+        [
+          "area",
+          "code"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6237,
+        "author": "jerop",
+        "loc": "pkg/apis/pipeline/v1/matrix_types.go",
+        "body": "I should have been clear that the renaming should happen in a separate commit/PR - it is unrelated to this one"
+      }
+    },
+    {
+      "cid": 1127957854,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6237,
+        "author": "jerop",
+        "loc": "pkg/apis/pipeline/v1/matrix_types.go",
+        "body": "Thanks for adding the validation @pritidesai! "
+      }
+    },
+    {
+      "cid": 1128036279,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6237,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/matrix_types.go",
+        "body": "Oh okay, I reverted back"
+      }
+    },
+    {
+      "cid": 1131630858,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6248,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1beta1/pipeline_conversion_test.go",
+        "body": "That was by mistake :) "
+      }
+    },
+    {
+      "cid": 1131631043,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6248,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1beta1/pipeline_conversion.go",
+        "body": "Thanks! Removed"
+      }
+    },
+    {
+      "cid": 1134274375,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6345,
+        "author": "EmmaMunley",
+        "loc": "pkg/reconciler/pipelinerun/resources/apply_test.go",
+        "body": "Added separate tests for each type."
+      }
+    },
+    {
+      "cid": 1134274722,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6345,
+        "author": "EmmaMunley",
+        "loc": "pkg/reconciler/pipelinerun/resources/apply_test.go",
+        "body": "Added a test case for overriding defaults"
+      }
+    },
+    {
+      "cid": 1134275053,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6345,
+        "author": "EmmaMunley",
+        "loc": "pkg/reconciler/pipelinerun/resources/apply_test.go",
+        "body": "Nope good catch."
+      }
+    },
+    {
+      "cid": 1134275588,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6345,
+        "author": "EmmaMunley",
+        "loc": "pkg/reconciler/pipelinerun/resources/apply.go",
+        "body": "Added a comment"
+      }
+    },
+    {
+      "cid": 1134433258,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "EmmaMunley",
+        "loc": "docs/matrix.md",
+        "body": "Added the additional use cases."
+      }
+    },
+    {
+      "cid": 1134433624,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "EmmaMunley",
+        "loc": "docs/matrix.md",
+        "body": "Added the generated combinations to the examples"
+      }
+    },
+    {
+      "cid": 1134434115,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/matrix_types.go",
+        "body": "Thanks Priti! I've incorporated these changes."
+      }
+    },
+    {
+      "cid": 1134434344,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/matrix_types.go",
+        "body": "Thanks Priti! I've incorporated these changes."
+      }
+    },
+    {
+      "cid": 1135755021,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6345,
+        "author": "EmmaMunley",
+        "loc": "pkg/reconciler/pipelinerun/resources/apply.go",
+        "body": "Ah okay makes sense. "
+      }
+    },
+    {
+      "cid": 1135756123,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6345,
+        "author": "EmmaMunley",
+        "loc": "pkg/reconciler/pipelinerun/resources/apply_test.go",
+        "body": "Removed object test altogether"
+      }
+    },
+    {
+      "cid": 1135765088,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6345,
+        "author": "EmmaMunley",
+        "loc": "pkg/reconciler/pipelinerun/resources/apply_test.go",
+        "body": "Sorry, didn't see the first comment until after. Restored and renamed the test to \"matrix include params - string replacement from object params\"\""
+      }
+    },
+    {
+      "cid": 1136050710,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6345,
+        "author": "EmmaMunley",
+        "loc": "docs/matrix.md",
+        "body": "Added examples"
+      }
+    },
+    {
+      "cid": 1137072230,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6345,
+        "author": "EmmaMunley",
+        "loc": "pkg/reconciler/pipelinerun/resources/apply_test.go",
+        "body": "Added test for string replacement from object result"
+      }
+    },
+    {
+      "cid": 1137589636,
+      "extra": [
+        [
+          "area",
+          "docs"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "lbernick",
+        "loc": "docs/matrix.md",
+        "body": "is it possible to remove formatting changes from this PR?"
+      }
+    },
+    {
+      "cid": 1138670050,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/matrix_types_test.go",
+        "body": "Okay, removed the `expectedParams` and simplified the test"
+      }
+    },
+    {
+      "cid": 1140484858,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "jerop",
+        "loc": "docs/matrix.md",
+        "body": "The docs updates looks great @EmmaMunley, thanks for adding all the examples!"
+      }
+    },
+    {
+      "cid": 1146405548,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6418,
+        "author": "EmmaMunley",
+        "loc": "pkg/reconciler/taskrun/validate_taskrun_test.go",
+        "body": "Added back m.Params"
+      }
+    },
+    {
+      "cid": 1146773894,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6418,
+        "author": "EmmaMunley",
+        "loc": "pkg/reconciler/taskrun/validate_taskrun.go",
+        "body": "Added docstring"
+      }
+    },
+    {
+      "cid": 1146774435,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6418,
+        "author": "EmmaMunley",
+        "loc": "pkg/reconciler/taskrun/validate_taskrun_test.go",
+        "body": "Refactored tests to isolate each TaskSpec"
+      }
+    },
+    {
+      "cid": 1146797026,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6418,
+        "author": "EmmaMunley",
+        "loc": "pkg/reconciler/taskrun/validate_taskrun_test.go",
+        "body": "Created another test for testing extra params with table-driven testing. Code coverage is 100% now \ud83c\udf89 "
+      }
+    },
+    {
+      "cid": 1146802218,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6418,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/taskrun/validate_taskrun.go",
+        "body": "my bad-- thinking of how things work in some other languages :("
+      }
+    },
+    {
+      "cid": 1147586737,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6418,
+        "author": "EmmaMunley",
+        "loc": "pkg/reconciler/taskrun/validate_taskrun_test.go",
+        "body": "That was a mistake in copy pasting"
+      }
+    },
+    {
+      "cid": 1147588249,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6418,
+        "author": "EmmaMunley",
+        "loc": "pkg/reconciler/taskrun/validate_taskrun_test.go",
+        "body": "Oops, I think I accidentally overwrote the invalid params with extra params testing. This has been fixed."
+      }
+    },
+    {
+      "cid": 1147606243,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6418,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/taskrun/validate_taskrun_test.go",
+        "body": "Thanks for putting this into a table-driven format! Looks a lot better."
+      }
+    },
+    {
+      "cid": 1149410509,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6418,
+        "author": "EmmaMunley",
+        "loc": "pkg/reconciler/taskrun/validate_taskrun_test.go",
+        "body": "Yes, it was testing a combo. Removed these test cases."
+      }
+    },
+    {
+      "cid": 1149621640,
+      "extra": [
+        [
+          "area",
+          "code"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "jerop",
+        "loc": "pkg/apis/pipeline/v1/__debug_bin",
+        "body": "this must have been added to the commit by mistake, please remove"
+      }
+    },
+    {
+      "cid": 1149738788,
+      "extra": [
+        [
+          "area",
+          "tests"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "jerop",
+        "loc": "pkg/apis/pipeline/v1beta1/matrix_types_test.go",
+        "body": "this cleanup is not related to this change, and is also not applied in the v1 files\r\n\r\ncould you please remove this cleanup, and open a separate PR making this change in both v1beta1 and v1 \ud83d\ude4f\ud83c\udffe "
+      }
+    },
+    {
+      "cid": 1152140775,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "EmmaMunley",
+        "loc": "docs/pipeline-api.md",
+        "body": "The PR description has been updated"
+      }
+    }
+  ],
+  "judgment": [
+    {
+      "cid": 938226135,
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 774,
+        "author": "jerop",
+        "loc": "### Using Object Parameters",
+        "body": "what we have here is an array of object params \ud83d\ude43 \r\n"
+      }
+    },
+    {
+      "cid": 938957369,
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 774,
+        "author": "jerop",
+        "loc": "### Using Object Parameters",
+        "body": "we don't support array of objects in the form you've described there, and would rather not go there \ud83d\ude05 "
+      }
+    },
+    {
+      "cid": 940502435,
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 774,
+        "author": "lbernick",
+        "loc": "### Using Object Parameters",
+        "body": "Yeah having written it out it's a bit awkward \ud83d\ude05 "
+      }
+    },
+    {
+      "cid": 940510597,
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "principle",
+          "reusability"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "reusability"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 774,
+        "author": "lbernick",
+        "loc": "### Include specific combinations in the Matrix",
+        "body": "I'm curious why someone would do this as opposed to just using it as a regular parameter outside of the matrix."
+      }
+    },
+    {
+      "cid": 940539779,
+      "old": [],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 774,
+        "author": "abayer",
+        "loc": "### Include specific combinations in the Matrix",
+        "body": "`flags: ...` should be one of the matrix params here, right?"
+      }
+    },
+    {
+      "cid": 940547064,
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 774,
+        "author": "pritidesai",
+        "loc": "### Include specific combinations in the Matrix",
+        "body": "nope, since `flags` is an options parameter with the default value of `-race -cover -v`. In this case, when the `flags` is not specified, the default value will be used to execute the `taskRun`."
+      }
+    },
+    {
+      "cid": 958715683,
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "principle",
+          "api-conventions"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "api-conventions"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 5383,
+        "author": "lbernick",
+        "loc": "pkg/apis/pipeline/v1beta1/pipeline_types.go",
+        "body": "you might need a `// +listType=atomic` annotation for these new fields to resolve the build test failures."
+      }
+    },
+    {
+      "cid": 958718741,
+      "old": [
+        [
+          "area",
+          "commit-message"
+        ],
+        [
+          "nature",
+          "magnitude"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "area",
+          "commit-message"
+        ],
+        [
+          "area",
+          "pr-description"
+        ],
+        [
+          "nature",
+          "cohesion"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "magnitude"
+        ]
+      ],
+      "extra": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "area",
+          "pr-description"
+        ],
+        [
+          "nature",
+          "cohesion"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 5383,
+        "author": "lbernick",
+        "loc": "pkg/apis/pipeline/v1beta1/pipeline_types.go",
+        "body": "It looks like `include` is introduced in this PR but not used anywhere. I'd suggest keeping the scope of this PR to just move existing matrix params under the `matrix.params` field, and introduce `include` in a later PR (and update the commit message/pr description and title accordingly)"
+      }
+    },
+    {
+      "cid": 964801740,
+      "old": [
+        [
+          "area",
+          "tests"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 5383,
+        "author": "jerop",
+        "loc": "pkg/apis/pipeline/v1/pipeline_types.go",
+        "body": "please add tests for this new exported function"
+      }
+    },
+    {
+      "cid": 964804946,
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "principle",
+          "crd-version-policy"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "crd-version-policy"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 5383,
+        "author": "jerop",
+        "loc": "pkg/apis/pipeline/v1beta1/pipeline_types_test.go",
+        "body": "this test needs to be added in v1 too"
+      }
+    },
+    {
+      "cid": 1108023381,
+      "old": [
+        [
+          "area",
+          "code"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "reusability"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "reusability"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6177,
+        "author": "pritidesai",
+        "loc": "pkg/apis/pipeline/v1beta1/pipeline_types.go",
+        "body": "I thought this kind of struct might already be defined somewhere, but didn't find any \ud83d\ude43 "
+      }
+    },
+    {
+      "cid": 1108030665,
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "principle",
+          "api-conventions"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "api-conventions"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6177,
+        "author": "pritidesai",
+        "loc": "pkg/apis/pipeline/v1beta1/pipeline_types.go",
+        "body": "thank you @EmmaMunley for this PR, it looks good to me!\r\n\r\nThe build is failing with:\r\n\r\n```\r\nERROR: New API rule violations found which are not present in hack/ignored-openapi-violations.list. Please fix these violations:\r\nAPI rule violation: list_type_missing,github.com/tektoncd/pipeline/pkg/apis/pipeline/v1beta1,Matrix,Include\r\nAPI rule violation: list_type_missing,github.com/tektoncd/pipeline/pkg/apis/pipeline/v1beta1,MatrixInclude,Params\r\n```\r\n\r\nI think we are missing an annotation here:\r\n\r\n```\r\n// +listType=atomic\r\n```"
+      }
+    },
+    {
+      "cid": 1108030963,
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "principle",
+          "api-conventions"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "api-conventions"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6177,
+        "author": "pritidesai",
+        "loc": "pkg/apis/pipeline/v1beta1/pipeline_types.go",
+        "body": "same annotation missing here:\r\n\r\n```\r\n// +listType=atomic\r\n```"
+      }
+    },
+    {
+      "cid": 1114997256,
+      "old": [
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6188,
+        "author": "jerop",
+        "loc": "pkg/apis/pipeline/v1/pipeline_types.go",
+        "body": "planning to add validation that the parameters are of type string in a subsequent PR?"
+      }
+    },
+    {
+      "cid": 1115803335,
+      "old": [
+        [
+          "area",
+          "commit-message"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "commit-message"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6188,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/pipeline_types.go",
+        "body": "Updated commit message to call out that validation will be added in a subsequent PR."
+      }
+    },
+    {
+      "cid": 1116231714,
+      "old": [
+        [
+          "area",
+          "code"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6219,
+        "author": "jerop",
+        "loc": "pkg/apis/pipeline/v1/pipeline_types.go",
+        "body": "do these functions have to be exported? it seems that they are only used within this package"
+      }
+    },
+    {
+      "cid": 1116234785,
+      "old": [
+        [
+          "area",
+          "code"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6219,
+        "author": "jerop",
+        "loc": "pkg/apis/pipeline/v1/param_types.go",
+        "body": "why is this function changed from unexported to exported?"
+      }
+    },
+    {
+      "cid": 1117300929,
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "missing": [
+        [
+          "area",
+          "code"
+        ]
+      ],
+      "extra": [
+        [
+          "area",
+          "tests"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6229,
+        "author": "lbernick",
+        "loc": "pkg/apis/pipeline/v1beta1/pipeline_types_test.go",
+        "body": "nit: this is a bit redundant, not sure a separate variable is needed"
+      }
+    },
+    {
+      "cid": 1117449972,
+      "old": [
+        [
+          "principle",
+          "crd-version-policy"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "crd-version-policy"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6229,
+        "author": "jerop",
+        "loc": "pkg/apis/pipeline/v1/pipeline_types_test.go",
+        "body": "this also needs to be updated"
+      }
+    },
+    {
+      "cid": 1117560898,
+      "old": [
+        [
+          "area",
+          "tests"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6230,
+        "author": "jerop",
+        "loc": "pkg/apis/pipeline/v1/pipeline_types_test.go",
+        "body": "and the same applies for the other test cases"
+      }
+    },
+    {
+      "cid": 1117725555,
+      "old": [
+        [
+          "area",
+          "tests"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6230,
+        "author": "jerop",
+        "loc": "pkg/apis/pipeline/v1/pipeline_types_test.go",
+        "body": "add one test case where the parameter is an object"
+      }
+    },
+    {
+      "cid": 1117725847,
+      "old": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6230,
+        "author": "jerop",
+        "loc": "docs/matrix.md",
+        "body": "thanks for incrementally adding docs! \ud83c\udf89 "
+      }
+    },
+    {
+      "cid": 1120101927,
+      "old": [],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6238,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/pipeline_validation_test.go",
+        "body": "It was copying over an existing test with combination for Matrix.Include params. Deleted though"
+      }
+    },
+    {
+      "cid": 1120187445,
+      "old": [
+        [
+          "area",
+          "tests"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6238,
+        "author": "lbernick",
+        "loc": "pkg/apis/pipeline/v1/pipeline_validation_test.go",
+        "body": "It doesn't look like this comment was addressed, can you please take another look here? this applies to all the test cases"
+      }
+    },
+    {
+      "cid": 1120277728,
+      "old": [],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6238,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/pipeline_validation_test.go",
+        "body": "Sorry I was thinking it was the Matrix.Params you were referring to instead of the Task.Params. This has been updated"
+      }
+    },
+    {
+      "cid": 1120307165,
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "principle",
+          "crd-version-policy"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "crd-version-policy"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6238,
+        "author": "lbernick",
+        "loc": "pkg/apis/pipeline/v1beta1/pipeline_validation_test.go",
+        "body": "Make sure to keep v1beta1 in sync with v1 (i.e. copy over the changes made in v1 tests)"
+      }
+    },
+    {
+      "cid": 1120761443,
+      "old": [
+        [
+          "area",
+          "tests"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6235,
+        "author": "jerop",
+        "loc": "pkg/apis/pipeline/v1/param_types.go",
+        "body": "please add tests for these changes"
+      }
+    },
+    {
+      "cid": 1120827712,
+      "old": [],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6235,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/param_types.go",
+        "body": "I believe the tests added in this PR: [TEP-0118: Add validation for matrix pipeline context parameter variables](https://github.com/tektoncd/pipeline/pull/6238/files#top) should cover this. Just waiting for a /lgtm and then can merge the changes.\r\n  "
+      }
+    },
+    {
+      "cid": 1120860066,
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "principle",
+          "tekton-api-conventions"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "tekton-api-conventions"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6238,
+        "author": "pritidesai",
+        "loc": "pkg/apis/pipeline/v1/pipeline_validation.go",
+        "body": "Just having a discussion in other PR #6180, we could introduce a new type and use that instead of `[]Param`:\r\n\r\n```\r\ntype Params []Param\r\n```\r\n\r\n"
+      }
+    },
+    {
+      "cid": 1120865227,
+      "old": [
+        [
+          "area",
+          "code"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "reusability"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "reusability"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6238,
+        "author": "pritidesai",
+        "loc": "pkg/apis/pipeline/v1/pipeline_validation.go",
+        "body": "We could leverage a common function retrieving values from params:\r\n\r\nhttps://github.com/tektoncd/pipeline/pull/6180/files#diff-16493f3be05dfe9ce9d789d3b4b277f77d13deb8673084b3efe9034d20eb2987R121-R131\r\n\r\nAlso at this point in the execution, it must be safe to rely on this member function `Params.extractParamValuesFromParams`  which is collecting values from an objects as well since we have a validation upfront for limiting such usage."
+      }
+    },
+    {
+      "cid": 1120908681,
+      "old": [
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6238,
+        "author": "pritidesai",
+        "loc": "pkg/apis/pipeline/v1/pipeline_validation.go",
+        "body": "Hey @EmmaMunley, please make sure to follow up on this once PR #6180 is resolved."
+      }
+    },
+    {
+      "cid": 1120926632,
+      "old": [
+        [
+          "area",
+          "code"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "formatting"
+        ],
+        [
+          "principle",
+          "reusability"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "formatting"
+        ],
+        [
+          "principle",
+          "reusability"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6237,
+        "author": "pritidesai",
+        "loc": "pkg/apis/pipeline/v1beta1/pipeline_types.go",
+        "body": "Please try to utilize the newly introduced `slices.Contains()` instead of creating such function: https://golangtutorial.dev/tips/golang-slice-contains-method/"
+      }
+    },
+    {
+      "cid": 1122227690,
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "principle",
+          "crd-version-policy"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "crd-version-policy"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6248,
+        "author": "QuanZhang-William",
+        "loc": "pkg/apis/pipeline/v1/resultref_test.go",
+        "body": "I think we also need to add test for v1beta1 API version"
+      }
+    },
+    {
+      "cid": 1122294416,
+      "old": [
+        [
+          "area",
+          "tests"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6235,
+        "author": "jerop",
+        "loc": "pkg/apis/pipeline/v1/pipeline_validation_test.go",
+        "body": "don't remove this test\r\n\r\nsame applies to the other test cases"
+      }
+    },
+    {
+      "cid": 1123225800,
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6237,
+        "author": "jerop",
+        "loc": "pkg/apis/pipeline/v1/pipeline_types.go",
+        "body": "I think that it should not be a valid param name, but I'm not sure if we have a validation for that -- could you check and, if it doesn't exist, create another PR proposing that validation?"
+      }
+    },
+    {
+      "cid": 1123356579,
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "magnitude"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "magnitude"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6235,
+        "author": "lbernick",
+        "loc": "pkg/apis/pipeline/v1/pipeline_validation_test.go",
+        "body": "can this test case be simplified? (e.g. fewer combinations)"
+      }
+    },
+    {
+      "cid": 1123360800,
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "cohesion"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "cohesion"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6235,
+        "author": "lbernick",
+        "loc": "pkg/apis/pipeline/v1/pipeline_validation_test.go",
+        "body": "I'm confused what this is supposed to test-- it looks like it's testing valid string parameters in matrix.include (and also has some unrelated array params), but the test name sounds like it's testing array params in matrix.params. Can you update the test name and remove the unrelated array params?"
+      }
+    },
+    {
+      "cid": 1123548839,
+      "old": [],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6235,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/pipeline_validation_test.go",
+        "body": "Oh I thought you wanted me to include these changes here since the #6238 PR merged already. And @jerop agreed we could add the TestContextValidMatrix() and TestContextValidMatrix() with the removed Task Params."
+      }
+    },
+    {
+      "cid": 1123597620,
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "cohesion"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "cohesion"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6235,
+        "author": "lbernick",
+        "loc": "pkg/apis/pipeline/v1/pipeline_validation_test.go",
+        "body": "Maybe the rebase didn't work quite correctly? It looks like you're adding new test classes which probably isn't what you want"
+      }
+    },
+    {
+      "cid": 1123610090,
+      "old": [
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6235,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/pipeline_validation_test.go",
+        "body": "@lbernick These test cases were never added to the PR before it was merged so I thought I would add them here?! If not I can open a separate PR for this.\r\n\r\nFrom chat:\r\nwould you mind addressing my review on https://github.com/tektoncd/pipeline/pull/6238 even though it got merged? the suggestion was to remove pipelinetask.params from the test cases, since the test cases are designed to just test validation of matrix.include"
+      }
+    },
+    {
+      "cid": 1123637046,
+      "old": [
+        [
+          "area",
+          "commit-message"
+        ],
+        [
+          "nature",
+          "cohesion"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "cohesion"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "missing": [
+        [
+          "area",
+          "commit-message"
+        ]
+      ],
+      "extra": [
+        [
+          "area",
+          "tests"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6235,
+        "author": "lbernick",
+        "loc": "pkg/apis/pipeline/v1/pipeline_validation_test.go",
+        "body": "Thanks, sorry, I appreciate you addressing these comments! Yes, I think a separate PR would be better, where you can use the commit message and PR title to explain the reasoning for the changes. Otherwise, it's a bit confusing to understand why these changes are bundled in. (As you can see by me confusing myself :) )"
+      }
+    },
+    {
+      "cid": 1123739499,
+      "old": [
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "new": [
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6235,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/pipeline_validation_test.go",
+        "body": "Okay no problem. I've created a separate PR for this here: #6279"
+      }
+    },
+    {
+      "cid": 1123875393,
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "principle",
+          "crd-version-policy"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "crd-version-policy"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6235,
+        "author": "pritidesai",
+        "loc": "pkg/apis/pipeline/v1beta1/pipeline_validation_test.go",
+        "body": "this test is missing from `v1/pipeline_validation_test.go`, should we include it in there too?"
+      }
+    },
+    {
+      "cid": 1123877160,
+      "old": [
+        [
+          "area",
+          "tests"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6235,
+        "author": "pritidesai",
+        "loc": "pkg/apis/pipeline/v1/pipeline_validation_test.go",
+        "body": "we might want to add a similar test for matrix.params if it does not already exist:\r\n\r\n```\r\n\t\tname: \"valid string parameter variables in matrix params\",\r\n\t\tparams: []ParamSpec{{\r\n\t\t\tName: \"baz\", Type: ParamTypeString,\r\n\t\t}},\r\n\t\ttasks: []PipelineTask{{\r\n\t\t\tName:    \"bar\",\r\n\t\t\tTaskRef: &TaskRef{Name: \"bar-task\"},\r\n\t\t\tMatrix: &Matrix{\r\n\t\t\t\tParams: []Param{{\r\n\t\t\t\t\tName: \"a-param\", Value: ParamValue{Type: ParamTypeString, StringVal: \"$(params.baz)\"}},\r\n\t\t\t\t}},\r\n\t\t}},\r\n```"
+      }
+    },
+    {
+      "cid": 1123976627,
+      "old": [],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6235,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/pipeline_validation_test.go",
+        "body": "There is an existing test for \"parameters in matrix are strings\". "
+      }
+    },
+    {
+      "cid": 1124609072,
+      "old": [
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6237,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/pipeline_types.go",
+        "body": "@jerop It doesn't look like we have any validation checking that a param name is not empty. I can open a separate PR to add this validation.\r\ncc: @pritidesai @lbernick "
+      }
+    },
+    {
+      "cid": 1127039152,
+      "old": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "cohesion"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "cohesion"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6237,
+        "author": "EmmaMunley",
+        "loc": "docs/matrix.md",
+        "body": "Yes, not sure why it auto-formats or how to prevent it from doing so. I asked in the tekton-squad if there was a way to run a command to format `.md` files and Yongxuan said it was fine if it reformats the entire file."
+      }
+    },
+    {
+      "cid": 1127056420,
+      "old": [],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6237,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/pipeline_types.go",
+        "body": "I don't think this works, but I was able to refactor and make it more readable. "
+      }
+    },
+    {
+      "cid": 1127060717,
+      "old": [
+        [
+          "area",
+          "code"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6235,
+        "author": "pritidesai",
+        "loc": "pkg/apis/pipeline/v1/param_types.go",
+        "body": "can we please move this function to `pkg/apis/pipeline/v1/matrix_types.go`?"
+      }
+    },
+    {
+      "cid": 1127061520,
+      "old": [
+        [
+          "area",
+          "code"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6235,
+        "author": "pritidesai",
+        "loc": "pkg/apis/pipeline/v1/param_types.go",
+        "body": "along with the other `matrix` members: https://github.com/tektoncd/pipeline/blob/main/pkg/apis/pipeline/v1/matrix_types.go"
+      }
+    },
+    {
+      "cid": 1127089979,
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "formatting"
+        ],
+        [
+          "principle",
+          "consistency-with-existing"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "principle",
+          "consistency-with-existing"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6237,
+        "author": "jerop",
+        "loc": "pkg/apis/pipeline/v1/matrix_types.go",
+        "body": "also wondering if it'd have been cleaner if we had and used a `params.extractParamMap` similar to  `params.extractParamValuesFromParams`:\r\n\r\nhttps://github.com/tektoncd/pipeline/blob/771fb665f2df559b5ad2de111fea7bf2ff320881/pkg/apis/pipeline/v1/param_types.go#L125-L135\r\n\r\n(sidenote: I think we should rename `params.extractParamValuesFromParams` to `params.extractValues` - cc @Yongxuanzhang @pritidesai) "
+      }
+    },
+    {
+      "cid": 1127142909,
+      "old": [],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6237,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/matrix_types.go",
+        "body": "I have added a `params.extractParamMapArrVals` and `params.extractParamMapStringVals` helper function. I realize only `params.extractParamMapArrVals` is being used in this function, but in the implementation I use `params.extractParamMapStringVals` to map include params.\r\n\r\nI also renamed `params.extractParamValuesFromParams` to`params.extractValues`.\r\n\r\ncc: @jerop  @Yongxuanzhang, @pritidesai "
+      }
+    },
+    {
+      "cid": 1127403404,
+      "old": [
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6237,
+        "author": "pritidesai",
+        "loc": "pkg/apis/pipeline/v1/matrix_types.go",
+        "body": "I have created a PR implementing validation on duplicate matrix params https://github.com/tektoncd/pipeline/pull/6308"
+      }
+    },
+    {
+      "cid": 1128098438,
+      "old": [],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6237,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/matrix_types.go",
+        "body": "Oh I see, it was failing before when I just removed the block of code. I think adding a check in `countNewCombinationsFromInclude` makes sense"
+      }
+    },
+    {
+      "cid": 1131324348,
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "principle",
+          "crd-version-policy"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "crd-version-policy"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6248,
+        "author": "JeromeJu",
+        "loc": "pkg/apis/pipeline/v1beta1/pipeline_conversion_test.go",
+        "body": "any reason why we deleted these, they might be helpful for newly added test cases since this is a round trip conversion test setup.\r\nwe might want to refactor this in a separate PR if necessary:)"
+      }
+    },
+    {
+      "cid": 1131406130,
+      "old": [
+        [
+          "area",
+          "pr-description"
+        ],
+        [
+          "nature",
+          "cohesion"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "cohesion"
+        ]
+      ],
+      "missing": [
+        [
+          "area",
+          "pr-description"
+        ]
+      ],
+      "extra": [
+        [
+          "area",
+          "code"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6248,
+        "author": "JeromeJu",
+        "loc": "pkg/reconciler/pipelinerun/resources/apply.go",
+        "body": "the changes for the reconciler, which doesn't feel quite related to the current PR title/description \ud83e\udd14 "
+      }
+    },
+    {
+      "cid": 1132456899,
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "JeromeJu",
+        "loc": "pkg/apis/pipeline/v1/param_types.go",
+        "body": "Wondering if we can replace this func with just using the Params?"
+      }
+    },
+    {
+      "cid": 1132628518,
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "pritidesai",
+        "loc": "pkg/apis/pipeline/v1/matrix_types.go",
+        "body": "how is this cleaner to what we had? \ud83e\udd23"
+      }
+    },
+    {
+      "cid": 1132659278,
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "pritidesai",
+        "loc": "pkg/apis/pipeline/v1/matrix_types.go",
+        "body": "yup this was much cleaner in the first attempt https://github.com/tektoncd/pipeline/pull/6312#discussion_r1131579427 but was suggested to update \ud83d\ude04"
+      }
+    },
+    {
+      "cid": 1132764644,
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6346,
+        "author": "JeromeJu",
+        "loc": "pkg/apis/pipeline/v1beta1/pipeline_conversion.go",
+        "body": "\r\n```suggestion\r\n\tfor i, include := range m.Include {\r\n```\r\nwe might use the index here for line 267"
+      }
+    },
+    {
+      "cid": 1132766986,
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6346,
+        "author": "JeromeJu",
+        "loc": "pkg/apis/pipeline/v1beta1/pipeline_conversion.go",
+        "body": "```suggestion\r\n\t\t\tsink.Include[i].Params = append(sink.Include[i].Params, newIncludeParam)\r\n```"
+      }
+    },
+    {
+      "cid": 1132809741,
+      "old": [
+        [
+          "area",
+          "code"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6346,
+        "author": "jerop",
+        "loc": "pkg/apis/pipeline/v1beta1/pipeline_conversion.go",
+        "body": "the indexing for this should be fixed too as @JeromeJu suggested"
+      }
+    },
+    {
+      "cid": 1132879522,
+      "old": [
+        [
+          "area",
+          "tests"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6345,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/resources/apply_test.go",
+        "body": "Are there existing tests for this functionality? (I hope so!) Same question for \"matrix params with final tasks\""
+      }
+    },
+    {
+      "cid": 1132881007,
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "cohesion"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "cohesion"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6345,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/resources/apply_test.go",
+        "body": "Is this test case different from the previous one?"
+      }
+    },
+    {
+      "cid": 1132881359,
+      "old": [
+        [
+          "area",
+          "tests"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6345,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/resources/apply_test.go",
+        "body": "it might also be useful to test a case where defaults are overridden"
+      }
+    },
+    {
+      "cid": 1132881761,
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6345,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/resources/apply_test.go",
+        "body": "suggest separate tests for replacement of string params, object params, and array params."
+      }
+    },
+    {
+      "cid": 1132892671,
+      "old": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "lbernick",
+        "loc": "docs/matrix.md",
+        "body": "```suggestion\r\nIn the example below, the `Pipeline` defines a `Matrix` that will execute golang-test in three different linux flavors.\r\n```"
+      }
+    },
+    {
+      "cid": 1133004461,
+      "old": [
+        [
+          "area",
+          "code"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "pritidesai",
+        "loc": "pkg/apis/pipeline/v1/matrix_types.go",
+        "body": "https://github.com/tektoncd/pipeline/commit/586228bf97a23ab3b267a4a730bdd56867f2d771\r\n\r\nHere \u2b06\ufe0f is a reference implementation."
+      }
+    },
+    {
+      "cid": 1133006867,
+      "old": [
+        [
+          "area",
+          "tests"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "pritidesai",
+        "loc": "pkg/apis/pipeline/v1/matrix_types.go",
+        "body": "all unit tests introduced in this PR succeeds using the reference implementation \u2b06\ufe0f "
+      }
+    },
+    {
+      "cid": 1134130024,
+      "old": [
+        [
+          "area",
+          "tests"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6345,
+        "author": "EmmaMunley",
+        "loc": "pkg/reconciler/pipelinerun/resources/apply_test.go",
+        "body": "I believe there are existing matrix tests for  `ApplyTaskResults()`, `ApplyPipelineTaskContexts(), `ApplyContexts(), but not `ApplyParameters()`"
+      }
+    },
+    {
+      "cid": 1134130349,
+      "old": [],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6345,
+        "author": "EmmaMunley",
+        "loc": "pkg/reconciler/pipelinerun/resources/apply_test.go",
+        "body": "@lbernick That is a good point. TBH I'm not sure but this was referencing another test that is doing the same thing \r\n\r\nhttps://github.com/tektoncd/pipeline/blob/808c7fe5fd8b3c0e14941246aeb0490ae842c49a/pkg/reconciler/pipelinerun/resources/apply_test.go#L1748\r\n"
+      }
+    },
+    {
+      "cid": 1134209688,
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "api-compatibility"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "api-compatibility"
+        ]
+      ],
+      "missing": [
+        [
+          "area",
+          "tep-body"
+        ]
+      ],
+      "extra": [],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6345,
+        "author": "jerop",
+        "loc": "pkg/reconciler/pipelinerun/resources/apply.go",
+        "body": "we do not yet (but want to) support array results in matrix.params - @abayer was implementing this in https://github.com/tektoncd/pipeline/pull/6056\r\n\r\nobject results don't make sense in the matrix design - see relevant discussion in https://github.com/tektoncd/pipeline/pull/6056#discussion_r1088368159\r\n\r\n\r\nfor matrix.include.params, I'd expect string results only because it takes parameters of type string only - https://github.com/tektoncd/community/blob/main/teps/0118-matrix-with-explicit-combinations-of-parameters.md#api-change"
+      }
+    },
+    {
+      "cid": 1134332154,
+      "old": [
+        [
+          "area",
+          "code"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "reusability"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "reusability"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6349,
+        "author": "jerop",
+        "loc": "pkg/apis/pipeline/v1/matrix_types.go",
+        "body": "are there other places where we fetch the matrix parameter names?\r\n\r\nmaybe we could have a matrix.getParamNames() that can be reused here and elsewhere"
+      }
+    },
+    {
+      "cid": 1134487816,
+      "old": [
+        [
+          "area",
+          "code"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6349,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/matrix_types.go",
+        "body": "I don't think this is currently being used elsewhere but added a `matrix.getParamNames()` and  `params.getNames()` function for future use cases"
+      }
+    },
+    {
+      "cid": 1134579128,
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "principle",
+          "feature-graduation"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "feature-graduation"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6345,
+        "author": "jerop",
+        "loc": "pkg/reconciler/pipelinerun/resources/apply_test.go",
+        "body": "why are we enabling beta?"
+      }
+    },
+    {
+      "cid": 1134615825,
+      "old": [
+        [
+          "principle",
+          "feature-graduation"
+        ]
+      ],
+      "new": [
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "feature-graduation"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6345,
+        "author": "EmmaMunley",
+        "loc": "pkg/reconciler/pipelinerun/resources/apply_test.go",
+        "body": "Oops, this was copied. Changed to EnableAlphaAPIFields"
+      }
+    },
+    {
+      "cid": 1134638221,
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6348,
+        "author": "jerop",
+        "loc": "pkg/apis/pipeline/v1/resultref_test.go",
+        "body": "could you leave these tests as they are then add include after? with pt9 and r9?"
+      }
+    },
+    {
+      "cid": 1135760869,
+      "old": [
+        [
+          "area",
+          "tests"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6345,
+        "author": "jerop",
+        "loc": "pkg/reconciler/pipelinerun/resources/apply_test.go",
+        "body": "please bring it back, it was a useful test (and confirms our understanding of replacements)"
+      }
+    },
+    {
+      "cid": 1136219710,
+      "old": [
+        [
+          "area",
+          "code"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "area",
+          "code"
+        ]
+      ],
+      "extra": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6345,
+        "author": "Yongxuanzhang",
+        "loc": "pkg/reconciler/pipelinerun/resources/apply_test.go",
+        "body": "Not block for this PR. This could be replaced with \r\n```\r\nctx:=config.SetEnableAPIFields(ctx, config.AlphaAPIFields)\r\n```\r\nBut seems we don't export that function. \r\nI tried to export it here https://github.com/tektoncd/pipeline/pull/6280/files"
+      }
+    },
+    {
+      "cid": 1136236471,
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "area",
+          "code"
+        ]
+      ],
+      "extra": [
+        [
+          "area",
+          "tests"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6345,
+        "author": "Yongxuanzhang",
+        "loc": "pkg/reconciler/pipelinerun/resources/apply_test.go",
+        "body": "do we support refer an object result value? For include we support string replacements.   string replacements may come from 1. string results 2. array indexing from array result 3. object value from object results. \r\nLooks like 1 and 2 are tested here."
+      }
+    },
+    {
+      "cid": 1136307389,
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "principle",
+          "consistency-with-existing"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "consistency-with-existing"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6345,
+        "author": "jerop",
+        "loc": "pkg/reconciler/pipelinerun/resources/apply.go",
+        "body": "I'd expect this section to match what we have in p.Tasks above\r\n\r\n```suggestion\r\n\t\t\tp.Finally[i].Matrix.Params = replaceParamValues(p.Finally[i].Matrix.Params, replacements, arrayReplacements, nil)\r\n\t\t\tfor j := range p.Finally[i].Matrix.Include {\r\n\t\t\t\tp.Finally[i].Matrix.Include[j].Params = replaceParamValues(p.Finally[i].Matrix.Include[j].Params, replacements, nil, nil)\r\n\t\t\t}\r\n```"
+      }
+    },
+    {
+      "cid": 1136999471,
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "api-compatibility"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "api-compatibility"
+        ]
+      ],
+      "extra": [],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6345,
+        "author": "jerop",
+        "loc": "pkg/reconciler/pipelinerun/resources/apply.go",
+        "body": "\r\n\r\n\r\n```suggestion\r\n\t\t\t\t// Only string replacements from string, array or object results are supported\r\n\t\t\t\t// We plan to \r\n```\r\n\r\n```suggestion\r\n\t\t\t\t// Only string replacements from string, array or object results are supported\r\n\t\t\t\t// We plan to support array replacements from array results soon (#5925)\r\n\t\t\t\tpipelineTask.Matrix.Params = replaceParamValues(pipelineTask.Matrix.Params, stringReplacements, nil, nil)\r\n```"
+      }
+    },
+    {
+      "cid": 1137326830,
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "formatting"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "extra": [],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6345,
+        "author": "jerop",
+        "loc": "pkg/reconciler/pipelinerun/resources/apply_test.go",
+        "body": "```suggestion\r\n\t\t\t\t\t\tName: \"first-param\", Value: *v1beta1.NewStructuredValues(\"foo\", \"b\", \"r\"),\r\n```"
+      }
+    },
+    {
+      "cid": 1137584009,
+      "old": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "formatting"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "extra": [],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "lbernick",
+        "loc": "docs/matrix.md",
+        "body": "This example is much simpler than the previous, consider putting it first."
+      }
+    },
+    {
+      "cid": 1137595337,
+      "old": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "area",
+          "feature-gate-registration"
+        ],
+        [
+          "principle",
+          "feature-graduation"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "feature-graduation"
+        ]
+      ],
+      "missing": [
+        [
+          "area",
+          "feature-gate-registration"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "lbernick",
+        "loc": "docs/matrix.md",
+        "body": "Is this feature still in \"preview mode\"? TBH I'm not sure what \"preview mode\" means-- can we describe it as an alpha feature instead, and add to the alpha features table?"
+      }
+    },
+    {
+      "cid": 1137746925,
+      "old": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "principle",
+          "feature-graduation"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "feature-graduation"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "EmmaMunley",
+        "loc": "docs/matrix.md",
+        "body": "I think we can remove preview mode now."
+      }
+    },
+    {
+      "cid": 1137748755,
+      "old": [],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/matrix_types_test.go",
+        "body": "@lbernick Not sure I follow.. Is this comment related to this removing this value: \r\n`Value: ParamValue{Type: ParamTypeString, StringVal: \"I-do-not-exist\"},`"
+      }
+    },
+    {
+      "cid": 1137751056,
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "formatting"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "lbernick",
+        "loc": "pkg/apis/pipeline/v1/matrix_types_test.go",
+        "body": "No, it's related to removing `tt.matrix.FanOut()`. Could this test case be simplified to:\r\n```\r\nfor _, tt := range tests {\r\n\t\tt.Run(tt.name, func(t *testing.T) {\r\n\t\t\tif d := cmp.Diff(tt.want, tt.matrix.FanOut()); d != \"\" {\r\n\t\t\t\tt.Errorf(\"Combinations of Parameters did not match the expected Params: %s\", diff.PrintWantGot(d))\r\n\t\t\t}\r\n``` \r\n?"
+      }
+    },
+    {
+      "cid": 1137764860,
+      "old": [
+        [
+          "area",
+          "tests"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/matrix_types_test.go",
+        "body": "I think this can be simplified without failing the tests, but would like to confirm with @pritidesai since she refactored this is in the previous PR: https://github.com/tektoncd/pipeline/pull/6312\r\n\r\ncc: @Jerop"
+      }
+    },
+    {
+      "cid": 1138652588,
+      "old": [
+        [
+          "area",
+          "tests"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "jerop",
+        "loc": "pkg/apis/pipeline/v1/matrix_types_test.go",
+        "body": "I agree with @lbernick that it should be removed, I believe it was just missed in a previous review "
+      }
+    },
+    {
+      "cid": 1138784940,
+      "old": [
+        [
+          "area",
+          "code"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/matrix_types.go",
+        "body": "Yes  updated `FanOut()` to call `toParams()` before returning Combinations Params and made `toParams()` an unexported function."
+      }
+    },
+    {
+      "cid": 1146543767,
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "cohesion"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "cohesion"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6418,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/taskrun/validate_taskrun_test.go",
+        "body": "Is the reason this is invalid that \"bar\" should be an array param but is a string param? Can we use table-driven testing for these tests, with descriptive names for each test case, since they test multiple things?"
+      }
+    },
+    {
+      "cid": 1146775356,
+      "old": [],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6418,
+        "author": "EmmaMunley",
+        "loc": "pkg/reconciler/taskrun/validate_taskrun.go",
+        "body": "I don't believe it does"
+      }
+    },
+    {
+      "cid": 1146807761,
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6418,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/taskrun/validate_taskrun.go",
+        "body": "```suggestion\r\n// validateParams validates that all Pipeline Task, Matrix.Params and Matrix.Include parameters all have values, match the specified\r\n```"
+      }
+    },
+    {
+      "cid": 1146810975,
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6418,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/taskrun/validate_taskrun.go",
+        "body": "```suggestion\r\n// missingParamsNames returns a slice of missing parameter names that have not been declared with a default value\r\n```"
+      }
+    },
+    {
+      "cid": 1147611422,
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "cohesion"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "cohesion"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6418,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/taskrun/validate_taskrun_test.go",
+        "body": "Does this test case (and the next one) cover anything that's not covered by existing test cases? it seems like a combo of the existing \"extra params\" and \"invalid types\" test cases"
+      }
+    },
+    {
+      "cid": 1149622344,
+      "old": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "missing": [
+        [
+          "area",
+          "docs"
+        ]
+      ],
+      "extra": [
+        [
+          "area",
+          "code"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "jerop",
+        "loc": "examples/v1beta1/pipelineruns/alpha/test.yaml",
+        "body": "please give this a descriptive name coz it will alongside other example pipelineruns"
+      }
+    },
+    {
+      "cid": 1149740369,
+      "old": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "area",
+          "docs"
+        ]
+      ],
+      "extra": [
+        [
+          "area",
+          "code"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "jerop",
+        "loc": "examples/v1beta1/pipelineruns/alpha/pipelinerun-with-matrix-include-explicit.yaml",
+        "body": "please update this description"
+      }
+    },
+    {
+      "cid": 1149897330,
+      "old": [
+        [
+          "nature",
+          "cohesion"
+        ],
+        [
+          "principle",
+          "crd-version-policy"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "cohesion"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "crd-version-policy"
+        ]
+      ],
+      "extra": [
+        [
+          "area",
+          "tests"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "jerop",
+        "loc": "pkg/apis/pipeline/v1beta1/matrix_types_test.go",
+        "body": "@EmmaMunley this applies to all similar changes in this file"
+      }
+    },
+    {
+      "cid": 1150673919,
+      "old": [],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1beta1/matrix_types_test.go",
+        "body": "Sorry, I thought the params had been changed already in this PR: #6407"
+      }
+    },
+    {
+      "cid": 1150778625,
+      "old": [
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "jerop",
+        "loc": "pkg/apis/pipeline/v1beta1/matrix_types_test.go",
+        "body": "no worries, please open another PR cleaning up those params \ud83d\ude4f\ud83c\udffe "
+      }
+    },
+    {
+      "cid": 1150906083,
+      "old": [
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1beta1/matrix_types_test.go",
+        "body": "@jerop Opened a PR here: https://github.com/tektoncd/pipeline/pull/6446 based off this one."
+      }
+    },
+    {
+      "cid": 1151033937,
+      "old": [
+        [
+          "area",
+          "pr-description"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "pr-description"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "pritidesai",
+        "loc": "docs/pipeline-api.md",
+        "body": "thanks @EmmaMunley, please update the PR description as well to drop this statement, thanks!"
+      }
+    },
+    {
+      "cid": 1152248346,
+      "old": [
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/matrix_types.go",
+        "body": "@pritidesai  Yes you are correct. A PR has been opened separately here: https://github.com/tektoncd/pipeline/pull/6463"
+      }
+    },
+    {
+      "cid": 1152248520,
+      "old": [],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6341,
+        "author": "EmmaMunley",
+        "loc": "pkg/apis/pipeline/v1/matrix_types.go",
+        "body": "@pritidesai A PR has been opened separately here: https://github.com/tektoncd/pipeline/pull/6463"
+      }
+    }
+  ]
+}

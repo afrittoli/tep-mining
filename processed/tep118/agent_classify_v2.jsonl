@@ -1,0 +1,624 @@
+{"repo": "community", "pr_number": 774, "comment_id": 936933008, "facet": "nature", "value": "none", "confidence": 0.7, "evidence": "self-note TODO placeholder, no review content"}
+{"repo": "community", "pr_number": 774, "comment_id": 936933087, "facet": "nature", "value": "none", "confidence": 0.7, "evidence": "duplicate self-note TODO placeholder"}
+{"repo": "community", "pr_number": 774, "comment_id": 938162567, "facet": "area", "value": "tep-body", "confidence": 0.75, "evidence": "poses concrete syntax alternatives for writing matrix include combos"}
+{"repo": "community", "pr_number": 774, "comment_id": 938162567, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "substantive design question with worked examples"}
+{"repo": "community", "pr_number": 774, "comment_id": 938162950, "facet": "area", "value": "tep-body", "confidence": 0.6, "evidence": "suggests array-of-object params as an alternative design worth adding"}
+{"repo": "community", "pr_number": 774, "comment_id": 938162950, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "proposes an alternative design option"}
+{"repo": "community", "pr_number": 774, "comment_id": 938224743, "facet": "area", "value": "tep-body", "confidence": 0.6, "evidence": "confirms which syntax is correct and explains resulting combinations"}
+{"repo": "community", "pr_number": 774, "comment_id": 938224743, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "explains semantics of the proposed include syntax"}
+{"repo": "community", "pr_number": 774, "comment_id": 938226135, "facet": "area", "value": "tep-body", "confidence": 0.5, "evidence": "clarifies the earlier object-params example is already an object array"}
+{"repo": "community", "pr_number": 774, "comment_id": 938226135, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "short clarifying remark about proposal scope"}
+{"repo": "community", "pr_number": 774, "comment_id": 938226366, "facet": "nature", "value": "none", "confidence": 0.55, "evidence": "pure request for an example, no content of its own"}
+{"repo": "community", "pr_number": 774, "comment_id": 938839060, "facet": "area", "value": "tep-body", "confidence": 0.75, "evidence": "compares tradeoffs of two include syntaxes, cites GH Actions precedent, proposes a 'none' value option"}
+{"repo": "community", "pr_number": 774, "comment_id": 938839060, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "forceful design argument with worked example"}
+{"repo": "community", "pr_number": 774, "comment_id": 938839060, "facet": "principle", "value": "simplicity", "confidence": 0.5, "evidence": "argues the first syntax is nicer because it avoids writing out repeated combinations"}
+{"repo": "community", "pr_number": 774, "comment_id": 938850058, "facet": "area", "value": "tep-body", "confidence": 0.65, "evidence": "offers a concrete yaml example of an array-of-objects param design"}
+{"repo": "community", "pr_number": 774, "comment_id": 938850058, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive alternative design example"}
+{"repo": "community", "pr_number": 774, "comment_id": 938957369, "facet": "area", "value": "tep-body", "confidence": 0.6, "evidence": "states array-of-objects params are not supported and the design won't go that route"}
+{"repo": "community", "pr_number": 774, "comment_id": 938957369, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "explains a design decision"}
+{"repo": "community", "pr_number": 774, "comment_id": 938957369, "facet": "principle", "value": "simplicity", "confidence": 0.35, "evidence": "rejects the more complex array-of-objects approach"}
+{"repo": "community", "pr_number": 774, "comment_id": 939218299, "facet": "area", "value": "tep-body", "confidence": 0.65, "evidence": "walks through concrete pipeline yaml to explain how to achieve the requested combos"}
+{"repo": "community", "pr_number": 774, "comment_id": 939218299, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "detailed explanatory answer to the design question"}
+{"repo": "community", "pr_number": 774, "comment_id": 939219784, "facet": "area", "value": "tep-body", "confidence": 0.65, "evidence": "shows an updated, simplified proposal removing the separate flags param array"}
+{"repo": "community", "pr_number": 774, "comment_id": 939219784, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "documents a substantive revision to the proposal"}
+{"repo": "community", "pr_number": 774, "comment_id": 939219784, "facet": "principle", "value": "simplicity", "confidence": 0.4, "evidence": "the update simplifies matrix params usage by relying on a default value"}
+{"repo": "community", "pr_number": 774, "comment_id": 939903534, "facet": "area", "value": "tep-body", "confidence": 0.5, "evidence": "flags jpeg as a poor format choice for the proposal's diagram"}
+{"repo": "community", "pr_number": 774, "comment_id": 939903534, "facet": "nature", "value": "formatting", "confidence": 0.55, "evidence": "explicit NIT about asset format, not substance"}
+{"repo": "community", "pr_number": 774, "comment_id": 940400750, "facet": "nature", "value": "none", "confidence": 0.75, "evidence": "pure acknowledgment ('fixed, thanks!')"}
+{"repo": "community", "pr_number": 774, "comment_id": 940401171, "facet": "nature", "value": "none", "confidence": 0.75, "evidence": "pure acknowledgment/logistics update"}
+{"repo": "community", "pr_number": 774, "comment_id": 940502435, "facet": "area", "value": "tep-body", "confidence": 0.4, "evidence": "author backs off her own object-params suggestion as awkward"}
+{"repo": "community", "pr_number": 774, "comment_id": 940502435, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "brief evaluative judgment on the earlier proposal"}
+{"repo": "community", "pr_number": 774, "comment_id": 940502435, "facet": "principle", "value": "simplicity", "confidence": 0.35, "evidence": "implicitly agrees the more complex syntax isn't worth it"}
+{"repo": "community", "pr_number": 774, "comment_id": 940510164, "facet": "nature", "value": "none", "confidence": 0.6, "evidence": "brief thanks/compliment, no independent content"}
+{"repo": "community", "pr_number": 774, "comment_id": 940510597, "facet": "area", "value": "tep-body", "confidence": 0.6, "evidence": "asks why not just use a regular parameter outside the matrix instead"}
+{"repo": "community", "pr_number": 774, "comment_id": 940510597, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive design question challenging the feature's value"}
+{"repo": "community", "pr_number": 774, "comment_id": 940510597, "facet": "principle", "value": "reusability", "confidence": 0.55, "evidence": "questions using new matrix.include machinery instead of an existing regular parameter"}
+{"repo": "community", "pr_number": 774, "comment_id": 940523783, "facet": "area", "value": "tep-body", "confidence": 0.6, "evidence": "explains the rationale and cites GHA's matrix include precedent"}
+{"repo": "community", "pr_number": 774, "comment_id": 940523783, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive answer with external precedent"}
+{"repo": "community", "pr_number": 774, "comment_id": 940539779, "facet": "area", "value": "tep-body", "confidence": 0.5, "evidence": "flags a possible inconsistency: shouldn't flags be a matrix param here?"}
+{"repo": "community", "pr_number": 774, "comment_id": 940539779, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive question about example correctness"}
+{"repo": "community", "pr_number": 774, "comment_id": 940547064, "facet": "area", "value": "tep-body", "confidence": 0.55, "evidence": "explains why flags is not a matrix param, given its default value"}
+{"repo": "community", "pr_number": 774, "comment_id": 940547064, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive clarification of proposal semantics"}
+{"repo": "community", "pr_number": 1004, "comment_id": 1159092848, "facet": "area", "value": "tep-body", "confidence": 0.5, "evidence": "asks to update the TEP's date field"}
+{"repo": "community", "pr_number": 1004, "comment_id": 1159092848, "facet": "nature", "value": "formatting", "confidence": 0.5, "evidence": "administrative/metadata nit, not content"}
+{"repo": "pipeline", "pr_number": 5383, "comment_id": 958715683, "facet": "area", "value": "code", "confidence": 0.65, "evidence": "flags missing listType annotation needed to fix build test failures"}
+{"repo": "pipeline", "pr_number": 5383, "comment_id": 958715683, "facet": "nature", "value": "content", "confidence": 0.6, "evidence": "identifies a concrete requirement to fix a build failure"}
+{"repo": "pipeline", "pr_number": 5383, "comment_id": 958715683, "facet": "principle", "value": "api-conventions", "confidence": 0.55, "evidence": "listType annotation is a Kubernetes API list-type convention"}
+{"repo": "pipeline", "pr_number": 5383, "comment_id": 958718741, "facet": "area", "value": "code", "confidence": 0.55, "evidence": "notes include is introduced but unused, suggests moving it out"}
+{"repo": "pipeline", "pr_number": 5383, "comment_id": 958718741, "facet": "area", "value": "pr-description", "confidence": 0.4, "evidence": "asks to update commit message/pr description/title to match scope"}
+{"repo": "pipeline", "pr_number": 5383, "comment_id": 958718741, "facet": "area", "value": "commit-message", "confidence": 0.4, "evidence": "asks to update commit message/pr description/title to match scope"}
+{"repo": "pipeline", "pr_number": 5383, "comment_id": 958718741, "facet": "nature", "value": "cohesion", "confidence": 0.55, "evidence": "PR includes an unused field that belongs in a later, separate change"}
+{"repo": "pipeline", "pr_number": 5383, "comment_id": 958718741, "facet": "principle", "value": "incremental-delivery", "confidence": 0.6, "evidence": "suggests keeping this PR scoped to just moving matrix params, introducing include later"}
+{"repo": "pipeline", "pr_number": 5383, "comment_id": 959123521, "facet": "nature", "value": "none", "confidence": 0.7, "evidence": "pure fix confirmation"}
+{"repo": "pipeline", "pr_number": 5383, "comment_id": 959128917, "facet": "nature", "value": "none", "confidence": 0.65, "evidence": "status update confirming scope was narrowed as requested"}
+{"repo": "pipeline", "pr_number": 5383, "comment_id": 964801740, "facet": "area", "value": "tests", "confidence": 0.6, "evidence": "asks for tests on the new exported function"}
+{"repo": "pipeline", "pr_number": 5383, "comment_id": 964801740, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive coverage request"}
+{"repo": "pipeline", "pr_number": 5383, "comment_id": 964804946, "facet": "area", "value": "tests", "confidence": 0.6, "evidence": "asks for the same test to be added in v1"}
+{"repo": "pipeline", "pr_number": 5383, "comment_id": 964804946, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "coverage gap across API versions"}
+{"repo": "pipeline", "pr_number": 5383, "comment_id": 964804946, "facet": "principle", "value": "crd-version-policy", "confidence": 0.55, "evidence": "asks to keep v1 and v1beta1 test coverage in sync"}
+{"repo": "pipeline", "pr_number": 5383, "comment_id": 964864907, "facet": "nature", "value": "none", "confidence": 0.7, "evidence": "pure fix confirmation"}
+{"repo": "pipeline", "pr_number": 6177, "comment_id": 1108023381, "facet": "area", "value": "code", "confidence": 0.4, "evidence": "notes checking whether an equivalent struct already exists"}
+{"repo": "pipeline", "pr_number": 6177, "comment_id": 1108023381, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "musing about possible existing reuse, low actionability"}
+{"repo": "pipeline", "pr_number": 6177, "comment_id": 1108023381, "facet": "principle", "value": "reusability", "confidence": 0.35, "evidence": "checks whether an existing struct could be reused instead"}
+{"repo": "pipeline", "pr_number": 6177, "comment_id": 1108030665, "facet": "area", "value": "code", "confidence": 0.7, "evidence": "reports build failure from missing listType annotation"}
+{"repo": "pipeline", "pr_number": 6177, "comment_id": 1108030665, "facet": "nature", "value": "content", "confidence": 0.65, "evidence": "identifies concrete build-breaking API rule violation"}
+{"repo": "pipeline", "pr_number": 6177, "comment_id": 1108030665, "facet": "principle", "value": "api-conventions", "confidence": 0.75, "evidence": "missing listType annotation causing a Kubernetes API rule violation"}
+{"repo": "pipeline", "pr_number": 6177, "comment_id": 1108030963, "facet": "area", "value": "code", "confidence": 0.6, "evidence": "flags the same missing annotation on a second field"}
+{"repo": "pipeline", "pr_number": 6177, "comment_id": 1108030963, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "repeats the concrete fix needed"}
+{"repo": "pipeline", "pr_number": 6177, "comment_id": 1108030963, "facet": "principle", "value": "api-conventions", "confidence": 0.6, "evidence": "same listType annotation gap"}
+{"repo": "pipeline", "pr_number": 6177, "comment_id": 1108706988, "facet": "nature", "value": "none", "confidence": 0.7, "evidence": "pure acknowledgment"}
+{"repo": "pipeline", "pr_number": 6177, "comment_id": 1109101906, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "questions why swagger.json changes are part of this PR"}
+{"repo": "pipeline", "pr_number": 6177, "comment_id": 1109101906, "facet": "nature", "value": "cohesion", "confidence": 0.65, "evidence": "unrelated swagger.json changes bundled into the PR"}
+{"repo": "pipeline", "pr_number": 6188, "comment_id": 1113650387, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "asks for the field's purpose to be described even in preview mode"}
+{"repo": "pipeline", "pr_number": 6188, "comment_id": 1113650387, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "requests missing explanatory content"}
+{"repo": "pipeline", "pr_number": 6188, "comment_id": 1113652709, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "asks for a brief explanation, same as the comment above"}
+{"repo": "pipeline", "pr_number": 6188, "comment_id": 1113652709, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "requests missing explanatory content"}
+{"repo": "pipeline", "pr_number": 6188, "comment_id": 1114290776, "facet": "area", "value": "docs", "confidence": 0.5, "evidence": "questions an unrelated weight change in docs/pipeline-api.md"}
+{"repo": "pipeline", "pr_number": 6188, "comment_id": 1114290776, "facet": "nature", "value": "cohesion", "confidence": 0.5, "evidence": "asks to revert a change unrelated to this PR's purpose"}
+{"repo": "pipeline", "pr_number": 6188, "comment_id": 1114292924, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "suggests rewording the Include field doc comment to note preview-mode status"}
+{"repo": "pipeline", "pr_number": 6188, "comment_id": 1114292924, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "adds missing substantive info that the field isn't yet supported"}
+{"repo": "pipeline", "pr_number": 6188, "comment_id": 1114296488, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "same doc comment suggestion applied to v1beta1"}
+{"repo": "pipeline", "pr_number": 6188, "comment_id": 1114296488, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "adds missing substantive info that the field isn't yet supported"}
+{"repo": "pipeline", "pr_number": 6188, "comment_id": 1114296488, "facet": "principle", "value": "crd-version-policy", "confidence": 0.4, "evidence": "mirrors the same doc fix from v1 into v1beta1"}
+{"repo": "pipeline", "pr_number": 6188, "comment_id": 1114997256, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "asks whether string-type validation is planned for a subsequent PR"}
+{"repo": "pipeline", "pr_number": 6188, "comment_id": 1114997256, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive question about planned validation"}
+{"repo": "pipeline", "pr_number": 6188, "comment_id": 1114997256, "facet": "principle", "value": "incremental-delivery", "confidence": 0.45, "evidence": "asks about validation deferred to a follow-up PR"}
+{"repo": "pipeline", "pr_number": 6188, "comment_id": 1115803335, "facet": "area", "value": "commit-message", "confidence": 0.45, "evidence": "updates commit message to explain validation is deferred"}
+{"repo": "pipeline", "pr_number": 6188, "comment_id": 1115803335, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "documents the deferred-validation follow-up plan"}
+{"repo": "pipeline", "pr_number": 6188, "comment_id": 1115803335, "facet": "principle", "value": "incremental-delivery", "confidence": 0.35, "evidence": "documents that validation will be added in a subsequent PR"}
+{"repo": "pipeline", "pr_number": 6219, "comment_id": 1116231714, "facet": "area", "value": "code", "confidence": 0.55, "evidence": "questions whether these functions need to be exported given package-only use"}
+{"repo": "pipeline", "pr_number": 6219, "comment_id": 1116231714, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive question about exported API surface"}
+{"repo": "pipeline", "pr_number": 6219, "comment_id": 1116232638, "facet": "area", "value": "code", "confidence": 0.45, "evidence": "suggests a more precise function doc comment"}
+{"repo": "pipeline", "pr_number": 6219, "comment_id": 1116232638, "facet": "nature", "value": "formatting", "confidence": 0.4, "evidence": "naming/comment clarity suggestion"}
+{"repo": "pipeline", "pr_number": 6219, "comment_id": 1116234785, "facet": "area", "value": "code", "confidence": 0.55, "evidence": "questions why a function changed from unexported to exported"}
+{"repo": "pipeline", "pr_number": 6219, "comment_id": 1116234785, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive question about API surface change"}
+{"repo": "pipeline", "pr_number": 6219, "comment_id": 1116236474, "facet": "area", "value": "code", "confidence": 0.45, "evidence": "says a code comment isn't necessary because the code is clear"}
+{"repo": "pipeline", "pr_number": 6219, "comment_id": 1116236474, "facet": "nature", "value": "formatting", "confidence": 0.5, "evidence": "comment-necessity nit"}
+{"repo": "pipeline", "pr_number": 6219, "comment_id": 1116240736, "facet": "area", "value": "tests", "confidence": 0.6, "evidence": "points to an existing matrix validations test and asks new cases be added there instead"}
+{"repo": "pipeline", "pr_number": 6219, "comment_id": 1116240736, "facet": "nature", "value": "cohesion", "confidence": 0.5, "evidence": "avoids duplicating a parallel test file"}
+{"repo": "pipeline", "pr_number": 6229, "comment_id": 1117300036, "facet": "area", "value": "tests", "confidence": 0.4, "evidence": "suggests fixed wording for a test error message"}
+{"repo": "pipeline", "pr_number": 6229, "comment_id": 1117300036, "facet": "nature", "value": "formatting", "confidence": 0.35, "evidence": "wording nit in a test message"}
+{"repo": "pipeline", "pr_number": 6229, "comment_id": 1117300929, "facet": "area", "value": "tests", "confidence": 0.45, "evidence": "questions whether a separate variable is needed"}
+{"repo": "pipeline", "pr_number": 6229, "comment_id": 1117300929, "facet": "nature", "value": "formatting", "confidence": 0.5, "evidence": "code redundancy nit"}
+{"repo": "pipeline", "pr_number": 6229, "comment_id": 1117331080, "facet": "area", "value": "code", "confidence": 0.55, "evidence": "explains the rationale for these helper functions across three use cases"}
+{"repo": "pipeline", "pr_number": 6229, "comment_id": 1117331080, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive design explanation"}
+{"repo": "pipeline", "pr_number": 6229, "comment_id": 1117422936, "facet": "nature", "value": "none", "confidence": 0.55, "evidence": "clarifying pointer to a line for another reviewer, no independent judgment"}
+{"repo": "pipeline", "pr_number": 6229, "comment_id": 1117449972, "facet": "area", "value": "tests", "confidence": 0.5, "evidence": "asks for the v1 test to be updated to match the v1beta1 change"}
+{"repo": "pipeline", "pr_number": 6229, "comment_id": 1117449972, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "coverage gap across API versions"}
+{"repo": "pipeline", "pr_number": 6229, "comment_id": 1117449972, "facet": "principle", "value": "crd-version-policy", "confidence": 0.45, "evidence": "asks for v1/v1beta1 test parity in the same PR"}
+{"repo": "pipeline", "pr_number": 6229, "comment_id": 1117451929, "facet": "nature", "value": "none", "confidence": 0.65, "evidence": "pure acknowledgment"}
+{"repo": "pipeline", "pr_number": 6230, "comment_id": 1117550609, "facet": "area", "value": "code", "confidence": 0.45, "evidence": "says a code comment is unnecessary because the code is clear"}
+{"repo": "pipeline", "pr_number": 6230, "comment_id": 1117550609, "facet": "nature", "value": "formatting", "confidence": 0.5, "evidence": "comment-necessity nit"}
+{"repo": "pipeline", "pr_number": 6230, "comment_id": 1117550919, "facet": "area", "value": "docs", "confidence": 0.45, "evidence": "flags a stray comma vs. intended colon in docs/matrix.md"}
+{"repo": "pipeline", "pr_number": 6230, "comment_id": 1117550919, "facet": "nature", "value": "formatting", "confidence": 0.5, "evidence": "punctuation nit"}
+{"repo": "pipeline", "pr_number": 6230, "comment_id": 1117557625, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "asks to fix field keys to reference matrix.include.params"}
+{"repo": "pipeline", "pr_number": 6230, "comment_id": 1117557625, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "corrects a wrong field reference used in validation errors"}
+{"repo": "pipeline", "pr_number": 6230, "comment_id": 1117558657, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "asks to fix field keys to reference matrix.params"}
+{"repo": "pipeline", "pr_number": 6230, "comment_id": 1117558657, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "corrects a wrong field reference used in validation errors"}
+{"repo": "pipeline", "pr_number": 6230, "comment_id": 1117560344, "facet": "area", "value": "tests", "confidence": 0.5, "evidence": "suggested test fix matching the corrected field key paths"}
+{"repo": "pipeline", "pr_number": 6230, "comment_id": 1117560344, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "follows from the field-key correctness fix"}
+{"repo": "pipeline", "pr_number": 6230, "comment_id": 1117560898, "facet": "area", "value": "tests", "confidence": 0.45, "evidence": "extends the field-key fix to other test cases"}
+{"repo": "pipeline", "pr_number": 6230, "comment_id": 1117560898, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "follows from the field-key correctness fix"}
+{"repo": "pipeline", "pr_number": 6230, "comment_id": 1117720851, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "suggested fix scoping the error to matrix.include.params only"}
+{"repo": "pipeline", "pr_number": 6230, "comment_id": 1117720851, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "corrects the scope of a validation error"}
+{"repo": "pipeline", "pr_number": 6230, "comment_id": 1117722359, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "suggested fix scoping the error to matrix.params only"}
+{"repo": "pipeline", "pr_number": 6230, "comment_id": 1117722359, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "corrects the scope of a validation error"}
+{"repo": "pipeline", "pr_number": 6230, "comment_id": 1117724453, "facet": "area", "value": "code", "confidence": 0.45, "evidence": "says a code comment is unnecessary"}
+{"repo": "pipeline", "pr_number": 6230, "comment_id": 1117724453, "facet": "nature", "value": "formatting", "confidence": 0.5, "evidence": "comment-necessity nit"}
+{"repo": "pipeline", "pr_number": 6230, "comment_id": 1117725555, "facet": "area", "value": "tests", "confidence": 0.55, "evidence": "asks for a test case with an object-type parameter"}
+{"repo": "pipeline", "pr_number": 6230, "comment_id": 1117725555, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive coverage request"}
+{"repo": "pipeline", "pr_number": 6230, "comment_id": 1117725847, "facet": "area", "value": "docs", "confidence": 0.35, "evidence": "praises incrementally adding docs alongside the functional change"}
+{"repo": "pipeline", "pr_number": 6230, "comment_id": 1117725847, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "specific observation about process, not just thanks"}
+{"repo": "pipeline", "pr_number": 6230, "comment_id": 1117725847, "facet": "principle", "value": "incremental-delivery", "confidence": 0.4, "evidence": "praises incrementally adding docs alongside the functional change"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1120761443, "facet": "area", "value": "tests", "confidence": 0.55, "evidence": "asks for tests on these changes"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1120761443, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive coverage request"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1120827712, "facet": "area", "value": "tests", "confidence": 0.4, "evidence": "points to coverage believed to exist in a sibling PR"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1120827712, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "explains test-coverage status across PRs"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1120935332, "facet": "nature", "value": "none", "confidence": 0.6, "evidence": "procedural hold pending another PR, minimal independent content"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1122168015, "facet": "nature", "value": "none", "confidence": 0.65, "evidence": "status update plus process command (/hold cancel)"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1122286986, "facet": "nature", "value": "none", "confidence": 0.75, "evidence": "bare process command (/unhold)"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1122288484, "facet": "area", "value": "code", "confidence": 0.45, "evidence": "suggests making this a member function of matrix"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1122288484, "facet": "nature", "value": "formatting", "confidence": 0.4, "evidence": "receiver/function-shape suggestion"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1122292111, "facet": "area", "value": "tests", "confidence": 0.55, "evidence": "asks why the matrix.params test was removed"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1122292111, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive question about removed coverage"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1122293660, "facet": "area", "value": "tests", "confidence": 0.5, "evidence": "asks to keep existing context-variable tests for non-matrix fields"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1122293660, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive request not to remove unrelated coverage"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1122294416, "facet": "area", "value": "tests", "confidence": 0.5, "evidence": "reiterates not to remove this test, applies to other cases too"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1122294416, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive request not to remove coverage"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1122503286, "facet": "nature", "value": "none", "confidence": 0.65, "evidence": "pure fix confirmation"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1122503366, "facet": "nature", "value": "none", "confidence": 0.6, "evidence": "short confirmation"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1122508934, "facet": "area", "value": "tests", "confidence": 0.5, "evidence": "explains restructuring tests to isolate matrix context variables"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1122508934, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive explanation of test redesign"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123351284, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "suggests an early nil-check to reduce nested conditionals"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123351284, "facet": "nature", "value": "formatting", "confidence": 0.55, "evidence": "readability/nesting nit"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123356579, "facet": "area", "value": "tests", "confidence": 0.5, "evidence": "asks whether the test case can use fewer combinations"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123356579, "facet": "nature", "value": "magnitude", "confidence": 0.5, "evidence": "asks to reduce the size/complexity of a test case"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123360800, "facet": "area", "value": "tests", "confidence": 0.55, "evidence": "test mixes unrelated array params into a string-param test, and its name is misleading"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123360800, "facet": "nature", "value": "cohesion", "confidence": 0.5, "evidence": "unrelated array-param content mixed into a string-param test"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123360800, "facet": "nature", "value": "formatting", "confidence": 0.35, "evidence": "asks to update the misleading test name"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123364131, "facet": "area", "value": "tests", "confidence": 0.5, "evidence": "flags unrelated changes leaked in from PR #6238"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123364131, "facet": "nature", "value": "cohesion", "confidence": 0.7, "evidence": "unrelated changes from another PR bundled in"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123371052, "facet": "area", "value": "code", "confidence": 0.6, "evidence": "critiques a confusing validation error message and proposes clearer alternatives"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123371052, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive UX critique of error message design"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123548839, "facet": "area", "value": "tests", "confidence": 0.45, "evidence": "explains why these test changes were included here"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123548839, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive clarification about scope"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123597620, "facet": "area", "value": "tests", "confidence": 0.5, "evidence": "flags that a rebase may have added unintended new test classes"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123597620, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "correctness concern about the diff's contents"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123597620, "facet": "nature", "value": "cohesion", "confidence": 0.3, "evidence": "unintended extra test content possibly bundled in"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123610090, "facet": "area", "value": "tests", "confidence": 0.45, "evidence": "explains missing test cases and offers to open a separate PR"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123610090, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive explanation of scope decision"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123610090, "facet": "principle", "value": "incremental-delivery", "confidence": 0.35, "evidence": "offers to open a separate PR for test cases never added before"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123637046, "facet": "area", "value": "tests", "confidence": 0.5, "evidence": "recommends a separate PR with its own commit message/title to explain bundled changes"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123637046, "facet": "nature", "value": "cohesion", "confidence": 0.6, "evidence": "confusing to understand why these changes are bundled in"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123637046, "facet": "principle", "value": "incremental-delivery", "confidence": 0.6, "evidence": "recommends a separate PR rather than bundling the changes here"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123715252, "facet": "nature", "value": "none", "confidence": 0.65, "evidence": "pure fix confirmation"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123737939, "facet": "nature", "value": "none", "confidence": 0.65, "evidence": "pure fix confirmation"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123739499, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "documents a scope decision to split work out"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123739499, "facet": "principle", "value": "incremental-delivery", "confidence": 0.35, "evidence": "confirms splitting the change into a separate PR (#6279)"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123740218, "facet": "nature", "value": "none", "confidence": 0.65, "evidence": "pure fix confirmation"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123810664, "facet": "area", "value": "code", "confidence": 0.45, "evidence": "explains a nil check can be removed as it's already covered elsewhere"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123810664, "facet": "nature", "value": "formatting", "confidence": 0.4, "evidence": "redundant-check removal rationale"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123875393, "facet": "area", "value": "tests", "confidence": 0.55, "evidence": "asks whether a missing v1 test should be added there too"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123875393, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "coverage gap across API versions"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123875393, "facet": "principle", "value": "crd-version-policy", "confidence": 0.55, "evidence": "asks about missing test parity between v1 and v1beta1"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123877160, "facet": "area", "value": "tests", "confidence": 0.55, "evidence": "suggests adding a similar test for matrix.params if missing"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123877160, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive coverage request with example"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123976062, "facet": "nature", "value": "none", "confidence": 0.65, "evidence": "pure fix confirmation"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123976627, "facet": "area", "value": "tests", "confidence": 0.4, "evidence": "points to existing coverage for matrix params being strings"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1123976627, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "factual pushback citing existing test coverage"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1127060717, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "asks to move a function to matrix_types.go"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1127060717, "facet": "nature", "value": "formatting", "confidence": 0.4, "evidence": "code organization/placement suggestion"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1127061520, "facet": "area", "value": "code", "confidence": 0.4, "evidence": "continuation: group with the other matrix member functions"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1127061520, "facet": "nature", "value": "formatting", "confidence": 0.35, "evidence": "code organization suggestion"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1127086830, "facet": "nature", "value": "none", "confidence": 0.65, "evidence": "pure fix confirmation"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1127093295, "facet": "area", "value": "code", "confidence": 0.6, "evidence": "asks why include validates string params while matrix validates array params"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1127093295, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive design question about asymmetric validation rules"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1127116538, "facet": "area", "value": "code", "confidence": 0.4, "evidence": "asks for a comment explaining the validation asymmetry"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1127116538, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "missing rationale for a design decision"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1127142440, "facet": "area", "value": "code", "confidence": 0.55, "evidence": "explains matrix supports array params, include supports string params, citing the TEPs"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1127142440, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive explanation answering the validation question"}
+{"repo": "pipeline", "pr_number": 6235, "comment_id": 1127157649, "facet": "nature", "value": "none", "confidence": 0.55, "evidence": "confirms understanding and that a comment was added"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1120759194, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "expects an empty string to be a valid parameter value"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1120759194, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive correctness expectation"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1120926632, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "suggests using slices.Contains() instead of a custom function"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1120926632, "facet": "nature", "value": "formatting", "confidence": 0.45, "evidence": "suggests using a standard library function instead of custom code"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1120926632, "facet": "principle", "value": "reusability", "confidence": 0.35, "evidence": "leverage an existing stdlib function instead of writing a new one"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1122299827, "facet": "area", "value": "code", "confidence": 0.6, "evidence": "questions the counting approach and suggests separating empty-name validation"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1122299827, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive design critique of the counting logic"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1122299827, "facet": "principle", "value": "simplicity", "confidence": 0.35, "evidence": "suggests separating concerns rather than folding validation into the count"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1122301816, "facet": "area", "value": "code", "confidence": 0.4, "evidence": "suggested clearer code comment wording"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1122301816, "facet": "nature", "value": "formatting", "confidence": 0.4, "evidence": "comment wording nit"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1122305232, "facet": "area", "value": "docs", "confidence": 0.45, "evidence": "suggested doc clarification that combination count includes both params and include.params"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1122305232, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "adds missing substantive clarification"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1122516969, "facet": "area", "value": "code", "confidence": 0.45, "evidence": "follow-up question about whether an empty param name is valid"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1122516969, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive edge-case question"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1123225800, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "unsure if empty param name validation exists, asks to check and open a follow-up PR"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1123225800, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive follow-up on a validation gap"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1123225800, "facet": "principle", "value": "incremental-delivery", "confidence": 0.5, "evidence": "proposes deferring the missing validation to a separate PR"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1124609072, "facet": "area", "value": "code", "confidence": 0.4, "evidence": "confirms no such validation exists and offers to open a separate PR"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1124609072, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "confirms a validation gap"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1124609072, "facet": "principle", "value": "incremental-delivery", "confidence": 0.45, "evidence": "offers to open a separate PR to add the missing validation"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1124634220, "facet": "area", "value": "docs", "confidence": 0.55, "evidence": "questions whether unrelated doc formatting changes belong in this PR"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1124634220, "facet": "nature", "value": "cohesion", "confidence": 0.6, "evidence": "ideally this PR would only include doc changes relevant to the functional change"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1124640580, "facet": "area", "value": "tests", "confidence": 0.5, "evidence": "asks whether a test case duplicates coverage of an existing one"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1124640580, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive coverage/redundancy question"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1124646782, "facet": "area", "value": "code", "confidence": 0.45, "evidence": "suggests removing a comment that doesn't explain the why"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1124646782, "facet": "nature", "value": "formatting", "confidence": 0.5, "evidence": "comment quality/necessity nit"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1124657585, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "suggests moving a code block up for readability"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1124657585, "facet": "nature", "value": "formatting", "confidence": 0.55, "evidence": "code readability/ordering suggestion"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127039152, "facet": "area", "value": "docs", "confidence": 0.4, "evidence": "explains the doc auto-formatting behavior investigated with the squad"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127039152, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "explains investigation into unrelated doc formatting"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127056080, "facet": "nature", "value": "none", "confidence": 0.65, "evidence": "pure fix confirmation"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127056420, "facet": "area", "value": "code", "confidence": 0.35, "evidence": "reports on an attempted refactor's outcome"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127056420, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "light explanation of a refactor attempt"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127069079, "facet": "area", "value": "docs", "confidence": 0.55, "evidence": "questions whether doc layout is unintentionally changed by this PR"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127069079, "facet": "nature", "value": "cohesion", "confidence": 0.55, "evidence": "doubts this is pure formatting, asks doc layout not be changed"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127087222, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "clarifies this is a map, not a list, and suggests renaming for clarity"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127087222, "facet": "nature", "value": "formatting", "confidence": 0.5, "evidence": "naming clarity suggestion"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127089979, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "wonders if a shared extraction helper similar to an existing one would be cleaner"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127089979, "facet": "nature", "value": "formatting", "confidence": 0.45, "evidence": "naming/code-shape consistency suggestion"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127089979, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.35, "evidence": "suggests reusing a pattern similar to an existing function"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127096098, "facet": "area", "value": "code", "confidence": 0.35, "evidence": "agrees a naming redundancy should be removed"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127096098, "facet": "nature", "value": "formatting", "confidence": 0.4, "evidence": "naming rationale agreement"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127099941, "facet": "area", "value": "code", "confidence": 0.45, "evidence": "suggests extracting a separate function for include combination counting"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127099941, "facet": "nature", "value": "formatting", "confidence": 0.45, "evidence": "function decomposition suggestion"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127100621, "facet": "area", "value": "code", "confidence": 0.45, "evidence": "suggests extracting a separate function for generated combination counting"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127100621, "facet": "nature", "value": "formatting", "confidence": 0.45, "evidence": "function decomposition suggestion"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127114415, "facet": "area", "value": "code", "confidence": 0.45, "evidence": "explains what combination case this logic is meant to handle"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127114415, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "explanatory example of intended behavior"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127125862, "facet": "area", "value": "code", "confidence": 0.55, "evidence": "asks how duplicate include combinations are counted"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127125862, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive edge-case question"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127130077, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "identifies three separate code paths and suggests simplifying via a helper function"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127130077, "facet": "nature", "value": "formatting", "confidence": 0.5, "evidence": "refactor suggestion for readability"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127130077, "facet": "principle", "value": "simplicity", "confidence": 0.4, "evidence": "explicitly proposes simplifying the function further"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127134094, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "provides a detailed concrete refactor suggestion with code"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127134094, "facet": "nature", "value": "formatting", "confidence": 0.5, "evidence": "detailed refactor suggestion"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127141054, "facet": "nature", "value": "none", "confidence": 0.6, "evidence": "pure fix confirmation"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127142909, "facet": "area", "value": "code", "confidence": 0.4, "evidence": "explains added helper functions and a rename"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127142909, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "explanation of implementation choices"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127143276, "facet": "nature", "value": "none", "confidence": 0.6, "evidence": "pure fix confirmation"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127144199, "facet": "area", "value": "code", "confidence": 0.4, "evidence": "attempts to answer the duplicate-combination edge case"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127144199, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive attempted answer"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127144828, "facet": "nature", "value": "none", "confidence": 0.55, "evidence": "thanks plus restated fix confirmation"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127194369, "facet": "area", "value": "code", "confidence": 0.55, "evidence": "asks whether duplicate params should be validated or de-duped, consistent with params behavior"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127194369, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive design question about duplicate handling"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127194369, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.5, "evidence": "wants duplicate-handling consistent with existing params behavior"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127197875, "facet": "area", "value": "code", "confidence": 0.45, "evidence": "suggests moving paramMap definition inside the function, notes a redundant check"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127197875, "facet": "nature", "value": "formatting", "confidence": 0.45, "evidence": "code structure/redundancy suggestion"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127198735, "facet": "area", "value": "code", "confidence": 0.4, "evidence": "suggests making this a member function instead of passing include as a param"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127198735, "facet": "nature", "value": "formatting", "confidence": 0.4, "evidence": "function-shape suggestion"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127199715, "facet": "area", "value": "code", "confidence": 0.4, "evidence": "suggests converting another function to a member function similarly"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127199715, "facet": "nature", "value": "formatting", "confidence": 0.4, "evidence": "function-shape suggestion"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127403404, "facet": "area", "value": "code", "confidence": 0.3, "evidence": "notes a follow-up PR was created for duplicate-params validation"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127403404, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "documents follow-up work created for a gap identified earlier"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127403404, "facet": "principle", "value": "incremental-delivery", "confidence": 0.4, "evidence": "follow-up PR created implementing a validation gap identified earlier"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127954715, "facet": "nature", "value": "none", "confidence": 0.55, "evidence": "acknowledgment with a minor forward-looking note"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127956274, "facet": "nature", "value": "none", "confidence": 0.7, "evidence": "pure thanks"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127957238, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "clarifies a rename should be a separate commit/PR, unrelated to this change"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127957238, "facet": "nature", "value": "cohesion", "confidence": 0.55, "evidence": "unrelated rename bundled into this PR"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127957238, "facet": "principle", "value": "incremental-delivery", "confidence": 0.55, "evidence": "renaming should happen in a separate commit/PR"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127957854, "facet": "nature", "value": "none", "confidence": 0.65, "evidence": "pure thanks"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127959766, "facet": "area", "value": "code", "confidence": 0.4, "evidence": "suggested small code simplification"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127959766, "facet": "nature", "value": "formatting", "confidence": 0.35, "evidence": "small code-shape suggestion"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127961069, "facet": "area", "value": "code", "confidence": 0.4, "evidence": "suggested early-return restructuring"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127961069, "facet": "nature", "value": "formatting", "confidence": 0.4, "evidence": "control-flow restructuring suggestion"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127962650, "facet": "area", "value": "code", "confidence": 0.4, "evidence": "suggests removing an unnecessary line"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127962650, "facet": "nature", "value": "formatting", "confidence": 0.4, "evidence": "dead/unneeded code removal"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127964378, "facet": "area", "value": "code", "confidence": 0.4, "evidence": "suggested early-return restructuring"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1127964378, "facet": "nature", "value": "formatting", "confidence": 0.35, "evidence": "control-flow restructuring suggestion"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1128036279, "facet": "nature", "value": "none", "confidence": 0.6, "evidence": "reverted as requested, pure confirmation"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1128042784, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "defends why a check is necessary for the include-only case"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1128042784, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive design justification"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1128065602, "facet": "area", "value": "code", "confidence": 0.55, "evidence": "walks through why the check may be unnecessary and suggests where to add it instead"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1128065602, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive reasoning about equivalent code paths"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1128071626, "facet": "area", "value": "code", "confidence": 0.4, "evidence": "suggested restructuring with early returns"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1128071626, "facet": "nature", "value": "formatting", "confidence": 0.4, "evidence": "control-flow restructuring suggestion"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1128080366, "facet": "area", "value": "code", "confidence": 0.4, "evidence": "suggested rename of a local variable/call"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1128080366, "facet": "nature", "value": "formatting", "confidence": 0.35, "evidence": "naming suggestion"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1128098438, "facet": "area", "value": "code", "confidence": 0.45, "evidence": "explains a failure encountered and agrees on where to add a check"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1128098438, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive explanation of debugging outcome"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1128245683, "facet": "area", "value": "code", "confidence": 0.45, "evidence": "explains the condition avoids an unnecessary function call"}
+{"repo": "pipeline", "pr_number": 6237, "comment_id": 1128245683, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "explains a performance/necessity tradeoff for a condition"}
+{"repo": "pipeline", "pr_number": 6238, "comment_id": 1119092190, "facet": "nature", "value": "none", "confidence": 0.65, "evidence": "pure thanks"}
+{"repo": "pipeline", "pr_number": 6238, "comment_id": 1119094374, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "suggests including the param type in the error message"}
+{"repo": "pipeline", "pr_number": 6238, "comment_id": 1119094374, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive suggestion improving error message content"}
+{"repo": "pipeline", "pr_number": 6238, "comment_id": 1119098553, "facet": "area", "value": "tests", "confidence": 0.55, "evidence": "test covers both task.params and matrix.include.params, asks to scope to include only"}
+{"repo": "pipeline", "pr_number": 6238, "comment_id": 1119098553, "facet": "nature", "value": "cohesion", "confidence": 0.5, "evidence": "test conflates two unrelated things"}
+{"repo": "pipeline", "pr_number": 6238, "comment_id": 1119099733, "facet": "area", "value": "tests", "confidence": 0.5, "evidence": "asks what this test case covers beyond existing cases"}
+{"repo": "pipeline", "pr_number": 6238, "comment_id": 1119099733, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive coverage question"}
+{"repo": "pipeline", "pr_number": 6238, "comment_id": 1120101927, "facet": "area", "value": "tests", "confidence": 0.35, "evidence": "explains a copied test's origin, now deleted"}
+{"repo": "pipeline", "pr_number": 6238, "comment_id": 1120101927, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "explains and confirms a test deletion"}
+{"repo": "pipeline", "pr_number": 6238, "comment_id": 1120187445, "facet": "area", "value": "tests", "confidence": 0.45, "evidence": "follow-up asking the earlier comment be addressed across all test cases"}
+{"repo": "pipeline", "pr_number": 6238, "comment_id": 1120187445, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive follow-up request"}
+{"repo": "pipeline", "pr_number": 6238, "comment_id": 1120277728, "facet": "area", "value": "tests", "confidence": 0.35, "evidence": "clarifies a misunderstanding about which params were meant"}
+{"repo": "pipeline", "pr_number": 6238, "comment_id": 1120277728, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "clarifies and confirms an update"}
+{"repo": "pipeline", "pr_number": 6238, "comment_id": 1120305188, "facet": "area", "value": "tests", "confidence": 0.45, "evidence": "notes this is covered by the previous test case"}
+{"repo": "pipeline", "pr_number": 6238, "comment_id": 1120305188, "facet": "nature", "value": "cohesion", "confidence": 0.4, "evidence": "redundant test case"}
+{"repo": "pipeline", "pr_number": 6238, "comment_id": 1120305926, "facet": "area", "value": "tests", "confidence": 0.5, "evidence": "asks to remove params from these test cases"}
+{"repo": "pipeline", "pr_number": 6238, "comment_id": 1120305926, "facet": "nature", "value": "cohesion", "confidence": 0.45, "evidence": "scope tests down to remove unrelated params"}
+{"repo": "pipeline", "pr_number": 6238, "comment_id": 1120307165, "facet": "area", "value": "tests", "confidence": 0.55, "evidence": "asks to keep v1beta1 tests in sync with v1"}
+{"repo": "pipeline", "pr_number": 6238, "comment_id": 1120307165, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive parity request"}
+{"repo": "pipeline", "pr_number": 6238, "comment_id": 1120307165, "facet": "principle", "value": "crd-version-policy", "confidence": 0.65, "evidence": "keep v1beta1 in sync with v1 by copying over changes"}
+{"repo": "pipeline", "pr_number": 6238, "comment_id": 1120840457, "facet": "nature", "value": "none", "confidence": 0.55, "evidence": "follow-up nudge with no new content"}
+{"repo": "pipeline", "pr_number": 6238, "comment_id": 1120860066, "facet": "area", "value": "code", "confidence": 0.55, "evidence": "suggests introducing a Params type instead of []Param, referencing another PR discussion"}
+{"repo": "pipeline", "pr_number": 6238, "comment_id": 1120860066, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive design suggestion"}
+{"repo": "pipeline", "pr_number": 6238, "comment_id": 1120860066, "facet": "principle", "value": "tekton-api-conventions", "confidence": 0.4, "evidence": "proposes a more structural/idiomatic collection type for consistency"}
+{"repo": "pipeline", "pr_number": 6238, "comment_id": 1120861526, "facet": "nature", "value": "none", "confidence": 0.5, "evidence": "qualifier that this isn't a blocker, no independent content"}
+{"repo": "pipeline", "pr_number": 6238, "comment_id": 1120865227, "facet": "area", "value": "code", "confidence": 0.55, "evidence": "suggests leveraging a common function to retrieve param values"}
+{"repo": "pipeline", "pr_number": 6238, "comment_id": 1120865227, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive design suggestion"}
+{"repo": "pipeline", "pr_number": 6238, "comment_id": 1120865227, "facet": "principle", "value": "reusability", "confidence": 0.5, "evidence": "suggests reusing an existing common function instead of new code"}
+{"repo": "pipeline", "pr_number": 6238, "comment_id": 1120865475, "facet": "nature", "value": "none", "confidence": 0.6, "evidence": "short confirmation"}
+{"repo": "pipeline", "pr_number": 6238, "comment_id": 1120908681, "facet": "area", "value": "code", "confidence": 0.3, "evidence": "asks for follow-up once a dependent PR is resolved"}
+{"repo": "pipeline", "pr_number": 6238, "comment_id": 1120908681, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "ties a follow-up action to another PR's resolution"}
+{"repo": "pipeline", "pr_number": 6238, "comment_id": 1120908681, "facet": "principle", "value": "incremental-delivery", "confidence": 0.45, "evidence": "asks the author to follow up once PR #6180 is resolved"}
+{"repo": "pipeline", "pr_number": 6248, "comment_id": 1122213319, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "flags leftover debugging evidence in the diff"}
+{"repo": "pipeline", "pr_number": 6248, "comment_id": 1122213319, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "flags leftover debug artifacts that shouldn't be in the PR"}
+{"repo": "pipeline", "pr_number": 6248, "comment_id": 1122227690, "facet": "area", "value": "tests", "confidence": 0.55, "evidence": "asks for a test covering the v1beta1 API version"}
+{"repo": "pipeline", "pr_number": 6248, "comment_id": 1122227690, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "coverage gap across API versions"}
+{"repo": "pipeline", "pr_number": 6248, "comment_id": 1122227690, "facet": "principle", "value": "crd-version-policy", "confidence": 0.55, "evidence": "asks for v1beta1 test coverage alongside v1"}
+{"repo": "pipeline", "pr_number": 6248, "comment_id": 1122234764, "facet": "area", "value": "code", "confidence": 0.45, "evidence": "asks to remove an empty line"}
+{"repo": "pipeline", "pr_number": 6248, "comment_id": 1122234764, "facet": "nature", "value": "formatting", "confidence": 0.5, "evidence": "formatting nit"}
+{"repo": "pipeline", "pr_number": 6248, "comment_id": 1122239538, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "asks about Finally task handling and whether it needs test coverage"}
+{"repo": "pipeline", "pr_number": 6248, "comment_id": 1122239538, "facet": "area", "value": "tests", "confidence": 0.45, "evidence": "asks about Finally task handling and whether it needs test coverage"}
+{"repo": "pipeline", "pr_number": 6248, "comment_id": 1122239538, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "raises a possible coverage gap for Finally tasks"}
+{"repo": "pipeline", "pr_number": 6248, "comment_id": 1122259459, "facet": "area", "value": "tests", "confidence": 0.5, "evidence": "asks whether new validation logic needs test coverage"}
+{"repo": "pipeline", "pr_number": 6248, "comment_id": 1122259459, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive coverage question"}
+{"repo": "pipeline", "pr_number": 6248, "comment_id": 1131324348, "facet": "area", "value": "tests", "confidence": 0.55, "evidence": "questions why round-trip conversion tests were deleted"}
+{"repo": "pipeline", "pr_number": 6248, "comment_id": 1131324348, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive question about removed coverage"}
+{"repo": "pipeline", "pr_number": 6248, "comment_id": 1131324348, "facet": "principle", "value": "incremental-delivery", "confidence": 0.3, "evidence": "suggests refactoring this in a separate PR if necessary"}
+{"repo": "pipeline", "pr_number": 6248, "comment_id": 1131324348, "facet": "principle", "value": "crd-version-policy", "confidence": 0.35, "evidence": "concerns a v1/v1beta1 round-trip conversion test setup"}
+{"repo": "pipeline", "pr_number": 6248, "comment_id": 1131378519, "facet": "area", "value": "code", "confidence": 0.4, "evidence": "suggests the HasInclude condition check may not be needed"}
+{"repo": "pipeline", "pr_number": 6248, "comment_id": 1131378519, "facet": "nature", "value": "formatting", "confidence": 0.4, "evidence": "unnecessary-condition nit"}
+{"repo": "pipeline", "pr_number": 6248, "comment_id": 1131406130, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "notes reconciler changes don't feel related to this PR's title/description"}
+{"repo": "pipeline", "pr_number": 6248, "comment_id": 1131406130, "facet": "nature", "value": "cohesion", "confidence": 0.65, "evidence": "reconciler changes don't feel related to the current PR"}
+{"repo": "pipeline", "pr_number": 6248, "comment_id": 1131630858, "facet": "nature", "value": "none", "confidence": 0.65, "evidence": "short acknowledgment of a mistake"}
+{"repo": "pipeline", "pr_number": 6248, "comment_id": 1131631043, "facet": "nature", "value": "none", "confidence": 0.7, "evidence": "pure fix confirmation"}
+{"repo": "pipeline", "pr_number": 6248, "comment_id": 1131664181, "facet": "area", "value": "code", "confidence": 0.4, "evidence": "notes the actual Matrix object isn't changed, suggests removing the iteration"}
+{"repo": "pipeline", "pr_number": 6248, "comment_id": 1131664181, "facet": "nature", "value": "formatting", "confidence": 0.4, "evidence": "unnecessary iteration"}
+{"repo": "pipeline", "pr_number": 6248, "comment_id": 1132372013, "facet": "area", "value": "code", "confidence": 0.4, "evidence": "nit suggesting a check could be removed"}
+{"repo": "pipeline", "pr_number": 6248, "comment_id": 1132372013, "facet": "nature", "value": "formatting", "confidence": 0.4, "evidence": "unnecessary-condition nit"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132456899, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "wonders if the function can be replaced by using Params directly"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132456899, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive simplification question"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132456899, "facet": "principle", "value": "simplicity", "confidence": 0.35, "evidence": "suggests reusing Params directly instead of a separate func"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132457445, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "asks whether a String type check is needed for StringVal"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132457445, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive correctness question"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132520909, "facet": "area", "value": "code", "confidence": 0.45, "evidence": "explains the param mapping makes lookups and merges easier"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132520909, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive design explanation"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132562960, "facet": "area", "value": "code", "confidence": 0.4, "evidence": "suggested loop restructuring"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132562960, "facet": "nature", "value": "formatting", "confidence": 0.4, "evidence": "code-shape suggestion"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132628518, "facet": "area", "value": "code", "confidence": 0.45, "evidence": "questions whether the suggested change is actually cleaner"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132628518, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "pushback questioning a prior suggestion's value"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132643247, "facet": "area", "value": "code", "confidence": 0.35, "evidence": "explains confusion from overlapping plural/singular combination naming"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132643247, "facet": "nature", "value": "formatting", "confidence": 0.35, "evidence": "naming clarity"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132659278, "facet": "area", "value": "code", "confidence": 0.3, "evidence": "notes the original version was cleaner before a prior suggested change"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132659278, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "light historical observation"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132891355, "facet": "area", "value": "docs", "confidence": 0.4, "evidence": "suggested doc wording fix"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132891355, "facet": "nature", "value": "formatting", "confidence": 0.35, "evidence": "doc wording suggestion"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132891521, "facet": "area", "value": "docs", "confidence": 0.4, "evidence": "asks whether a doc block can be removed"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132891521, "facet": "nature", "value": "cohesion", "confidence": 0.3, "evidence": "unnecessary doc content"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132892163, "facet": "area", "value": "docs", "confidence": 0.4, "evidence": "suggested doc wording fix"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132892163, "facet": "nature", "value": "formatting", "confidence": 0.35, "evidence": "doc wording suggestion"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132892449, "facet": "area", "value": "docs", "confidence": 0.45, "evidence": "suggests removing irrelevant workspaces from the example"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132892449, "facet": "nature", "value": "cohesion", "confidence": 0.4, "evidence": "irrelevant content in a doc example"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132892671, "facet": "area", "value": "docs", "confidence": 0.4, "evidence": "suggested doc wording fix for the example intro"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132892671, "facet": "nature", "value": "formatting", "confidence": 0.35, "evidence": "doc wording suggestion"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132893028, "facet": "area", "value": "docs", "confidence": 0.5, "evidence": "asks to explicitly list generated combinations in bullets"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132893028, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive documentation improvement request"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132894994, "facet": "area", "value": "docs", "confidence": 0.5, "evidence": "notes the TEP has a clear example and all cases should be covered in the docs"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132894994, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive documentation completeness guidance"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132897635, "facet": "area", "value": "code", "confidence": 0.4, "evidence": "suggested function rename"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132897635, "facet": "nature", "value": "formatting", "confidence": 0.4, "evidence": "naming suggestion"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132898254, "facet": "area", "value": "code", "confidence": 0.4, "evidence": "suggested function rename"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1132898254, "facet": "nature", "value": "formatting", "confidence": 0.4, "evidence": "naming suggestion"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1133003222, "facet": "area", "value": "code", "confidence": 0.55, "evidence": "explains combinations from include aren't persisted when both params and include are set"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1133003222, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive design feedback on combination merging"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1133004461, "facet": "area", "value": "code", "confidence": 0.4, "evidence": "provides a reference implementation link"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1133004461, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "provides reference code for the design point above"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1133004890, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "asks how this differs from combinations already generated earlier"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1133004890, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive design question"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1133006867, "facet": "area", "value": "tests", "confidence": 0.4, "evidence": "notes all unit tests pass with the reference implementation"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1133006867, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "states a validation result"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1134433258, "facet": "nature", "value": "none", "confidence": 0.6, "evidence": "pure fix confirmation"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1134433624, "facet": "nature", "value": "none", "confidence": 0.6, "evidence": "pure fix confirmation"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1134434115, "facet": "nature", "value": "none", "confidence": 0.65, "evidence": "pure thanks/confirmation"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1134434344, "facet": "nature", "value": "none", "confidence": 0.65, "evidence": "pure thanks/confirmation"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1134474180, "facet": "area", "value": "code", "confidence": 0.4, "evidence": "suggested doc comment rename for a helper function"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1134474180, "facet": "nature", "value": "formatting", "confidence": 0.4, "evidence": "naming/doc suggestion"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1134474854, "facet": "area", "value": "code", "confidence": 0.4, "evidence": "suggested doc comment rename for a helper function"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1134474854, "facet": "nature", "value": "formatting", "confidence": 0.4, "evidence": "naming/doc suggestion"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1134496673, "facet": "area", "value": "code", "confidence": 0.35, "evidence": "explains the rename to shouldAddNewCombination for clarity"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1134496673, "facet": "nature", "value": "formatting", "confidence": 0.35, "evidence": "naming rationale"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137582789, "facet": "area", "value": "docs", "confidence": 0.45, "evidence": "asks to add the combinations generated from this include example"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137582789, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive documentation completeness request"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137584009, "facet": "area", "value": "docs", "confidence": 0.45, "evidence": "suggests reordering a simpler example first"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137584009, "facet": "nature", "value": "formatting", "confidence": 0.4, "evidence": "doc structure/ordering suggestion"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137584455, "facet": "area", "value": "docs", "confidence": 0.4, "evidence": "questions whether a redundant example is needed"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137584455, "facet": "nature", "value": "cohesion", "confidence": 0.4, "evidence": "redundant doc content"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137588265, "facet": "area", "value": "docs", "confidence": 0.55, "evidence": "proposes restructuring the include explanation into its own subsection with specific wording"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137588265, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive documentation-content suggestion"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137589091, "facet": "area", "value": "docs", "confidence": 0.45, "evidence": "notes a yaml document separator is confusing within the example"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137589091, "facet": "nature", "value": "formatting", "confidence": 0.4, "evidence": "example formatting confusion"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137589636, "facet": "area", "value": "docs", "confidence": 0.5, "evidence": "asks whether unrelated formatting changes can be removed from this PR"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137589636, "facet": "nature", "value": "cohesion", "confidence": 0.6, "evidence": "unrelated formatting changes bundled in"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137592419, "facet": "area", "value": "tests", "confidence": 0.5, "evidence": "asks how one variable differs from another"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137592419, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive clarification question"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137593284, "facet": "area", "value": "tests", "confidence": 0.4, "evidence": "suggested clearer test case name"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137593284, "facet": "nature", "value": "formatting", "confidence": 0.35, "evidence": "test naming suggestion"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137595337, "facet": "area", "value": "docs", "confidence": 0.55, "evidence": "questions what 'preview mode' means, suggests calling it alpha and adding to the alpha table"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137595337, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive terminology/documentation question"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137595337, "facet": "principle", "value": "feature-graduation", "confidence": 0.6, "evidence": "questions preview-mode terminology vs. the documented alpha/beta graduation process"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137601736, "facet": "area", "value": "code", "confidence": 0.45, "evidence": "asks to trim unused return values from the function signature"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137601736, "facet": "nature", "value": "formatting", "confidence": 0.4, "evidence": "function-shape/API surface trim"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137602508, "facet": "area", "value": "tests", "confidence": 0.35, "evidence": "suggests removing a line that should have been caught earlier"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137602508, "facet": "nature", "value": "formatting", "confidence": 0.35, "evidence": "dead code removal"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137706178, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "explains a function is called elsewhere using sortedCombination"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137706178, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive explanation with supporting code"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137706474, "facet": "area", "value": "tests", "confidence": 0.45, "evidence": "pushes back asking why a line should be removed"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137706474, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "clarification/pushback question"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137711111, "facet": "area", "value": "tests", "confidence": 0.5, "evidence": "explains FanOut() doesn't mutate the input matrix, clarifying test behavior"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137711111, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive clarification of test semantics"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137746925, "facet": "area", "value": "docs", "confidence": 0.4, "evidence": "agrees preview-mode language can now be removed"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137746925, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "follow-up agreement on terminology"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137746925, "facet": "principle", "value": "feature-graduation", "confidence": 0.4, "evidence": "agrees preview-mode language can now be removed"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137748755, "facet": "area", "value": "tests", "confidence": 0.4, "evidence": "clarifying question about which value removal is being discussed"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137748755, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "clarifying question"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137751056, "facet": "area", "value": "tests", "confidence": 0.5, "evidence": "explains the actual concern and suggests a simplified test case"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137751056, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive clarification with a concrete simplification"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137764860, "facet": "area", "value": "tests", "confidence": 0.4, "evidence": "notes the simplification is possible pending confirmation from another author"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1137764860, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "light follow-up on a simplification"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1138652588, "facet": "area", "value": "tests", "confidence": 0.4, "evidence": "agrees a line should be removed, likely missed in prior review"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1138652588, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "agreement with brief reasoning"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1138670050, "facet": "nature", "value": "none", "confidence": 0.65, "evidence": "pure fix confirmation"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1138745325, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "asks whether the function can return Params instead of Combinations"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1138745325, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive API-shape question"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1138784940, "facet": "area", "value": "code", "confidence": 0.35, "evidence": "explains FanOut now calls toParams before returning"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1138784940, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "explains an implementation change"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1140484858, "facet": "nature", "value": "none", "confidence": 0.65, "evidence": "praise/thanks only"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1149621640, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "flags a compiled debug binary accidentally committed"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1149621640, "facet": "nature", "value": "cohesion", "confidence": 0.6, "evidence": "stray build artifact bundled into the PR"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1149622344, "facet": "area", "value": "code", "confidence": 0.45, "evidence": "asks for a descriptive name for this example pipelinerun file"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1149622344, "facet": "nature", "value": "formatting", "confidence": 0.45, "evidence": "naming suggestion"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1149738788, "facet": "area", "value": "tests", "confidence": 0.5, "evidence": "asks to remove unrelated cleanup and open a separate PR applying it to v1beta1 and v1"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1149738788, "facet": "nature", "value": "cohesion", "confidence": 0.6, "evidence": "cleanup unrelated to this change and inconsistently applied"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1149738788, "facet": "principle", "value": "incremental-delivery", "confidence": 0.5, "evidence": "asks for the cleanup to move to its own PR"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1149738788, "facet": "principle", "value": "crd-version-policy", "confidence": 0.45, "evidence": "cleanup not applied consistently across v1beta1 and v1"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1149740369, "facet": "area", "value": "code", "confidence": 0.4, "evidence": "asks for an example's description to be updated"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1149740369, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "asks for missing descriptive content"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1149897330, "facet": "area", "value": "tests", "confidence": 0.4, "evidence": "notes the unrelated-cleanup concern applies to all similar changes in this file"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1149897330, "facet": "nature", "value": "cohesion", "confidence": 0.4, "evidence": "continuation of the unrelated-cleanup concern"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1150673919, "facet": "area", "value": "tests", "confidence": 0.3, "evidence": "explains a misunderstanding referencing another PR"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1150673919, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "light clarification"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1150778625, "facet": "area", "value": "tests", "confidence": 0.35, "evidence": "asks for a separate PR cleaning up those params"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1150778625, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "confirms deferring cleanup to another PR"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1150778625, "facet": "principle", "value": "incremental-delivery", "confidence": 0.5, "evidence": "confirms deferring the params cleanup to another PR"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1150906083, "facet": "area", "value": "tests", "confidence": 0.3, "evidence": "confirms a follow-up PR was opened based on this one"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1150906083, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "documents a follow-up PR"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1150906083, "facet": "principle", "value": "incremental-delivery", "confidence": 0.35, "evidence": "confirms a follow-up PR (#6446) was opened based on this one"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1151033937, "facet": "area", "value": "pr-description", "confidence": 0.5, "evidence": "asks to update the PR description to drop a stale statement"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1151033937, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive request to fix stale PR description content"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1151037003, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "questions whether a redundant assignment is needed given the receiver's behavior"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1151037003, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive correctness question"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1151062605, "facet": "area", "value": "code", "confidence": 0.55, "evidence": "explains pointer-vs-value receiver semantics and suggests a fix"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1151062605, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive technical explanation with a concrete fix"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1151065707, "facet": "area", "value": "code", "confidence": 0.45, "evidence": "notes an unnecessary call chain that's confusing"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1151065707, "facet": "nature", "value": "formatting", "confidence": 0.45, "evidence": "unnecessary call chain/readability nit"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1152140775, "facet": "nature", "value": "none", "confidence": 0.65, "evidence": "pure fix confirmation"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1152248346, "facet": "area", "value": "code", "confidence": 0.25, "evidence": "confirms a fix was opened as a separate PR"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1152248346, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "documents a follow-up PR"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1152248346, "facet": "principle", "value": "incremental-delivery", "confidence": 0.3, "evidence": "confirms a separate PR was opened for the flagged receiver-type fix"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1152248520, "facet": "area", "value": "code", "confidence": 0.25, "evidence": "confirms a fix was opened as a separate PR (duplicate notice)"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1152248520, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "documents a follow-up PR"}
+{"repo": "pipeline", "pr_number": 6341, "comment_id": 1152248520, "facet": "principle", "value": "incremental-delivery", "confidence": 0.3, "evidence": "confirms a separate PR was opened for the flagged receiver-type fix"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1132879361, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "questions how indexing into a string param passes validation"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1132879361, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive validation-correctness concern"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1132879522, "facet": "area", "value": "tests", "confidence": 0.5, "evidence": "asks whether existing tests cover this functionality"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1132879522, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive coverage question"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1132881007, "facet": "area", "value": "tests", "confidence": 0.45, "evidence": "asks whether this test case differs from the previous one"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1132881007, "facet": "nature", "value": "cohesion", "confidence": 0.4, "evidence": "possible redundant test case"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1132881359, "facet": "area", "value": "tests", "confidence": 0.5, "evidence": "suggests testing a case where defaults are overridden"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1132881359, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive coverage suggestion"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1132881761, "facet": "area", "value": "tests", "confidence": 0.5, "evidence": "suggests separate tests for string, object, and array param replacement"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1132881761, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive coverage structuring request"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1132883884, "facet": "area", "value": "code", "confidence": 0.55, "evidence": "asks why array/object replacements aren't supported here and suggests documenting why"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1132883884, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive design question"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1134130024, "facet": "area", "value": "tests", "confidence": 0.45, "evidence": "notes which existing matrix tests exist and which are missing"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1134130024, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive coverage inventory"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1134130349, "facet": "area", "value": "tests", "confidence": 0.4, "evidence": "explains this referenced another existing test doing the same thing"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1134130349, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "explains test provenance"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1134209688, "facet": "area", "value": "code", "confidence": 0.55, "evidence": "explains the roadmap for array/object result support, citing another PR and the TEP"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1134209688, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive explanation of supported vs. planned functionality"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1134209688, "facet": "principle", "value": "api-compatibility", "confidence": 0.45, "evidence": "frames today's restriction as an additive-capability roadmap, not a permanent limit"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1134274375, "facet": "nature", "value": "none", "confidence": 0.6, "evidence": "pure fix confirmation"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1134274722, "facet": "nature", "value": "none", "confidence": 0.6, "evidence": "pure fix confirmation"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1134275053, "facet": "nature", "value": "none", "confidence": 0.6, "evidence": "short confirmation"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1134275588, "facet": "nature", "value": "none", "confidence": 0.6, "evidence": "pure fix confirmation"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1134579128, "facet": "area", "value": "tests", "confidence": 0.5, "evidence": "questions why beta API fields are being enabled in an alpha-feature test"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1134579128, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive correctness question"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1134579128, "facet": "principle", "value": "feature-graduation", "confidence": 0.55, "evidence": "questions enabling beta fields for an alpha-gated feature's test"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1134615825, "facet": "nature", "value": "content", "confidence": 0.3, "evidence": "confirms fixing a copy-paste error between alpha/beta flags"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1134615825, "facet": "principle", "value": "feature-graduation", "confidence": 0.3, "evidence": "confirms the fix from beta to alpha API fields"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1135702134, "facet": "area", "value": "tests", "confidence": 0.55, "evidence": "questions whether the example demonstrates object or string replacements, with supporting code reference"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1135702134, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive question about test intent"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1135706123, "facet": "area", "value": "code", "confidence": 0.6, "evidence": "clarifies expected replacement behavior for matrix.params vs matrix.include.params with a code suggestion"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1135706123, "facet": "nature", "value": "content", "confidence": 0.55, "evidence": "substantive design clarification with concrete suggestion"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1135754026, "facet": "area", "value": "tests", "confidence": 0.5, "evidence": "asks to keep and clarify a test case's purpose"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1135754026, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive request for clearer test intent"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1135755021, "facet": "nature", "value": "none", "confidence": 0.6, "evidence": "brief acknowledgment"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1135756123, "facet": "nature", "value": "none", "confidence": 0.6, "evidence": "status update on a removed test"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1135760869, "facet": "area", "value": "tests", "confidence": 0.5, "evidence": "asks to restore a useful test that confirms understanding of replacements"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1135760869, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive request to keep coverage"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1135765088, "facet": "nature", "value": "none", "confidence": 0.55, "evidence": "status update restoring and renaming the test"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1135808160, "facet": "area", "value": "docs", "confidence": 0.55, "evidence": "asks for examples demonstrating this, in its own subsection"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1135808160, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive documentation completeness request"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136050710, "facet": "nature", "value": "none", "confidence": 0.6, "evidence": "pure fix confirmation"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136059777, "facet": "area", "value": "docs", "confidence": 0.4, "evidence": "suggested doc wording fix about array replacements"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136059777, "facet": "nature", "value": "formatting", "confidence": 0.35, "evidence": "doc wording suggestion"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136063106, "facet": "area", "value": "docs", "confidence": 0.5, "evidence": "suggested doc content addition with a concrete yaml example"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136063106, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive documentation content addition"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136072753, "facet": "area", "value": "docs", "confidence": 0.5, "evidence": "suggested doc content addition with a concrete yaml example"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136072753, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive documentation content addition"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136219710, "facet": "area", "value": "tests", "confidence": 0.45, "evidence": "notes a possible cleaner alternative pending an exported helper"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136219710, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive suggestion, non-blocking"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136229098, "facet": "area", "value": "tests", "confidence": 0.45, "evidence": "asks what 'override default' means in this test case"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136229098, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive clarification question"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136232590, "facet": "area", "value": "tests", "confidence": 0.4, "evidence": "notes similar test values are hard to distinguish"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136232590, "facet": "nature", "value": "formatting", "confidence": 0.4, "evidence": "test data clarity nit"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136236471, "facet": "area", "value": "tests", "confidence": 0.55, "evidence": "asks about object result replacement support and what's actually covered"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136236471, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive coverage/design question"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136275631, "facet": "area", "value": "docs", "confidence": 0.4, "evidence": "suggested doc wording fix"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136275631, "facet": "nature", "value": "formatting", "confidence": 0.35, "evidence": "doc wording suggestion"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136307389, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "asks the Finally section match the Tasks section's replacement logic, with a code suggestion"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136307389, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive consistency request between code paths"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136307389, "facet": "principle", "value": "consistency-with-existing", "confidence": 0.4, "evidence": "Finally should behave consistently with Tasks for the same replacement logic"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136999471, "facet": "area", "value": "code", "confidence": 0.45, "evidence": "suggested code comment documenting today's supported replacements and a planned follow-up"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136999471, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "documents current scope and a planned future increment"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1136999471, "facet": "principle", "value": "incremental-delivery", "confidence": 0.35, "evidence": "documents a planned future increment (#5925)"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1137072230, "facet": "nature", "value": "none", "confidence": 0.6, "evidence": "pure fix confirmation"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1137325975, "facet": "area", "value": "tests", "confidence": 0.4, "evidence": "suggested test code fix for param values"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1137325975, "facet": "nature", "value": "formatting", "confidence": 0.35, "evidence": "test-data correction"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1137326830, "facet": "area", "value": "tests", "confidence": 0.4, "evidence": "suggested test code fix for param values"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1137326830, "facet": "nature", "value": "formatting", "confidence": 0.35, "evidence": "test-data correction"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1137327313, "facet": "area", "value": "tests", "confidence": 0.4, "evidence": "suggested test code fix for param values"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1137327313, "facet": "nature", "value": "formatting", "confidence": 0.35, "evidence": "test-data correction"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1137328141, "facet": "area", "value": "tests", "confidence": 0.4, "evidence": "suggested test code fix for param values"}
+{"repo": "pipeline", "pr_number": 6345, "comment_id": 1137328141, "facet": "nature", "value": "formatting", "confidence": 0.35, "evidence": "test-data correction"}
+{"repo": "pipeline", "pr_number": 6346, "comment_id": 1132764644, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "suggested fix to index into m.Include correctly"}
+{"repo": "pipeline", "pr_number": 6346, "comment_id": 1132764644, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "corrects an indexing bug in the loop"}
+{"repo": "pipeline", "pr_number": 6346, "comment_id": 1132766986, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "suggested fix to append using the correct index"}
+{"repo": "pipeline", "pr_number": 6346, "comment_id": 1132766986, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "corrects an indexing bug"}
+{"repo": "pipeline", "pr_number": 6346, "comment_id": 1132809741, "facet": "area", "value": "code", "confidence": 0.45, "evidence": "notes the indexing should be fixed here too, per the other suggestion"}
+{"repo": "pipeline", "pr_number": 6346, "comment_id": 1132809741, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "extends the indexing fix"}
+{"repo": "pipeline", "pr_number": 6348, "comment_id": 1134638221, "facet": "area", "value": "tests", "confidence": 0.5, "evidence": "asks to keep existing tests and append include cases after"}
+{"repo": "pipeline", "pr_number": 6348, "comment_id": 1134638221, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive request about test structure"}
+{"repo": "pipeline", "pr_number": 6349, "comment_id": 1134332154, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "asks about other places matrix param names are fetched, suggests a reusable helper"}
+{"repo": "pipeline", "pr_number": 6349, "comment_id": 1134332154, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive suggestion for a reusable helper"}
+{"repo": "pipeline", "pr_number": 6349, "comment_id": 1134332154, "facet": "principle", "value": "reusability", "confidence": 0.45, "evidence": "proposes a reusable matrix.getParamNames() helper"}
+{"repo": "pipeline", "pr_number": 6349, "comment_id": 1134335776, "facet": "area", "value": "tests", "confidence": 0.4, "evidence": "suggested clearer test name"}
+{"repo": "pipeline", "pr_number": 6349, "comment_id": 1134335776, "facet": "nature", "value": "formatting", "confidence": 0.35, "evidence": "test naming wording fix"}
+{"repo": "pipeline", "pr_number": 6349, "comment_id": 1134336242, "facet": "area", "value": "tests", "confidence": 0.4, "evidence": "suggested clearer test name"}
+{"repo": "pipeline", "pr_number": 6349, "comment_id": 1134336242, "facet": "nature", "value": "formatting", "confidence": 0.35, "evidence": "test naming wording fix"}
+{"repo": "pipeline", "pr_number": 6349, "comment_id": 1134487816, "facet": "area", "value": "code", "confidence": 0.4, "evidence": "explains the helper functions were added for future use cases"}
+{"repo": "pipeline", "pr_number": 6349, "comment_id": 1134487816, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "explains a design/future-proofing choice"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146289578, "facet": "area", "value": "tests", "confidence": 0.55, "evidence": "notes m.Params coverage was removed while adding m.Include.Params, asks both be covered"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146289578, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive coverage regression concern"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146405548, "facet": "nature", "value": "none", "confidence": 0.6, "evidence": "pure fix confirmation"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146512416, "facet": "area", "value": "code", "confidence": 0.45, "evidence": "suggests a clearer name and a docstring for this variable"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146512416, "facet": "nature", "value": "formatting", "confidence": 0.45, "evidence": "naming nit"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146519673, "facet": "area", "value": "code", "confidence": 0.55, "evidence": "asks to double check the function doesn't mutate its inputs"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146519673, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive correctness/side-effect concern"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146521155, "facet": "area", "value": "code", "confidence": 0.45, "evidence": "asks for docstrings on the modified functions"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146521155, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "requests missing explanatory documentation"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146523497, "facet": "area", "value": "code", "confidence": 0.4, "evidence": "asks to update a function's docstring"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146523497, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "requests documentation accuracy update"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146538207, "facet": "area", "value": "tests", "confidence": 0.55, "evidence": "test tries to cover too many things at once, suggests splitting, notes missing coverage"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146538207, "facet": "nature", "value": "cohesion", "confidence": 0.55, "evidence": "one test case testing many different things at once"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146543767, "facet": "area", "value": "tests", "confidence": 0.5, "evidence": "asks about invalidity reason and suggests table-driven tests with descriptive names"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146543767, "facet": "nature", "value": "cohesion", "confidence": 0.4, "evidence": "test cases cover multiple concerns at once"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146543767, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive clarifying question about test invalidity"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146773894, "facet": "nature", "value": "none", "confidence": 0.6, "evidence": "pure fix confirmation"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146774435, "facet": "nature", "value": "none", "confidence": 0.6, "evidence": "pure fix confirmation"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146775356, "facet": "area", "value": "code", "confidence": 0.3, "evidence": "answers the mutation question directly"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146775356, "facet": "nature", "value": "content", "confidence": 0.35, "evidence": "short substantive technical answer"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146797026, "facet": "nature", "value": "none", "confidence": 0.55, "evidence": "status update/celebration, no new review content"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146802218, "facet": "nature", "value": "none", "confidence": 0.6, "evidence": "self-correction/apology, no content"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146807761, "facet": "area", "value": "code", "confidence": 0.4, "evidence": "suggested docstring wording fix"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146807761, "facet": "nature", "value": "formatting", "confidence": 0.35, "evidence": "docstring wording suggestion"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146810975, "facet": "area", "value": "code", "confidence": 0.4, "evidence": "suggested docstring wording fix"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146810975, "facet": "nature", "value": "formatting", "confidence": 0.35, "evidence": "docstring wording suggestion"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146824211, "facet": "area", "value": "code", "confidence": 0.55, "evidence": "asks for more docstring detail on what 'match' means, flags stale info about inputs/outputs"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146824211, "facet": "nature", "value": "content", "confidence": 0.5, "evidence": "substantive request for missing detail and a stale-doc flag"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146826026, "facet": "area", "value": "tests", "confidence": 0.45, "evidence": "asks why the test was swapped to t.Fatalf"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146826026, "facet": "nature", "value": "content", "confidence": 0.4, "evidence": "substantive question about test behavior change"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146830846, "facet": "area", "value": "tests", "confidence": 0.5, "evidence": "asks what happened to the tests for invalid params"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1146830846, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive question about missing coverage"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1147586737, "facet": "nature", "value": "none", "confidence": 0.6, "evidence": "short acknowledgment of a mistake"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1147588249, "facet": "nature", "value": "none", "confidence": 0.55, "evidence": "explains and confirms a copy-paste mistake was fixed"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1147604270, "facet": "area", "value": "tests", "confidence": 0.45, "evidence": "nit suggesting nil instead of a pointer to an empty matrix"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1147604270, "facet": "nature", "value": "formatting", "confidence": 0.45, "evidence": "code simplification nit"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1147606243, "facet": "nature", "value": "none", "confidence": 0.65, "evidence": "praise only"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1147608937, "facet": "area", "value": "code", "confidence": 0.5, "evidence": "suggests a more informative error message, possibly in a separate PR"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1147608937, "facet": "nature", "value": "content", "confidence": 0.45, "evidence": "substantive suggestion improving error message content"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1147608937, "facet": "principle", "value": "incremental-delivery", "confidence": 0.3, "evidence": "notes this might be better addressed in a separate PR"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1147611422, "facet": "area", "value": "tests", "confidence": 0.5, "evidence": "asks whether these test cases cover anything not already covered by existing ones"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1147611422, "facet": "nature", "value": "cohesion", "confidence": 0.45, "evidence": "redundant coverage combining two existing test cases"}
+{"repo": "pipeline", "pr_number": 6418, "comment_id": 1149410509, "facet": "nature", "value": "none", "confidence": 0.6, "evidence": "pure fix confirmation"}
