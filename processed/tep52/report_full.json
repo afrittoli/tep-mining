@@ -1,0 +1,1198 @@
+{
+  "summary": {
+    "old_total": 123,
+    "new_total": 130,
+    "agree": 106,
+    "clean_agree": 31,
+    "total_comments": 62,
+    "repos": [
+      "results#103",
+      "community#347",
+      "community#357"
+    ]
+  },
+  "expected": [
+    {
+      "cid": 583775911,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 347,
+        "author": "bobcatfish",
+        "loc": "## Motivation",
+        "body": "nice!! thanks for doing the additional investigation"
+      }
+    },
+    {
+      "cid": 583781866,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 347,
+        "author": "bobcatfish",
+        "loc": "### Delete Runs when complete",
+        "body": "> so don't try to schedule deletion 300 years in the future and we should be good \r\n\r\nlolololol\r\n\r\ni wonder how big that queue can get \ud83e\udd14  anyway sounds like we're covered :D"
+      }
+    },
+    {
+      "cid": 588654863,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 357,
+        "author": "wlynch",
+        "loc": "",
+        "body": "Yup! Added a note."
+      }
+    },
+    {
+      "cid": 590626331,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 357,
+        "author": "wlynch",
+        "loc": "",
+        "body": "https://github.com/tektoncd/pipeline/issues/3812"
+      }
+    },
+    {
+      "cid": 596106074,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 357,
+        "author": "bobcatfish",
+        "loc": "",
+        "body": "(ps thanks for your patience @wlynch  as when i demanded that you file an issue for something that in the end made no sense and then gradually came around to seeing this clearly \ud83d\ude4f \ud83e\udd23 )"
+      }
+    },
+    {
+      "cid": 596257432,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 357,
+        "author": "wlynch",
+        "loc": "",
+        "body": "Updated! PTAL."
+      }
+    },
+    {
+      "cid": 597801750,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 357,
+        "author": "wlynch",
+        "loc": "",
+        "body": "Fixed!"
+      }
+    },
+    {
+      "cid": 605674920,
+      "extra": [
+        [
+          "area",
+          "code"
+        ]
+      ],
+      "meta": {
+        "repo": "results",
+        "pr_number": 103,
+        "author": "imjasonh",
+        "loc": "pkg/watcher/reconciler/pipelinerun/pipelinerun.go",
+        "body": "Just to confirm: do we expect this to re-enqueue the item in the workqueue so we'll retry with backoff?"
+      }
+    },
+    {
+      "cid": 605868342,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "results",
+        "pr_number": 103,
+        "author": "wlynch",
+        "loc": "pkg/watcher/reconciler/pipelinerun/controller.go",
+        "body": "Don't think so. Done!"
+      }
+    },
+    {
+      "cid": 605869381,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "results",
+        "pr_number": 103,
+        "author": "wlynch",
+        "loc": "pkg/watcher/reconciler/pipelinerun/pipelinerun.go",
+        "body": "Done."
+      }
+    },
+    {
+      "cid": 605869928,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "results",
+        "pr_number": 103,
+        "author": "wlynch",
+        "loc": "pkg/watcher/reconciler/pipelinerun/pipelinerun.go",
+        "body": "Great idea! Done."
+      }
+    }
+  ],
+  "judgment": [
+    {
+      "cid": 581417527,
+      "meta": {
+        "repo": "community",
+        "pr_number": 347,
+        "author": "bobcatfish",
+        "loc": "### Delete Runs when complete",
+        "body": "i could imagine someone wanting this grace period to be something like a day (or even a week or more) - does this solution also support configuring the grace period to be on the order of hours or even days?\r\n\r\nas a possible reason, i could imagine folks might be using other tools that might integrate with the k8s API and it might not be reasonable to expect they can update those tools to use the Result API as the source of truth"
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "api-compatibility"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "flexibility"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "api-compatibility"
+        ]
+      ],
+      "extra": [
+        [
+          "principle",
+          "flexibility"
+        ]
+      ]
+    },
+    {
+      "cid": 581510744,
+      "meta": {
+        "repo": "community",
+        "pr_number": 347,
+        "author": "wlynch",
+        "loc": "## Motivation",
+        "body": "Did some more digging here - I don't think the issue is that the controller is being re-informed of objects.\r\n\r\nThis was based somewhat anecdotally on clusters we ran where automatic probes created TaskRuns, and the cluster locked up after O(thousands) of TaskRuns were created (suspiciously near the ~3000 pod-per-namespace mark documented here - https://github.com/kubernetes/community/blob/master/sig-scalability/configs-and-limits/thresholds.md). The leading theory was the # of objects was causing issues with etcd leader election and resulting in the Kubernetes API to be unavailable.\r\nIt's entirely possible that these issues were unrelated - I've started subjecting a test cluster to a load test with a minimal TaskRun to try and recreate this.\r\n\r\nWe're at ~10k TaskRuns with the most noticeable effect being the slow down of `kubectl get` calls (which is expected (taking O(seconds)). I noticed there are several instances of `List` calls that are made in the Task/PipelineRun controllers that might be affected, but nothing too severe so far."
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "feature-justification"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "feature-justification"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 581525457,
+      "meta": {
+        "repo": "community",
+        "pr_number": 347,
+        "author": "wlynch",
+        "loc": "### Delete Runs when complete",
+        "body": "Poking at the Knative code, it looks like it [asynchronously inspects the events](https://github.com/knative/pkg/blob/a02dcff9ee2694ab9bbc694bddbd95d3aaae615b/vendor/k8s.io/client-go/util/workqueue/delaying_queue.go#L177) and sees [whether it is past the requested time](https://github.com/knative/pkg/blob/a02dcff9ee2694ab9bbc694bddbd95d3aaae615b/vendor/k8s.io/client-go/util/workqueue/delaying_queue.go#L242) so we're primarily limited by what [time.Duration](https://pkg.go.dev/time#Duration) can support (so don't try to schedule deletion 300 years in the future and we should be good \ud83d\ude05)\r\n\r\nIn the case of reconciler failure / crash / restart, my understanding is that everything will be resynced. This will cause the Watcher to go through the same checks to verify if we should delete or reenqueue again. It should be safe to call the same key multiple times."
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "reconciler-pattern"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "principle",
+          "reconciler-pattern"
+        ]
+      ]
+    },
+    {
+      "cid": 583776938,
+      "meta": {
+        "repo": "community",
+        "pr_number": 347,
+        "author": "bobcatfish",
+        "loc": "### Goals",
+        "body": "ah okay so the ENTIRE object - just (pedantically) checking that we're not leaving some of the content out"
+      },
+      "old": [],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ]
+    },
+    {
+      "cid": 586702303,
+      "meta": {
+        "repo": "community",
+        "pr_number": 357,
+        "author": "bobcatfish",
+        "loc": "",
+        "body": "hmmm this actually makes me wonder if we should be looking for another way of doing this? what do you think about opening an issue in pipelines around this? if this is actually bottleneck, we could optimize it (e.g. embedding info in statuses that prevents us from having to do that lookup)"
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 588557694,
+      "meta": {
+        "repo": "community",
+        "pr_number": 357,
+        "author": "bobcatfish",
+        "loc": "",
+        "body": "i mentioned this in a comment above but i think we should do this regardless of this proposal (if it is actually a problem)"
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 588666500,
+      "meta": {
+        "repo": "community",
+        "pr_number": 357,
+        "author": "wlynch",
+        "loc": "",
+        "body": "Yeah I can file an issue. \r\n\r\nFunny enough, embedding status info is why these queries are being done in the first place - it's a mechanism to prevent double scheduling if a Run resource is interrupted without the status info being written back (i.e. query for things with the parent label, if it already exists use that, else create what is missing).\r\nWe might be able to avoid some of the query lookups with some journaling, but this will likely expose us to different complexity (I'm primarily worried about name collisions). \ud83d\ude2c "
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 588673495,
+      "meta": {
+        "repo": "community",
+        "pr_number": 357,
+        "author": "wlynch",
+        "loc": "",
+        "body": "I haven't deleted them yet so I can keep the TaskRuns around for more testing if needed \ud83e\udd23  If you have ideas for how we can synthetically create tons of completed TaskRuns w/o pods, let me know! (I wasn't sure if you can just create completed TaskRuns or something similar)\r\n\r\nAnecdotally, in a cluster of mine running automated probes that experienced problems, `kubectl delete tr --all` returned the cluster to normal (this was why we originally suspected this was load related)."
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "feature-justification"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "feature-justification"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 590386873,
+      "meta": {
+        "repo": "community",
+        "pr_number": 357,
+        "author": "unknown",
+        "loc": "## Requirements",
+        "body": "I wonder if this kind of signal (\"Run XYZ Persisted!\") would be useful to many different kinds of systems, not just deletion.  Are there plans in the works already for Results to emit events like this for consumption by other services?"
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "reusability"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "feature-justification"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "reusability"
+        ]
+      ],
+      "extra": [
+        [
+          "principle",
+          "feature-justification"
+        ]
+      ]
+    },
+    {
+      "cid": 590439436,
+      "meta": {
+        "repo": "community",
+        "pr_number": 357,
+        "author": "wlynch",
+        "loc": "## Requirements",
+        "body": "No solid plans at the moment, but I think that's a discussion worth having w.r.t. [TEP-0032: Tekton Notifications](https://github.com/tektoncd/community/blob/main/teps/0032-tekton-notifications.md)."
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "consistency-with-existing"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "consistency-with-existing"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 592483331,
+      "meta": {
+        "repo": "community",
+        "pr_number": 357,
+        "author": "bobcatfish",
+        "loc": "",
+        "body": "> it's a mechanism to prevent double scheduling if a Run resource is interrupted without the status info being written back (i.e. query for things with the parent label, if it already exists use that, else create what is missing)\r\n\r\nah okay, so this is because for all of these cases there are (at least) 2 things that have to be done:\r\n\r\n1. create the resource (taskrun/pod/run)\r\n2. update the status of the pipelinerun/task run with that resource\r\n\r\nand there's no guarantee (2) will always happen if (1) happened.\r\n\r\ni see what you mean - probably not something we can fix then X'D\r\n\r\nsounds pretty solid! but last question: can you confirm that list calls to the API server grow in time when more objects exist in the cluster, even when they are being filtered by label? (this is something that could probably be proven without needing to use any controllers, etc., you could make a script that creates + lists objects - or just point to a blog where someone already does this XD)"
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "feature-justification"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "feature-justification"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 592816408,
+      "meta": {
+        "repo": "community",
+        "pr_number": 357,
+        "author": "wlynch",
+        "loc": "",
+        "body": "Data I pulled so far suggests this isn't that big of an issue for controllers since most of the data is cached. Not sure if this would differ with real CRD types (e.g. would we start getting memory constrained?) We can follow up on this in the other issue."
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "feature-justification"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "feature-justification"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 595484848,
+      "meta": {
+        "repo": "community",
+        "pr_number": 357,
+        "author": "bobcatfish",
+        "loc": "## Requirements",
+        "body": "@wlynch what would you think about including a requirement to emit a cloudevents during the results lifecycle? (or maybe even as part of the results TEP?) i think @sbwsg makes a great point"
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "reusability"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "reusability"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 605652374,
+      "meta": {
+        "repo": "results",
+        "pr_number": 103,
+        "author": "unknown",
+        "loc": "pkg/watcher/reconciler/pipelinerun/pipelinerun.go",
+        "body": "I am wondering if this and the Infof message on line 93 might be better suited to a `Debugf` level instead?  I'm not totally sure if someone administering a large CI/CD cluster will get a ton of benefit from messages like this one at the default log level.\r\n\r\nCan definitely see keeping the message on line 97 though, since it indicates an impending modification to the cluster."
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ]
+    },
+    {
+      "cid": 605675061,
+      "meta": {
+        "repo": "results",
+        "pr_number": 103,
+        "author": "imjasonh",
+        "loc": "pkg/watcher/reconciler/pipelinerun/controller.go",
+        "body": "Any reason to prefer `EnqueueKeyAfter` instead of `EnqueueAfter` which can just take the whole object?"
+      },
+      "old": [
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "reconciler-pattern"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "reconciler-pattern"
+        ]
+      ],
+      "extra": [
+        [
+          "area",
+          "code"
+        ]
+      ]
+    },
+    {
+      "cid": 605678387,
+      "meta": {
+        "repo": "results",
+        "pr_number": 103,
+        "author": "imjasonh",
+        "loc": "pkg/watcher/results/results.go",
+        "body": "This change seems unrelated to deleting completed runs, was this intentional?"
+      },
+      "old": [
+        [
+          "nature",
+          "cohesion"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "cohesion"
+        ],
+        [
+          "principle",
+          "feature-justification"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "principle",
+          "feature-justification"
+        ]
+      ]
+    },
+    {
+      "cid": 605868777,
+      "meta": {
+        "repo": "results",
+        "pr_number": 103,
+        "author": "wlynch",
+        "loc": "pkg/watcher/reconciler/pipelinerun/pipelinerun.go",
+        "body": "Done. Also moved another log below to debug."
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ]
+    },
+    {
+      "cid": 605935472,
+      "meta": {
+        "repo": "results",
+        "pr_number": 103,
+        "author": "wlynch",
+        "loc": "pkg/watcher/results/results.go",
+        "body": "Yes it is! I should update the commit message to reflect why we're making this change.\r\n\r\nBefore we were updating the Record on every reconcile event - this was fine because we were generally only reconciling on object updates which required us to update the Record. Now that we're doing retries of \"not ready to be deleted yet\" objects, we need to make sure we only update the Record when we need to, since doing extra updates will push the grace period window since we calculate the grace period w.r.t. to the Record last update time. \r\n\r\nThis change just checks if there's a diff in the Record, and only updates if there's data that needs to be changed.\r\n\r\nEven if we change this to be more pipeline resource specific (e.g. use .status.completionTime instead of the Record last update time), I think we still want something like this in place to avoid making duplicate write calls for data we know is identical."
+      },
+      "old": [
+        [
+          "area",
+          "commit-message"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "reconciler-pattern"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "area",
+          "commit-message"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "reconciler-pattern"
+        ]
+      ],
+      "extra": [
+        [
+          "area",
+          "code"
+        ]
+      ]
+    },
+    {
+      "cid": 605960822,
+      "meta": {
+        "repo": "results",
+        "pr_number": 103,
+        "author": "wlynch",
+        "loc": "pkg/watcher/reconciler/pipelinerun/pipelinerun.go",
+        "body": "Yes. See https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/reconcile#Reconciler\r\n\r\n[knative/pkg follows similar behavior](https://github.com/knative/pkg/blob/87426b54db6f1200e2cb9086055fdf7fe90307dc/controller/controller.go#L395), requiring you to wrap the error in [NewPermanentError](https://pkg.go.dev/github.com/knative/pkg/controller#NewPermanentError) to stop the key from being re-enqueued."
+      },
+      "old": [
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "consistency-with-existing"
+        ],
+        [
+          "principle",
+          "reconciler-pattern"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "reconciler-pattern"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "consistency-with-existing"
+        ]
+      ],
+      "extra": [
+        [
+          "area",
+          "code"
+        ]
+      ]
+    },
+    {
+      "cid": 606010890,
+      "meta": {
+        "repo": "results",
+        "pr_number": 103,
+        "author": "imjasonh",
+        "loc": "pkg/watcher/results/results.go",
+        "body": "Nice, thanks for that explanation! Agree about putting this context into the PR description, and probably in a doc comment in here too."
+      },
+      "old": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "area",
+          "pr-description"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "area",
+          "pr-description"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "area",
+          "docs"
+        ]
+      ],
+      "extra": [
+        [
+          "area",
+          "code"
+        ]
+      ]
+    }
+  ],
+  "v2_audit": [
+    {
+      "repo": "community",
+      "pr_number": 347,
+      "comment_id": 581412143,
+      "facet": "principle",
+      "value": "reconciler-pattern",
+      "confidence": 0.4,
+      "evidence": "worries that a controller restart would trigger reprocessing all completed objects - a reconciler restart-efficiency concern",
+      "source_pass": "audit",
+      "meta": {
+        "repo": "community",
+        "pr_number": 347,
+        "author": "bobcatfish",
+        "loc": "## Motivation",
+        "body": "maybe a silly question, but why is the controller continuing to be informed about objects which have been completed?\r\n\r\n(i think if the controller was restarted it would try to re-process _all_ of them which would be terrible, but wondering if this problem only impacts the controller on restart or at other times too)"
+      }
+    },
+    {
+      "repo": "community",
+      "pr_number": 347,
+      "comment_id": 581510744,
+      "facet": "principle",
+      "value": "feature-justification",
+      "confidence": 0.5,
+      "evidence": "shares concrete scaling data (etcd/API slowdown near 10k TaskRuns) supporting the TEP's premise",
+      "source_pass": "audit",
+      "meta": {
+        "repo": "community",
+        "pr_number": 347,
+        "author": "wlynch",
+        "loc": "## Motivation",
+        "body": "Did some more digging here - I don't think the issue is that the controller is being re-informed of objects.\r\n\r\nThis was based somewhat anecdotally on clusters we ran where automatic probes created TaskRuns, and the cluster locked up after O(thousands) of TaskRuns were created (suspiciously near the ~3000 pod-per-namespace mark documented here - https://github.com/kubernetes/community/blob/master/sig-scalability/configs-and-limits/thresholds.md). The leading theory was the # of objects was causing issues with etcd leader election and resulting in the Kubernetes API to be unavailable.\r\nIt's entirely possible that these issues were unrelated - I've started subjecting a test cluster to a load test with a minimal TaskRun to try and recreate this.\r\n\r\nWe're at ~10k TaskRuns with the most noticeable effect being the slow down of `kubectl get` calls (which is expected (taking O(seconds)). I noticed there are several instances of `List` calls that are made in the Task/PipelineRun controllers that might be affected, but nothing too severe so far."
+      }
+    },
+    {
+      "repo": "community",
+      "pr_number": 357,
+      "comment_id": 588673495,
+      "facet": "principle",
+      "value": "feature-justification",
+      "confidence": 0.35,
+      "evidence": "anecdotal report that clearing TaskRuns fixed a load-related cluster issue, weakly supporting the scaling premise",
+      "source_pass": "audit",
+      "meta": {
+        "repo": "community",
+        "pr_number": 357,
+        "author": "wlynch",
+        "loc": "",
+        "body": "I haven't deleted them yet so I can keep the TaskRuns around for more testing if needed \ud83e\udd23  If you have ideas for how we can synthetically create tons of completed TaskRuns w/o pods, let me know! (I wasn't sure if you can just create completed TaskRuns or something similar)\r\n\r\nAnecdotally, in a cluster of mine running automated probes that experienced problems, `kubectl delete tr --all` returned the cluster to normal (this was why we originally suspected this was load related)."
+      }
+    },
+    {
+      "repo": "community",
+      "pr_number": 357,
+      "comment_id": 595484848,
+      "facet": "principle",
+      "value": "feature-justification",
+      "confidence": 0.35,
+      "evidence": "proposes extending scope to cloudevents emission because another reviewer's point was persuasive",
+      "source_pass": "audit",
+      "meta": {
+        "repo": "community",
+        "pr_number": 357,
+        "author": "bobcatfish",
+        "loc": "## Requirements",
+        "body": "@wlynch what would you think about including a requirement to emit a cloudevents during the results lifecycle? (or maybe even as part of the results TEP?) i think @sbwsg makes a great point"
+      }
+    },
+    {
+      "repo": "results",
+      "pr_number": 103,
+      "comment_id": 605935472,
+      "facet": "principle",
+      "value": "reconciler-pattern",
+      "confidence": 0.5,
+      "evidence": "explains avoiding redundant Record writes on every reconcile by checking for an actual diff first",
+      "source_pass": "audit",
+      "meta": {
+        "repo": "results",
+        "pr_number": 103,
+        "author": "wlynch",
+        "loc": "pkg/watcher/results/results.go",
+        "body": "Yes it is! I should update the commit message to reflect why we're making this change.\r\n\r\nBefore we were updating the Record on every reconcile event - this was fine because we were generally only reconciling on object updates which required us to update the Record. Now that we're doing retries of \"not ready to be deleted yet\" objects, we need to make sure we only update the Record when we need to, since doing extra updates will push the grace period window since we calculate the grace period w.r.t. to the Record last update time. \r\n\r\nThis change just checks if there's a diff in the Record, and only updates if there's data that needs to be changed.\r\n\r\nEven if we change this to be more pipeline resource specific (e.g. use .status.completionTime instead of the Record last update time), I think we still want something like this in place to avoid making duplicate write calls for data we know is identical."
+      }
+    }
+  ],
+  "v2_proposals": [
+    {
+      "repo": "community",
+      "pr_number": 357,
+      "comment_id": 588666500,
+      "fragment": "mechanism to prevent double scheduling if a Run resource is interrupted without the status info being written back",
+      "candidate_facet": "principle",
+      "candidate_value": "concurrency-safety",
+      "candidate_description": "Whether code defends against races between concurrent or interrupted operations (e.g. double scheduling, name collisions) rather than assuming single-actor, uninterrupted execution.",
+      "meta": {
+        "repo": "community",
+        "pr_number": 357,
+        "author": "wlynch",
+        "loc": "",
+        "body": "Yeah I can file an issue. \r\n\r\nFunny enough, embedding status info is why these queries are being done in the first place - it's a mechanism to prevent double scheduling if a Run resource is interrupted without the status info being written back (i.e. query for things with the parent label, if it already exists use that, else create what is missing).\r\nWe might be able to avoid some of the query lookups with some journaling, but this will likely expose us to different complexity (I'm primarily worried about name collisions). \ud83d\ude2c "
+      }
+    },
+    {
+      "repo": "community",
+      "pr_number": 357,
+      "comment_id": 592483331,
+      "fragment": "there's no guarantee (2) will always happen if (1) happened ... probably not something we can fix then",
+      "candidate_facet": "principle",
+      "candidate_value": "concurrency-safety",
+      "candidate_description": "Whether code defends against races between concurrent or interrupted operations (e.g. double scheduling, name collisions) rather than assuming single-actor, uninterrupted execution.",
+      "meta": {
+        "repo": "community",
+        "pr_number": 357,
+        "author": "bobcatfish",
+        "loc": "",
+        "body": "> it's a mechanism to prevent double scheduling if a Run resource is interrupted without the status info being written back (i.e. query for things with the parent label, if it already exists use that, else create what is missing)\r\n\r\nah okay, so this is because for all of these cases there are (at least) 2 things that have to be done:\r\n\r\n1. create the resource (taskrun/pod/run)\r\n2. update the status of the pipelinerun/task run with that resource\r\n\r\nand there's no guarantee (2) will always happen if (1) happened.\r\n\r\ni see what you mean - probably not something we can fix then X'D\r\n\r\nsounds pretty solid! but last question: can you confirm that list calls to the API server grow in time when more objects exist in the cluster, even when they are being filtered by label? (this is something that could probably be proven without needing to use any controllers, etc., you could make a script that creates + lists objects - or just point to a blog where someone already does this XD)"
+      }
+    },
+    {
+      "repo": "results",
+      "pr_number": 103,
+      "comment_id": 605642470,
+      "fragment": "a buffer size of a minute might have potential to mask future timing bugs that could otherwise be caught",
+      "candidate_facet": "principle",
+      "candidate_value": "test-rigor",
+      "candidate_description": "Whether a test's tolerance or threshold is tight enough to actually catch regressions, rather than loose enough to mask future timing or correctness bugs.",
+      "meta": {
+        "repo": "results",
+        "pr_number": 103,
+        "author": "unknown",
+        "loc": "pkg/watcher/reconciler/taskrun/taskrun_test.go",
+        "body": "FWIW not a major concern. But wondering if a buffer size of a minute might have potential to mask future timing bugs that could otherwise be caught?"
+      }
+    }
+  ]
+}
