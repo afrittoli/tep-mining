@@ -29,11 +29,19 @@ before), or a `nature` tag added on a comment that had zero `nature` tags before
 mandatory before either) - and nothing is missing. Everything else with any missing or extra
 tag lands in "judgment": a real difference between the two passes worth a human look.
 
+Optionally also folds in a second-pass audit of the v2 classification itself (see
+prompts/audit_classification_coverage.md), if --v2-audit and/or --v2-proposals are given -
+missed-existing-value matches and uncovered-fragment candidates the rebaseline pass itself
+missed, kept as their own report sections rather than blended into "judgment" (those measure
+disagreement between two ground-truth passes; these measure a gap within the new pass alone).
+
 Usage:
     uv run scripts/compare_taxonomy_rebaseline.py --tep 52 \
         --ground-truth processed/tep52/agent_classify.jsonl \
         --include-audit processed/tep52/agent_audit.jsonl \
         --candidate processed/tep52/agent_classify_v2.jsonl \
+        --v2-audit processed/tep52/agent_audit_v2.jsonl \
+        --v2-proposals processed/tep52/agent_taxonomy_proposals_v2.jsonl \
         --repos results#103,community#347,community#357 \
         --out processed/tep52/report_full.json
 """
@@ -109,6 +117,8 @@ def build(
     candidate: Path,
     records_path: Path,
     repos: list[str],
+    v2_audit: Path | None = None,
+    v2_proposals: Path | None = None,
 ) -> dict:
     old_rows = _load_rows(ground_truth)
     if include_audit:
@@ -167,6 +177,13 @@ def build(
                 }
             )
 
+    audit_rows = _load_rows(v2_audit) if v2_audit else []
+    proposal_rows = _load_rows(v2_proposals) if v2_proposals else []
+    for row in audit_rows:
+        row["meta"] = comments.get(row["comment_id"], {})
+    for row in proposal_rows:
+        row["meta"] = comments.get(row["comment_id"], {})
+
     return {
         "summary": {
             "old_total": old_total,
@@ -178,6 +195,8 @@ def build(
         },
         "expected": expected,
         "judgment": judgment,
+        "v2_audit": audit_rows,
+        "v2_proposals": proposal_rows,
     }
 
 
@@ -187,6 +206,20 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--ground-truth", type=Path, required=True)
     parser.add_argument("--include-audit", type=Path, default=None)
     parser.add_argument("--candidate", type=Path, required=True)
+    parser.add_argument(
+        "--v2-audit",
+        type=Path,
+        default=None,
+        help="Optional agent_audit_v2.jsonl - a second-pass audit of the v2 classification "
+        "itself (see prompts/audit_classification_coverage.md), rendered as its own section.",
+    )
+    parser.add_argument(
+        "--v2-proposals",
+        type=Path,
+        default=None,
+        help="Optional agent_taxonomy_proposals_v2.jsonl - the v2 audit's uncovered-fragment "
+        "candidates.",
+    )
     parser.add_argument(
         "--records",
         type=Path,
@@ -208,6 +241,8 @@ def main(argv: list[str] | None = None) -> int:
         args.candidate,
         args.records,
         args.repos.split(","),
+        args.v2_audit,
+        args.v2_proposals,
     )
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps(data, indent=2))
@@ -223,6 +258,8 @@ def main(argv: list[str] | None = None) -> int:
     print(
         f"clean_agree={s['clean_agree']} expected={len(data['expected'])} judgment={len(data['judgment'])}"
     )
+    if args.v2_audit or args.v2_proposals:
+        print(f"v2_audit={len(data['v2_audit'])} v2_proposals={len(data['v2_proposals'])}")
     return 0
 
 
