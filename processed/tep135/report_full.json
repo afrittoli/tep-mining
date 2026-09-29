@@ -1,0 +1,6234 @@
+{
+  "summary": {
+    "old_total": 554,
+    "new_total": 643,
+    "agree": 455,
+    "clean_agree": 136,
+    "total_comments": 330,
+    "repos": [
+      "pipeline (11 PRs)",
+      "community#1017",
+      "community#1025"
+    ]
+  },
+  "expected": [
+    {
+      "cid": 1183613063,
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 1017,
+        "author": "vdemeester",
+        "loc": "",
+        "body": "Any reason to tackle this one right now ? (aka I see less use-case than the one above)"
+      }
+    },
+    {
+      "cid": 1183613197,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 1017,
+        "author": "vdemeester",
+        "loc": "### Configuration",
+        "body": "\ud83d\udc4d\ud83c\udffc "
+      }
+    },
+    {
+      "cid": 1183649822,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 1017,
+        "author": "lbernick",
+        "loc": "### Co-locating volumes",
+        "body": "yup it's in the previous paragraph!"
+      }
+    },
+    {
+      "cid": 1183881621,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 1017,
+        "author": "vdemeester",
+        "loc": "",
+        "body": "Fair"
+      }
+    },
+    {
+      "cid": 1212748267,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "Ahh. Good catch!"
+      }
+    },
+    {
+      "cid": 1212748787,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "SGTM, removed"
+      }
+    },
+    {
+      "cid": 1212749080,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "Updated the test, PTAL!"
+      }
+    },
+    {
+      "cid": 1212749215,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "Updated!"
+      }
+    },
+    {
+      "cid": 1212756155,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/pipelinerun.go",
+        "body": "Sure, updated!"
+      }
+    },
+    {
+      "cid": 1212925020,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "Updated the cleanup logic to delete PVCs!"
+      }
+    },
+    {
+      "cid": 1218446005,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "Thanks for the suggestion. I have updated the test cases based on your comment. PTAL!"
+      }
+    },
+    {
+      "cid": 1218451497,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "Thanks, resolved!"
+      }
+    },
+    {
+      "cid": 1218453496,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "Please see the updated test logic \ud83d\ude01 "
+      }
+    },
+    {
+      "cid": 1218453709,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "Please see the updated test logic \ud83d\ude01"
+      }
+    },
+    {
+      "cid": 1218454069,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/pipelinerun.go",
+        "body": "String doc updated and included documentation for \"owner\" and \"pipelineTaskSubPath\" arguments."
+      }
+    },
+    {
+      "cid": 1218454496,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/volumeclaim/pvchandler.go",
+        "body": "String doc updated!"
+      }
+    },
+    {
+      "cid": 1218454852,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/pipelinerun.go",
+        "body": "Good catch, fixed!"
+      }
+    },
+    {
+      "cid": 1218457600,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "You are right, removed!"
+      }
+    },
+    {
+      "cid": 1218458613,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/pipelinerun.go",
+        "body": "I probably did some experiment but forgot to put it back \ud83d\ude1e ... Fixed it."
+      }
+    },
+    {
+      "cid": 1218460093,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/pipelinerun.go",
+        "body": "Please see the latest update with new function names which increase readability (hopefully \ud83d\ude01 )"
+      }
+    },
+    {
+      "cid": 1218462016,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "Thanks, added the test case!"
+      }
+    },
+    {
+      "cid": 1219500577,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "Happy to see it helps with readability! Yeah, added a comment here."
+      }
+    },
+    {
+      "cid": 1219501920,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/pipelinerun.go",
+        "body": "updated!"
+      }
+    },
+    {
+      "cid": 1223195995,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "Yongxuanzhang",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "Oh I see, thanks!"
+      }
+    },
+    {
+      "cid": 1226653458,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 1025,
+        "author": "QuanZhang-William",
+        "loc": "",
+        "body": "Thanks, updated!"
+      }
+    },
+    {
+      "cid": 1226653845,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 1025,
+        "author": "QuanZhang-William",
+        "loc": "",
+        "body": "Updated!"
+      }
+    },
+    {
+      "cid": 1226654143,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 1025,
+        "author": "QuanZhang-William",
+        "loc": "",
+        "body": "Updated!"
+      }
+    },
+    {
+      "cid": 1231255456,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 1025,
+        "author": "QuanZhang-William",
+        "loc": "",
+        "body": "Sorry @afrittoli , I missed this part, I have cleaned up the 1.0 stuff"
+      }
+    },
+    {
+      "cid": 1231365027,
+      "extra": [
+        [
+          "area",
+          "tep-body"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 1025,
+        "author": "QuanZhang-William",
+        "loc": "### Configuration",
+        "body": "@pritidesai , do you think we can merge this TEP change as it is, and defer the naming discussion to this implementation PR:\r\nhttps://github.com/tektoncd/pipeline/pull/6790\r\n\r\nI can go back and update TEP later if we eventually decide to update the names \ud83d\ude01 "
+      }
+    },
+    {
+      "cid": 1231560035,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 1025,
+        "author": "QuanZhang-William",
+        "loc": "### Configuration",
+        "body": "@pritidesai, can I mark this thread as resolved for now?"
+      }
+    },
+    {
+      "cid": 1232339159,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6819,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "Thanks! Tracking issue added to the TODOs"
+      }
+    },
+    {
+      "cid": 1232339652,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6819,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "Good catch on this one, I've cleaned up the function signature."
+      }
+    },
+    {
+      "cid": 1232736217,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6819,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "Refactored further based on the comment, PTAL!"
+      }
+    },
+    {
+      "cid": 1232766245,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6790,
+        "author": "QuanZhang-William",
+        "loc": "pkg/internal/affinityassistant/affinityassistant_types.go",
+        "body": "TODO added to the cleanup function"
+      }
+    },
+    {
+      "cid": 1232767193,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6790,
+        "author": "QuanZhang-William",
+        "loc": "config/config-feature-flags.yaml",
+        "body": "SGTM, I have added a section for explaination."
+      }
+    },
+    {
+      "cid": 1232767565,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6790,
+        "author": "QuanZhang-William",
+        "loc": "pkg/apis/config/feature_flags.go",
+        "body": "The TEP change is merged: https://github.com/tektoncd/community/pull/1025\r\n\r\n/hold cancel"
+      }
+    },
+    {
+      "cid": 1234473114,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6790,
+        "author": "QuanZhang-William",
+        "loc": "pkg/apis/config/feature_flags.go",
+        "body": "Good catch.. Fixed"
+      }
+    },
+    {
+      "cid": 1238387496,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6790,
+        "author": "lbernick",
+        "loc": "pkg/internal/affinityassistant/affinityassistant_types_test.go",
+        "body": "ah ok, sg"
+      }
+    },
+    {
+      "cid": 1238687891,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6819,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "Good catch, fixed!"
+      }
+    },
+    {
+      "cid": 1244141355,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6790,
+        "author": "QuanZhang-William",
+        "loc": "pkg/internal/affinityassistant/affinityassistant_types_test.go",
+        "body": "Sure, added."
+      }
+    },
+    {
+      "cid": 1246842832,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6819,
+        "author": "Yongxuanzhang",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "Oh sorry, I was wrong. \ud83d\ude02 \r\nI think we can resolve this"
+      }
+    },
+    {
+      "cid": 1246843546,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6819,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "No worried! \u2764\ufe0f "
+      }
+    },
+    {
+      "cid": 1248159994,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6892,
+        "author": "QuanZhang-William",
+        "loc": "docs/workspaces.md",
+        "body": "Ahh sorry. Fix..."
+      }
+    },
+    {
+      "cid": 1248160167,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6892,
+        "author": "QuanZhang-William",
+        "loc": "docs/workspaces.md",
+        "body": "SGTM, added in the new file"
+      }
+    },
+    {
+      "cid": 1248160453,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6892,
+        "author": "QuanZhang-William",
+        "loc": "docs/workspaces.md",
+        "body": "Good catch, fixed."
+      }
+    },
+    {
+      "cid": 1248160654,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6892,
+        "author": "QuanZhang-William",
+        "loc": "config/config-feature-flags.yaml",
+        "body": "Sure, links added"
+      }
+    },
+    {
+      "cid": 1248161247,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6892,
+        "author": "QuanZhang-William",
+        "loc": "docs/workspaces.md",
+        "body": "Added a paragraph for it, PTAL"
+      }
+    },
+    {
+      "cid": 1248161421,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6892,
+        "author": "QuanZhang-William",
+        "loc": "docs/workspaces.md",
+        "body": "\ud83d\udc4d , I have rephrased the paragrah"
+      }
+    },
+    {
+      "cid": 1248161700,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6892,
+        "author": "QuanZhang-William",
+        "loc": "docs/workspaces.md",
+        "body": "\ud83d\udc4d . I have added a new file for affinity assistant"
+      }
+    },
+    {
+      "cid": 1248211097,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6892,
+        "author": "QuanZhang-William",
+        "loc": "config/config-feature-flags.yaml",
+        "body": "Oh sorry, just fixed"
+      }
+    },
+    {
+      "cid": 1248211637,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6892,
+        "author": "QuanZhang-William",
+        "loc": "docs/affinityassistants.md",
+        "body": "Updated"
+      }
+    },
+    {
+      "cid": 1248228240,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6893,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "/hold"
+      }
+    },
+    {
+      "cid": 1253276781,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6893,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "Thanks, Lee! \r\n/hold cancel"
+      }
+    },
+    {
+      "cid": 1253276977,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6893,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/pipelinerun.go",
+        "body": "SGTM, updated"
+      }
+    },
+    {
+      "cid": 1253277362,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6893,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "SGTM, updated"
+      }
+    },
+    {
+      "cid": 1254534220,
+      "extra": [
+        [
+          "area",
+          "code"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6893,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "CreatePVCsForWorkspacesWithoutAffinityAssistant will fail if it tries to create PVCs that already exist, but createOrUpdateAffinityAssistantsAndPVCsPerAABehavior runs on every reconcile loop. Will this work past the first reconcile loop?"
+      }
+    },
+    {
+      "cid": 1254581058,
+      "extra": [
+        [
+          "area",
+          "code"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6893,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "No it will be only executed once, as it is guarded by `pipelineRunFacts.State.IsBeforeFirstTaskRun()`. The `CreatePVCsForWorkspacesWithoutAffinityAssistant ` also checks the existence of the PVCs"
+      }
+    },
+    {
+      "cid": 1254586005,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6893,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "Renamed to createOrUpdateAffinityAssistantsAndPVCs"
+      }
+    },
+    {
+      "cid": 1258414562,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6893,
+        "author": "lbernick",
+        "loc": "test/affinity_assistant_test.go",
+        "body": "This looks great! Thanks Quan."
+      }
+    },
+    {
+      "cid": 1258422969,
+      "extra": [
+        [
+          "area",
+          "code"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6893,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "I'm approving this PR but I have a strong preference that refactoring changes happen first. typically refactoring changes that get deferred to later just get deprioritized."
+      }
+    },
+    {
+      "cid": 1258658590,
+      "extra": [
+        [
+          "area",
+          "code"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6893,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "Hi Lee, I did some investigation and realized that doing such refactoring in this PR will introduce a bunch of code changes. This makes this PR quite big and harder to review.\r\n\r\nTo address your concern, I have created an issue tracking it and assigned to myself: https://github.com/tektoncd/pipeline/issues/6915 (will make sure to prioritize). Merging this PR as it is can help unblocking the followup PRs where I will add e2e support for `coschedule pipelineruns` mode, and I can work on the refactoring work in parallel (and the reviews for the followup PRs can happen in parallel). \r\n\r\nWDTY?"
+      }
+    },
+    {
+      "cid": 1258661254,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6893,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "Thank you! I appreciate it!"
+      }
+    },
+    {
+      "cid": 1258745476,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6893,
+        "author": "QuanZhang-William",
+        "loc": "test/affinity_assistant_test.go",
+        "body": "SGTM, docstring added"
+      }
+    },
+    {
+      "cid": 1258932364,
+      "extra": [
+        [
+          "area",
+          "docs"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6892,
+        "author": "QuanZhang-William",
+        "loc": "docs/affinityassistants.md",
+        "body": "The implementation for this feature is about to be completed. Maybe we can merge this PR after the feature is fully supported and update this section.\r\n\r\n/hold"
+      }
+    },
+    {
+      "cid": 1258935532,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6892,
+        "author": "QuanZhang-William",
+        "loc": "docs/affinityassistants.md",
+        "body": "Yeah. I switched the order of the chart and the notes, so that the chart is now right below its explanations. PTAL"
+      }
+    },
+    {
+      "cid": 1258935636,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6892,
+        "author": "QuanZhang-William",
+        "loc": "docs/affinityassistants.md",
+        "body": "Please see the above comment"
+      }
+    },
+    {
+      "cid": 1259897370,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6893,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "Good catch, fixed!"
+      }
+    },
+    {
+      "cid": 1265529224,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6929,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "Sure, I have added some comments here"
+      }
+    },
+    {
+      "cid": 1265693696,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6929,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "SGTM, I have reverted to the previous behavior!\r\n\r\nAnd also a somewhat related fix: https://github.com/tektoncd/pipeline/pull/6930 \ud83d\ude4f "
+      }
+    },
+    {
+      "cid": 1268519382,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6940,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "TODO link added"
+      }
+    },
+    {
+      "cid": 1268519774,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6940,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/volumeclaim/pvchandler.go",
+        "body": "docstring added for the function with k8s doc link"
+      }
+    },
+    {
+      "cid": 1268522310,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6940,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "Thanks, Lee. I have updated the test case to test multiple PVCs and Affinity Assistants, PTAL"
+      }
+    },
+    {
+      "cid": 1268522531,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6940,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "Please see the above comment"
+      }
+    },
+    {
+      "cid": 1268537703,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6940,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "thanks, removed \"expected\""
+      }
+    },
+    {
+      "cid": 1268538023,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6940,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/volumeclaim/pvchandler.go",
+        "body": "\ud83d\ude05 , fixed"
+      }
+    },
+    {
+      "cid": 1270825717,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6927,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "function `isAffinityAssistantDisabled` is now no longer used and removed"
+      }
+    },
+    {
+      "cid": 1270986734,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6927,
+        "author": "QuanZhang-William",
+        "loc": "test/affinity_assistant_test.go",
+        "body": "Thanks! Changed to default value variables"
+      }
+    },
+    {
+      "cid": 1270987244,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6927,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/taskrun/taskrun_test.go",
+        "body": "Changed to `t.IsFailure`"
+      }
+    },
+    {
+      "cid": 1270987396,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6927,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/taskrun/taskrun_test.go",
+        "body": "error message updated"
+      }
+    },
+    {
+      "cid": 1270988456,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6927,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "The cleanup logic test is updated in https://github.com/tektoncd/pipeline/pull/6940"
+      }
+    },
+    {
+      "cid": 1271061483,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6927,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "sorry, missed this!"
+      }
+    },
+    {
+      "cid": 1272751640,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6921,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/pipelinerun.go",
+        "body": "Thanks for the suggestion! Changed to sentinel error (this part overlaps with https://github.com/tektoncd/pipeline/pull/6927)!"
+      }
+    },
+    {
+      "cid": 1272752338,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6921,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "Yeah you are right. I rephrased this comment and the comment below, hoping it is less confusing now."
+      }
+    },
+    {
+      "cid": 1272752952,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6921,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/volumeclaim/pvchandler.go",
+        "body": "SGTM, function name changed"
+      }
+    },
+    {
+      "cid": 1272753592,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6921,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "This test is copied from https://github.com/tektoncd/pipeline/pull/6927"
+      }
+    },
+    {
+      "cid": 1272753973,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6921,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/pipelinerun.go",
+        "body": "This part is copied from https://github.com/tektoncd/pipeline/pull/6927"
+      }
+    },
+    {
+      "cid": 1272756888,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6921,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "Changed to sentinel error"
+      }
+    },
+    {
+      "cid": 1273643366,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6921,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "Thanks, fixed"
+      }
+    },
+    {
+      "cid": 1273643423,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6921,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/volumeclaim/pvchandler.go",
+        "body": "Removed"
+      }
+    },
+    {
+      "cid": 1287481844,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6994,
+        "author": "QuanZhang-William",
+        "loc": "docs/workspaces.md",
+        "body": "Thanks, I have remove the term `PipelineTaskRun` in the whole doc."
+      }
+    },
+    {
+      "cid": 1287486238,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6994,
+        "author": "QuanZhang-William",
+        "loc": "docs/workspaces.md",
+        "body": "I rephrased this in the new section below"
+      }
+    },
+    {
+      "cid": 1287669614,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6994,
+        "author": "lbernick",
+        "loc": "docs/workspaces.md",
+        "body": "This looks a lot better!"
+      }
+    },
+    {
+      "cid": 1288760722,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6994,
+        "author": "QuanZhang-William",
+        "loc": "docs/workspaces.md",
+        "body": "issue links updated!"
+      }
+    }
+  ],
+  "judgment": [
+    {
+      "cid": 1183618383,
+      "meta": {
+        "repo": "community",
+        "pr_number": 1017,
+        "author": "vdemeester",
+        "loc": "### Co-locating volumes",
+        "body": "Do we have an issue to track this ?"
+      },
+      "old": [],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ]
+    },
+    {
+      "cid": 1183649478,
+      "meta": {
+        "repo": "community",
+        "pr_number": 1017,
+        "author": "lbernick",
+        "loc": "### Configuration",
+        "body": "I think it's probably fine since the placeholder pod is an implementation detail and users aren't interacting with it. it seems easier to just keep the existing labels, but we can definitely change them if that's the consensus."
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "consistency-with-existing"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "consistency-with-existing"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 1183699367,
+      "meta": {
+        "repo": "community",
+        "pr_number": 1017,
+        "author": "lbernick",
+        "loc": "",
+        "body": "This would be for cluster operators/vendors where isolating pipelineruns to separate nodes is more important than the cost savings of bin-packing them on the same node. The effort to add this configuration option is super low so I don't see any reason to hold off in the initial implementation."
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "feature-justification"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "tep-staging"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "feature-justification"
+        ]
+      ],
+      "extra": [
+        [
+          "principle",
+          "tep-staging"
+        ]
+      ]
+    },
+    {
+      "cid": 1210654715,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "I don't think this TODO is actually true-- isn't this what this PR is supposed to address? If you do keep it around, please link an issue here rather than your username."
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 1210668180,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "I think the tests would be easier to understand if you add an `expectedStatefulSet` field to the test case struct."
+      },
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ]
+    },
+    {
+      "cid": 1210668322,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "```suggestion\r\n\t\t\t\t\tt.Fatalf(\"unexpected error when retrieving StatefulSet: %v\", err)\r\n```"
+      },
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ]
+    },
+    {
+      "cid": 1210669528,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "Is this meant to clean up the test, or to test cleanup of the affinity assistant? Is there any way to separate out tests for cleanup?"
+      },
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "cohesion"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "cohesion"
+        ]
+      ]
+    },
+    {
+      "cid": 1212755859,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "It is part of the original test and It meant to test clean up logic of the affinity assistant. I think it is kinda reasonable to test out the cleanup logic here since we need to create an Affinity Assistant to test clean up anyways if we separate it out."
+      },
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "cohesion"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "cohesion"
+        ]
+      ]
+    },
+    {
+      "cid": 1213431318,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "nit: is this line needed?"
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ]
+    },
+    {
+      "cid": 1213432101,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "can you make this a field of the test case, to simplify the amount of logic in the test?"
+      },
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "formatting"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ]
+    },
+    {
+      "cid": 1213433426,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "I think putting the entire statefulset spec might be better actually. If we don't want a statefulset to exist it can just be nil. This helps reduce the amount of logic in the test. For example, right now the test logic is assuming that each test case has only one PVC and that the affinity assistant is named a certain way. You can use cmpopts to ignore the fields that aren't important."
+      },
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "formatting"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ]
+    },
+    {
+      "cid": 1213446497,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/pipelinerun.go",
+        "body": "Can you double check? If we're applying the `volumeClaimTemplate` to the statefulset spec, I believe the PVCs generated will have different names than they did previously."
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "api-compatibility"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "principle",
+          "api-compatibility"
+        ]
+      ]
+    },
+    {
+      "cid": 1213448070,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/pipelinerun_test.go",
+        "body": "I think this function returns an error, can you add handling?"
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "area",
+          "code"
+        ]
+      ],
+      "extra": [
+        [
+          "area",
+          "tests"
+        ]
+      ]
+    },
+    {
+      "cid": 1218449608,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "We have an increasing code coverage with current tests so I think it is ok for this PR. It is a good idea to have separate tests for the clean up logic. I will submit another PR for the extra unit tests considering the size of this PR."
+      },
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ]
+    },
+    {
+      "cid": 1218451225,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/pipelinerun.go",
+        "body": "I agree it is confusing! `GetPersistentVolumeClaimName` actually refers to `GetPersistentVolumeClaimNameWithoutAffinityAssistant` so we don't need to update this part of logic. I have update the function name and string doc to improve readability, PTAL!"
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ]
+    },
+    {
+      "cid": 1218481273,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/pipelinerun_test.go",
+        "body": "nit: would it be simpler to create the configmap in all cases, and have the value of `disable-affinity-assistant` be passed in from the configmap?"
+      },
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "formatting"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ]
+    },
+    {
+      "cid": 1219507883,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/pipelinerun_test.go",
+        "body": "Hmm I agree that putting the configmap in the tests would help when we want to set multiple feature flags. Since `disable-affinity-assistant` is the only related field, I think a boolean flag in the test case would be easier to read instead?"
+      },
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "principle",
+          "simplicity"
+        ]
+      ]
+    },
+    {
+      "cid": 1222101161,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6790,
+        "author": "lbernick",
+        "loc": "config/config-feature-flags.yaml",
+        "body": "Rather than linking to the TEP, I think it would be good to write a section of docs explaining the configuration options for the feature. the TEP audience is developers, while our docs audience is cluster operators."
+      },
+      "old": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "area",
+          "feature-gate-registration"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "area",
+          "feature-gate-registration"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 1222101527,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6790,
+        "author": "lbernick",
+        "loc": "config/config-feature-flags.yaml",
+        "body": "```suggestion\r\n  # NOTE: this feature is still under development and not yet functional.\r\n```"
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "missing": [
+        [
+          "area",
+          "code"
+        ]
+      ],
+      "extra": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ]
+    },
+    {
+      "cid": 1222104446,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6790,
+        "author": "lbernick",
+        "loc": "pkg/apis/config/feature_flags.go",
+        "body": "In the TEP I wasn't planning on introducing \"coschedule-workspaces\" until we remove \"disable-affinity-assistant\". We could add this flag now, but I think we'd also need to disallow the combo where \"coscheduling\" is set to \"coschedule-workspaces\" but \"disable-affinity-assistant is set to \"true\", and to allow the combo where \"coscheduling\" is set to \"coschedule-workspaces\" and \"disable-affinity-assistant is set to \"false\"."
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "consistency-with-existing"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "api-compatibility"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "consistency-with-existing"
+        ]
+      ],
+      "extra": [
+        [
+          "principle",
+          "api-compatibility"
+        ]
+      ]
+    },
+    {
+      "cid": 1222106230,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6790,
+        "author": "lbernick",
+        "loc": "pkg/apis/config/testing/featureflags.go",
+        "body": "not necessarily in scope for this PR but it would be nice to move this functionality to this package: https://github.com/tektoncd/pipeline/blob/25442663bf71794b842000b5e15e0d49dad153ef/pkg/apis/config/feature_flags.go#L303-L316"
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "cohesion"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "cohesion"
+        ]
+      ]
+    },
+    {
+      "cid": 1223156537,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6790,
+        "author": "QuanZhang-William",
+        "loc": "pkg/apis/config/feature_flags.go",
+        "body": "Thanks for the input! As per our discussion we probably want to update the default value of `coscheduling` from `disabled` to `coschedule-workspaces`. I will update the TEP to clarify it.\r\n\r\n/hold"
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "area",
+          "tep-body"
+        ]
+      ],
+      "extra": [
+        [
+          "area",
+          "code"
+        ]
+      ]
+    },
+    {
+      "cid": 1227749034,
+      "meta": {
+        "repo": "community",
+        "pr_number": 1025,
+        "author": "afrittoli",
+        "loc": "### Configuration",
+        "body": "I'm unsure about this combination - in this case, the affinity-assistant flag (disabled) prevails over the coschedule flag (enabled, default). I was expecting this to be \"N/A: invalid\" like in the flip case of AA enabled and coschedule disabled."
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "consistency-with-existing"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "api-compatibility"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "consistency-with-existing"
+        ]
+      ],
+      "extra": [
+        [
+          "principle",
+          "api-compatibility"
+        ]
+      ]
+    },
+    {
+      "cid": 1228155427,
+      "meta": {
+        "repo": "community",
+        "pr_number": 1025,
+        "author": "QuanZhang-William",
+        "loc": "",
+        "body": "@lbernick , could you please help give more insights about `v1.0` release? (I'm not 100% sure as it is part of the original TEP \ud83d\ude05) "
+      },
+      "old": [],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ]
+    },
+    {
+      "cid": 1229731738,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6819,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "It looks like there's a lot of repeated logic here with createOrUpdateAffinityAssistantsPerWorkspace, even with createOrUpdateAffinityAssistants refactored. Could these functions be merged somehow, maybe with an argument specifying the affinity assistant mode?\r\n\r\nMaybe there could be a helper function that collects all the claim templates and all the claims from the workspace bindings, and then passes them into a function that will create affinity assistants based on the appropriate mode?"
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "principle",
+          "simplicity"
+        ]
+      ]
+    },
+    {
+      "cid": 1229736896,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6819,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "Is the plan to make sure https://github.com/tektoncd/pipeline/pull/6790 goes in first and then rebase this PR onto it, rather than submitting with the TODO? I think the other PR makes logical sense to go in first"
+      },
+      "old": [
+        [
+          "nature",
+          "self-containedness"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "self-containedness"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "extra": [
+        [
+          "area",
+          "code"
+        ]
+      ]
+    },
+    {
+      "cid": 1229777579,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6819,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "is there a way to implement support for cleanup within this PR?"
+      },
+      "old": [
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "self-containedness"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "extra": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "self-containedness"
+        ]
+      ]
+    },
+    {
+      "cid": 1230024264,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6819,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "I actually planned to make this PR and #6790 separate (no change in the pipelinerun reconciler) so that I can work in parallel and there is no need to rebase. These 2 PRs just add implementation but nothing is consumed.\r\n\r\nOnce the 2 PRs are merged, I will have another PR to consume the functions in the 2 PRs in the reconciler to glue everything together. There are still some work to do in the last PR for example, lifting some validations, calculating and passing PVC & AA names based on the mode (and more tests). \r\n\r\nIf we do all these things in this PR, I think it will go too big."
+      },
+      "old": [
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "nature",
+          "self-containedness"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "magnitude"
+        ],
+        [
+          "nature",
+          "self-containedness"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "extra": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "magnitude"
+        ]
+      ]
+    },
+    {
+      "cid": 1230048000,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6819,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "Yeah, I think if we merge the 2 functions together, it will save some duplicate code. But in that case, we need to get https://github.com/tektoncd/pipeline/pull/6790 checked in first\r\n"
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "nature",
+          "self-containedness"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "self-containedness"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 1230066833,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6819,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "If merging https://github.com/tektoncd/pipeline/pull/6790 would result in this PR being simpler, I'd definitely favor merging that PR first. Alternatively, I think it would also be fine to introduce `type AffinityAssitantBehavior string` in this PR as well."
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "self-containedness"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "self-containedness"
+        ]
+      ]
+    },
+    {
+      "cid": 1230067582,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6819,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "OK, I'll defer to your judgment on PR splits here, but please link to tracking issues when leaving TODOs in comments."
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "self-containedness"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "self-containedness"
+        ]
+      ]
+    },
+    {
+      "cid": 1231018163,
+      "meta": {
+        "repo": "community",
+        "pr_number": 1025,
+        "author": "lbernick",
+        "loc": "### Configuration",
+        "body": "It may be helpful to rephrase the chart in terms of actions a user needs to take:\r\n- If you want default behavior of coschedule-workspaces, no action needed\r\n- If you were already disabling the affinity assistant, no action needed now, but at some point you'll need to set `coscheduling` to `disabled`.\r\n\r\nFor Andrea's proposal:\r\n- If you were previously accepting default behavior but now want one of the new features, just set `coscheduling` to the value you want\r\n- If you were previously disabling the affinity assistant but want one of the new features, you need to set `disable-affinity-assistant` back to \"false\" and then turn on the new behavior.\r\n\r\nFor Quan's original proposal:\r\n- If you were previously accepting default behavior but now want one of the new features, you need to  set `disable-affinity-assistant` to \"true\" and then turn on the new behavior.\r\n- If you were previously disabling the affinity assistant but want one of the new features,  just set `coscheduling` to the value you want.\r\n\r\n\r\nI personally find Quan's original proposal less confusing, but I am open to either. The two most important things IMO are:\r\n1. Preserving existing behavior for users setting \"disable-affinity-assistant\" to \"true\" (which both of these proposals do)\r\n2. Including the chart in our docs"
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "api-compatibility"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "extra": [
+        [
+          "principle",
+          "api-compatibility"
+        ]
+      ]
+    },
+    {
+      "cid": 1231207597,
+      "meta": {
+        "repo": "community",
+        "pr_number": 1025,
+        "author": "afrittoli",
+        "loc": "### Configuration",
+        "body": "Sounds good, thank @lbernick - I don't think there is a clear winner between the two, but I find your phrasing really good and useful for docs and release notes. It's ok for me to keep the current plan. "
+      },
+      "old": [
+        [
+          "area",
+          "release-notes"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "area",
+          "release-notes"
+        ]
+      ],
+      "extra": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ]
+    },
+    {
+      "cid": 1231222492,
+      "meta": {
+        "repo": "community",
+        "pr_number": 1025,
+        "author": "QuanZhang-William",
+        "loc": "### Configuration",
+        "body": "Thanks for your inputs! I agree that which one is less confusing is quite personal. In this case, I think it makes sense to keep the current chart. But I will make sure to add Lee's rephrasing to the documentation and implementation PR once the feature is ready.\r\n\r\n@afrittoli, do you think you can approve this PR and get it merged?"
+      },
+      "old": [],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ]
+    },
+    {
+      "cid": 1231236770,
+      "meta": {
+        "repo": "community",
+        "pr_number": 1025,
+        "author": "pritidesai",
+        "loc": "### Configuration",
+        "body": "thank you @QuanZhang-William for putting up this PR. I am sorry for jumping in last minute \ud83d\ude1e \r\n\r\nThe feature flag is named `coscheduling` which sounds odd for a name. Most of the supported values starts with `coschedule-`. \r\n\r\nHas anyone else thought about the naming?\r\n\r\nHow does `coexist` sound as an alternative with `workspaces`, `all-pipelineruns`, `single-pipelinerun`, etc.\r\n\r\nI am not that great with names either but checking if other folks finding this confusing"
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "formatting"
+        ],
+        [
+          "principle",
+          "consistency-with-existing"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "consistency-with-existing"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ]
+    },
+    {
+      "cid": 1231274942,
+      "meta": {
+        "repo": "community",
+        "pr_number": 1025,
+        "author": "QuanZhang-William",
+        "loc": "### Configuration",
+        "body": "Hi @pritidesai, no worries! Yeah, I agree naming is not an easy thing...\r\n\r\nWhen reading the current feature flag `coscheduling` and the values, I personally didn't find it is too confusing to read, but not sure about others.\r\n\r\nIf we use `coexist` with `all-pipelineruns`, I feel some people could understand it as we will schedule all the pipelineruns (not pipeline tasks) to the same node. \r\n\r\nI'm definitely open to this discussion, but I think we can defer this topic to another PR, as the purpose of this one is to update the default value to preserve AA behavior before&after the migration ?"
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "consistency-with-existing"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "consistency-with-existing"
+        ]
+      ]
+    },
+    {
+      "cid": 1231296806,
+      "meta": {
+        "repo": "community",
+        "pr_number": 1025,
+        "author": "afrittoli",
+        "loc": "### Configuration",
+        "body": "Maybe we could have some along these lines:\r\n- flag name: `coschedule`\r\n- values: `[disabled, workspaces, pipelines, isolate]`\r\n\r\nTo avoid the repetition of coschedule?"
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "formatting"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ]
+    },
+    {
+      "cid": 1231298319,
+      "meta": {
+        "repo": "community",
+        "pr_number": 1025,
+        "author": "afrittoli",
+        "loc": "### Configuration",
+        "body": "In either case, I wouldn't mind agreeing on the final naming on the implementation PR."
+      },
+      "old": [],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "tep-staging"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "tep-staging"
+        ]
+      ]
+    },
+    {
+      "cid": 1231313015,
+      "meta": {
+        "repo": "community",
+        "pr_number": 1025,
+        "author": "QuanZhang-William",
+        "loc": "### Configuration",
+        "body": "> Maybe we could have some along these lines:\r\n> \r\n> * flag name: `coschedule`\r\n> * values: `[disabled, workspaces, pipelines, isolate]`\r\n> \r\n> To avoid the repetition of coschedule?\r\n\r\nI think this is a good suggestion, but maybe `pipelineruns` instead of `pipelines`"
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ]
+    },
+    {
+      "cid": 1231464006,
+      "meta": {
+        "repo": "community",
+        "pr_number": 1025,
+        "author": "pritidesai",
+        "loc": "### Configuration",
+        "body": "I am sorry @QuanZhang-William I didn't mean to block this PR for the naming conventions.\r\n\r\nI just want to make sure its something not forgotten in a long run. As we heavily rely on the existing feature flag and trying to make sure the transition is smooth for the cluster operators."
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "deprecation-handling"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "tep-staging"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "deprecation-handling"
+        ]
+      ],
+      "extra": [
+        [
+          "principle",
+          "tep-staging"
+        ]
+      ]
+    },
+    {
+      "cid": 1231472484,
+      "meta": {
+        "repo": "community",
+        "pr_number": 1025,
+        "author": "QuanZhang-William",
+        "loc": "### Configuration",
+        "body": "No worries! In this case, I think we can move the discussion on the naming to here https://github.com/tektoncd/pipeline/pull/6790."
+      },
+      "old": [],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "tep-staging"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "tep-staging"
+        ]
+      ]
+    },
+    {
+      "cid": 1232338782,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6819,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "Hi @lbernick , I have introduced `AffinityAssitantBehavior ` in this PR and merged the 2 functions, PTAL!"
+      },
+      "old": [],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ]
+    },
+    {
+      "cid": 1232376316,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6819,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "I'm planning to implement the cleanup logic for coscheduling-pipelinerun mode in a separate PR to make review easier. I have added an todo to the `cleanupAffinityAssistants ` function"
+      },
+      "old": [
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "magnitude"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "extra": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "magnitude"
+        ]
+      ]
+    },
+    {
+      "cid": 1232435654,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6819,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "would this work?\r\n\r\n```\r\nfor _, w := range pr.Spec.Workspaces {\r\n\tif w.PersistentVolumeClaim == nil && w.VolumeClaimTemplate == nil {\r\n\t\tcontinue\r\n\t}\r\n        if w.PersistentVolumeClaim != nil {\r\n\t\tclaims = append(claims, w.PersistentVolumeClaim.DeepCopy())\r\n\t} else if w.VolumeClaimTemplate != nil {\r\n\t\tclaimTemplate := w.VolumeClaimTemplate.DeepCopy()\r\n\t\tclaimTemplate.Name = volumeclaim.GetPVCNameWithoutAffinityAssistant(w.VolumeClaimTemplate.Name, w, *kmeta.NewControllerRef(pr))\r\n\t\tclaimTemplates = append(claimTemplates, claimTemplate)\r\n\t}\r\n}\r\n\r\nswitch aaBehavior {\r\n   ...\r\n}\r\n```"
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 1232765919,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6790,
+        "author": "QuanZhang-William",
+        "loc": "pkg/apis/config/testing/featureflags.go",
+        "body": "SGTM, I can resolve this in a separate PR"
+      },
+      "old": [],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "cohesion"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "cohesion"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ]
+    },
+    {
+      "cid": 1232769942,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6790,
+        "author": "lbernick",
+        "loc": "config/config-feature-flags.yaml",
+        "body": "Can you please also add some markdown docs explaining in more detail what this feature is and why someone would want to use it, in addition to the feature flags chart?"
+      },
+      "old": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "area",
+          "feature-gate-registration"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "area",
+          "feature-gate-registration"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 1235178679,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6790,
+        "author": "lbernick",
+        "loc": "config/config-feature-flags.yaml",
+        "body": "Yes. we already have some docs here on the affinity assistant but I think it's worth writing a docs section for the affinity assistant specifically https://github.com/tektoncd/pipeline/blob/main/docs/workspaces.md#specifying-workspace-order-in-a-pipeline-and-affinity-assistants"
+      },
+      "old": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "area",
+          "feature-gate-registration"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "area",
+          "feature-gate-registration"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 1238387756,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6790,
+        "author": "lbernick",
+        "loc": "pkg/internal/affinityassistant/affinityassistant_types_test.go",
+        "body": "can you handle this error with t.Fatalf?"
+      },
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ]
+    },
+    {
+      "cid": 1248115160,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6892,
+        "author": "lbernick",
+        "loc": "docs/workspaces.md",
+        "body": "```suggestion\r\n**Note:** **coschedule pipelineruns** and **isolate pipelineruns** modes are still under development and not yet functional.\r\n```"
+      },
+      "old": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ]
+    },
+    {
+      "cid": 1248115649,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6892,
+        "author": "lbernick",
+        "loc": "docs/workspaces.md",
+        "body": "Would it make sense to create a separate docs md file for the affinity assistant? it's a bit buried here"
+      },
+      "old": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ]
+    },
+    {
+      "cid": 1248122738,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6893,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "would it make sense to revert only this change?"
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "magnitude"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "magnitude"
+        ]
+      ]
+    },
+    {
+      "cid": 1248159784,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6892,
+        "author": "QuanZhang-William",
+        "loc": "docs/affinityassistants.md",
+        "body": "I'm not sure why do we need it \ud83d\ude02 "
+      },
+      "old": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "missing": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ]
+    },
+    {
+      "cid": 1248172102,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6892,
+        "author": "lbernick",
+        "loc": "docs/affinityassistants.md",
+        "body": "nit: can you make sure to use consistent capitalization for PVC, PipelineRun, and TaskRun?"
+      },
+      "old": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "formatting"
+        ],
+        [
+          "principle",
+          "consistency-with-existing"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "consistency-with-existing"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 1248173867,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6893,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "We could add a finalizer for PipelineRuns that deletes any affinity assistant PVCs when the PipelineRun is deleted. Also, can you elaborate on what #6635 might not work?"
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "reconciler-pattern"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "reconciler-pattern"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 1248213278,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6892,
+        "author": "QuanZhang-William",
+        "loc": "docs/affinityassistants.md",
+        "body": "Yeah this is fine. And `disable-affinity-assistant` : true and `coschedule`: workspaces will also disabled AA during migration. I put it here just for simplicity as this feature will be completed soon and this note will be removed."
+      },
+      "old": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "principle",
+          "simplicity"
+        ]
+      ]
+    },
+    {
+      "cid": 1252172648,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6893,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "I think we still need to call APIs to delete `pvcs` at `pr` completion/deletion time anyways. \r\n\r\nThe advantage of this approach is that there is no extra work to delete the `pvcs` at `pr` deletion time, as the owner of the `pvcs` are the `prs` not the `aa statefulset` (i.e. k8s automatically deletes the pvcs when the owning prs are deleted). \r\n\r\nIn addition, this patch fully reverts the pvcs behaviours in 1 pull request. If we just revert the highlighted part but not merge the followup prs in one release, users will still see the different behavior (i.e. `pvcs` are not deleted when `pr` is deleted). \r\n\r\nI personally feel this full revert could be a better solution. I'm open to the partial solution if we can make sure to merge all the followup prs in one pr, but I don't see much advantage.\r\n\r\nWDYT @lbernick @pritidesai @afrittoli "
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "functionality"
+        ],
+        [
+          "principle",
+          "reconciler-pattern"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "functionality"
+        ],
+        [
+          "principle",
+          "reconciler-pattern"
+        ]
+      ],
+      "extra": [
+        [
+          "principle",
+          "simplicity"
+        ]
+      ]
+    },
+    {
+      "cid": 1252990328,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6893,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/pipelinerun.go",
+        "body": "I'm not sure I understand why this logic is changing. Shouldn't we just need to update createOrUpdateAffinityAssistantsPerAABehavior?"
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "principle",
+          "simplicity"
+        ]
+      ]
+    },
+    {
+      "cid": 1253003193,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6893,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "OK, I think it's a fair point that finalizers don't have much advantage over owner references, and have more unknowns since we haven't tried that approach before. this PR SGTM."
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "reconciler-pattern"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "reconciler-pattern"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 1253200392,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6893,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "This is a good point. I think `affinityAssistantStatefulSet ` should have the sole responsibility to create an `StatefulSet` based on the given input (so usually we don't change it), and all our business logic should go to `createOrUpdateAffinityAssistantPerAABehavior` and `createOrUpdateAffinityAssistant`. \r\n\r\nLet me try to find some better variable name in `createOrUpdateAffinityAssistantsPerAABehavior` and put some comments\r\n\r\n"
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 1253253982,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6892,
+        "author": "wlynch",
+        "loc": "docs/affinityassistants.md",
+        "body": "Side note: it's a bit confusing that to turn on the coscheduling affinity assistant feature, you need to set disable-affinity-assistant=true - the flag names seem to conflict each other. idk if it's too late for this, but you may want to look into renaming these flags."
+      },
+      "old": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "formatting"
+        ],
+        [
+          "principle",
+          "consistency-with-existing"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "consistency-with-existing"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ]
+    },
+    {
+      "cid": 1253262336,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6892,
+        "author": "wlynch",
+        "loc": "docs/affinityassistants.md",
+        "body": "You may want to make this warning more prominent - moving this up to the top + \u26a0\ufe0f / \ud83d\udea8 emojis + bigger font / bold would help.\r\n\r\nWe should also try and classify all of these with their stability level to set expectations around breaking changes (by default users will assume stable)."
+      },
+      "old": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "formatting"
+        ],
+        [
+          "principle",
+          "feature-graduation"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "feature-graduation"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ]
+    },
+    {
+      "cid": 1253372136,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6893,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/pipelinerun.go",
+        "body": "hm I think I understand; possible suggestion to make the code a bit cleaner: what if we move PVC creation to `createOrUpdateAffinityAssistants`? It would help that function make fewer assumptions about what pvcs exist and make handling the disabled case less redundant. Up to you."
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "principle",
+          "simplicity"
+        ]
+      ]
+    },
+    {
+      "cid": 1253527208,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6893,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/pipelinerun.go",
+        "body": "hmmm, as a developer reading code, I wouldn't expect the pvc creation is in the `createOrUpdateAffinityAssistants` especially when AA is disabled. I feel it could be better to separate concern bettween PVC creation and AA? "
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "cohesion"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "cohesion"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 1254543235,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6893,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "Here's how I would refactor this (involves rewriting CreatePVCsForWorkspacesWithoutAffinityAssistant):\r\n\r\n```\r\ncase aa.AffinityAssistantPerWorkspace:\r\n                 ...\r\n\t\tfor claimTemplate, workspaceBinding := range claimTemplatesToWorkspace {\r\n\t\t\taaName := getAffinityAssistantName(workspaceBinding, pr.Name)\r\n                         pvc, err := c.pvcHandler.GetOrCreatePVC(workspaceBinding, pr)\r\n                         < handle err>\r\n                         err := c.createOrUpdateAffinityAssistant(ctx, aaName, pr, nil, []corev1.PersistentVolumeClaimVolumeSource{pvc}, unschedulableNodes)\r\n                         < handle err>\r\n```\r\n\r\nHowever, I know this PR is just meant to revert deletion behavior for the existing affinity assistant, and I want to keep this PR scoped to the minimal set of changes to do that. (I recognize I've already asked for some refactoring, but this chunk of code can be hard to grapple with :)) Maybe refactoring changes could be split into a separate PR?"
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "nature",
+          "formatting"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "cohesion"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "cohesion"
+        ]
+      ]
+    },
+    {
+      "cid": 1258400264,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6893,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "Thanks for the advice! I think we can put the refactoring to another PR to keep this one scoped."
+      },
+      "old": [
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "new": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ]
+    },
+    {
+      "cid": 1258668643,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6893,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/volumeclaim/pvchandler.go",
+        "body": "SG, renamed it to `CreatePVCsForWorkspaces` as the usage of this function to create PVC means it is separated from Affinity Assistant StatefulSet"
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ]
+    },
+    {
+      "cid": 1258934354,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6892,
+        "author": "QuanZhang-William",
+        "loc": "docs/affinityassistants.md",
+        "body": "I have update this part to show the default configmap setting explicitly!"
+      },
+      "old": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "missing": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ]
+    },
+    {
+      "cid": 1261638785,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6921,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/pipelinerun.go",
+        "body": "Rather than separating the error and the reason for the error, why not use sentinel errors? https://go.dev/blog/go1.13-errors\r\n\r\nHere's an example: https://github.com/tektoncd/pipeline/blob/b769b5620300d7fb6d6638083124d03636caa503/pkg/reconciler/pipelinerun/pipelinerun.go#L364-L366"
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "consistency-with-existing"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "principle",
+          "consistency-with-existing"
+        ]
+      ]
+    },
+    {
+      "cid": 1264190229,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6927,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "nit: could the switch statement be replaced with:\r\n```\r\nc.KubeClientSet.CoreV1().(*fake.FakeCoreV1).PrependReactor(\"create\", tc.failureType,\r\n\t\t\t\tfunc(action testing2.Action) (handled bool, ret runtime.Object, err error) {\r\n\t\t\t\t\treturn true, <something implementing runtime.Object>, errors.New(\"error creating %s\", tc.failureType)\r\n```\r\n\r\n(I don't think the type of object returned in the nested func matters, but I could be wrong)"
+      },
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ]
+    },
+    {
+      "cid": 1264190888,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6927,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "nit: I think you can compare expectedErr and err directly"
+      },
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ]
+    },
+    {
+      "cid": 1264191375,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6927,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "Isn't this only true for affinity assistant per workspace?"
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "area",
+          "code"
+        ]
+      ],
+      "extra": [
+        [
+          "area",
+          "tests"
+        ]
+      ]
+    },
+    {
+      "cid": 1264193793,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6927,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/taskrun/taskrun_test.go",
+        "body": "could this be simplified to use existing helpers like t.IsFailure?"
+      },
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "formatting"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "consistency-with-existing"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "consistency-with-existing"
+        ]
+      ]
+    },
+    {
+      "cid": 1264195654,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6927,
+        "author": "lbernick",
+        "loc": "test/affinity_assistant_test.go",
+        "body": "This is interesting-- how do you prevent the integration test from interfering with the other integration tests? Do they just run sequentially?"
+      },
+      "old": [
+        [
+          "area",
+          "feature-gate-registration"
+        ],
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "area",
+          "feature-gate-registration"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 1264195892,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6927,
+        "author": "lbernick",
+        "loc": "test/affinity_assistant_test.go",
+        "body": "is there any way you could use the variables representing default values here rather than hard-coding them, so if we change the default values we don't also have to update this test?"
+      },
+      "old": [
+        [
+          "area",
+          "feature-gate-registration"
+        ],
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "area",
+          "feature-gate-registration"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 1265496498,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6929,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "can we instead pass `aaBehavior` into getAssistantAffinityMergedWithPodTemplateAffinity, as you're doing, but remove the refactoring that passes the affinity through multiple function calls?"
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "nature",
+          "formatting"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 1265512212,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6929,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "Hmmm, I'd prefer to resolve all the `aaBehavior` related logic in `createOrUpdateAffinityAssistantsAndPVCs` function so that the `affinityAssistantStatefulSet` function can have the single responsibility to create the `StatefulSet` based on the resolved information.\r\n\r\nI can update it if you have a strong opinion, but I don't think it is absolutely necessary \ud83d\ude05 "
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "principle",
+          "simplicity"
+        ]
+      ]
+    },
+    {
+      "cid": 1265542773,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6929,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "I prefer the previous behavior. The new behavior adds more logic to tests, making them more brittle, and makes `createOrUpdateAffinityAssistant` and `affinityAssistantStatefulSet` less readable by adding a new argument. (If you do decide to keep the new logic, please add the new argument to the function docstring.)"
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "nature",
+          "formatting"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 1267318643,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6927,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "Thanks Lee! I have created a separate PR: https://github.com/tektoncd/pipeline/pull/6940 to deal with the cleanup logic (as well as the PVC deletion behaviors) as we discussed earlier.\r\n\r\nI think it it makes more sense to merged https://github.com/tektoncd/pipeline/pull/6940 first, and I can add integration test in this PR\r\n\r\n/hold"
+      },
+      "old": [
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "cohesion"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "extra": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "cohesion"
+        ]
+      ]
+    },
+    {
+      "cid": 1268158686,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6940,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "for per workspace mode, can you test the case where multiple statefulsets exist?\r\n\r\nThe two modes might be different enough that it's worth having two test classes. Either that, or you could have the input data as part of the test case."
+      },
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 1268159341,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6940,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/volumeclaim/pvchandler.go",
+        "body": "Can you add a note about why we're deleting this finalizer, and link to the k8s docs?"
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "reconciler-pattern"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "reconciler-pattern"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 1268162488,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6940,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/volumeclaim/pvchandler.go",
+        "body": "It seems simpler to just use the \"remove\" operation; is that something you've considered? this would also let u s make `removeFinalizerBytes` a constant var"
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "reconciler-pattern"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "reconciler-pattern"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 1268165441,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6940,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "could you link an issue as a TODO for adding optional PVC deletion for per-workspace mode?"
+      },
+      "old": [
+        [
+          "nature",
+          "formatting"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ],
+        [
+          "principle",
+          "incremental-delivery"
+        ]
+      ],
+      "extra": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ]
+    },
+    {
+      "cid": 1268166763,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6940,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/volumeclaim/pvchandler.go",
+        "body": "nit: Is there a constant defined for this value in k8s libs anywhere?"
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "consistency-with-existing"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "principle",
+          "consistency-with-existing"
+        ]
+      ]
+    },
+    {
+      "cid": 1268520753,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6940,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/volumeclaim/pvchandler.go",
+        "body": "The constant is defined in https://github.com/kubernetes/kubernetes/blob/dde22b3a5ede36bfaec97827ade95df69467959d/pkg/volume/util/finalizer.go#L21, which is `k8s.io/kubernetes` pkg. It seems this pkg is not recommend to be imported directly"
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "reconciler-pattern"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "reconciler-pattern"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 1268523384,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6940,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/volumeclaim/pvchandler.go",
+        "body": "Reading the jsonpatch doc: https://jsonpatch.com/#remove, it seems we need to know the index of finalizer to remove it?"
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "reconciler-pattern"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "reconciler-pattern"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 1268528336,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6940,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/volumeclaim/pvchandler.go",
+        "body": "```suggestion\r\n// Purging the `kubernetes.io/pvc-protection` finalizer allows the pvc to be deleted even when it is referenced by a taskrun pod.\r\n```"
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "reconciler-pattern"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "reconciler-pattern"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 1268530350,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6940,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/volumeclaim/pvchandler_test.go",
+        "body": "nit: This comment doesn't add clarification; I'd update to focus on \"why\" or just remove it"
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ]
+    },
+    {
+      "cid": 1268540015,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6940,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/volumeclaim/pvchandler_test.go",
+        "body": "I added a bit more info to the comment, I tend to comment the \"setup\" \"execution\" and \"validate\" section in a test to help people reading the tests."
+      },
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 1270819631,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6927,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "Seems like change to %s still give me `errorlint` when running `golangci-lint`:\r\n\r\n``` go\t\t\t\r\nreturn fmt.Errorf(\"%w: %s\", ErrPvcCreationFailed, err.Error())\r\n```\r\n\r\n```\r\ngolangci-lint run --modules-download-mode=vendor --max-issues-per-linter=0 --max-same-issues=0 --deadline 5m\r\n\r\npkg/reconciler/pipelinerun/affinity_assistant.go:91:54: non-wrapping format verb for fmt.Errorf. Use `%w` to format errors (errorlint)\r\n                        return fmt.Errorf(\"%w: %s\", ErrPvcCreationFailed, err.Error())\r\n```"
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ]
+    },
+    {
+      "cid": 1270914312,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6927,
+        "author": "QuanZhang-William",
+        "loc": "test/affinity_assistant_test.go",
+        "body": "Yeah, I'm following the discussion here: https://github.com/tektoncd/pipeline/issues/6079 to set/revert the feature flags and run tests sequentially."
+      },
+      "old": [
+        [
+          "area",
+          "feature-gate-registration"
+        ],
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "area",
+          "feature-gate-registration"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 1271060902,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6927,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "you can do this with cmpopts.EquateErrors I think? This will check that the error is the right type which is more important than validating the exact error message"
+      },
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "principle",
+          "simplicity"
+        ]
+      ]
+    },
+    {
+      "cid": 1271180881,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6927,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "I think cmpopts.EquateErrors uses errors.Is, which is what you're using in the check you linked? In that case you can remove the error string comparison, since I don't know that it adds much value compared to the error type and makes the tests more brittle. This is also fine to leave as is though."
+      },
+      "old": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "principle",
+          "simplicity"
+        ]
+      ]
+    },
+    {
+      "cid": 1272752834,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6921,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/volumeclaim/pvchandler.go",
+        "body": "I refactored this part a bit. It is not really simplified but I found it is easier to read for me"
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "missing": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ]
+    },
+    {
+      "cid": 1272817148,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6921,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "nit: I suggest `if len(claimNames) != 0` and likewise for claimTemplates, since what you have here differentiates between a nil slice and empty slice which I don't think is intentional."
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 1277717539,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6994,
+        "author": "lbernick",
+        "loc": "docs/workspaces.md",
+        "body": "I'm not sure if people will understand \"PipelineTaskRun\"; maybe you can say \"when `coschedule` is set to \"workspaces\" or `disable-affinity-assistant` is set to false, you cannot bind multiple PVC-backed workspaces to the same taskrun in a pipelinerun due to potential Availability Zone conflict."
+      },
+      "old": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 1277719310,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6994,
+        "author": "lbernick",
+        "loc": "docs/workspaces.md",
+        "body": "Can you link to an issue here?"
+      },
+      "old": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ]
+    },
+    {
+      "cid": 1277722391,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6994,
+        "author": "lbernick",
+        "loc": "docs/workspaces.md",
+        "body": "Can this docs section focus more on the features Tekton provides? It sort of works backwards from the problems you might run into to the features we built to solve them, but isn't super clear about how you would know if this is something you should enable. these features are most useful for:\r\n- people using zonal clusters e.g. GKE\r\n- people using pvcs w/ ReadWriteOnce access modes\r\n- people binding multiple PVCs to a single pipeline task\r\nAnd then explain what the features do or link to the existing docs on them."
+      },
+      "old": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 1277725983,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6994,
+        "author": "lbernick",
+        "loc": "docs/workspaces.md",
+        "body": "```suggestion\r\n#### Multiple `PersistentVolumeClaims` in different Availability Zones are bound to a `PipelineTaskRun`\r\n```"
+      },
+      "old": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ]
+    },
+    {
+      "cid": 1287483490,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6994,
+        "author": "QuanZhang-William",
+        "loc": "docs/workspaces.md",
+        "body": "Thanks. It turns out that I emphasis too much on explaining the conflict so the focus is a bit off.\r\n\r\nI have reframe the whole section, focusing on the feature that is provided by Tekton. PTAL"
+      },
+      "old": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "missing": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ]
+    },
+    {
+      "cid": 1287670522,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6994,
+        "author": "lbernick",
+        "loc": "docs/workspaces.md",
+        "body": "I'd still like to see an issue even with the updated docs!"
+      },
+      "old": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ]
+    },
+    {
+      "cid": 1288762261,
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6994,
+        "author": "QuanZhang-William",
+        "loc": "docs/workspaces.md",
+        "body": "I just move the content to a new section, so I don't think a new section is needed"
+      },
+      "old": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "missing": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ]
+    }
+  ],
+  "v2_audit": [
+    {
+      "repo": "community",
+      "pr_number": 1025,
+      "comment_id": 1224482049,
+      "facet": "principle",
+      "value": "api-compatibility",
+      "confidence": 0.4,
+      "evidence": "flags a second flag-combination whose behavior isn't defined, part of the same backward-compatibility-matrix gap discussed elsewhere in the thread",
+      "source_pass": "audit",
+      "meta": {
+        "repo": "community",
+        "pr_number": 1025,
+        "author": "lbernick",
+        "loc": "",
+        "body": "Another con of this alternative is that it's not clear what the behavior should be if \"disable-affinity-assistant\" is \"true\" and \"coscheduling\" is set to \"coschedule-workspaces\"."
+      }
+    },
+    {
+      "repo": "pipeline",
+      "pr_number": 6741,
+      "comment_id": 1210671442,
+      "facet": "principle",
+      "value": "reconciler-pattern",
+      "confidence": 0.4,
+      "evidence": "flags that PVCs created via statefulset volumeClaimTemplates aren't auto-deleted, so cleanup logic must handle garbage-collecting them - a controller resource-lifecycle convention",
+      "source_pass": "audit",
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6741,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "Since PVCs created by statefulset volumeClaimTemplates are not deleted when the statefulset is deleted, we'll need to update existing cleanup logic to delete these PVCs."
+      }
+    },
+    {
+      "repo": "pipeline",
+      "pr_number": 6819,
+      "comment_id": 1230024264,
+      "facet": "principle",
+      "value": "incremental-delivery",
+      "confidence": 0.45,
+      "evidence": "explains the deliberate split into two independent, parallel PRs with a later PR to glue them together, explicitly to avoid one PR 'going too big'",
+      "source_pass": "audit",
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6819,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "I actually planned to make this PR and #6790 separate (no change in the pipelinerun reconciler) so that I can work in parallel and there is no need to rebase. These 2 PRs just add implementation but nothing is consumed.\r\n\r\nOnce the 2 PRs are merged, I will have another PR to consume the functions in the 2 PRs in the reconciler to glue everything together. There are still some work to do in the last PR for example, lifting some validations, calculating and passing PVC & AA names based on the mode (and more tests). \r\n\r\nIf we do all these things in this PR, I think it will go too big."
+      }
+    },
+    {
+      "repo": "pipeline",
+      "pr_number": 6819,
+      "comment_id": 1232376316,
+      "facet": "principle",
+      "value": "incremental-delivery",
+      "confidence": 0.4,
+      "evidence": "explicitly defers cleanup-logic implementation to a separate PR 'to make review easier'",
+      "source_pass": "audit",
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6819,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant_test.go",
+        "body": "I'm planning to implement the cleanup logic for coscheduling-pipelinerun mode in a separate PR to make review easier. I have added an todo to the `cleanupAffinityAssistants ` function"
+      }
+    },
+    {
+      "repo": "pipeline",
+      "pr_number": 6819,
+      "comment_id": 1229736896,
+      "facet": "principle",
+      "value": "incremental-delivery",
+      "confidence": 0.35,
+      "evidence": "questions whether this PR should be sequenced after and rebased onto PR#6790 rather than carrying a TODO, part of the same PR-splitting strategy",
+      "source_pass": "audit",
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6819,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "Is the plan to make sure https://github.com/tektoncd/pipeline/pull/6790 goes in first and then rebase this PR onto it, rather than submitting with the TODO? I think the other PR makes logical sense to go in first"
+      }
+    },
+    {
+      "repo": "pipeline",
+      "pr_number": 6819,
+      "comment_id": 1230048000,
+      "facet": "principle",
+      "value": "incremental-delivery",
+      "confidence": 0.35,
+      "evidence": "notes merging duplicate logic would require PR#6790 to land first, a cross-PR sequencing dependency from the same split-PR strategy",
+      "source_pass": "audit",
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6819,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "Yeah, I think if we merge the 2 functions together, it will save some duplicate code. But in that case, we need to get https://github.com/tektoncd/pipeline/pull/6790 checked in first\r\n"
+      }
+    },
+    {
+      "repo": "pipeline",
+      "pr_number": 6892,
+      "comment_id": 1248170518,
+      "facet": "principle",
+      "value": "api-compatibility",
+      "confidence": 0.4,
+      "evidence": "suggested rewrite of the user-facing migration instructions for preserving prior default behavior when adopting the new coschedule flag",
+      "source_pass": "audit",
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6892,
+        "author": "lbernick",
+        "loc": "docs/affinityassistants.md",
+        "body": "```suggestion\r\n**Note:** For users who previously accepted the default behavior (enabling affinity assistant) but now want one of the new features, you need to set `disable-affinity-assistant` to \"true\" and then turn on the new behavior by setting the `coschedule` flag. For users who previously disabled the affinity assistant but want one of the new features, just set the `coschedule` flag accordingly.\r\n```"
+      }
+    },
+    {
+      "repo": "pipeline",
+      "pr_number": 6893,
+      "comment_id": 1248173867,
+      "facet": "principle",
+      "value": "reconciler-pattern",
+      "confidence": 0.4,
+      "evidence": "proposes a PipelineRun finalizer as the cleanup mechanism for affinity-assistant PVCs on deletion, an alternative controller garbage-collection pattern to owner references",
+      "source_pass": "audit",
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6893,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "We could add a finalizer for PipelineRuns that deletes any affinity assistant PVCs when the PipelineRun is deleted. Also, can you elaborate on what #6635 might not work?"
+      }
+    },
+    {
+      "repo": "pipeline",
+      "pr_number": 6893,
+      "comment_id": 1253003193,
+      "facet": "principle",
+      "value": "reconciler-pattern",
+      "confidence": 0.4,
+      "evidence": "resolves the finalizer-vs-owner-reference design debate, agreeing owner references are the better-understood cleanup pattern here",
+      "source_pass": "audit",
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6893,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "OK, I think it's a fair point that finalizers don't have much advantage over owner references, and have more unknowns since we haven't tried that approach before. this PR SGTM."
+      }
+    },
+    {
+      "repo": "pipeline",
+      "pr_number": 6893,
+      "comment_id": 1253664086,
+      "facet": "principle",
+      "value": "reconciler-pattern",
+      "confidence": 0.35,
+      "evidence": "records the agreed design to make PVC creation part of the Affinity Assistant creation step 'to make it atomic'",
+      "source_pass": "audit",
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6893,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/pipelinerun.go",
+        "body": "Synced with @lbernick offline, we agreed to put the PVC creation logic in the Affinity Assistant creation function to make it atomic."
+      }
+    },
+    {
+      "repo": "pipeline",
+      "pr_number": 6893,
+      "comment_id": 1254543235,
+      "facet": "principle",
+      "value": "incremental-delivery",
+      "confidence": 0.4,
+      "evidence": "proposes a refactor but explicitly wants to keep this PR to the minimal revert, suggesting the refactor be split into a separate PR",
+      "source_pass": "audit",
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6893,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "Here's how I would refactor this (involves rewriting CreatePVCsForWorkspacesWithoutAffinityAssistant):\r\n\r\n```\r\ncase aa.AffinityAssistantPerWorkspace:\r\n                 ...\r\n\t\tfor claimTemplate, workspaceBinding := range claimTemplatesToWorkspace {\r\n\t\t\taaName := getAffinityAssistantName(workspaceBinding, pr.Name)\r\n                         pvc, err := c.pvcHandler.GetOrCreatePVC(workspaceBinding, pr)\r\n                         < handle err>\r\n                         err := c.createOrUpdateAffinityAssistant(ctx, aaName, pr, nil, []corev1.PersistentVolumeClaimVolumeSource{pvc}, unschedulableNodes)\r\n                         < handle err>\r\n```\r\n\r\nHowever, I know this PR is just meant to revert deletion behavior for the existing affinity assistant, and I want to keep this PR scoped to the minimal set of changes to do that. (I recognize I've already asked for some refactoring, but this chunk of code can be hard to grapple with :)) Maybe refactoring changes could be split into a separate PR?"
+      }
+    },
+    {
+      "repo": "pipeline",
+      "pr_number": 6940,
+      "comment_id": 1268159341,
+      "facet": "principle",
+      "value": "reconciler-pattern",
+      "confidence": 0.35,
+      "evidence": "asks for an explanatory note on why the PVC-protection finalizer is being removed, with a link to the k8s finalizer docs - a controller-convention documentation gap",
+      "source_pass": "audit",
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6940,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/volumeclaim/pvchandler.go",
+        "body": "Can you add a note about why we're deleting this finalizer, and link to the k8s docs?"
+      }
+    }
+  ],
+  "v2_proposals": [
+    {
+      "repo": "pipeline",
+      "pr_number": 6893,
+      "comment_id": 1253664086,
+      "fragment": "we agreed to put the PVC creation logic in the Affinity Assistant creation function to make it atomic",
+      "candidate_facet": "principle",
+      "candidate_value": "concurrency-safety",
+      "candidate_description": "Whether code defends against races between concurrent or interrupted operations (e.g. double scheduling, name collisions) rather than assuming single-actor, uninterrupted execution.",
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6893,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/pipelinerun.go",
+        "body": "Synced with @lbernick offline, we agreed to put the PVC creation logic in the Affinity Assistant creation function to make it atomic."
+      }
+    },
+    {
+      "repo": "pipeline",
+      "pr_number": 6893,
+      "comment_id": 1254534220,
+      "fragment": "CreatePVCsForWorkspacesWithoutAffinityAssistant will fail if it tries to create PVCs that already exist, but createOrUpdateAffinityAssistantsAndPVCsPerAABehavior runs on every reconcile loop. Will this work past the first reconcile loop?",
+      "candidate_facet": "principle",
+      "candidate_value": "concurrency-safety",
+      "candidate_description": "Whether code defends against races between concurrent or interrupted operations (e.g. double scheduling, name collisions) rather than assuming single-actor, uninterrupted execution.",
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6893,
+        "author": "lbernick",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "CreatePVCsForWorkspacesWithoutAffinityAssistant will fail if it tries to create PVCs that already exist, but createOrUpdateAffinityAssistantsAndPVCsPerAABehavior runs on every reconcile loop. Will this work past the first reconcile loop?"
+      }
+    },
+    {
+      "repo": "pipeline",
+      "pr_number": 6893,
+      "comment_id": 1253200392,
+      "fragment": "affinityAssistantStatefulSet should have the sole responsibility to create an StatefulSet based on the given input... all our business logic should go to createOrUpdateAffinityAssistantPerAABehavior and createOrUpdateAffinityAssistant",
+      "candidate_facet": "principle",
+      "candidate_value": "separation-of-concerns",
+      "candidate_description": "Whether a function or component is kept to one well-scoped responsibility (e.g. resource creation vs. orchestration logic) rather than absorbing an unrelated concern, so each piece stays independently reasoned-about and testable.",
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6893,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/affinity_assistant.go",
+        "body": "This is a good point. I think `affinityAssistantStatefulSet ` should have the sole responsibility to create an `StatefulSet` based on the given input (so usually we don't change it), and all our business logic should go to `createOrUpdateAffinityAssistantPerAABehavior` and `createOrUpdateAffinityAssistant`. \r\n\r\nLet me try to find some better variable name in `createOrUpdateAffinityAssistantsPerAABehavior` and put some comments\r\n\r\n"
+      }
+    },
+    {
+      "repo": "pipeline",
+      "pr_number": 6893,
+      "comment_id": 1253527208,
+      "fragment": "as a developer reading code, I wouldn't expect the pvc creation is in the createOrUpdateAffinityAssistants especially when AA is disabled. I feel it could be better to separate concern between PVC creation and AA",
+      "candidate_facet": "principle",
+      "candidate_value": "separation-of-concerns",
+      "candidate_description": "Whether a function or component is kept to one well-scoped responsibility (e.g. resource creation vs. orchestration logic) rather than absorbing an unrelated concern, so each piece stays independently reasoned-about and testable.",
+      "meta": {
+        "repo": "pipeline",
+        "pr_number": 6893,
+        "author": "QuanZhang-William",
+        "loc": "pkg/reconciler/pipelinerun/pipelinerun.go",
+        "body": "hmmm, as a developer reading code, I wouldn't expect the pvc creation is in the `createOrUpdateAffinityAssistants` especially when AA is disabled. I feel it could be better to separate concern bettween PVC creation and AA? "
+      }
+    }
+  ]
+}
