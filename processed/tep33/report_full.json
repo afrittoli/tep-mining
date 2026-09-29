@@ -1,0 +1,1195 @@
+{
+  "summary": {
+    "old_total": 130,
+    "new_total": 123,
+    "agree": 109,
+    "clean_agree": 22,
+    "total_comments": 48,
+    "repos": [
+      "community#280",
+      "community#380"
+    ]
+  },
+  "expected": [
+    {
+      "cid": 591828873,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 380,
+        "author": "bobcatfish",
+        "loc": "### New API fields",
+        "body": "@afrittoli in the hackmd you mentioned that we should add some clearer guidelines here - let me know if you have any text I can add here, or if you think that's something we can tackle separately"
+      }
+    },
+    {
+      "cid": 591829149,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 380,
+        "author": "bobcatfish",
+        "loc": "### Promotion to beta and beyond",
+        "body": "@afrittoli you mentioned we should add an example so I've added the above, let me know if that does the trick"
+      }
+    },
+    {
+      "cid": 592281389,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 380,
+        "author": "afrittoli",
+        "loc": "",
+        "body": "\ud83c\udf89 "
+      }
+    },
+    {
+      "cid": 599896455,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 380,
+        "author": "bobcatfish",
+        "loc": "### One feature flag per new Alpha field",
+        "body": "hahaha amazing example @sbwsg  XD"
+      }
+    },
+    {
+      "cid": 603451769,
+      "extra": [
+        [
+          "nature",
+          "none"
+        ]
+      ],
+      "meta": {
+        "repo": "community",
+        "pr_number": 380,
+        "author": "bobcatfish",
+        "loc": "### Changes in behavior",
+        "body": "haha whoops XD"
+      }
+    }
+  ],
+  "judgment": [
+    {
+      "cid": 553408291,
+      "meta": {
+        "repo": "community",
+        "pr_number": 280,
+        "author": "bobcatfish",
+        "loc": "### Goals",
+        "body": "i think the rest of this doc does a great job of not trying to specify a solution - but these last 3 requirements seem to assume we're going with feature flags. maybe we can reword them as something like:\r\n\r\n1. The maturity of each feature should be clearly documented and it should be clear how to opt into optional features\r\n2. Tools should be available to test all desired combinations of features at various maturity levels\r\n3. It should be possible for a Tekton operator to restrict access to alpha features\r\n\r\nI'm not 100% sure about (3): if we go with feature flags this is possible, but i dont totally understand if we actually _need_ it - do we want to be able to say that Tekton operators can restrict access to all alpha features, e.g. even alpha CRDS? (if yes then (3) makes sense to me)"
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "feature-graduation"
+        ],
+        [
+          "principle",
+          "tep-staging"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "feature-justification"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "feature-graduation"
+        ],
+        [
+          "principle",
+          "tep-staging"
+        ]
+      ],
+      "extra": [
+        [
+          "principle",
+          "feature-justification"
+        ]
+      ]
+    },
+    {
+      "cid": 591868527,
+      "meta": {
+        "repo": "community",
+        "pr_number": 380,
+        "author": "afrittoli",
+        "loc": "### Promotion to beta and beyond",
+        "body": "Thank you, this works!\r\nWe should decide as a result of this TEP whether we changing the default value first is an option.\r\n\r\nWe could split up the 6 months into 3 deprecation and feature flag that defaults to the deprecated behaviour plus 3 months with feature flag that defaults to the new behaviour, and Tekton being very vocal in logs if someone flicks the switch back to enabled.\r\n\r\nFor the case of the working directory overwrite specifically for instance we might want to switch the default value asap and add verbouse warnings with a deadline for removal."
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "deprecation-handling"
+        ],
+        [
+          "principle",
+          "feature-graduation"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "deprecation-handling"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "feature-graduation"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 592257851,
+      "meta": {
+        "repo": "community",
+        "pr_number": 380,
+        "author": "afrittoli",
+        "loc": "",
+        "body": "After reading and re-reading this a few times, I'm starting to lean towards using a different flag (the name is not good, sorry):\r\n```\r\ndata:\r\n extra-api-fields: [\"current\" | \"alpha\" | \"beta\" ]\r\n```\r\n\r\nWhere \"current\" means only the API fields that are on by default in the current API, \"beta\" means enable \"beta\" fields only in the current API, \"alpha\" means enabled \"alpha\" and \"beta\" fields in the current API.\r\n\r\nWhat I'm trying to avoid is the case of someone enabling \"alpha\" fields and disabling \"beta\" ones. \r\nIf a user / operator wants to stay to up date with the latest and greatest features from Tekton, then they will enable \"alpha\" level features. If they want to have a single feature that is in alpha and do not want anything else, then this solution won't work for them anyways, because it does not allow to pick specific features. \r\n\r\nAnother aspect that needs to be clarified is whether the version that we serve are all immutable except for the last. Once we have `v1`, will `v1alpha` and `v1beta` be frozen and eventually removed? Will new fields only ever be added to `v1` as `alpha` fields first?"
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "crd-version-policy"
+        ],
+        [
+          "principle",
+          "feature-graduation"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "crd-version-policy"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "feature-graduation"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 592288592,
+      "meta": {
+        "repo": "community",
+        "pr_number": 380,
+        "author": "afrittoli",
+        "loc": "### New API fields",
+        "body": "I think we need to define what the lifecycle of such a feature flag would look, something along the lines of:\r\n- introduce a feature flag, default to current behaviour\r\n  - promote the new feature as experimental in the release notes\r\n  - maintain a table of experimental features and their flags \r\n- after X time, change the flag to default to the new behaviour, deprecate the existing behaviour\r\n  - highlight the change in the release notes\r\n  - document the flag as a fix for the common symptoms of the change of default in the FAQ on github discussions\r\n  - maintain a table of deprecated features\r\n  - log ~spammy warnings when the feature flag enables a deprecated feature\r\n- after X time, remove the flag and support for the old behaviour from the code\r\n"
+      },
+      "old": [
+        [
+          "area",
+          "release-notes"
+        ],
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "feature-graduation"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "release-notes"
+        ],
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "deprecation-handling"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "feature-graduation"
+        ]
+      ],
+      "extra": [
+        [
+          "principle",
+          "deprecation-handling"
+        ]
+      ]
+    },
+    {
+      "cid": 592407509,
+      "meta": {
+        "repo": "community",
+        "pr_number": 380,
+        "author": "unknown",
+        "loc": "### New API fields",
+        "body": "Another Con here might be `incongruous with the apiVersion of the document`.  A user looking at a v1beta1 document might not recognize that alpha features, if enabled, will be affecting the behaviour of that resource."
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "crd-version-policy"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "crd-version-policy"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 592408643,
+      "meta": {
+        "repo": "community",
+        "pr_number": 380,
+        "author": "unknown",
+        "loc": "### New API fields",
+        "body": "This should also be in the Pro column, from the perspective of cluster admins / security folks?"
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "formatting"
+        ],
+        [
+          "principle",
+          "security"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "security"
+        ]
+      ],
+      "missing": [
+        [
+          "nature",
+          "formatting"
+        ]
+      ],
+      "extra": [
+        [
+          "nature",
+          "content"
+        ]
+      ]
+    },
+    {
+      "cid": 592416912,
+      "meta": {
+        "repo": "community",
+        "pr_number": 380,
+        "author": "unknown",
+        "loc": "### New API fields",
+        "body": "Would it be possible to describe a short concrete example here? Is this in the event that someone adds a new field by mistake and we don't catch it during review?  Or maybe a field is added that is intentionally migrated straight to v1?"
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "crd-version-policy"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "crd-version-policy"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 592491405,
+      "meta": {
+        "repo": "community",
+        "pr_number": 380,
+        "author": "unknown",
+        "loc": "",
+        "body": "Echoing @afrittoli 's comment above - I don't think users should be able to enable alpha fields while disabling beta ones because it seems reasonable to me for alpha fields to augment functionality introduced in beta fields. Disabling beta while enabling alpha would make that potentially quite hairy?  Suggested change:\r\n\r\n```\r\nIf the underlying CRD has a version of v1, the webhook admission controller\r\nwill be updated to support the feature under the `enable-beta-api-fields` flag\r\nin addition to its existing support under the `enable-alpha-api-fields` flag.\r\n```"
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "feature-graduation"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "feature-graduation"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 595542135,
+      "meta": {
+        "repo": "community",
+        "pr_number": 380,
+        "author": "pritidesai",
+        "loc": "",
+        "body": "Here, `alpha` and `beta` are referring to individual features and not overall type version which is represented using `APIVersion`.\r\n\r\nThe highest `APIVersion` we have is `v1beta1`. When I am introducing a new feature in `v1beta1`, it will considered as `alpha` level support. After many iterations and improvements, we can upgrade that feature to `beta` in the same API `v1beta1` but not to `GA`.\r\n\r\nA year from now, our highest `APIVersion` would be `v1` (may be). I am guessing this proposal allows us to introduce an `alpha` feature in `v1`. In that case, irrespective of what `APIVersion` we are on, we will need to serve all lower possible levels, i.e. for `v1` types, we will need `alpha` and `beta` flags.\r\n"
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "crd-version-policy"
+        ],
+        [
+          "principle",
+          "feature-graduation"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "crd-version-policy"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "feature-graduation"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 597053864,
+      "meta": {
+        "repo": "community",
+        "pr_number": 380,
+        "author": "vdemeester",
+        "loc": "### New API fields",
+        "body": "> Are fields always added to the latest available API version?\r\n\r\nYes\r\n\r\n> How do make sure APIs are \"round-trippable\" ?\r\n\r\nAs we do now, but that's one reason to be able to add field to the latest available API version, so that we don't need to think about round-trippable APIs when `v1alpha1` and `v1beta1` are gone\r\n\r\n> How does an API field move from alpha to beta to v1 exactly?\r\n\r\nI am not fully sure I understand the question \ud83e\udd14 \r\n\r\n> Can a deployment have alpha flags enabled and beta flags disabled?\r\n\r\nI think we shouldn't, as you commented above."
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "crd-version-policy"
+        ],
+        [
+          "principle",
+          "feature-graduation"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "crd-version-policy"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "feature-graduation"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 597054933,
+      "meta": {
+        "repo": "community",
+        "pr_number": 380,
+        "author": "vdemeester",
+        "loc": "### New API fields",
+        "body": "We should assume we have `v1` and only that version here. But yes, except if you look at documentation, looking at a random yaml, you might not know if the field is alpha, beta or ga."
+      },
+      "old": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "crd-version-policy"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "principle",
+          "crd-version-policy"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 597063480,
+      "meta": {
+        "repo": "community",
+        "pr_number": 380,
+        "author": "vdemeester",
+        "loc": "### One feature flag per new Alpha field",
+        "body": "In addition, with the embedded spec feature, this could be very messy to maintain (in code)."
+      },
+      "old": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "code"
+        ],
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "principle",
+          "simplicity"
+        ]
+      ]
+    },
+    {
+      "cid": 599724146,
+      "meta": {
+        "repo": "community",
+        "pr_number": 380,
+        "author": "bobcatfish",
+        "loc": "",
+        "body": "> So yes, this proposal is about new alpha/beta fields in v1 types.\r\n\r\nit is possible that we could introduce new types in the future which would start out at v1alpha1 as well, so it'd probably be best if our solution could work for those types as well"
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "crd-version-policy"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "crd-version-policy"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 599825618,
+      "meta": {
+        "repo": "community",
+        "pr_number": 380,
+        "author": "bobcatfish",
+        "loc": "### Promotion to beta and beyond",
+        "body": "hm hm hm it still feels like a backwards incompatible change to change the default value of the flag, in that a system configured without the flag before the change may choose to update and then suddenly would behave differently \ud83e\udd14  I do think it makes sense to recommend that folks change the default value before completely removing the flag"
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "api-compatibility"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "api-compatibility"
+        ],
+        [
+          "principle",
+          "deprecation-handling"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "principle",
+          "deprecation-handling"
+        ]
+      ]
+    },
+    {
+      "cid": 599837810,
+      "meta": {
+        "repo": "community",
+        "pr_number": 380,
+        "author": "bobcatfish",
+        "loc": "",
+        "body": "That's way better @afrittoli ! Thank you!\r\n\r\nHow about this naming:\r\n\r\n`enable-api-fields: [\"stable\" | \"alpha\" | \"beta\" ]`\r\n\r\n\"Stable\" still isn't perfect but I think it's okay? Another option would be to initially add only:\r\n\r\n`enable-api-fields: [ \"alpha\" | \"beta\" ]` with `beta` being the default (i.e. the greatest stability level we support), and when we move to v1 we'd update it to be `enable-api-fields: [ \"v1\" | \"alpha\" | \"beta\" ]` with v1 as the default?\r\n"
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "feature-graduation"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "feature-graduation"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 599847686,
+      "meta": {
+        "repo": "community",
+        "pr_number": 380,
+        "author": "bobcatfish",
+        "loc": "",
+        "body": "this simplifies the tests we'll need to run as well! just one set for each value of the flag (i.e. vs. all the combinations... okay maybe that just saves us one but STILL!) \ud83c\udf89 "
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "area",
+          "tests"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "simplicity"
+        ]
+      ],
+      "missing": [],
+      "extra": [
+        [
+          "principle",
+          "simplicity"
+        ]
+      ]
+    },
+    {
+      "cid": 599888589,
+      "meta": {
+        "repo": "community",
+        "pr_number": 380,
+        "author": "bobcatfish",
+        "loc": "### New API fields",
+        "body": "@sbwsg I'm adding an example of what would happen if you remove an alpha or beta field and trying to capture the case you highlighted where something in the cluster becomes invalid\r\n\r\n@pritidesai that's a great point - i think that @afrittoli 's suggested alternative syntax will make this a lot easier! (i.e. just one flag, where setting \"alpha\" will imply enabling \"beta\" as well) (let me know if im not understanding tho!)"
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "feature-graduation"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "feature-graduation"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 599906338,
+      "meta": {
+        "repo": "community",
+        "pr_number": 380,
+        "author": "bobcatfish",
+        "loc": "### Add alpha section(s) to the spec",
+        "body": "@sbwsg I wanted to give you a heads up for what might be involved for your steps + sidecar workspaces PR - but i dont think YOU need to take all of this on, im thinking you'd need to make sure your feature is in an \"alpha\" docs section, and we'd need to make sure there's a test or example that enables the flag"
+      },
+      "old": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "area",
+          "tests"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "feature-gate-registration"
+        ],
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "area",
+          "docs"
+        ],
+        [
+          "area",
+          "tests"
+        ]
+      ],
+      "extra": [
+        [
+          "area",
+          "feature-gate-registration"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ]
+    },
+    {
+      "cid": 601830677,
+      "meta": {
+        "repo": "community",
+        "pr_number": 380,
+        "author": "pritidesai",
+        "loc": "## Proposal",
+        "body": "I am guessing here, no impact on the existing `alpha` version. \ud83e\udd14 "
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "crd-version-policy"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "crd-version-policy"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 601841038,
+      "meta": {
+        "repo": "community",
+        "pr_number": 380,
+        "author": "pritidesai",
+        "loc": "## Proposal",
+        "body": "Sorry for one more table, just making sure I understand this right \ud83d\ude4f \r\n\r\n| Feature Versions -> | v1 | beta | alpha |\r\n| --- | --- | --- | --- |\r\n| stable | :heavy_check_mark: | | |\r\n| beta | :heavy_check_mark: |  :heavy_check_mark: | |\r\n| alpha | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |\r\n\r\n:heavy_check_mark: == \"**enabled**\"\r\n\r\n* Operator sets the `enable-api-fields` to `beta` to disable all `alpha` features but allow `beta` features.\r\n* Operator sets the `enable-api-fields` to `stable` to disable all `alpha` and `beta` features.\r\n\r\n\r\n"
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "feature-graduation"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "feature-graduation"
+        ]
+      ],
+      "extra": []
+    },
+    {
+      "cid": 603450969,
+      "meta": {
+        "repo": "community",
+        "pr_number": 380,
+        "author": "bobcatfish",
+        "loc": "## Proposal",
+        "body": "no apology needed! that looks right\r\n\r\ntechnically before we have v1 it'll be more like:\r\n\r\n| Feature Versions ->  | beta | alpha |\r\n| ---  | --- | --- |\r\n| stable | :heavy_check_mark: | |\r\n| alpha | :heavy_check_mark: | :heavy_check_mark: |\r\n\r\nand then your table will be the behavior after the v1 release - im going to add these tables to the TEP to make it more clear"
+      },
+      "old": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "feature-graduation"
+        ]
+      ],
+      "new": [
+        [
+          "area",
+          "tep-body"
+        ],
+        [
+          "nature",
+          "content"
+        ],
+        [
+          "principle",
+          "crd-version-policy"
+        ]
+      ],
+      "missing": [
+        [
+          "principle",
+          "feature-graduation"
+        ]
+      ],
+      "extra": [
+        [
+          "principle",
+          "crd-version-policy"
+        ]
+      ]
+    }
+  ],
+  "v2_audit": [
+    {
+      "repo": "community",
+      "pr_number": 380,
+      "comment_id": 592491405,
+      "facet": "principle",
+      "value": "feature-graduation",
+      "confidence": 0.45,
+      "evidence": "argues alpha fields should require beta to also be enabled, since alpha is meant to augment beta functionality",
+      "source_pass": "audit",
+      "meta": {
+        "repo": "community",
+        "pr_number": 380,
+        "author": "unknown",
+        "loc": "",
+        "body": "Echoing @afrittoli 's comment above - I don't think users should be able to enable alpha fields while disabling beta ones because it seems reasonable to me for alpha fields to augment functionality introduced in beta fields. Disabling beta while enabling alpha would make that potentially quite hairy?  Suggested change:\r\n\r\n```\r\nIf the underlying CRD has a version of v1, the webhook admission controller\r\nwill be updated to support the feature under the `enable-beta-api-fields` flag\r\nin addition to its existing support under the `enable-alpha-api-fields` flag.\r\n```"
+      }
+    },
+    {
+      "repo": "community",
+      "pr_number": 380,
+      "comment_id": 599888589,
+      "facet": "principle",
+      "value": "feature-graduation",
+      "confidence": 0.4,
+      "evidence": "endorses the 'alpha implies beta' flag design as making the graduation model easier to follow",
+      "source_pass": "audit",
+      "meta": {
+        "repo": "community",
+        "pr_number": 380,
+        "author": "bobcatfish",
+        "loc": "### New API fields",
+        "body": "@sbwsg I'm adding an example of what would happen if you remove an alpha or beta field and trying to capture the case you highlighted where something in the cluster becomes invalid\r\n\r\n@pritidesai that's a great point - i think that @afrittoli 's suggested alternative syntax will make this a lot easier! (i.e. just one flag, where setting \"alpha\" will imply enabling \"beta\" as well) (let me know if im not understanding tho!)"
+      }
+    },
+    {
+      "repo": "community",
+      "pr_number": 380,
+      "comment_id": 599906338,
+      "facet": "principle",
+      "value": "incremental-delivery",
+      "confidence": 0.45,
+      "evidence": "flags that a feature landing via a separate PR still needs to complete the alpha-gating rollout (docs section, enabling test)",
+      "source_pass": "audit",
+      "meta": {
+        "repo": "community",
+        "pr_number": 380,
+        "author": "bobcatfish",
+        "loc": "### Add alpha section(s) to the spec",
+        "body": "@sbwsg I wanted to give you a heads up for what might be involved for your steps + sidecar workspaces PR - but i dont think YOU need to take all of this on, im thinking you'd need to make sure your feature is in an \"alpha\" docs section, and we'd need to make sure there's a test or example that enables the flag"
+      }
+    },
+    {
+      "repo": "community",
+      "pr_number": 380,
+      "comment_id": 601841038,
+      "facet": "principle",
+      "value": "feature-graduation",
+      "confidence": 0.45,
+      "evidence": "works out the exact enable-api-fields hierarchy across stable/beta/alpha levels",
+      "source_pass": "audit",
+      "meta": {
+        "repo": "community",
+        "pr_number": 380,
+        "author": "pritidesai",
+        "loc": "## Proposal",
+        "body": "Sorry for one more table, just making sure I understand this right \ud83d\ude4f \r\n\r\n| Feature Versions -> | v1 | beta | alpha |\r\n| --- | --- | --- | --- |\r\n| stable | :heavy_check_mark: | | |\r\n| beta | :heavy_check_mark: |  :heavy_check_mark: | |\r\n| alpha | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |\r\n\r\n:heavy_check_mark: == \"**enabled**\"\r\n\r\n* Operator sets the `enable-api-fields` to `beta` to disable all `alpha` features but allow `beta` features.\r\n* Operator sets the `enable-api-fields` to `stable` to disable all `alpha` and `beta` features.\r\n\r\n\r\n"
+      }
+    }
+  ],
+  "v2_proposals": [
+    {
+      "repo": "community",
+      "pr_number": 380,
+      "comment_id": 592407509,
+      "fragment": "A user looking at a v1beta1 document might not recognize that alpha features, if enabled, will be affecting the behaviour of that resource.",
+      "candidate_facet": "principle",
+      "candidate_value": "graduation-visibility",
+      "candidate_description": "Whether a resource's field-level maturity (alpha/beta/GA) is visible or inferable from the object itself - its apiVersion or an equivalent in-object signal - rather than only knowable via external documentation or cluster configuration state.",
+      "meta": {
+        "repo": "community",
+        "pr_number": 380,
+        "author": "unknown",
+        "loc": "### New API fields",
+        "body": "Another Con here might be `incongruous with the apiVersion of the document`.  A user looking at a v1beta1 document might not recognize that alpha features, if enabled, will be affecting the behaviour of that resource."
+      }
+    },
+    {
+      "repo": "community",
+      "pr_number": 380,
+      "comment_id": 597054933,
+      "fragment": "if you look at documentation, looking at a random yaml, you might not know if the field is alpha, beta or ga",
+      "candidate_facet": "principle",
+      "candidate_value": "graduation-visibility",
+      "candidate_description": "Whether a resource's field-level maturity (alpha/beta/GA) is visible or inferable from the object itself - its apiVersion or an equivalent in-object signal - rather than only knowable via external documentation or cluster configuration state.",
+      "meta": {
+        "repo": "community",
+        "pr_number": 380,
+        "author": "vdemeester",
+        "loc": "### New API fields",
+        "body": "We should assume we have `v1` and only that version here. But yes, except if you look at documentation, looking at a random yaml, you might not know if the field is alpha, beta or ga."
+      }
+    }
+  ]
+}
