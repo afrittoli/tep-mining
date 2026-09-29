@@ -81,6 +81,40 @@ def _judgment_card(j: dict) -> str:
 </article>"""
 
 
+def _audit_card(a: dict) -> str:
+    m = a["meta"]
+    loc = f" &middot; {html.escape(m['loc'])}" if m.get("loc") else ""
+    body = html.escape(m.get("body", "")).replace("\n", "<br>")
+    chip = _chip(a["facet"], a["value"])
+    return f"""<article class="acard">
+  <header class="jcard-head">
+    {_cid_html(m, a["comment_id"], arrow=True)}
+    <span class="loc">{m.get("repo", "")}#{m.get("pr_number", "")}{loc} &middot; {html.escape(m.get("author", "unknown"))}</span>
+  </header>
+  <p class="jcard-body">{body}</p>
+  <div class="audit-found">{chip}<span class="audit-conf">confidence {a["confidence"]:.2f}</span></div>
+  <p class="audit-evidence">{html.escape(a["evidence"])}</p>
+</article>"""
+
+
+def _proposal_group(candidate_value: str, rows: list[dict]) -> str:
+    first = rows[0]
+    examples = []
+    for p in rows:
+        m = p["meta"]
+        examples.append(
+            f'<div class="proposal-example">'
+            f"{_cid_html(m, p['comment_id'], arrow=True)} "
+            f'<span class="proposal-fragment">&ldquo;{html.escape(p["fragment"])}&rdquo;</span>'
+            f"</div>"
+        )
+    return f"""<article class="acard pcard">
+  <div class="proposal-head"><b>{html.escape(first["candidate_facet"])}</b>{html.escape(candidate_value)}<span class="count-badge">{len(rows)} example{"s" if len(rows) != 1 else ""}</span></div>
+  <p class="proposal-desc">{html.escape(first["candidate_description"])}</p>
+  {"".join(examples)}
+</article>"""
+
+
 def _expected_row(e: dict) -> str:
     m = e["meta"]
     tags = ", ".join(f"{f}:{v}" for f, v in e["extra"])
@@ -96,6 +130,8 @@ def _expected_row(e: dict) -> str:
 def render(tep: int, data: dict) -> str:
     judgment = data["judgment"]
     expected = data["expected"]
+    v2_audit = data.get("v2_audit", [])
+    v2_proposals = data.get("v2_proposals", [])
     s = data["summary"]
     old_total, new_total, agree = s["old_total"], s["new_total"], s["agree"]
     precision = agree / new_total if new_total else 0.0
@@ -104,6 +140,20 @@ def render(tep: int, data: dict) -> str:
 
     judgment_html = "\n".join(_judgment_card(j) for j in judgment)
     expected_html = "\n".join(_expected_row(e) for e in expected)
+    audit_html = "\n".join(_audit_card(a) for a in v2_audit)
+    proposal_groups: dict[str, list[dict]] = {}
+    for p in v2_proposals:
+        proposal_groups.setdefault(p["candidate_value"], []).append(p)
+    proposals_html = "\n".join(_proposal_group(cv, rows) for cv, rows in proposal_groups.items())
+    audit_section = ""
+    if v2_audit or v2_proposals:
+        audit_section = f"""
+  <section>
+    <h2>Audit findings</h2>
+    <p class="section-note">A second, separate pass over the rebaseline's own no-principle comments (prompts/audit_classification_coverage.md), not a comparison against the old ground truth - these are gaps within the new pass alone.</p>
+    {f'<h3 class="audit-subhead">Missed matches <span class="count-badge">{len(v2_audit)}</span></h3><div class="jcards">{audit_html}</div>' if v2_audit else ""}
+    {f'<h3 class="audit-subhead">Taxonomy gaps <span class="count-badge">{len(proposal_groups)}</span></h3><div class="jcards">{proposals_html}</div>' if v2_proposals else ""}
+  </section>"""
 
     return f"""<title>TEP-{tep} Taxonomy Rebaseline</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -268,6 +318,38 @@ def render(tep: int, data: dict) -> str:
   .jcard-tags .tagcol:first-child .tag-flag {{ background: var(--old-only-bg); border-color: color-mix(in srgb, var(--old-only) 35%, var(--line)); }}
   .jcard-tags .tagcol:last-child .tag-flag {{ background: var(--new-only-bg); border-color: color-mix(in srgb, var(--new-only) 35%, var(--line)); }}
 
+  .audit-subhead {{ font-size: 1.05rem; margin: 1.8rem 0 0.8rem; display: flex; align-items: baseline; gap: 0.5rem; }}
+  .audit-subhead:first-of-type {{ margin-top: 0; }}
+
+  .acard {{ background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.2rem 1.35rem; }}
+  .audit-found {{ display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem; }}
+  .audit-found .chip {{ background: var(--new-only-bg); border-color: color-mix(in srgb, var(--new-only) 35%, var(--line)); }}
+  .audit-conf {{ font-family: "IBM Plex Mono", monospace; font-size: 0.78rem; color: var(--ink-dim); }}
+  .audit-evidence {{ font-size: 0.86rem; color: var(--ink-dim); font-style: italic; margin: 0; }}
+
+  .pcard {{ border-left: 3px solid var(--accent); }}
+  .proposal-head {{
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }}
+  .proposal-head b {{ color: var(--ink-dim); font-weight: 500; }}
+  .proposal-desc {{ font-size: 0.92rem; margin: 0 0 0.9rem; max-width: 62ch; }}
+  .proposal-example {{
+    font-size: 0.86rem;
+    padding: 0.5rem 0.7rem;
+    background: var(--paper);
+    border-radius: 6px;
+    margin-bottom: 0.4rem;
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }}
+  .proposal-example .proposal-fragment {{ color: var(--ink-dim); font-style: italic; }}
+
   footer {{ margin-top: 4rem; font-size: 0.8rem; color: var(--ink-dim); }}
 </style>
 
@@ -304,6 +386,7 @@ def render(tep: int, data: dict) -> str:
       {judgment_html}
     </div>
   </section>
+  {audit_section}
 
   <footer>TEP-{tep} &middot; {", ".join(s["repos"])}</footer>
 </div>
