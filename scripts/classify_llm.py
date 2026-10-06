@@ -220,7 +220,13 @@ def _load_tep_record(tep_number: int, path: Path = RECORDS_PATH) -> dict:
 
 
 def _comments_for(record: dict) -> list[dict]:
-    """Flatten proposal + impl PR comments, same set classify_review_comments.md's agent reads."""
+    """Flatten proposal + impl PR comments, same set classify_review_comments.md's agent reads.
+
+    `source` ("tep" or "impl") and `path` are what the prompt uses to tell the model whether a
+    comment sits on the TEP proposal document itself or on an implementation PR, and which file -
+    a comment like "typo: similarly" is unclassifiable as an `area` without knowing it's a review
+    comment on the TEP doc; `section` (a derived "nearest markdown heading" guess) is kept on the
+    record but not surfaced in the prompt, since `path` is the field GitHub itself guarantees."""
     out: list[dict] = []
     for c in record["proposal_pr"]["comments"]:
         out.append(
@@ -229,6 +235,8 @@ def _comments_for(record: dict) -> list[dict]:
                 "repo": "community",
                 "pr_number": c["pr_number"],
                 "author": c.get("author"),
+                "source": "tep",
+                "path": c.get("path"),
                 "section": c.get("section"),
                 "body": c["body"],
             }
@@ -241,6 +249,7 @@ def _comments_for(record: dict) -> list[dict]:
                     "repo": pr["repo"],
                     "pr_number": pr["pr_number"],
                     "author": c.get("author"),
+                    "source": "impl",
                     "path": c.get("path"),
                     "body": c["body"],
                 }
@@ -392,6 +401,16 @@ def _build_system_prompt(
     )
 
 
+def _where_for(c: dict) -> str:
+    """Tells the model whether a comment sits on the TEP proposal document itself or on an
+    implementation PR, plus which file - the fact that fixed classifying a comment like "typo:
+    similarly" (unclassifiable as an `area` from its own text alone, since it says nothing about
+    where "similarly" even appears)."""
+    label = "the TEP proposal document" if c.get("source") == "tep" else "an implementation PR"
+    path = c.get("path")
+    return f"on {label}, {path}" if path else f"on {label}"
+
+
 def _build_user_prompt(
     comments: list[dict],
     context_by_id: dict[int, str] | None = None,
@@ -410,7 +429,7 @@ def _build_user_prompt(
         {
             "comment_id": c["comment_id"],
             "pr_number": c["pr_number"],
-            "loc": c.get("section") or c.get("path") or "",
+            "where": _where_for(c),
             "author": c.get("author") or "",
             "body": c["body"],
             "context": (context_by_id or {}).get(c["comment_id"]),
@@ -464,7 +483,7 @@ def _call_ollama(
     schema: dict,
     num_ctx: int | None,
     temperature: float | None,
-    think: str | None = None,
+    think: str | bool | None = None,
 ) -> tuple[dict, dict]:
     """`think` is granite4.2's built-in thinking-mode dial on Ollama's /api/chat (`think: low`
     for the tiered pipeline's fast Pass 1/2 calls, `think: high` for Pass 3's expensive
@@ -1473,6 +1492,14 @@ def main(argv: list[str] | None = None) -> int:
         "independent call, so cost/time scale roughly with number of batches, not comments.",
     )
     parser.add_argument(
+        "--comment-ids",
+        default=None,
+        help="Comma-separated comment_ids to restrict this run to, for a targeted experiment "
+        "on a hand-picked subset instead of the whole TEP (e.g. comments known to have failed "
+        "at a given batch size, to test whether a smaller batch fixes them). Order in the file "
+        "is preserved; unknown ids are an error, not a silent skip.",
+    )
+    parser.add_argument(
         "--facet-coverage-threshold",
         type=float,
         default=None,
@@ -1620,6 +1647,13 @@ def main(argv: list[str] | None = None) -> int:
 
     record = _load_tep_record(args.tep)
     comments = _comments_for(record)
+    if args.comment_ids:
+        wanted = [int(x) for x in args.comment_ids.split(",")]
+        by_wanted_id = {c["comment_id"]: c for c in comments}
+        missing = [cid for cid in wanted if cid not in by_wanted_id]
+        if missing:
+            parser.error(f"--comment-ids: not found in TEP-{args.tep}: {missing}")
+        comments = [by_wanted_id[cid] for cid in wanted]
     taxonomy = _load_taxonomy()
     taxonomy_block = _taxonomy_prompt_block(taxonomy)
     tep_body_block = None
