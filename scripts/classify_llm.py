@@ -1038,6 +1038,10 @@ def _run_legacy(
     available for a future claude-cli cost comparison per the plan doc's Execution mode &
     backends section (fewer, larger calls may be meaningfully cheaper there than under Ollama,
     where call count doesn't cost money the same way). Not the default; see --pipeline."""
+    # One (label, system_prompt, schema) pass per facet in --facet-split mode, or a single
+    # combined pass otherwise - computed once here since none of it depends on batch content.
+    # Few-shot examples are re-projected per facet_scope (see _few_shot_examples_block) since a
+    # facet-scoped call needs each example sliced to just that facet, with a `reasoning` field.
     facet_scopes: list[str | None] = list(taxonomy["facets"].keys()) if args.facet_split else [None]
     passes = [
         (
